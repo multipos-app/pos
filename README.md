@@ -5,6 +5,7 @@ This project is an Andoid POS application integrated with a cloud based back for
 - Cash, credit, debit, EBT foodstams, gift card, check
 - Void item, void sale
 - Discounts, %, fixed amount, mix and match (buy 2, get one free)
+- Item markdown by % or fixed
 - Non-tax, tax sales
 - Manager functions, X/Z, EOD Drawer count
 - Suspend/recall transaction
@@ -26,6 +27,7 @@ This project is an Andoid POS application integrated with a cloud based back for
 - Split transaction
 - Split payments
 - Return sale
+- Comp sale
 - Kitchen print
 
 ## Pricing
