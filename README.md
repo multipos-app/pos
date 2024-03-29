@@ -71,10 +71,11 @@ User can set size and number of buttons per page, text and color, unlimited sub-
 # Getting started
 This is a basic Android app with all the pieces you need to build you own POS application (assuming you have an Android dev enviroment installed). Clone the repository, cd to pos and type ./gradlew assemble or .gradlew installDebug. Or import into android studio and build. How you get the resulting apk onto a device is up to you.
 
-Once installed you will be presented with a log in screen. For your convience there is a demo configuration ready to use, at the prompt type username 'multipos', password 'eklutna'. After you log in you are promted for a location (store) and a configuration.
+Once installed you will be prompted for android.permission.CAMERA (the integrated scanner uses the back camera). After that you are presented with a log in screen. For your convience there is a demo configuration ready to use, at the prompt type username 'multipos', password 'eklutna'. After you log in you are promted for a location (store) and a configuration.
 
 ## Demo configurations
 - Deli/convienence is set up as a counter top app in landscape mode, tested on a variety of 10 inch tablets.
-- Handheld is just that, a handheld version with three tabs, a POS tab (line busting), an inventory tab, walk around the store scan an item and update inventory and an item entry tab to add/edit items in the store. This configuration also includes an android cammera scanner.
+- Handheld is just that, a handheld version with three tabs, a POS tab (line busting), an inventory tab, walk around the store scan an item and update inventory and an item entry tab to add/edit items in the store. This configuration also includes an android cammera scanner... more
 
-##
+### See the configs directory for more information.
+
