@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	 android:padding="@dimen/customer_ticket_item_md_padding"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:id="@+id/customer_ticket_item_layout"
+ 		android:clickable="true"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/transparent"
+		android:layout_marginLeft="@dimen/customer_ticket_item_md_margin"
+		android:layout_marginRight="@dimen/customer_ticket_item_md_margin"
+      android:orientation="horizontal">
+
+    <cloud.multipos.pos.views.PosText
+ 		android:clickable="false"
+        android:id="@+id/ticket_item_line_quantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:gravity="start"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/customer_ticket_item_md_text"/>
+
+    <cloud.multipos.pos.views.PosText
+ 		android:clickable="false"
+        android:id="@+id/ticket_item_line_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:gravity="start"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/customer_ticket_item_md_text"/>
+	 
+    <cloud.multipos.pos.views.PosText
+ 		android:clickable="false"
+        android:id="@+id/ticket_item_line_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:gravity="end"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/customer_ticket_item_md_text"/>
+	 
+  </LinearLayout>
+
+  <LinearLayout
+ 		android:clickable="false"
+      android:id="@+id/ticket_item_link_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:background="@color/transparent"/>
+  
+  <LinearLayout
+ 		android:clickable="false"
+      android:id="@+id/ticket_item_addon_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:background="@color/transparent"/>
+  
+</LinearLayout>

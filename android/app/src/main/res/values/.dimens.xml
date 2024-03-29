@@ -1,0 +1,93 @@
+<resources>
+ <!-- activity -->
+  
+  <dimen name="app_lg_text">32sp</dimen>
+  <dimen name="app_md_text">18sp</dimen>
+  <dimen name="app_sm_text">12sp</dimen>
+  
+  <dimen name="app_lg_margin">10sp</dimen>
+  <dimen name="app_md_margin">5sp</dimen>
+  <dimen name="app_sm_margin">3sp</dimen>
+  
+  <dimen name="app_lg_padding">10sp</dimen>
+  <dimen name="app_md_padding">5sp</dimen>
+  <dimen name="app_sm_padding">3sp</dimen>
+ 
+  <!-- customer display -->
+  
+  <dimen name="customer_message_text">32sp</dimen>
+  <dimen name="customer_margin">15dp</dimen>
+  <dimen name="customer_padding">15dp</dimen>
+  
+  <dimen name="customer_tk_item_md_text">32sp</dimen>
+  <dimen name="customer_tk_item_sm_text">22sp</dimen>
+  
+  <dimen name="customer_tk_item_md_margin">5dp</dimen>
+  <dimen name="customer_tk_item_margin">5dp</dimen>
+  <dimen name="customer_tk_item_md_padding">5dp</dimen>
+  <dimen name="customer_tk_item_padding">5dp</dimen>
+
+  <dimen name="customer_message_height">100dp</dimen>
+  <dimen name="customer_ticket_height">500dp</dimen>
+  
+ <!-- ticket keypad display full -->
+
+  <dimen name="tk_item_display_height">30dp</dimen>
+
+  <dimen name="tk_keypad_prompt_text">18sp</dimen>
+  <dimen name="tk_keypad_prompt_height">32dp</dimen>
+  <dimen name="tk_keypad_margin">3dp</dimen>
+
+  <dimen name="tk_margin_top">1dp</dimen>
+  <dimen name="tk_margin_bottom">1dp</dimen>
+  <dimen name="tk_margin">0dp</dimen>
+  <dimen name="tk_padding">0dp</dimen>
+  
+  <dimen name="tk_message_text">20sp</dimen>
+  
+  <dimen name="tk_summary_lg_text">18sp</dimen>
+  <dimen name="tk_summary_md_text">16sp</dimen>
+  <dimen name="tk_summary_sm_text">14sp</dimen>
+    
+  <dimen name="tk_item_text">16sp</dimen>
+  <dimen name="tk_item_lg_text">14sp</dimen>
+  <dimen name="tk_item_md_text">12sp</dimen>
+  <dimen name="tk_item_sm_text">10sp</dimen>
+  <dimen name="tk_item_margin">1dp</dimen>
+  <dimen name="tk_item_padding">1dp</dimen>
+
+  <dimen name="tk_item_addon_text">12sp</dimen>
+  <dimen name="tk_item_link_margin">10dp</dimen>
+
+  <dimen name="keypad_lg_text">18sp</dimen>
+  <dimen name="keypad_md_text">14sp</dimen>
+  <dimen name="keypad_sm_text">10sp</dimen>
+  
+  <dimen name="keypad_button_width">50dp</dimen>
+  <dimen name="keypad_button_height">55dp</dimen>
+  <dimen name="keypad_button_double_height">76dp</dimen>
+
+  <dimen name="keypad_lg_margin">3dp</dimen>
+  <dimen name="keypad_md_margin">3dp</dimen>
+  <dimen name="keypad_sm_margin">3dp</dimen>
+
+  <dimen name="keypad_margin">5dp</dimen>
+  <dimen name="keypad_lg_padding">3dp</dimen>
+  <dimen name="keypad_md_padding">2dp</dimen>
+  <dimen name="keypad_sm_padding">1dp</dimen>
+
+  <!-- menu buttons -->
+
+  <dimen name="menu_button_text">14sp</dimen>
+  
+  <dimen name="menu_button_md_margin_start">1dp</dimen>
+  <dimen name="menu_button_md_margin_top">1dp</dimen>
+  <dimen name="menu_button_md_margin_end">1dp</dimen>
+  <dimen name="menu_button_md_margin_bottom">1dp</dimen>
+  
+  <dimen name="menu_button_md_padding_start">3dp</dimen>
+  <dimen name="menu_button_md_padding_top">3dp</dimen>
+  <dimen name="menu_button_md_padding_end">1dp</dimen>
+  <dimen name="menu_button_md_padding_bottom">1dp</dimen>
+
+</resources>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <declare-styleable name="view">
+	 
+    <attr name="app_bar_icon_size" format="integer"/>
+    <attr name="app_bar_icon_padding" format="integer"/>
+    <attr name="menus" format="string"/>
+    <attr name="menu_name" format="string"/>
+    <attr name="button_height" format="integer"/>
+    <attr name="button_width" format="integer"/>
+    <attr name="x_percent" format="integer"/>
+    <attr name="y_percent" format="integer"/>
+    <attr name="num_rows" format="integer"/>
+    <attr name="num_columns" format="integer"/>
+    <attr name="has_items" format="boolean"/>
+    <attr name="has_home" format="boolean"/>
+    <attr name="auto_width" format="boolean"/>
+    <attr name="clock_text_size" format="integer"/>
+    <attr name="message_text_size" format="integer"/>
+    <attr name="text_size" format="integer"/>
+    <attr name="summary_text_size" format="integer"/>
+    <attr name="text_color" format="string"/>
+    <attr name="select_color" format="string"/>
+    <attr name="even_row_color" format="string"/>
+    <attr name="odd_row_color" format="string"/>
+    <attr name="pos_status" format="boolean"/>
+    <attr name="sale_padding" format="integer"/>
+    <attr name="button_padding" format="integer"/>
+    <attr name="button_margin" format="integer"/>
+    <attr name="prompt_text_top_margin" format="integer"/>
+    <attr name="metaButtonBarStyle" format="reference" />
+    <attr name="metaButtonBarButtonStyle" format="reference" />
+    <attr name="item_button_margin" format="integer"/>
+    <attr name="ticket_text_size" format="integer"/>
+    <attr name="cols" format="integer"/>
+    <attr name="ticket_item_layout" format="string"/>
+    <attr name="icon_size" format="integer"/>
+    <attr name="icon_padding" format="integer"/>
+    <attr name="text_padding_top" format="integer"/>
+    <attr name="text_padding_left" format="integer"/>
+    <attr name="display_layout" format="string"/>
+    <attr name="button_style" format="string"/>
+    <attr name="keypad_layout" format="string"/>
+
+	 <attr name="button_margin_start" format="integer"/>
+	 <attr name="button_margin_top" format="integer"/>
+	 <attr name="button_margin_end" format="integer"/>
+	 <attr name="button_margin_bottom" format="integer"/>
+
+	 <attr name="button_padding_start" format="integer"/>
+	 <attr name="button_padding_top" format="integer"/>
+	 <attr name="button_padding_end" format="integer"/>
+	 <attr name="button_padding_bottom" format="integer"/>
+
+ </declare-styleable>
+
+</resources>

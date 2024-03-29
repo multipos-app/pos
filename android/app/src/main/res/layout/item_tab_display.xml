@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:orientation="vertical">
+	 
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:layout_margin="@dimen/app_md_margin"
+		  android:padding="@dimen/dialog_md_padding"
+		  android:orientation="vertical">
+		
+		<EditText
+			 android:id="@+id/add_item_sku"
+			 android:imeOptions="actionNext"
+			 android:nextFocusDown="@+id/add_item_desc"
+			 style="@style/editTextStyle"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:padding="@dimen/app_md_padding"
+			 android:inputType="text"
+			 android:maxLines="1"
+			 android:singleLine="true"
+			 android:text=""
+			 android:hint="@string/add_item_sku"
+			 android:textSize="@dimen/item_edit_md_text"
+			 android:textColor="@color/black"
+			 android:textColorHint="@color/lt_gray"/>
+		
+		<EditText
+			 android:id="@+id/add_item_desc"
+			 android:imeOptions="actionNext"
+			 android:nextFocusDown="@+id/add_item_price"
+			 style="@style/editTextStyle"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:padding="@dimen/app_md_padding"
+			 android:inputType="text"
+			 android:maxLines="1"
+			 android:singleLine="true"
+			 android:text=""
+			 android:hint="@string/add_item_desc"
+			 android:textSize="@dimen/item_edit_md_text"
+			 android:textColor="@color/black"
+			 android:textColorHint="@color/lt_gray"/>
+		
+		<EditText
+			 android:id="@+id/add_item_price"
+			 android:imeOptions="actionNext"
+			 android:nextFocusDown="@+id/add_item_cost"
+			 style="@style/editTextStyle"
+			 android:layout_height="0dp"
+			 android:layout_width="match_parent"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:padding="@dimen/app_md_padding"
+			 android:inputType="numberDecimal"
+			 android:gravity="end"
+			 android:maxLines="1"
+			 android:singleLine="true"
+			 android:hint="@string/add_item_price_desc"
+			 android:text=""
+			 android:textSize="@dimen/item_edit_md_text"
+			 android:textColor="@color/black"
+			 android:textColorHint="@color/lt_gray"/>
+
+		<EditText
+			 android:id="@+id/add_item_cost"
+			 android:nextFocusDown="@+id/add_item_departments"
+			 style="@style/editTextStyle"
+			 android:imeOptions="actionNext"
+			 android:layout_height="0dp"
+			 android:layout_width="match_parent"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:padding="@dimen/app_md_padding"
+			 android:inputType="numberDecimal"
+			 android:gravity="end"
+			 android:maxLines="1"
+			 android:singleLine="true"
+			 android:hint="@string/add_item_cost_desc"
+			 android:text=""
+			 android:textSize="@dimen/item_edit_md_text"
+			 android:textColor="@color/black"
+			 android:textColorHint="@color/lt_gray"/>
+		
+		<Spinner
+			 android:id="@+id/add_item_departments"
+			 android:imeOptions="actionNext"
+			 android:nextFocusRight="@+id/add_item_deposits"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:padding="@dimen/app_md_padding"
+			 android:textSize="@dimen/item_edit_md_text"
+			 android:spinnerMode="dropdown"/>
+		
+		<Spinner
+			 android:id="@+id/add_item_deposits"
+			 android:imeOptions="actionNext"
+			 android:nextFocusDown="@+id/add_item_taxes"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:padding="@dimen/app_md_padding"
+			 android:textSize="@dimen/item_edit_md_text"
+			 android:spinnerMode="dropdown"/>
+		
+		<Spinner
+			 android:id="@+id/add_item_taxes"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:padding="@dimen/app_md_padding"
+			 android:textSize="@dimen/item_edit_md_text"
+			 android:spinnerMode="dropdown"/>  
+		
+		<LinearLayout
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="2"
+			 android:layout_margin="@dimen/app_md_margin"
+			 android:orientation="horizontal">
+		  
+		  <cloud.multipos.pos.views.PosButton
+				android:id="@+id/add_item_reset"
+ 				style="@style/DialogWarn"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:layout_margin="@dimen/app_md_margin"
+				android:padding="@dimen/app_md_padding"
+				android:text="@string/add_item_clear"
+				android:textColor="@color/white"
+				android:textSize="@dimen/app_lg_text"/>
+		  
+		  <cloud.multipos.pos.views.PosButton
+				android:id="@+id/add_item_complete"
+ 				style="@style/DialogContinue"
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:layout_margin="@dimen/app_md_margin"
+				android:padding="@dimen/app_md_padding"
+				android:text="@string/add_item_complete"
+				android:textColor="@color/white"
+				android:textSize="@dimen/app_lg_text"/>
+		  
+		</LinearLayout>
+
+	 </LinearLayout>
+	 
+</LinearLayout>

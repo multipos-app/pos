@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dialog_lg_padding"
+    android:background="@color/white">
+ 
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/add_item_title"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="@string/add_item_title"
+      android:textAlignment="center"
+      android:background="@color/pos_bg"
+      android:textColor="@color/white"
+      android:textSize="@dimen/dialog_md_text"
+		android:padding="@dimen/dialog_md_padding"
+		android:layout_marginTop="@dimen/dialog_lg_margin"
+		android:clickable="true"/>
+
+  <GridLayout 
+		android:id="@+id/add_item_grid"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:columnCount="4"
+		android:layout_marginTop="@dimen/dialog_lg_margin"
+		android:layout_marginLeft="@dimen/dialog_lg_margin"
+		android:padding="@dimen/dialog_md_padding"
+		android:background="@color/transparent"
+		app:layout_constraintTop_toBottomOf="@+id/add_item_title">
+
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		  android:text="@string/add_item_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+	 
+	 <EditText
+		  android:id="@+id/add_item_desc"
+		  android:nextFocusDown="@+id/add_item_price"
+		  style="@style/editTextStyle"
+		  android:layout_width="@dimen/dialog_add_item_input_width"
+        android:layout_height="wrap_content"
+		  android:inputType="text"
+		  android:maxLines="1"
+		  android:singleLine="true"
+		  android:text=""
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"
+		  android:textColorHint="@color/lt_gray"
+		  android:background="@drawable/spinner_outline"
+		  android:padding="@dimen/dialog_md_padding"
+		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		  android:text="@string/add_item_price_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+
+	 <EditText
+		  android:id="@+id/add_item_price"
+		  android:nextFocusDown="@+id/add_item_departments"
+		  android:imeOptions="actionNext"
+		  android:layout_width="@dimen/dialog_add_item_input_width"
+        android:layout_height="wrap_content"
+		  android:inputType="numberDecimal"
+		  android:maxLines="1"
+		  android:singleLine="true"
+		  android:hint="@string/add_item_price"
+		  android:text=""
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"
+		  android:textColorHint="@color/lt_gray"
+		  android:background="@drawable/spinner_outline"
+		  android:padding="@dimen/dialog_md_padding"
+		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		  android:text="@string/add_item_department_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+	 
+	 <Spinner
+		  android:id="@+id/add_item_departments"
+		  android:nextFocusRight="@+id/add_item_deposits"
+		  android:layout_width="@dimen/dialog_add_item_input_width"
+        android:layout_height="wrap_content"
+		  android:spinnerMode="dropdown"
+		  android:background="@drawable/spinner_outline"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:layout_marginTop="@dimen/dialog_md_margin"
+		  android:layout_marginRight="@dimen/dialog_lg_margin"
+		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		  android:text="@string/add_item_deposits_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+	 
+	 <Spinner
+		  android:id="@+id/add_item_deposits"
+		  android:nextFocusDown="@+id/add_item_taxes"
+		  android:layout_width="@dimen/dialog_add_item_input_width"
+        android:layout_height="wrap_content"
+		  android:spinnerMode="dropdown"
+		  android:background="@drawable/spinner_outline"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:layout_marginTop="@dimen/dialog_md_margin"
+		  android:layout_marginRight="@dimen/dialog_lg_margin"
+		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+		  android:text="@string/add_item_tax_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+
+	 <Spinner
+		  android:id="@+id/add_item_taxes"
+		  android:layout_width="@dimen/dialog_add_item_input_width"
+        android:layout_height="wrap_content"
+		  android:spinnerMode="dropdown"
+		  android:background="@drawable/spinner_outline"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:layout_marginTop="@dimen/dialog_md_margin"
+		  android:layout_marginRight="@dimen/dialog_lg_margin"
+		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>  
+
+  </GridLayout>
+
+  <cloud.multipos.pos.views.PosButton
+		android:id="@+id/add_item_complete"
+ 		style="@style/DialogContinue"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:text="@string/add_item_complete"
+		android:textColor="@color/white"
+		android:textSize="@dimen/dialog_md_text"
+		android:padding="@dimen/dialog_md_padding"
+		android:layout_margin="@dimen/dialog_lg_margin"
+		app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

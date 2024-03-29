@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  
+
+    <color name="empty">#ffffffff</color>
+
+	 <color name="day_bg">#efefef</color>
+    <color name="day_fg">#000000</color>
+
+	 <color name="night_bg">#445655</color>
+    <color name="night_fg">#dddddd</color>
+
+    <color name="even_bg">#99dddddd</color>
+    <color name="odd_bg">#99ffffff</color>
+    <color name="select_bg">#BCBDBF</color>
+
+    <color name="black_overlay">#66000000</color>
+    <!-- <color name="pos_app_bg">#008577</color> -->
+	 
+    <color name="pos_bg">#F3F3F3</color>
+    <color name="pos_app_bg">#103D6E</color>
+	 
+    <color name="pos_primary">#007BFF</color>
+    <color name="pos_secondary">#6C757D</color>
+    <color name="pos_success">#28A745</color>
+    <color name="pos_danger">#DC3545</color>
+    <color name="pos_warn">#FFC107</color>
+    <color name="pos_dark">#343A40</color>
+    <color name="pos_info">#17A2B8</color>
+	 
+    <color name="clear">#00000000</color>
+    <color name="white">#fff</color>
+    <color name="black">#000</color>
+    <color name="lt_gray">#ddd</color>
+    <color name="md_gray">#999</color>
+    <color name="dk_gray">#666</color>
+    <color name="transparent">#00000000</color>
+    <color name="warn">#DE381C</color>
+    <color name="tender_warn">#DE381C</color>
+    <color name="light_tint">#22ffffff</color>
+    <color name="dark_tint">#aa000000</color>
+    <color name="select_tint">#55ffffff</color>
+    <color name="blue">#0058B5</color>
+    <color name="yellow">#F7CE00</color>
+	 
+</resources>
+

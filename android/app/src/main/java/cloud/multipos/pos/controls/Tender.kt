@@ -1,0 +1,296 @@
+/**
+ * Copyright (C) 2023 multiPOS, LLC
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     https://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+ 
+package cloud.multipos.pos.controls
+
+import cloud.multipos.pos.*
+import cloud.multipos.pos.models.*
+import cloud.multipos.pos.util.*
+import cloud.multipos.pos.views.TenderView
+import cloud.multipos.pos.views.PosDisplays
+import cloud.multipos.pos.devices.*
+
+abstract class Tender (jar: Jar?): CompleteTicket () {
+
+	 abstract fun tenderType (): String
+	 abstract fun tenderDesc (): String
+	 
+	 var paymentTendered = 0.0
+	 var returned = 0.0
+	 var balance = 0.0
+	 var total = 0.0
+	 var paid = 0.0
+	 var roundDiff = 0.0
+	 var fees = 0.0
+	 
+	 protected var authAmount = 0.0
+	 protected var dataCapture = Jar ()
+
+	 init {
+
+		  tenderType = "cash"
+	 }
+
+	 override fun controlAction (jar: Jar) {
+		  
+		  if (jar != null) {
+				
+				setJar (jar)
+		  }
+
+		  Logger.d ("tender... ${jar}")
+		  
+		  update ()  // update paid, returned etc...
+		  tender ()  // get the amount of this tender
+		  
+		  // get the tender amount
+
+		  balance = total - paymentTendered
+		  
+		  if (confirmed ()) {
+				
+				fees ()     // add any fees for this tender type
+				payment ()  // process the payment, if balance == 0 complete the ticket
+				
+		  		confirmed (false)
+				
+				if (openDrawer ()) {
+					 
+					 DeviceManager.printer.drawer ()
+				}
+		  }
+		  else {
+
+				TenderView (this)
+		  }
+	 }
+
+	 /**
+	  *
+	  * get current tendered amount
+	  *
+	  */
+	 
+	 fun tender () {
+
+		  paymentTendered = 0.0
+		  
+	 	  if (jar ().has ("value")) {
+				
+				// fixed amount in the button jar?
+				
+				if (jar ().getDouble ("value") > 0) {
+					 
+					 paymentTendered = jar ().getDouble ("value") / 100.0
+				}
+				else if (jar ().getDouble ("value") == 0.0) {
+					 
+					 // round up to the next ($) amount
+					 
+					 val round = total - total.toInt ().toDouble ()
+
+					 Logger.d ("round... $round " + total + " " + total.toInt ().toDouble ())
+					 
+					 if (round > 0) {
+						  
+						  paymentTendered = Currency.round ((balance - round) + 1.0)
+					 }
+					 else {
+						  
+						  paymentTendered = balance
+					 }
+				}
+		  }
+		  else if (Pos.app.input.hasInput ()) {
+
+				// operator input?
+
+				paymentTendered = Currency.round (Pos.app.input.getDouble () / 100.0)
+				Pos.app.input.clear ()
+		  }
+		  else {
+
+				// assume the remaining amount of the ticket
+				
+				paymentTendered = Currency.round (total - paid)
+		  }
+		  
+		  Logger.d ("tender... " + this)
+	 }
+
+	 /**
+	  *
+	  * process payment
+	  *
+	  */
+	 
+	 fun payment () {
+
+		  if (fees () > 0) {
+
+				applyFees ()
+		  }
+
+		  var ticketTender = TicketTender (Jar ()
+		  													.put ("ticket_id", Pos.app.ticket.getInt ("id"))
+		  													.put ("tender_id", jar ().getInt ("tender_id"))
+		  													.put ("tender_type", tenderDesc ())
+		  													.put ("sub_tender_type", subTenderDesc ())
+		  													.put ("total", total)
+		  													.put ("status", TicketTender.COMPLETE)
+		  													.put ("returned_amount", returned)
+		  													.put ("tendered_amount", paymentTendered)
+		  													.put ("complete", 0)
+		  													.put ("round_diff", roundDiff)
+															.put ("data_capture", dataCapture.toString ()))
+		  
+		  var id = Pos.app.db.insert ("ticket_tenders", ticketTender)
+		  ticketTender.put ("id", id)
+		  ticketTender.put ("type", Ticket.TENDER)
+		  
+		  Pos.app.ticket.tenders.add (ticketTender)
+		  update ()
+		  		  
+		  if (returned > 0) {
+				
+				Pos.app.ticket.put ("returned", returned)
+		  }
+		  
+		  if (balance <= 0.0) {
+
+				completeTicket (Ticket.COMPLETE)
+		  }
+		  else {
+				
+				PosDisplays.message (Jar ()
+												 .put ("prompt_text", Pos.app.getString ("balance_due"))
+												 .put ("echo_text", Strings.currency (balance, false)))
+		  }
+
+		  // reset
+		  
+		  paymentTendered = 0.0
+		  total = 0.0
+		  returned = 0.0
+		  paid = 0.0
+	 }
+
+	 /**
+	  *
+	  * cancel the payment
+	  *
+	  */
+
+	 open fun cancel () { }
+
+	 /**
+	  *
+	  * update tender components, total, total paid, balance....
+	  *
+	  */
+
+	 open fun update () {
+		  
+		  total = total ()  // get the amount of sale
+		  balance = 0.0     // to be paid
+		  returned = 0.0    // returned (change)
+		  paid = 0.0        // previously tender
+	  
+		  // add up any previous tenders
+		  
+		  for (tt in Pos.app.ticket.tenders) {
+
+				paid += Currency.round (tt.getDouble ("tendered_amount"))
+		  }
+		  
+		  balance = Currency.round (total - paid)
+		  		  		  
+		  Logger.d ("update... " + this)
+
+		  if ((paid + paymentTendered) > total) {
+				
+				returned = Currency.round (paid + paymentTendered - total)
+		  }
+	 }
+
+	 open fun fees (): Double {
+
+		  var fees = 0.0
+		  
+		  if (Pos.app.config.has ("credit_service_fee")) {
+				
+				fees = Currency.round ( Pos.app.ticket.getDouble ("total") * Pos.app.config.get ("credit_service_fee").getDouble ("fee") / 100.0)
+		  }
+
+		  return fees
+	 }
+
+	 open fun applyFees () {
+
+		  var control = OpenItem ()
+		  var fees = fees ()
+		  
+		  control.action (Jar ()
+		  							 .put ("confirmed", true)
+		  							 .put ("sku", Pos.app.config.get ("credit_service_fee").getString ("fee_sku"))
+		  							 .put ("amount", fees))
+		  
+		  control.action (Jar ()
+		  							 .put ("confirmed", true)
+		  							 .put ("sku", Pos.app.config.get ("credit_service_fee").getString ("fee_refund_sku"))
+		  							 .put ("amount", fees * -1))
+		  
+	 }
+	 
+	 /**
+	  *
+	  * default amount to be paid
+	  *
+	  */
+	 
+	 open fun total (): Double {
+
+		  return Pos.app.ticket.getDouble ("total")
+	 }
+
+	 override fun beforeAction (): Boolean {
+		  
+		  if (Pos.app.ticket.items.size == 0) {
+				
+				return false
+		  }
+		  else if (!Pos.app.config.getBoolean ("confirm_tender")) {
+				
+		  		confirmed (true)
+		  }
+
+		  return super.beforeAction ()
+	 }
+	 	 
+	 open fun subTenderDesc (): String { return "" }
+
+	 override fun toString (): String {
+		  
+		  return String.format ("{tender: %5.2f, sub_total: %5.2f, returned: %5.2f, balance: %5.2f, total: %5.2f, paid: %5.2f, ticket_total: %5.2f}",
+										paymentTendered,
+										Pos.app.ticket.getDouble ("sub_total"),
+										returned,
+										balance,
+										total,
+										paid,
+										Pos.app.ticket.getDouble ("total"))
+	 }
+}

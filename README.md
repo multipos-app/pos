@@ -7,7 +7,8 @@ This project is an Andoid POS application integrated with a cloud based back for
 - Discounts, %, fixed amount, mix and match (buy 2, get one free)
 - Item markdown by % or fixed
 - Non-tax, tax sales
-- Manager functions, X/Z, EOD Drawer count
+- Manager functions, X/Z
+- End-of-shift cash drawer count
 - Suspend/recall transaction
 - Open tabs
 - Open item (enter price)
@@ -22,6 +23,7 @@ This project is an Andoid POS application integrated with a cloud based back for
 - Price override
 - Manager override
 - Enter quantity
+- Linked items (deposits, packages)
 - Repeat last order
 - Sale discount percent (i.e. employee disount)
 - Split single transaction into multiple transactions
@@ -29,7 +31,7 @@ This project is an Andoid POS application integrated with a cloud based back for
 - Comp sale
 - Kitchen print
 
-## Pricing
+## Pricing Options
 - Standard pricing, scanned, enter sku or tied to a button
 - Size, i.e. Fountain drinks, small, medium, large
 - Metric, pound, liter, kg
@@ -74,3 +76,5 @@ Once installed you will be presented with a log in screen. For your convience th
 ## Demo configurations
 - Deli/convienence is set up as a counter top app in landscape mode, tested on a variety of 10 inch tablets.
 - Handheld is just that, a handheld version with three tabs, a POS tab (line busting), an inventory tab, walk around the store scan an item and update inventory and an item entry tab to add/edit items in the store. This configuration also includes an android cammera scanner.
+
+##

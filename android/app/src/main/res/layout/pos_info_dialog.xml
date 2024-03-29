@@ -1,0 +1,218 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:id="@+id/pos_info_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	 android:gravity="start"
+	 android:padding="@dimen/dialog_md_padding"
+	 android:background="@color/light_tint"
+	 tools:context=".Main">
+
+  <LinearLayout
+		android:id="@+id/pos_info_title"
+		android:layout_width="match_parent"
+      android:layout_height="@dimen/dialog_header_height"
+		android:orientation="horizontal"
+		android:gravity="center"
+		android:padding="@dimen/dialog_md_padding"
+		android:background="@color/pos_app_bg">
+
+	 <TextView
+		  android:id="@+id/app_name"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:background="@color/transparent"
+		  android:textColor="@color/white"
+		  android:text="@string/app_name"/>
+	 
+  </LinearLayout>
+
+  <GridLayout 
+		android:id="@+id/pos_info_network"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:columnCount="3"
+		android:gravity="center"
+		android:background="@color/transparent"
+		android:layout_margin="@dimen/dialog_lg_margin"
+		app:layout_constraintTop_toBottomOf="@+id/pos_info_title">
+
+	<cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="left"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text="@string/version"/>
+
+	<LinearLayout
+		 android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+       android:layout_columnWeight="1"/>
+	
+	<cloud.multipos.pos.views.PosText
+		 android:id="@+id/version"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="right"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text=""/>
+
+	<cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="left"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text="@string/merchant"/>
+
+	<LinearLayout
+		 android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+       android:layout_columnWeight="1"/>
+	
+	<cloud.multipos.pos.views.PosText
+		 android:id="@+id/merchant_id"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="right"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text=""/>
+		 
+	<cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="left"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text="@string/pos_no"/>
+
+	<LinearLayout
+		 android:layout_width="wrap_content"
+		 android:layout_height="wrap_content"
+       android:layout_columnWeight="1"/>
+
+	<cloud.multipos.pos.views.PosText
+		 android:id="@+id/pos_no"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="right"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text=""/>
+
+	<cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="left"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text="@string/wifi"/>
+
+	<cloud.multipos.pos.views.PosText
+		 android:id="@+id/wifi_ip"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="right"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="2"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text=""/>
+
+	<cloud.multipos.pos.views.PosText
+		 android:id="@+id/wifi_mac"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="right"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="2"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text=""/>
+
+	<cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="left"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="1"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text="@string/ethernet"/>
+
+	<cloud.multipos.pos.views.PosText
+		 android:id="@+id/eth_ip"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="right"
+		  android:paddingLeft="@dimen/dialog_md_padding"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="2"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text="0.0.0.0"/>
+
+ 	<cloud.multipos.pos.views.PosText
+		 android:id="@+id/eth_mac"
+		  android:layout_width="wrap_content"
+		  android:layout_height="wrap_content"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:gravity="right"
+		  android:paddingLeft="@dimen/dialog_md_padding"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:layout_columnWeight="2"
+		  android:layout_marginTop="@dimen/dialog_sm_margin"
+		  android:text="00:00:00:00:00:00"/>
+
+  </GridLayout>
+
+  <cloud.multipos.pos.views.PosButton
+      android:id="@+id/upload_log"
+ 		style="@style/DialogContinue"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dialog_header_height"
+      android:layout_gravity="center"
+      android:enabled="true"
+      android:text="@string/upload_log"
+      android:textSize="@dimen/dialog_md_text"
+      android:textColor="@color/white"
+      android:background="@color/white"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+		app:layout_constraintBottom_toBottomOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

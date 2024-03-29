@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/pos_bg"
+    android:orientation="vertical"
+	 android:padding="@dimen/keypad_lg_padding"
+    android:gravity="center_horizontal">
+
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/echo"
+      android:layout_width="match_parent"
+		android:layout_height="@dimen/dialog_header_height"
+      android:background="@drawable/pos_input"
+      android:gravity="center_vertical|center_horizontal"
+      android:textColor="@color/black"
+      android:textSize="@dimen/dialog_xlg_text"
+		android:layout_margin="@dimen/dialog_lg_margin"
+      android:hint="@string/manager_number"
+ 		app:layout_constraintTop_toBottomOf="@+id/manager_override_title"/>
+ 
+</androidx.constraintlayout.widget.ConstraintLayout>

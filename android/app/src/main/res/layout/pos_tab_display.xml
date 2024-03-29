@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+Layout for a tabbed small
+-->
+
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:orientation="vertical">
+  
+  <cloud.multipos.pos.views.PosControlSwipeLayout
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:layout_margin="@dimen/app_sm_margin"
+      android:background="@color/pos_bg">
+	 
+	 <cloud.multipos.pos.views.PosControlHomeLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:orientation="vertical">
+
+		<cloud.multipos.pos.views.PosDisplays
+			 android:id="@+id/displays"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="5"
+			 android:background="@color/transparent"/>
+		
+		<cloud.multipos.pos.views.PosMenus
+			 custom:menus="tender_menu"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="1"
+			 android:layout_margin="@dimen/app_sm_margin"
+			 android:background="@color/transparent"
+			 custom:button_style="solid"/>
+
+	 </cloud.multipos.pos.views.PosControlHomeLayout>
+	 
+  </cloud.multipos.pos.views.PosControlSwipeLayout>
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight=".5">
+	 
+	 <cloud.multipos.pos.views.PosKeypad
+		  android:id="@+id/pos_keypad"
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"/>
+
+  </LinearLayout>
+  
+</LinearLayout>
+

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="ticket_prompt_max">20</integer>
+    <integer name="ticket_echo_max">10</integer>
+</resources>
+

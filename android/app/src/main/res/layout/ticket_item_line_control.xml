@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+  <LinearLayout
+      android:id="@+id/ticket_item_layout"
+ 		android:clickable="true"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="@color/transparent"
+		android:layout_marginLeft="@dimen/ticket_item_margin"
+		android:layout_marginRight="@dimen/ticket_item_margin"
+		android:padding="@dimen/ticket_item_sm_padding"
+      android:orientation="horizontal">
+
+    <cloud.multipos.pos.views.PosText
+ 		android:clickable="false"
+        android:id="@+id/ticket_item_line_quantity"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:gravity="start"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/ticket_item_md_text"/>
+
+    <cloud.multipos.pos.views.PosText
+ 		  android:clickable="false"
+        android:id="@+id/ticket_item_line_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="4"
+        android:gravity="start"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/ticket_item_md_text"/>
+	 
+    <cloud.multipos.pos.views.PosText
+ 		android:clickable="false"
+        android:id="@+id/ticket_item_line_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:gravity="end"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/ticket_item_md_text"/>
+	 
+	 <cloud.multipos.pos.views.PosIconButton
+		  android:id="@+id/ticket_item_line_edit"
+		  android:text="@string/fa_edit"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+        android:layout_weight=".7"
+        android:gravity="end"
+		  android:textColor="@color/black"
+		  android:background="@color/transparent"
+		  android:padding="0dp"
+		  android:textSize="@dimen/ticket_item_lg_text"/>
+
+  </LinearLayout>
+
+  <LinearLayout
+ 		android:clickable="false"
+      android:id="@+id/ticket_item_link_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:background="@color/transparent"/>
+  
+  <LinearLayout
+ 		android:clickable="false"
+      android:id="@+id/ticket_item_addon_layout"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="vertical"
+		android:background="@color/transparent"/>
+  
+</LinearLayout>

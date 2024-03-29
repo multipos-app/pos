@@ -1,0 +1,429 @@
+{
+    "id": "convience_deli",
+    "desc": "Convience\/Deli",
+    "timezone": "America\/New_York",
+    "locale": "en_US",
+    "currency": "USD",
+    "update_interval": "20000",
+    "language": "US",
+    "country": "en",
+    "variant": "",
+    "prompt_open_amount": "false",
+    "show_previous_receipt": "true",
+    "disable_quantity_void": "true",
+    "confirm_tender": "true",
+    "root_layout": "layout_3",
+    "item_line_layout": "ticket_item_line",
+    "keypad_layout": "pos_keypad_1",
+    "pos": "generic_tablet",
+    "enter_clerk": "false",
+    "surveillance": "false",
+    "scanner": "keyboard",
+    "customers": "true",
+    "cash_management": "false",
+    "merge_like_items": "false",
+    "pos_menus": {
+        "main_menu": {
+            "menu_description": "Main Menu",
+            "tabs": "false",
+            "horizontal_menus": [
+                {
+                    "type": "controls",
+                    "style": "solid",
+                    "name": "BEERS",
+                    "width": "4",
+                    "buttons": [
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "0",
+                            "text": "HAZY DOUBLE IPA",
+                            "color": "#4A1400",
+                            "params": {
+                                "sku": "77782"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "1",
+                            "text": "SINGLE ENGINE RED 12PK",
+                            "color": "#7B0100",
+                            "params": {
+                                "sku": "77779"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "2",
+                            "text": "PORTER",
+                            "color": "#045AB9",
+                            "params": {
+                                "sku": "77783"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "3",
+                            "text": "COPPER RIVER HAZY IPA",
+                            "color": "#003000",
+                            "params": {
+                                "sku": "77788"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "4",
+                            "text": "SNOW BIKE",
+                            "color": "#300061",
+                            "params": {
+                                "sku": "77785"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "5",
+                            "text": "AMERICAN ALE",
+                            "color": "#CA3701",
+                            "params": {
+                                "sku": "77786"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "6",
+                            "text": "LONG TRACK",
+                            "color": "#001D3B",
+                            "params": {
+                                "sku": "77787"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "7",
+                            "text": "DEEP POWDER PORTER",
+                            "color": "#5800B7",
+                            "params": {
+                                "sku": "77789"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "8",
+                            "text": "IRISH ALE",
+                            "color": "#003466",
+                            "params": {
+                                "sku": "77792"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "9",
+                            "text": "GLACIER HEFE",
+                            "color": "#001D3B",
+                            "params": {
+                                "sku": "77791"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "10",
+                            "text": "GLACIER IPA",
+                            "color": "#003466",
+                            "params": {
+                                "sku": "77790"
+                            }
+                        },
+                        {
+                            "desc": "Jump to Menu",
+                            "class": "Navigate",
+                            "help": "Jump to menu",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "11",
+                            "text": "APPETIZERS",
+                            "color": "#009100",
+                            "params": {
+                                "menu": "main_menu",
+                                "menu_index": 1
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "controls",
+                    "style": "solid",
+                    "name": "APPETIZERS",
+                    "width": "4",
+                    "buttons": [
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "0",
+                            "text": "CHARCUTERIE PLATE",
+                            "color": "#045AB9",
+                            "params": {
+                                "sku": "77793"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "1",
+                            "text": "PORK BELLY",
+                            "color": "#850143",
+                            "params": {
+                                "sku": "77794"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "2",
+                            "text": "BREWHOUSE PRETZEL",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "77796"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "3",
+                            "text": "BRUSSELS SPROUTS",
+                            "color": "#4A1400",
+                            "params": {
+                                "sku": "77797"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "4",
+                            "text": "POKE NACHOS",
+                            "color": "#50012A",
+                            "params": {
+                                "sku": "77795"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "5",
+                            "text": "FISH AND CHIPS",
+                            "color": "#4F4F4F",
+                            "params": {
+                                "sku": "77799"
+                            }
+                        },
+                        {
+                            "desc": "Item",
+                            "class": "Item",
+                            "help": "Item",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "6",
+                            "text": "ALASKAN JAMBALAYA CUP",
+                            "color": "#003466",
+                            "params": {
+                                "sku": "77798"
+                            }
+                        },
+                        {
+                            "desc": "Jump to Menu",
+                            "class": "Navigate",
+                            "help": "Jump to menu",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "1",
+                            "pos": "11",
+                            "text": "BEER",
+                            "color": "#009100",
+                            "params": {
+                                "menu": "main_menu",
+                                "menu_index": 0
+                            }
+                        }
+                    ]
+                }
+            ]
+        },
+        "function_menu": {
+            "menu_description": "Functions",
+            "tabs": "false",
+            "horizontal_menus": [
+                {
+                    "type": "controls",
+                    "style": "solid",
+                    "name": "Functions",
+                    "width": "3",
+                    "buttons": [
+                        {
+                            "class": "NoSale",
+                            "text": "No Sale\/Open Drawer",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "text": "VOID ITEM",
+                            "class": "VoidItem",
+                            "color": "#5E7981",
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "VOID SALE",
+                            "color": "#5E7981",
+                            "class": "VoidSale",
+                            "fixed": "1"
+                        },
+                        {
+                            "class": "CreditTender",
+                            "text": "CREDIT",
+                            "params": {
+                                "open_drawer": "true",
+                                "print_receipt": "false",
+                                "service_fee": "0",
+                                "debit_credit": "credit"
+                            },
+                            "color": "#5E7981"
+                        },
+                        {
+                            "text": "$5",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "500"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "$10",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "1000"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "$20",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "2000"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "ONE UP",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "0"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "CASH",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1"
+                            },
+                            "fixed": "1"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "pos_displays": [
+        {
+            "name": "ticket",
+            "type": "ticket_display",
+            "layout": "ticket"
+        }
+    ]
+}

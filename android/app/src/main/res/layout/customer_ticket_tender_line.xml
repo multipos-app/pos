@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+	 android:layout_marginLeft="@dimen/customer_ticket_item_md_margin"
+	 android:layout_marginRight="@dimen/customer_ticket_item_md_margin"
+    android:orientation="horizontal">
+
+  <cloud.multipos.pos.views.PosText
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="start"
+      android:text="@string/total"
+		android:textColor="@color/black"
+      android:textSize="@dimen/customer_ticket_item_sm_text"/>
+  
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/customer_ticket_tender_total"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="end"
+      android:text=""
+		android:textColor="@color/black"
+      android:textSize="@dimen/customer_ticket_item_md_text"/>
+  
+  <cloud.multipos.pos.views.PosText
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="start"
+      android:text="@string/paid"
+		android:textColor="@color/black"
+      android:textSize="@dimen/customer_ticket_item_sm_text"
+		android:layout_marginLeft="@dimen/customer_padding"/>
+  
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/customer_ticket_tender_paid"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="end"
+      android:text=""
+		android:textColor="@color/black"
+      android:textSize="@dimen/customer_ticket_item_md_text"/>
+  
+    <cloud.multipos.pos.views.PosText
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="start"
+      android:text="@string/change"
+		android:textColor="@color/black"
+      android:textSize="@dimen/customer_ticket_item_sm_text"
+		android:layout_marginLeft="@dimen/customer_padding"/>
+  
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/customer_ticket_tender_returned"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="end"
+      android:text=""
+		android:textColor="@color/black"
+      android:textSize="@dimen/customer_ticket_item_md_text"/>
+  
+</LinearLayout>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:background="@color/pos_app_bg"
+	 android:orientation="horizontal"
+	 android:padding="@dimen/app_bar_icon_padding">
+
+  <ImageView
+      android:id="@+id/pos_info"
+      android:layout_width="0dp"
+      android:layout_weight="1"
+      android:layout_height="wrap_content"
+		android:clickable="true"
+      android:src="@drawable/app_icon"
+		android:padding="0dp"
+      android:layout_gravity="center_vertical|center_horizontal"
+      app:layout_constraintStart_toStartOf="parent"/>
+  
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/app_bar_clock"
+      android:layout_width="0dp"
+      android:layout_weight="5"
+		android:layout_height="match_parent"
+      android:gravity="center_vertical|start"
+		android:layout_marginLeft="@dimen/app_bar_icon_margin"
+		android:text=""
+      android:textColor="@color/white"
+      android:textSize="@dimen/app_bar_text"/>
+  
+  <LinearLayout
+      android:id="@+id/app_bar_customer_layout"
+		android:layout_width="0dp"
+		android:layout_weight="7"
+		android:layout_height="match_parent"
+      android:layout_gravity="fill_horizontal"
+      android:gravity="center_vertical|center"
+      android:orientation="horizontal"
+		android:background="@drawable/customer_layout"
+		android:clickable="true">
+
+	 <cloud.multipos.pos.views.PosIconText
+        android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+        android:gravity="center_vertical|start"
+		  android:text="@string/fa_customer"
+        android:textColor="@color/white"
+        android:textSize="@dimen/app_bar_text"
+		  android:layout_marginLeft="10dp"
+		  android:clickable="false"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+        android:id="@+id/app_bar_customer_name"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:text=""
+        android:gravity="center_vertical|start"
+		  android:paddingLeft="@dimen/dialog_sm_padding"
+        android:textColor="@color/white"
+		  android:maxLines="1"
+        android:textSize="@dimen/app_bar_customer_text"
+		  android:clickable="false"/>
+	 
+  </LinearLayout>
+
+  <LinearLayout
+      android:id="@+id/app_bar_tray"
+      android:layout_width="0dp"
+      android:layout_weight="5"
+      android:layout_height="match_parent"
+      android:layout_gravity="fill_horizontal"
+      android:background="@color/transparent"
+      android:gravity="center_vertical|end"
+      android:orientation="horizontal"/>
+  
+</LinearLayout>

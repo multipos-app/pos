@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:gravity="start"
+    android:background="@color/pos_app_bg"
+	 android:padding="@dimen/register_padding">
+	 
+  <ImageView
+		android:id="@+id/login_company"
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/login_header_height"
+		android:src="@drawable/app_logo"
+		android:layout_margin="@dimen/login_margin"
+		android:gravity="center_horizontal|bottom" 
+  		app:layout_constraintTop_toTopOf="parent"/>
+  
+  <cloud.multipos.pos.views.PosLogin
+		android:layout_width="match_parent"
+		android:layout_height="@dimen/login_body_height"
+		android:background="@color/pos_app_bg"
+		android:orientation="horizontal"
+  		app:layout_constraintTop_toBottomOf="@+id/login_company"/>
+	 
+  <TextView
+		android:id="@+id/app_version_text"
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:textSize="@dimen/app_version_text"
+		android:textColor="@color/white"
+		android:gravity="right|bottom"
+		android:layout_margin="@dimen/login_margin"
+		android:text="@string/app_version"  
+  		app:layout_constraintBottom_toBottomOf="parent"/>
+  
+</androidx.constraintlayout.widget.ConstraintLayout>

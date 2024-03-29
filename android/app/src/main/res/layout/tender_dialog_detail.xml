@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+	 android:paddingTop="@dimen/dialog_sm_padding"
+    android:orientation="horizontal">
+  
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/tender_dialog_detail_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="start"
+        android:textColor="@color/black"
+        android:text=""
+        android:textSize="@dimen/dialog_md_text"/>
+	 
+    <cloud.multipos.pos.views.PosText
+        android:id="@+id/tender_dialog_detail_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:textColor="@color/black"
+        android:text=""
+        android:textSize="@dimen/dialog_md_text"/>
+	 
+</LinearLayout>

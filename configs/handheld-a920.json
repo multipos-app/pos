@@ -1,0 +1,131 @@
+{
+    "desc": "handheld",
+    "timezone": "America\/New_York",
+    "locale": "en_US",
+    "currency": "USD",
+    "update_interval": "20000",
+    "language": "US",
+    "country": "en",
+    "variant": "",
+    "print_receipt": "false",
+    "prompt_open_amount": "false",
+    "show_previous_receipt": "true",
+    "disable_quantity_void": "true",
+    "root_layout": "handheld_1",
+    "keypad_layout": "pos_keypad_2",
+    "confirm_tender": "true",
+    "show_previous_receipt_no_print": "false",
+    "surveillance": "false",
+    "scanner": "keyboard",
+    "customers": "false",
+    "cash_management": "false",
+    "merge_like_items": "false",
+    "enter_clerk": "false",
+    "devices": {
+        "payment": {
+            "name": "pax_a920",
+            "class": "cloud.multipos.pos.devices.PaxPayment",
+				"params": {"debug": true}
+        }
+    },
+    "pos_displays": [
+        {
+            "name": "ticket",
+            "type": "handheld_ticket_display",
+            "layout": "ticket"
+        }
+    ],
+    "pos_menus": {
+        "tender_menu": {
+            "menu_description": "Tender Menu",
+            "tabs": "false",
+            "horizontal_menus": [
+                {
+                    "type": "controls",
+                    "style": "solid",
+                    "name": "Tender",
+                    "width": "6",
+                    "buttons": [
+                        {
+                            "text": "VOID ITEM",
+                            "class": "VoidItem",
+                            "color": "#850143",
+                            "fixed": "1",
+                            "pos_config_id": "24044",
+                            "container": "tender_menu",
+                            "menu": "0",
+                            "pos": "0"
+                        },
+                        {
+                            "text": "VOID SALE",
+                            "color": "#8F2703",
+                            "class": "VoidSale",
+                            "fixed": "1",
+                            "pos_config_id": "24044",
+                            "container": "tender_menu",
+                            "menu": "0",
+                            "pos": "1"
+                        },
+                        {
+                            "class": "PaxTender",
+                            "text": "CREDIT",
+                            "params": {
+                                "open_drawer": "true",
+                                "print_receipt": "false",
+                                "service_fee": "0",
+                                "debit_credit": "credit"
+                            },
+                            "color": "#003466",
+                            "pos_config_id": "24044",
+                            "container": "tender_menu",
+                            "menu": "0",
+                            "pos": "2"
+                        },
+                        {
+                            "class": "PaxTender",
+                            "text": "DEBIT",
+                            "params": {
+                                "open_drawer": "true",
+                                "print_receipt": "false",
+                                "service_fee": "0",
+                                "debit_credit": "debit"
+                            },
+                            "color": "#007002",
+                            "pos_config_id": "24044",
+                            "container": "tender_menu",
+                            "menu": "0",
+                            "pos": "3"
+                        },
+                        {
+                            "text": "ONE UP",
+                            "class": "CashTender",
+                            "color": "#300061",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "0"
+                            },
+                            "fixed": "1",
+                            "pos_config_id": "24044",
+                            "container": "tender_menu",
+                            "menu": "0",
+                            "pos": "4"
+                        },
+                        {
+                            "text": "CASH",
+                            "class": "CashTender",
+                            "color": "#009100",
+                            "params": {
+                                "tender_id": "1"
+                            },
+                            "fixed": "1",
+                            "pos_config_id": "24044",
+                            "container": "tender_menu",
+                            "menu": "0",
+                            "pos": "5"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

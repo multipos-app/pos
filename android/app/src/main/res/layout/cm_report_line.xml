@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/transparent"
+	 android:layout_marginLeft="@dimen/cm_dialog_margin"
+ 	 android:layout_marginRight="@dimen/cm_dialog_margin"
+    android:padding="5dp"
+    android:orientation="horizontal">
+
+    <cloud.multipos.pos.views.PosText
+        android:id="@+id/cm_report_line_qty"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight=".5"
+        android:gravity="end"
+        android:text=""
+        android:textSize="@dimen/cm_dialog_md_text"
+        android:textColor="@color/black"/>
+
+   <cloud.multipos.pos.views.PosText
+        android:id="@+id/cm_report_line_desc"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2.5"
+        android:gravity="start"
+        android:layout_marginLeft="@dimen/cm_dialog_margin"
+        android:text=""
+        android:textSize="@dimen/cm_dialog_md_text"
+        android:textColor="@color/black"/>
+
+    <cloud.multipos.pos.views.PosText
+        android:id="@+id/cm_report_line_amount"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        android:gravity="end"
+        android:text=""
+        android:textSize="@dimen/cm_dialog_md_text"
+ 		  android:layout_marginRight="@dimen/cm_dialog_margin"
+        android:textColor="@color/black"/>
+
+</LinearLayout>

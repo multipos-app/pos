@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content"
+	 android:background="@color/transparent"
+	 android:padding="@dimen/ticket_item_padding"
+	 android:orientation="horizontal">
+
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/ticket_item_addon_line_extra"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="2"
+      android:gravity="end"
+      android:text=""
+      android:textColor="@color/black"
+      android:textSize="@dimen/ticket_item_md_text" />
+
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/ticket_item_addon_line_desc"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="2"
+      android:gravity="end"
+      android:text=""
+      android:textColor="@color/warn"
+      android:textSize="@dimen/ticket_item_md_text" />
+
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/ticket_item_addon_line_amount"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:gravity="end"
+      android:text=""
+      android:textColor="@color/warn"
+      android:textSize="@dimen/ticket_item_md_text" />
+
+</LinearLayout>

@@ -1,0 +1,1043 @@
+{
+    "id": "convience_deli",
+    "desc": "Convience\/Deli",
+    "timezone": "America\/New_York",
+    "locale": "en_US",
+    "currency": "USD",
+    "update_interval": "20000",
+    "language": "US",
+    "country": "en",
+    "variant": "",
+    "prompt_open_amount": "false",
+    "show_previous_receipt": "true",
+    "disable_quantity_void": "true",
+    "root_layout": "layout_2",
+    "item_line_layout": "ticket_item_line",
+    "keypad_layout": "pos_keypad_2",
+    "pos": "generic_tablet",
+    "enter_clerk": "false",
+    "confirm_tender": "true",
+    "show_previous_receipt_no_print": "false",
+    "surveillance": "false",
+    "scanner": "keyboard",
+    "customers": "true",
+    "cash_management": "false",
+    "merge_like_items": "false",
+    "devices": {
+        "payment": {
+            "name": "pax_s300",
+            "class": "cloud.multipos.pos.devices.PaxPayment",
+				"params": {"debug": true}
+        },
+        "receipt_printer": {
+            "name": "star_micronics",
+            "class": "cloud.multipos.pos.devices.StarPrinter"
+        },
+        "scanner": {
+            "name": "keyboard",
+            "class": "cloud.multipos.pos.devices.KeyboardScanner"
+        }
+    },
+    "pos_menus": {
+        "main_menu": {
+            "menu_description": "Main Menu",
+            "tabs": "true",
+            "horizontal_menus": [
+                {
+                    "type": "controls",
+                    "style": "solid",
+                    "name": "BREAKFAST",
+                    "width": "5",
+                    "buttons": [
+                        {
+                            "class": "Item",
+                            "text": "BACON EGG CHEESE",
+                            "params": {
+                                "sku": "12345"
+                            },
+                            "color": "#001D3B",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "0"
+                        },
+                        {
+                            "text": "SAUSAGE EGG CHEESE",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12344"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "1"
+                        },
+                        {
+                            "text": "HAM EGG CHEESE",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12343"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "2"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "EGG AND CHEEESE",
+                            "params": {
+                                "sku": "102030102"
+                            },
+                            "color": "#005301",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "3"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "GRAND SLAM ",
+                            "params": {
+                                "sku": "12342"
+                            },
+                            "color": "#005301",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "4"
+                        },
+                        {
+                            "text": "BAGEL W CREAM CHEESE",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12335"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "10"
+                        },
+                        {
+                            "text": "BAGEL W BUTTER",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12334"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "11"
+                        },
+                        {
+                            "text": "MUFFIN",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12333"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "12"
+                        },
+                        {
+                            "text": "MUFFIN W BUTTER",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12332"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "13"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "BREAKFAST WRAP ",
+                            "params": {
+                                "sku": "12341"
+                            },
+                            "color": "#005301",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "14"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "BUTTER ROLL",
+                            "params": {
+                                "sku": "444401"
+                            },
+                            "color": "#005301",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "15"
+                        },
+                        {
+                            "text": "SMALL COFFEE",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "33333"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "16"
+                        },
+                        {
+                            "text": "MEDIUM COFFEE",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "33332"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "17"
+                        },
+                        {
+                            "text": "LARGE COFFEE",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "33331"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "18"
+                        },
+                        {
+                            "text": "DONUT",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12339"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "19"
+                        },
+                        {
+                            "text": "ADD SUB",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "11222"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "20"
+                        },
+                        {
+                            "text": "ADD BREAKFAST MEAT",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12211"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "21"
+                        },
+                        {
+                            "text": "ADD CHEESE",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "12212"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "22"
+                        },
+                        {
+                            "text": "BULK CANDY",
+                            "class": "Item",
+                            "color": "#005301",
+                            "params": {
+                                "sku": "77780"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "23"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "FOUNTAIN SM-MED-LG",
+                            "params": {
+                                "sku": "77778"
+                            },
+                            "color": "#005301",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "19"
+                        }
+                    ]
+                },
+                {
+                    "type": "controls",
+                    "style": "outline",
+                    "name": "SIGNATURE SANDWICHES",
+                    "width": "5",
+                    "buttons": [
+                        {
+                            "text": "ROCKING REUBEN",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11111"
+                            }
+                        },
+                        {
+                            "text": "CHICKEN BLASTER",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11112"
+                            }
+                        },
+                        {
+                            "text": "TALK TURKEY",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11113"
+                            }
+                        },
+                        {
+                            "text": "RAGIN CAJUN",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11114"
+                            }
+                        },
+                        {
+                            "text": "GARDEN OF EATIN",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11115"
+                            }
+                        },
+                        {
+                            "text": "BIG BIRD",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11116"
+                            }
+                        },
+                        {
+                            "text": "HAIL CAESAR",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11117"
+                            }
+                        },
+                        {
+                            "text": "THE CUBANO",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11118"
+                            }
+                        },
+                        {
+                            "class": "Item",
+                            "text": "MEAT ROLL - 4444665",
+                            "params": {
+                                "sku": "4444665"
+                            },
+                            "color": "#1B1B7C"
+                        },
+                        {
+                            "text": "MEAT SUB - 4444654",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "4444654"
+                            }
+                        },
+                        {
+                            "class": "Null"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "PHILLY ROLL - 987789",
+                            "params": {
+                                "sku": "987789"
+                            },
+                            "color": "#1B1B7C"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "PHILLY SUB - 1223101",
+                            "params": {
+                                "sku": "1223101"
+                            },
+                            "color": "#1B1B7C"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "ITALIAN\/AMERICAN MIX ROLL - 3211122",
+                            "params": {
+                                "sku": "3211122"
+                            },
+                            "color": "#1B1B7C"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "ITALIAN\/AMERICAN MIX SUB - 99955588",
+                            "params": {
+                                "sku": "99955588"
+                            },
+                            "color": "#1B1B7C"
+                        },
+                        {
+                            "text": "ADD SUB",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11222"
+                            }
+                        },
+                        {
+                            "text": "ADD DELI MEAT",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "11121"
+                            }
+                        },
+                        {
+                            "class": "Item",
+                            "text": "ADD CHEESE - 777888",
+                            "params": {
+                                "sku": "777888"
+                            },
+                            "color": "#1B1B7C"
+                        },
+                        {
+                            "text": "add avocado - 6857774",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "6857774"
+                            }
+                        },
+                        {
+                            "text": "ADD BACON - 789987",
+                            "class": "Item",
+                            "color": "#1B1B7C",
+                            "params": {
+                                "sku": "789987"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "controls",
+                    "style": "outline",
+                    "name": "SIGNATURE MELTS",
+                    "width": "5",
+                    "buttons": [
+                        {
+                            "text": "THE GODFATHER",
+                            "class": "Item",
+                            "color": "#004A93",
+                            "params": {
+                                "sku": "12666"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "0"
+                        },
+                        {
+                            "text": "THREES COMPANY",
+                            "class": "Item",
+                            "color": "#004A93",
+                            "params": {
+                                "sku": "12667"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "1"
+                        },
+                        {
+                            "text": "THE MAYFLOWER",
+                            "class": "Item",
+                            "color": "#004A93",
+                            "params": {
+                                "sku": "12668"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "2"
+                        },
+                        {
+                            "text": "CHICKEN LITTLE",
+                            "class": "Item",
+                            "color": "#004A93",
+                            "params": {
+                                "sku": "12669"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "3"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "class": "Null"
+                        }
+                    ]
+                },
+                {
+                    "type": "controls",
+                    "style": "outline",
+                    "name": "SIGNATURE SALADS",
+                    "width": "5",
+                    "buttons": [
+                        {
+                            "text": "CAESAR SALAD",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12399"
+                            }
+                        },
+                        {
+                            "text": "CRANBERRY WALNUT",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12398"
+                            }
+                        },
+                        {
+                            "text": "TACO SALAD",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12397"
+                            }
+                        },
+                        {
+                            "text": "CHEF SALAD",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12396"
+                            }
+                        },
+                        {
+                            "text": "CRISPY CHICKEN SALAD",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12392"
+                            }
+                        },
+                        {
+                            "text": "FIESTA SALAD",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12395"
+                            }
+                        },
+                        {
+                            "text": "COBB SALAD",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12394"
+                            }
+                        },
+                        {
+                            "text": "ORIENTAL MANDARIN",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "12393"
+                            }
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "ADD MEAT",
+                            "class": "Item",
+                            "color": "#1B454C",
+                            "params": {
+                                "sku": "11121"
+                            }
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "text": "",
+                            "class": "Null",
+                            "color": "transparent"
+                        },
+                        {
+                            "class": "Null"
+                        }
+                    ]
+                },
+                {
+                    "type": "controls",
+                    "style": "outline",
+                    "name": "FUNCTIONS",
+                    "width": "5",
+                    "buttons": [
+                        {
+                            "class": "XSession",
+                            "text": "X-Report",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "ZSession",
+                            "text": "Z-Report",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "CashManagement",
+                            "text": "Cash Management",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "LogOut",
+                            "text": "Log Out",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "Exit",
+                            "text": "Exit POS",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "Inventory",
+                            "text": "INVENTORY",
+                            "color": "#1B454C",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "4",
+                            "pos": "5"
+                        },
+                        {
+                            "class": "Null"
+                        },
+                        {
+                            "class": "PrintReceipt",
+                            "text": "Print Receipt",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "Null",
+                            "text": "",
+                            "color": "empty"
+                        },
+                        {
+                            "class": "Null"
+                        },
+                        {
+                            "class": "Bank",
+                            "text": "Drop",
+                            "color": "#5E7981",
+                            "params": {
+                                "type": "cash_drop"
+                            }
+                        },
+                        {
+                            "class": "OpenItem",
+                            "text": "Paid-In",
+                            "params": {
+                                "sku": "500001"
+                            },
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "OpenItem",
+                            "text": "Paid-Out - 500002",
+                            "params": {
+                                "sku": "500002"
+                            },
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "Null",
+                            "text": "",
+                            "color": "empty"
+                        },
+                        {
+                            "class": "Null",
+                            "text": "",
+                            "color": "empty"
+                        },
+                        {
+                            "class": "SaleDiscountPercent",
+                            "text": "10% Employee Discount",
+                            "color": "#5E7981",
+                            "params": {
+                                "percent": "10"
+                            }
+                        },
+                        {
+                            "class": "PaxTender",
+                            "text": "EBT FOODSTAMPS",
+                            "color": "#5E7981",
+                            "params": {
+                                "open_drawer": "false",
+                                "print_receipt": "false",
+                                "service_fee": "0",
+                                "debit_credit": "ebt_foodstamp"
+                            }
+                        },
+                        {
+                            "class": "Null",
+                            "text": "",
+                            "color": "empty"
+                        },
+                        {
+                            "class": "PaxIP",
+                            "text": "PAX\/EPX Setup",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "CameraIP",
+                            "text": "Camera Setup",
+                            "color": "#5E7981"
+                        }
+                    ]
+                }
+            ]
+        },
+        "tender_menu": {
+            "menu_description": "Tender Menu",
+            "tabs": "false",
+            "horizontal_menus": [
+                {
+                    "type": "controls",
+                    "style": "solid",
+                    "name": "tender 1",
+                    "width": "5",
+                    "buttons": [
+                        {
+                            "class": "Item",
+                            "text": "NON TAX DELI",
+                            "color": "#5E7981",
+                            "params": {
+                                "sku": "22222"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "TAXABLE DELI",
+                            "color": "#5E7981",
+                            "params": {
+                                "sku": "22223"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "NON TAX GROCERY",
+                            "color": "#5E7981",
+                            "params": {
+                                "sku": "22224"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "TAXABLE GROCERY",
+                            "color": "#5E7981",
+                            "params": {
+                                "sku": "22225"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "class": "NoSale",
+                            "text": "No Sale\/Open Drawer",
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "CreditTender",
+                            "text": "External Credit",
+                            "params": {
+                                "tender_id": "2",
+                                "open_drawer": "true",
+                                "debit_credit": "credit"
+                            },
+                            "color": "#5E7981"
+                        },
+                        {
+                            "text": "NON-TAX",
+                            "color": "#5E7981",
+                            "class": "NonTax",
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "VOID ITEM",
+                            "class": "VoidItem",
+                            "color": "#5E7981",
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "VOID SALE",
+                            "color": "#5E7981",
+                            "class": "VoidSale",
+                            "fixed": "1"
+                        },
+                        {
+                            "class": "PaxTender",
+                            "text": "CREDIT",
+                            "params": {
+                                "open_drawer": "true",
+                                "print_receipt": "false",
+                                "service_fee": "0",
+                                "debit_credit": "credit"
+                            },
+                            "color": "#5E7981"
+                        },
+                        {
+                            "text": "RE-PRINT RECEIPT",
+                            "color": "#5E7981",
+                            "class": "PrintLastReceipt",
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "GIFT CARD SALE",
+                            "color": "#5E7981",
+                            "class": "GiftCardTender",
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "COUPON",
+                            "color": "#5E7981",
+                            "class": "Item",
+                            "params": {
+                                "sku": "20002"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "class": "CheckTender",
+                            "text": "Check Tender",
+                            "params": {
+                                "tender_id": "3"
+                            },
+                            "color": "#5E7981"
+                        },
+                        {
+                            "class": "PaxTender",
+                            "text": "DEBIT",
+                            "params": {
+                                "open_drawer": "true",
+                                "print_receipt": "false",
+                                "service_fee": "0",
+                                "debit_credit": "debit"
+                            },
+                            "color": "#5E7981"
+                        },
+                        {
+                            "text": "$5",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "500"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "$10",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "1000"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "$20",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "2000"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "ONE UP",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1",
+                                "value": "0"
+                            },
+                            "fixed": "1"
+                        },
+                        {
+                            "text": "CASH",
+                            "class": "CashTender",
+                            "color": "#5E7981",
+                            "params": {
+                                "tender_id": "1"
+                            },
+                            "fixed": "1"
+                        }
+                    ]
+                }
+            ]
+        }
+    },
+    "pos_displays": [
+        {
+            "name": "ticket",
+            "type": "ticket_display",
+            "layout": "ticket"
+        }
+    ]
+}

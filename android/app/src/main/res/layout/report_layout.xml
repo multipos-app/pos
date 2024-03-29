@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/match_parent"
+    android:layout_height="@dimen/match_parent"
+    android:layout_centerHorizontal="true"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/pos_bg"
+    android:padding="@dimen/dialog_lg_padding">
+
+    <ScrollView
+        android:id="@+id/report_scroller"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+		  android:layout_marginTop="@dimen/dialog_lg_padding">
+
+        <cloud.multipos.pos.views.PosText
+            android:id="@+id/report_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center_horizontal"
+            android:padding="@dimen/dialog_sm_padding"
+            android:text=""
+            android:textColor="@android:color/black"
+            android:textSize="@dimen/dialog_receipt_text"/>
+
+    </ScrollView>
+
+</LinearLayout>

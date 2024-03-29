@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:orientation="vertical"
+	 android:background="@color/pos_bg">
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:orientation="horizontal"
+		android:background="@color/transparent">
+	 
+	 <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+		  android:layout_weight="1"
+        android:background="@color/transparent">
+		
+		<cloud.multipos.pos.devices.CameraScanner
+  			 android:id="@+id/camera_scanner"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"/>
+
+	 </LinearLayout>
+	 
+	 <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+		  android:layout_weight="2"
+		  android:orientation="vertical"
+		  android:padding="@dimen/app_md_padding"
+        android:background="@color/transparent">
+		
+		<cloud.multipos.pos.views.PosText
+  			 android:id="@+id/scan_sku"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:hint="@string/sku"
+			 android:gravity="start"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"
+			 android:textSize="@dimen/app_lg_text"/>
+
+		<cloud.multipos.pos.views.PosText
+  			 android:id="@+id/scan_desc"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:hint="@string/item_desc"
+			 android:gravity="start"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"
+			 android:textSize="@dimen/app_lg_text"/>
+		
+		<cloud.multipos.pos.views.PosText
+  			 android:id="@+id/scan_details"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:text="@string/item_details"
+			 android:gravity="start"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"
+			 android:textSize="@dimen/app_md_text"/>
+		
+		<cloud.multipos.pos.views.PosText
+  			 android:id="@+id/scan_price"
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:text="@string/item_price"
+			 android:gravity="start"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"
+			 android:textSize="@dimen/app_md_text"/>
+	 </LinearLayout>
+
+  </LinearLayout>
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp" 
+      android:layout_weight=".5"
+		android:orientation="horizontal"
+		android:background="@color/transparent">
+	 
+	 <com.google.android.material.button.MaterialButton
+		  android:id="@+id/pos_tab"
+		  android:text="@string/pos_tab"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent" 
+        android:layout_weight="1"
+        android:textColor="@color/black" 
+		  app:backgroundTint="@color/white"
+        android:background="@drawable/pos_tab_0"
+		  android:textSize="@dimen/app_md_text"
+        android:layout_marginTop="@dimen/app_md_margin"
+        android:layout_marginStart="@dimen/app_md_margin"
+        android:layout_marginEnd="@dimen/app_md_margin"/>
+
+	 <com.google.android.material.button.MaterialButton
+		  android:id="@+id/inv_tab"
+		  android:text="@string/inv_tab"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent" 
+        android:layout_weight="1"
+        android:textColor="@color/black"
+		  app:backgroundTint="@color/lt_gray"
+        android:background="@drawable/pos_tab_0"
+		  android:textSize="@dimen/app_md_text"
+        android:layout_marginTop="@dimen/app_md_margin"
+        android:layout_marginStart="@dimen/app_md_margin"
+        android:layout_marginEnd="@dimen/app_md_margin"/>
+	 
+	 <com.google.android.material.button.MaterialButton
+		  android:id="@+id/item_edit_tab"
+		  android:text="@string/item_edit_tab"
+  		  android:layout_width="0dp"
+		  android:layout_height="match_parent" 
+        android:layout_weight="1"
+        android:textColor="@color/black" 
+		  app:backgroundTint="@color/white"
+        android:background="@drawable/pos_tab_0"
+		  android:textSize="@dimen/app_md_text"
+        android:layout_marginTop="@dimen/app_md_margin"
+        android:layout_marginStart="@dimen/app_md_margin"
+        android:layout_marginEnd="@dimen/app_md_margin"/>s
+	 
+  </LinearLayout>
+
+  <LinearLayout
+		android:id="@+id/handheld_tabs"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="5"
+		android:background="@color/transparent"/>
+  
+</LinearLayout>

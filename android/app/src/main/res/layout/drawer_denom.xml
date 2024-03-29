@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical"
+	 android:clickable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:orientation="horizontal"
+        android:padding="@dimen/cm_dialog_button_margin">
+
+        <cloud.multipos.pos.views.PosText
+            android:id="@+id/drawer_denom_desc"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="start"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/cm_dialog_md_text" />
+
+        <cloud.multipos.pos.views.PosText
+            android:id="@+id/drawer_denom_quantity"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:padding="@dimen/cm_dialog_button_margin"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="@dimen/cm_dialog_md_text" />
+
+        <cloud.multipos.pos.views.PosText
+            android:id="@+id/drawer_denom_amount"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="end"
+            android:text=""
+            android:padding="@dimen/cm_dialog_button_margin"
+            android:textColor="@color/black"
+            android:textSize="@dimen/cm_dialog_md_text" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="@dimen/dialog_sm_padding"
+    android:background="@drawable/dialog_background">
+
+  <TextView
+      android:id="@+id/ticket_select_desc"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+		android:layout_weight="1"
+      android:background="@color/transparent"
+      android:text=""
+      android:textAlignment="textStart"
+      android:textColor="@color/black"
+      android:textSize="@dimen/dialog_md_text"
+      android:layout_margin="@dimen/dialog_sm_margin"/>
+
+</LinearLayout>

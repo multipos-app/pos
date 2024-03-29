@@ -1,0 +1,62 @@
+  <LinearLayout
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		xmlns:tools="http://schemas.android.com/tools"
+		android:id="@+id/ticket_item_summary"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:paddingRight="@dimen/ticket_margin"
+		android:paddingLeft="@dimen/ticket_margin"
+		android:orientation="horizontal"
+		android:layout_marginBottom="@dimen/ticket_margin"
+		android:background="@android:color/transparent">
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/summary_tax_text"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:gravity="bottom"
+		  android:textAlignment="viewStart"
+		  android:background="@color/transparent"
+		  android:text="@string/tax"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_summary_sm_text"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/summary_tax"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:gravity="bottom"
+		  android:textAlignment="viewEnd"
+		  android:background="@color/transparent"
+		  android:text=""
+		  android:textColor="@color/black"
+		  android:layout_marginRight="@dimen/ticket_margin"
+		  android:textSize="@dimen/ticket_summary_lg_text"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/summary_total_text"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:gravity="bottom"
+		  android:textAlignment="viewStart"
+		  android:background="@color/transparent"
+		  android:text="@string/total"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_summary_sm_text"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/summary_total"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:gravity="bottom"
+		  android:background="@color/transparent"
+		  android:text=""
+		  android:textAlignment="viewEnd"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_summary_lg_text"/>
+	 
+</LinearLayout>

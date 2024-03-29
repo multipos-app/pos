@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	 android:background="@color/transparent"
+	 android:padding="15dp">
+
+  <cloud.multipos.pos.views.PosText
+ 		android:clickable="false"
+      android:id="@+id/customer_banner_content"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+ 		android:textColor="@color/white"
+      android:textSize="40sp"/>
+
+</LinearLayout>

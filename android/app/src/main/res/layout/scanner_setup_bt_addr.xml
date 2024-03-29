@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/transparent">
+  
+  <LinearLayout
+		android:orientation="horizontal"
+		android:layout_width="match_parent"
+		android:layout_height="100dp"
+		android:padding="1dp"
+		android:layout_marginLeft="35dp"
+ 		android:layout_marginRight="35dp"
+ 		android:layout_marginTop="70dp"
+		android:background="@color/transparent">
+	 
+	 <EditText
+		  android:id="@+id/bt_addr_1"
+		  style="@style/editTextStyle"
+		  android:digits="0123456789ABCDEF"
+		  android:nextFocusRight="@+id/bt_addr_2"
+		  android:imeOptions="actionNext"
+		  android:inputType="textCapCharacters"
+		  android:layout_width="70dp"
+		  android:layout_height="match_parent"
+		  android:hint="00"
+		  android:maxLines="1"
+		  android:maxLength="2"
+		  android:singleLine="true"
+		  android:textSize="48sp"
+		  android:textColor="@color/black"
+		  android:text=""
+		  android:padding="5dp"
+		  android:textColorHint="@color/lt_gray"/>
+	 
+
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:gravity="center"
+		  android:textColor="@color/black"
+		  android:text=":"
+		  android:layout_marginLeft="10dp"
+		  android:textSize="48sp"/>
+	 
+	 <EditText
+		  android:id="@+id/bt_addr_2"
+		  style="@style/editTextStyle"
+		  android:digits="0123456789ABCDEF"
+		  android:nextFocusDown="@+id/bt_addr_3"
+		  android:imeOptions="actionNext"
+		  android:inputType="textCapCharacters"
+		  android:layout_width="70dp"
+		  android:layout_height="match_parent"
+		  android:hint="00"
+		  android:maxLines="1"
+		  android:maxLength="2"
+		  android:singleLine="true"
+		  android:textSize="48sp"
+		  android:textColor="@color/black"
+		  android:text=""
+		  android:padding="5dp"
+		  android:textColorHint="@color/lt_gray"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:gravity="center"
+		  android:textColor="@color/black"
+		  android:text=":"
+		  android:layout_marginLeft="10dp"
+		  android:textSize="48sp"/>
+	 
+	 <EditText
+		  android:id="@+id/bt_addr_3"
+		  style="@style/editTextStyle"
+		  android:digits="0123456789ABCDEF"
+		  android:nextFocusDown="@+id/bt_addr_4"
+		  android:imeOptions="actionNext"
+		  android:inputType="textCapCharacters"
+		  android:layout_width="70dp"
+		  android:layout_height="match_parent"
+		  android:hint="00"
+		  android:maxLines="1"
+		  android:maxLength="2"
+		  android:singleLine="true"
+		  android:textSize="48sp"
+		  android:textColor="@color/black"
+		  android:text=""
+		  android:padding="5dp"
+		  android:textColorHint="@color/lt_gray"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:gravity="center"
+		  android:textColor="@color/black"
+		  android:text=":"
+		  android:layout_marginLeft="10dp"
+		  android:textSize="48sp"/>
+	 
+	 <EditText
+		  android:id="@+id/bt_addr_4"
+		  style="@style/editTextStyle"
+		  android:digits="0123456789ABCDEF"
+		  android:nextFocusDown="@+id/bt_addr_5"
+		  android:imeOptions="actionNext"
+		  android:inputType="textCapCharacters"
+		  android:layout_width="70dp"
+		  android:layout_height="match_parent"
+		  android:hint="00"
+		  android:maxLines="1"
+		  android:maxLength="2"
+		  android:singleLine="true"
+		  android:textSize="48sp"
+		  android:textColor="@color/black"
+		  android:text=""
+		  android:padding="5dp"
+		  android:textColorHint="@color/lt_gray"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:gravity="center"
+		  android:textColor="@color/black"
+		  android:text=":"
+		  android:layout_marginLeft="10dp"
+		  android:textSize="48sp"/>
+	 
+	 <EditText
+		  android:id="@+id/bt_addr_5"
+		  style="@style/editTextStyle"
+		  android:digits="0123456789ABCDEF"
+		  android:nextFocusDown="@+id/bt_addr_6"
+		  android:inputType="textCapCharacters"
+		  android:layout_width="70dp"
+		  android:layout_height="match_parent"
+		  android:hint="00"
+		  android:maxLines="1"
+		  android:maxLength="2"
+		  android:singleLine="true"
+		  android:textSize="48sp"
+		  android:textColor="@color/black"
+		  android:text=""
+		  android:padding="5dp"
+		  android:textColorHint="@color/lt_gray"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:gravity="center"
+		  android:textColor="@color/black"
+		  android:text=":"
+		  android:layout_marginLeft="10dp"
+		  android:textSize="48sp"/>
+	 
+	 <EditText
+		  android:id="@+id/bt_addr_6"
+		  style="@style/editTextStyle"
+		  android:digits="0123456789ABCDEF"
+		  android:inputType="textCapCharacters"
+		  android:layout_width="70dp"
+		  android:imeOptions="actionDone"
+		  android:layout_height="match_parent"
+		  android:hint="00"
+		  android:maxLines="1"
+		  android:maxLength="2"
+		  android:singleLine="true"
+		  android:textSize="48sp"
+		  android:textColor="@color/black"
+		  android:text=""
+		  android:padding="5dp"
+		  android:textColorHint="@color/lt_gray"/>
+	 
+	 <LinearLayout
+		  android:orientation="vertical"
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:padding="1dp"
+		  android:background="@color/transparent">
+		
+      <cloud.multipos.pos.views.PosButton
+			 android:id="@+id/scanner_setup_settings"
+			 android:clickable="true"
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:background="@color/transparent"
+			 android:gravity="center"
+			 android:textColor="@color/black"
+			 android:text="@string/fa_settings"
+			 android:layout_marginLeft="20dp"
+			 android:textSize="60sp"/>
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="wrap_content"
+			 android:layout_height="wrap_content"
+			 android:background="@color/transparent"
+			 android:gravity="center"
+			 android:textColor="@color/black"
+			 android:text="@string/bluetooth_settings"
+			 android:layout_marginLeft="10dp"
+			 android:textSize="14sp"/>
+
+	 </LinearLayout>
+	 
+  </LinearLayout>
+  
+</LinearLayout>
