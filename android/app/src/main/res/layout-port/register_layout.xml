@@ -21,7 +21,7 @@
       android:inputType="text"
       android:maxLines="1"
       android:singleLine="true"
-      android:text="multipos"
+      android:text=""
       android:textSize="@dimen/register_md_text"
       android:textColor="@color/white"
 		android:textColorHint="@color/lt_gray"/>
@@ -38,7 +38,7 @@
       android:inputType="textPassword"
       android:maxLines="1"
       android:singleLine="true"
-      android:text="eklutna"
+      android:text=""
       android:textSize="@dimen/register_md_text"
       android:textColor="@color/white"
       android:textColorHint="@color/lt_gray"/>
