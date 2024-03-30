@@ -55,7 +55,7 @@ This project is an Andoid POS application integrated with a cloud based back for
 - PAX A920
 - PAX Q series payment terminals
 
-## Date
+## Data
 - Items
 - Departments
 - Employees
@@ -78,4 +78,18 @@ Once installed you will be prompted for android.permission.CAMERA (the integrate
 - Handheld is just that, a handheld version with three tabs, a POS tab (line busting), an inventory tab, walk around the store scan an item and update inventory and an item entry tab to add/edit items in the store. This configuration also includes an android cammera scanner... more
 
 ### See the configs directory for more information.
+
+## Back Office
+
+Go to https://multipos.cloud and log in using the same credentials that you used for the POS, multipos and eklutna.
+
+The basic reporting and maintenance includes...
+
+- Sales summary, a summary of the current weeks sales
+- Item history, sales by itm
+- Hourly sales, net sales by day/hour
+- Transactions, indidvidual transaction detail
+- Store Ops, maintenance for items, departments, etc.
+- POS menus, edit configurations and menus
+- Account, store location information
 
