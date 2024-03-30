@@ -4,9 +4,3 @@ build
 release
 .depricated
 makefile
-executionHistory.bin
-executionHistory.lock
-fileHashes.bin
-fileHashes.lock
-buildOutputCleanup.lock
-
