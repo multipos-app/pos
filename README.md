@@ -71,7 +71,7 @@ User can set size and number of buttons per page, text and color, unlimited sub-
 # Getting started
 This is a basic Android app with all the pieces you need to build you own POS application (assuming you have an Android dev enviroment installed). Clone the repository, cd to pos/android and type ./gradlew tasks, then ./gradlew assemble or .gradlew installDebug. Or import into android studio and build. How you get the resulting apk onto a device is up to you.
 
-Once installed you will be prompted for android.permission.CAMERA (the integrated scanner uses the back camera). After that you are presented with a log in screen. For your convience there is a demo configuration ready to use, at the prompt type username 'multipos', password 'eklutna'. After you log in you are promted for a location (store) and a configuration.
+Once installed you will be prompted for android.permission.CAMERA (the integrated scanner uses the back camera). After that you are presented with a log in screen. For your convience there is a demo configuration ready to use, at the prompt type username 'multipos', password 'eklutna'. After you log in you are prompted for a location (store) and a configuration.
 
 ### Note: the demo database has around 2000 items so the initial load can take 5-10+ minutes.
 
