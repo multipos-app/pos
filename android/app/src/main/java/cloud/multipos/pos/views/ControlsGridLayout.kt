@@ -185,13 +185,21 @@ class ControlsGridLayout (val menu: Jar,
 					 
 					 color = "#222222"
 				}
-
 				
+				var colorVal = Color.DKGRAY
 				when (menu.getString ("style")) {
 
 					 "solid" -> {
 
-						  val colorVal = Color.parseColor (color)
+						  try {
+
+								colorVal = Color.parseColor (color)
+						  }
+						  catch (e: Exception) {
+								
+								Logger.w ("error parsing color... " + e + " " + jar)
+						  }
+						  
 						  val states = Array (1, {intArrayOf (-android.R.attr.state_focused)})
 						  val colors = intArrayOf (colorVal, colorVal, colorVal)
 						  val csl = ColorStateList (states, colors)
@@ -203,7 +211,16 @@ class ControlsGridLayout (val menu: Jar,
 						  // lighten the color
 
 						  color = color.replace ("#", "#30")
-						  val colorVal = Color.parseColor (color)
+						  
+						  try {
+								
+								colorVal = Color.parseColor (color)
+						  }
+						  catch (e: Exception) {
+								
+								Logger.w ("error parsing color... " + e + " " + jar)
+						  }
+						  
 						  button.strokeColor = ColorStateList.valueOf (colorVal)
 						  val states = Array (1, {intArrayOf (-android.R.attr.state_focused)})
 						  val colors = intArrayOf (colorVal, colorVal, colorVal)
