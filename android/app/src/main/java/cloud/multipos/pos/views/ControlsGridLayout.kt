@@ -239,8 +239,8 @@ class ControlsGridLayout (val menu: Jar,
 	 inner class EmptyButton (): LinearLayout (Pos.app.activity) {
 		  
 		  init {
-				
-	 			setBackgroundResource (R.drawable.empty_button)
+								
+	 			setBackgroundResource (R.color.transparent)
 				var layoutParams = GridLayout.LayoutParams (GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f),
 																		  GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f))
 				layoutParams.height = 0
