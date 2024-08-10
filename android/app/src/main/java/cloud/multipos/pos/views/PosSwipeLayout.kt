@@ -36,9 +36,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.View.OnTouchListener
 import android.view.MotionEvent
 
-import java.util.ArrayList
-
-abstract class PosSwipeLayout (context: Context, attrs: AttributeSet?): PosLayout (context, attrs), OnTouchListener {
+abstract class PosSwipeLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs), OnTouchListener {
 	 
 	 var dir = Gravity.START
 	 var edge = Gravity.START
@@ -107,19 +105,41 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet?): PosLayou
 
 					 return true
 				}
+
+				if (Math.abs (distanceY) > Math.abs (distanceX) &&
+					 Math.abs (distanceY) > SWIPE_DISTANCE_THRESHOLD &&
+					 Math.abs (velocityY) > SWIPE_VELOCITY_THRESHOLD) {
 					 
+                if (distanceY > 0) {
+						  
+						  swipeDown ()
+					 }
+                else {
+						  
+						  swipeUp ()
+					 }
+					 return true
+				}
+				
             return false
         }
     }
 
 	 fun swipe (next: PosLayout) {
+
+		  removeAllViews ()
+		  addView (next)
 		  
-        val scene = Scene (swiper, next)
-        val slide = Slide (dir)
-        slide.setMode (Fade.MODE_IN)
-        val transition = slide
-        transition.setDuration (500)
-        TransitionManager.go (scene, transition)
-        clearAnimation ()
+        // val scene = Scene (swiper, next)
+
+        // // val slide = Slide (dir)
+        // // slide.setMode (Fade.MODE_IN)
+		  
+        // val slide = Fade (Fade.MODE_IN)
+		  
+        // val transition = slide
+        // transition.setDuration (500)
+        // TransitionManager.go (scene, transition)
+        // clearAnimation ()
 	 }
 }

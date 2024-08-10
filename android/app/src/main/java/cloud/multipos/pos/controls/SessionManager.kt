@@ -26,6 +26,7 @@ import cloud.multipos.pos.services.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ReportView
+import cloud.multipos.pos.net.Upload
 
 import android.app.Dialog
 import android.os.Handler
@@ -467,7 +468,9 @@ open class SessionManager (): CompleteTicket () {
 		  
 		  // queue ticket for upload
 		  
-		  Pos.app.cloudService.upload (Pos.app.ticket, 0)
+		  Upload ()
+				.add (Pos.app.ticket)
+				.exec ()
 
 		  // start a new ticket
 		  

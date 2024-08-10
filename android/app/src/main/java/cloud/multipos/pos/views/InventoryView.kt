@@ -22,7 +22,7 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.models.*
-import cloud.multipos.pos.services.*
+import cloud.multipos.pos.net.Post
 import cloud.multipos.pos.devices.ScanListener
 
 import android.view.Gravity
@@ -33,7 +33,7 @@ import android.widget.TextView
 import android.widget.LinearLayout
 import java.util.Date
 
-class InventoryView (jar: Jar): PosLayout (Pos.app), ScanListener, SwipeListener {
+class InventoryView (jar: Jar): DialogView (""), ScanListener, SwipeListener {
 	 
 	 var scanner: CameraScanner
 	 var scanItemDesc: TextView
@@ -93,14 +93,16 @@ class InventoryView (jar: Jar): PosLayout (Pos.app), ScanListener, SwipeListener
 											.put ("item_id", itemID)
 											.put ("business_unit_id", Pos.app.buID ())
 											.put ("on_hand_count", count))
+					 val jar = Jar ()
+						  .put ("updates", updates)
 					 
-					 Cloud ()
-						  .add ("updates", updates)
-						  .post (listOf ("pos", "inventory-updates"), fun (result: Jar): Unit {
+					 Post ("pos/inventory-updates")
+						  .add (jar)
+						  .exec (fun (result: Jar): Unit {
 						  })
 				}
 		  }
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
 	 }
 
 	 	 /**
@@ -130,16 +132,16 @@ class InventoryView (jar: Jar): PosLayout (Pos.app), ScanListener, SwipeListener
 				itemID = im.getInt ("id")
 				scanItemDesc.text = im.item.getString ("item_desc")
 				itemDesc.text = im.item.getString ("item_desc")
-									 
-				Cloud ()
-					 .add ("inv_item", Jar ()
+				
+				Post ("pos/inventory-count")
+					 .add (Jar ()
 								  .put ("dbname", Pos.app.dbname ())
 								  .put ("business_unit_id", Pos.app.buID ())
 							 	  .put ("item_id", itemID))
-					 .post (listOf ("pos", "inventory-count"), fun (result: Jar): Unit {
-
+					 .exec (fun (result: Jar): Unit {
+									
 									if (result.getInt ("status") == 0) {
-
+										 
 										 serverCount.text = result.getInt ("inv_count").toString ()
 									}
 					 })

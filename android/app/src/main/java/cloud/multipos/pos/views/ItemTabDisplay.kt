@@ -23,7 +23,7 @@ import cloud.multipos.pos.db.*
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.devices.ScanListener
-import cloud.multipos.pos.services.Cloud
+import cloud.multipos.pos.net.Post
 
 import android.content.Context
 import android.util.AttributeSet
@@ -141,9 +141,9 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 						  .put ("inv_item_id", item.get ("inv_items").getInt ("id"))
 				}
 				
-				Cloud ()
-					 .add ("item", p)
-					 .post (listOf ("pos", "pos-item-update"), fun (result: Jar): Unit {
+				Post ("pos/pos-item-update")
+					 .add (p)
+					 .exec (fun (result: Jar): Unit {
 																		
 									if (result.getInt ("status") == 0) {
 

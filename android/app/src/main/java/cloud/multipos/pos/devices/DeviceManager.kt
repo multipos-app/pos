@@ -55,7 +55,6 @@ abstract class DeviceManager (): Device {
 		  @JvmField var scanner: Scanner? = null
 		  @JvmField var payment: Payment? = null
 		  @JvmField var scales: Scales? = null
-		  @JvmField var screenCapture: ScreenCapture? = null
 
 		  var started = false
 		  

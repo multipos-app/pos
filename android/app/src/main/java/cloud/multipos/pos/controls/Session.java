@@ -26,6 +26,7 @@ import cloud.multipos.pos.services.*;
 import cloud.multipos.pos.views.ConfirmView;
 import cloud.multipos.pos.devices.*;
 import cloud.multipos.pos.views.PosDisplays;
+import cloud.multipos.pos.net.Upload;
 
 import android.app.Dialog;
 import java.util.Date;
@@ -409,7 +410,10 @@ public abstract class Session extends CompleteTicket {
 											  " where id = " + Pos.app.ticket.getLong ("id"));
 				
 				// Pos.app.printerService ().q (PosConst.PRINTER_REPORT, Pos.app.ticket, null);
-				Pos.app.cloudService.upload (Pos.app.ticket, 0);
+				
+				new Upload ()
+					 .add (Pos.app.ticket)
+					 .exec ();
 		  }
 	 }
 

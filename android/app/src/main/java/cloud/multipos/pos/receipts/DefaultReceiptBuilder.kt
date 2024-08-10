@@ -29,7 +29,7 @@ import android.os.Build
 open class DefaultReceiptBuilder (): ReceiptBuilder () {
 
 	 val bu = Pos.app.config.get ("business_unit") as Jar
-	 val buParams = Pos.app.config.get ("business_unit").get ("jar") as Jar
+	 val params = Pos.app.config.get ("business_unit").get ("params") as Jar
 	 val receiptUtils = ReceiptUtils (Pos.app.activity)
 	 var sep = "*" // "─"
 	 val dateTimeFormat = "EEE d MMM yyyy HH:mm"
@@ -106,13 +106,13 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 	 }
 	 
 	 override fun header (): ReceiptBuilder {
-
+		  
 		  val header = arrayListOf <Jar> ()
 		  var ticketType = ""
 		  
-		  if (buParams.has ("receipt_header")) {
+		  if (params.has ("receipt_header")) {
 
-				add (buParams.getList ("receipt_header"))
+				add (params.getList ("receipt_header"))
 		  }
 		  else {
 				
@@ -393,6 +393,12 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 
 		  var dateFormat = SimpleDateFormat (dateTimeFormat, locale ())
 
+		  
+		  if (params.has ("receipt_footer")) {
+				
+				add (params.getList ("receipt_footer"))
+		  }
+		  
 		  printCommands
 				.add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (receiptUtils.tag (ticket)))
 				.add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (dateFormat.format (Date ())))

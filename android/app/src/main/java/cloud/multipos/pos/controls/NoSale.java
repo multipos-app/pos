@@ -23,6 +23,7 @@ import cloud.multipos.pos.db.DB;
 import cloud.multipos.pos.views.PosDisplays;
 import cloud.multipos.pos.views.PosMenus;
 import cloud.multipos.pos.devices.*;
+import cloud.multipos.pos.net.Upload;
 
 import java.util.Date;
 
@@ -47,7 +48,10 @@ public class NoSale extends Control {
 										 "state = " + Ticket.COMPLETE + " " +
 										 "where id = " + Pos.app.ticket.getInt ("id"));
 
-		  Pos.app.cloudService.upload (Pos.app.ticket, 0);
+		  new Upload ()
+				.add (Pos.app.ticket)
+				.exec ();
+		  
 		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler);
 		  DeviceManager.printer.drawer ();
 

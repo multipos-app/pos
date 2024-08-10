@@ -38,26 +38,40 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 		  val grid = findViewById (R.id.tender_detail) as GridLayout
 		  
 		  grid.addView (TenderLine (Pos.app.getString ("total"), tender.total, R.layout.tender_detail))
-		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.paymentTendered, R.layout.tender_detail))
 
 		  if (tender.paid > 0) {
 				
 		  		grid.addView (TenderLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_detail))
 		  }
+		  
+		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_detail_lg))
 
 		  if (tender.returned > 0) {
 				
 				grid.addView (TenderLine (Pos.app.getString ("change_due"), tender.returned, R.layout.tender_detail))
 		  }
-		  else if (tender.balance > 0) {
+		  
+		  if (tender.balance > 0) {
 				
-		  		grid.addView (TenderLine (Pos.app.getString ("balance_due"), tender.balance, R.layout.tender_detail))
+		  		grid.addView (TenderLine (Pos.app.getString ("balance_due"), tender.balance, R.layout.tender_detail_lg))
+		  } 
+		  else if (tender.returned > 0) {
+				
+		  		grid.addView (TenderLine (Pos.app.getString ("change"), tender.returned, R.layout.tender_detail_lg))
 		  }
-		  		  
-		  Pos.app.controlLayout.load (this)
+
+		  Pos.app.controlLayout.push (this)
 	 }
 
+	 
 	 override fun accept () {
+		  
+		  // if (tender.balance <= 0) {
+
+		  // 		Pos.app.controlLayout.pop (this)
+		  // }
+
+		  Pos.app.controlLayout.pop (this)
 		  
 		  tender
 				.confirmed (true)

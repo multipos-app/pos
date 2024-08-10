@@ -1,3 +1,4 @@
+
 // apply plugin: 'com.android.application'
 // apply plugin: 'com.google.gms.google-services'
 
@@ -18,7 +19,7 @@ android {
         minSdkVersion 22   // for the e800 23, need level 24 to get camera/fmpeg to work on some tablets
         targetSdkVersion 28
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionCode 80
+        versionCode 82
         versionName "1.0"
     }
 

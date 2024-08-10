@@ -19,7 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.services.*
+import cloud.multipos.pos.net.BackOffice
 
 import android.content.Context
 import android.util.AttributeSet
@@ -42,8 +42,7 @@ class PosDownload (context: Context, attrs: AttributeSet): PosLayout (context, a
         progressText = findViewById (R.id.progress_text) as TextView
 		  
 		  val handler = DownloadHandler ()
-		  Pos.app.cloudService.online (true)
-		  Downloads.start (handler)
+		  BackOffice.start (handler)
 	 }
 
 	 inner class DownloadHandler (): Handler () {
@@ -53,8 +52,8 @@ class PosDownload (context: Context, attrs: AttributeSet): PosLayout (context, a
 				if (message?.obj != null) {
 					
 					 var pu = message.obj as ProgressUpdate
-
-					 if (pu.progress () >= pu.max ()) {
+					 
+					 if (pu.count () == 0) {
 						  
 						  Pos.app.start ()
 						  return

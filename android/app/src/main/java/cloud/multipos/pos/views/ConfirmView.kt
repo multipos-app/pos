@@ -32,12 +32,13 @@ class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl):
 	  
 		  val text = findViewById (R.id.confirm_text) as PosText
 		  text.setText (confirmText)
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
 	 }
 
 	 override fun accept () {
 
 		  confirmControl.confirmed (true)
 		  confirmControl.action (null)
+		  Pos.app.controlLayout.pop (this)
 	 }
 }

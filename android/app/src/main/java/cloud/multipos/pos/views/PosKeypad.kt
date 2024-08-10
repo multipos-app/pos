@@ -78,7 +78,6 @@ class PosKeypad (context: Context, attrs: AttributeSet): PosLayout (context, att
 						  }
 
 						  PosDisplays.enter ()
-						  
 						  Pos.app.input.clear ()
 					 }
 				}

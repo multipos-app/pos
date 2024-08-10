@@ -31,8 +31,8 @@
       android:background="@drawable/pos_input"
       android:gravity="center_vertical|center_horizontal"
       android:textColor="@color/black"
-     android:textSize="@dimen/dialog_xlg_text"
+		android:textSize="@dimen/dialog_xlg_text"
 		android:layout_margin="@dimen/dialog_lg_margin"
  		app:layout_constraintTop_toBottomOf="@+id/number_input_prompt"/>
- 
+  
 </androidx.constraintlayout.widget.ConstraintLayout>

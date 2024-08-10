@@ -29,7 +29,7 @@ import android.widget.Button;
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 
-class CashManagementView (sessionManager: SessionManager): PosLayout (Pos.app, null) {
+class CashManagementView (sessionManager: SessionManager): DialogView ("") {
 	 	 
 	 private lateinit var cashManagementContent: ViewGroup
 	 private var currentView: View?
@@ -45,7 +45,7 @@ class CashManagementView (sessionManager: SessionManager): PosLayout (Pos.app, n
 		  
 		  replaceView (CashManagementCount (sessionManager, this))
 		  
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
   
 	 }
 

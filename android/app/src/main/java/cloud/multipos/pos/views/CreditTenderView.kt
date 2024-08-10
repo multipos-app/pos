@@ -49,7 +49,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 
 		  grid.addView (TenderLine (Pos.app.getString ("sale_total"), total, R.layout.tender_dialog_detail))
 
-		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.paymentTendered, R.layout.tender_dialog_detail))
+		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_dialog_detail))
 
 		  if (tender.fees > 0.0) {
 
@@ -73,9 +73,9 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 				grid.addView (TenderLine (Pos.app.getString ("change_due"), tender.returned, R.layout.tender_dialog_detail))
 		  }
 				
-		  grid.addView (TenderLine (Pos.app.getString ("auth_amount"), tender.paymentTendered + tender.fees (), R.layout.tender_dialog_detail_lg))
+		  grid.addView (TenderLine (Pos.app.getString ("auth_amount"), tender.tendered + tender.fees (), R.layout.tender_dialog_detail_lg))
 		  
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
 	 }
 
 	 override fun accept () {

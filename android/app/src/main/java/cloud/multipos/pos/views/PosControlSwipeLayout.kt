@@ -24,67 +24,92 @@ import android.util.AttributeSet
 import android.view.View
 import android.view.Gravity
 
-open class PosControlSwipeLayout (context: Context, attrs: AttributeSet?): PosSwipeLayout (context, attrs) {
+open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwipeLayout (context, attrs) {
 
-	 lateinit var next: PosLayout
-	 lateinit var prev: PosLayout
-	 var canSwipe = false
-	 
 	 val listeners = mutableListOf <SwipeListener> ()
+	 val dialogs = mutableListOf <DialogView> ()
+	 val MAX_DIALOGS = 10
 	 
 	 init {
 
 		  Pos.app.controlLayout = this
 	 }
 
-	 fun load (layout: PosLayout) {
-
-		  next = layout
-		  prev = next
-		  canSwipe = true
+	 fun push (dialog: DialogView) {
+		  
+		  dialogs.add (0, dialog)
 		  swipeLeft ()
-		  listeners.add (layout as SwipeListener)
+
+		  if (dialog is SwipeListener) {
+				
+				listeners.add (dialog as SwipeListener)
+		  }
+
+		  if (dialogs.size == MAX_DIALOGS) {
+
+				dialogs.removeAt (MAX_DIALOGS - 1)
+		  }
 	 }
 	 
-	 fun unload (layout: PosLayout) {
+	 fun pop (dialog: DialogView) {
 		  
-		  if (listeners.contains (layout)) {
+		  swipeRight ()
+
+		  if (!dialog.sticky ()) {
+
+				dialogs.remove (dialog)
+		  }
+		  
+		  if (listeners.contains (dialog)) {
 				
-				PosDisplays.remove (layout as PosDisplay)
-				listeners.remove (layout)
+				listeners.remove (dialog)
 		  }
 	 }
 	 
 	 override fun swipeLeft () {
-		  
-		  if (canSwipe) {
+		  					 
+		  if (dialogs.size > 0) {
 				
 				swiper = this
 				dir = Gravity.END
 				edge = Gravity.START
- 				swipe (next)
+ 				swipe (dialogs [0])
 				notifyListeners (SwipeDir.Left)
+		  }
+		  else {
+
+				Logger.w ("wha... no dialgos...")
 		  }
 	 }
 
 	 override fun swipeRight () {
-		  		  
-		  swiper = this
+		  
 		  dir = Gravity.START
 		  edge = Gravity.END
 		  swipe (Pos.app.controlHomeLayout)
 		  notifyListeners (SwipeDir.Right)
-	 }
-	 
-	 override fun swipeUp () { Logger.d ("pos control swipe up... ") }
-	 override fun swipeDown () { Logger.d ("pos control swipe down... ") }
 
-	 fun notifyListeners (dir: SwipeDir) {
-		  
-		  for (swipe in listeners) {
-				
-				swipe.onSwipe (dir)
+		  if ((dialogs.size > 0) && !dialogs [0].sticky ()) {
+
+				dialogs.removeAt (0);
 		  }
 	 }
 	 
+	 override fun swipeUp () {
+
+		  notifyListeners (SwipeDir.Up)
+	 }
+
+	 override fun swipeDown () {
+
+		  notifyListeners (SwipeDir.Down)
+	 }
+
+	 fun notifyListeners (dir: SwipeDir) {
+		  
+		  for (listener in listeners) {
+
+				listener.onSwipe (dir)
+		  }
+	 }
 }

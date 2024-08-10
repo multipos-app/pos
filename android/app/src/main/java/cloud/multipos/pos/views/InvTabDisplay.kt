@@ -23,7 +23,7 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.devices.ScanListener
 import cloud.multipos.pos.models.Item
-import cloud.multipos.pos.services.Cloud
+import cloud.multipos.pos.net.Post
 
 import android.content.Context
 import android.util.AttributeSet
@@ -80,10 +80,13 @@ class InvTabDisplay (context: Context, attrs: AttributeSet, val scanDisplay: Han
 											.put ("on_hand_count", value.getInt ("on_hand_count")))
 				}
 
+				val jar = Jar ()
+					 .put ("updates", updates)
+				
 				val post = 
-				Cloud ()
-					 .add ("updates", updates)
-					 .post (listOf ("pos", "inventory-updates"), fun (result: Jar): Unit {
+				Post ("pos/inventory-updates")
+					 .add (jar)
+					 .exec (fun (result: Jar): Unit {
 									
 									itemSkus.clear ()
 									invItems.clear ()
@@ -125,19 +128,20 @@ class InvTabDisplay (context: Context, attrs: AttributeSet, val scanDisplay: Han
 					 itemSkus.add (scan)  // stop double scans
 					 curr = scan
 					 
-					 Cloud ().post (listOf ("pos", "inventory", im.item.getString ("id")), fun (p: Jar): Unit {
+					 Post ("pos/inventory/${im.item.getString ("id")}")
+						  .exec (fun (p: Jar): Unit {
+										 
+										 if (p.getInt ("status") == 0) {
 											  
-											  if (p.getInt ("status") == 0) {
-																										
-													im.item.put ("on_hand_quantity", p.getInt ("inv_count"))
-													im.item.put ("on_hand_count", p.getInt ("inv_count"))
-													im.item.put ("inv_item_id", p.getInt ("id"))
-											  }
-											  											  
-											  list ().add (im.item)
-											  redraw ()
-											  invItems.put (scan, im.item);
-					 })
+											  im.item.put ("on_hand_quantity", p.getInt ("inv_count"))
+											  im.item.put ("on_hand_count", p.getInt ("inv_count"))
+											  im.item.put ("inv_item_id", p.getInt ("id"))
+										 }
+										 
+										 list ().add (im.item)
+										 redraw ()
+										 invItems.put (scan, im.item);
+						  })
 				}
 				else {
 

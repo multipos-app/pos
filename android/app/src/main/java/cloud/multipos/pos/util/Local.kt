@@ -34,6 +34,7 @@ class Local () {
 		  
 		  prefs = Pos.app.activity.getPreferences (Context.MODE_PRIVATE)
 		  initNetwork ()
+		  dump ()
 	 }
 	 
 	 public fun put (key: String, value: String): Local {
@@ -145,5 +146,13 @@ class Local () {
 	 fun ByteArray.toMacString () = joinToString (":") {
 		  
 		  "%02x".format (it)
+	 }
+
+	 fun dump () {
+		  
+		  for (m in prefs.getAll ()) {
+				
+				Logger.d ("local... " + m)
+		  }
 	 }
 }

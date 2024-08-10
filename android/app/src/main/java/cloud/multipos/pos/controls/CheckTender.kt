@@ -23,10 +23,19 @@ import cloud.multipos.pos.models.TicketTender
 class CheckTender (): Tender (null) {
 
 	 init {
+		  
+		 tenderType = "check"
 	 }
 	 
-	 override fun tenderType (): String { return "check" }
-	 override fun tenderDesc (): String { return "check" } 
-	 override fun openDrawer (): Boolean { return  jar ().getBoolean ("open_drawer") }
+	 override fun controlAction (jar: Jar) {
+		  
+		  jar (jar)
+		  super.controlAction (jar)
+	 }
+	 	 
+	 override fun tenderDesc (): String { return tenderType }
+	 override fun tenderType (): String { return tenderType }
+	 override fun openDrawer (): Boolean { return true }
 	 override fun printReceipt (): Boolean { return jar ().getBoolean ("print_receipt") }
+
 }

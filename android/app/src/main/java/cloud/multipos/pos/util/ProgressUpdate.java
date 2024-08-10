@@ -18,15 +18,23 @@ package cloud.multipos.pos.util;
 
 public class ProgressUpdate {
 
-	 public ProgressUpdate (int progress, int max) {
+	 public ProgressUpdate (int progress, int max, int count) {
 
 		  this.progress = progress;
 		  this.max = max;
+		  this.count = count;
+	 }
+
+	 public String toString () {
+
+		  return "progress update... " + progress + " " + max + " " + count;
 	 }
 	 
 	 private int progress;
 	 private int max;
+	 private int count;
 
 	 public int progress () { return progress; }
 	 public int max () { return max; }
+	 public int count () { return count; }
 }

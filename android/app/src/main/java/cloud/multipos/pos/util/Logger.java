@@ -25,38 +25,30 @@ import org.json.JSONException;
 public class Logger  {
 
 	 public static void d (String text) {
-		  
-		  //if (BuildConfig.DEBUG) {
-				
-				String tmp = text;
-				if (tmp.length () > LINE_MAX) {
+		  				
+		  String tmp = text;
+		  if (tmp.length () > LINE_MAX) {
 
-					 int pos = 0;
-					 while (pos < tmp.length ()) {
+				int pos = 0;
+				while (pos < tmp.length ()) {
 
 					 
-						  int len = LINE_MAX;
-						  if ((pos + len) >= tmp.length ()) {
-								Log.d (TAG, "[DEBUG]: " + tmp.substring (pos, tmp.length ()));
-								return;
-						  }
-						  else {
-								Log.d (TAG, "[DEBUG]: " + tmp.substring (pos, pos + len));
-								pos += len;
-						  }
-					 
-					 
+					 int len = LINE_MAX;
+					 if ((pos + len) >= tmp.length ()) {
+						  Log.d (TAG, "[DEBUG]: " + tmp.substring (pos, tmp.length ()));
+						  return;
 					 }
-					 return;
+					 else {
+						  Log.d (TAG, "[DEBUG]: " + tmp.substring (pos, pos + len));
+						  pos += len;
+					 }
+					 
+					 
 				}
+				return;
+		  }
 		  
-				Log.d (TAG, "[DEBUG]: " + tmp);
-		  
-				if ((Pos.app != null) && (Pos.app.cloudService != null) && Pos.app.serverLog) {
-				
-					 Pos.app.cloudService.serverLog (tmp);
-				}
-				//}
+		  Log.d (TAG, "[DEBUG]: " + tmp);
 	 }
 
 	 public static void d (Jar e) {
@@ -93,7 +85,6 @@ public class Logger  {
 	 
 	 public static void s (String text) {
 
-		  Pos.app.cloudService.serverLog (text);
 		  Log.d (TAG, "[DEBUG]: " + text);
 	 }
 	 

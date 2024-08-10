@@ -83,34 +83,8 @@ public class FileUtils {
             }
 				
 				FileUtils.save (fname, result.toString ());
-				Pos.app.cloudService.upload (fname);
-
         }
 		  catch (IOException e) {
         }
-    }
-
-	 public static void pipe (String command) {
-			  
-		  new Thread (() -> {
-						 
-					 try {
-
-						  Logger.d ("pipe... " + command);
-						  Process process = Runtime.getRuntime ().exec (command);
-							  
-						  BufferedReader reader = new BufferedReader (new InputStreamReader (process.getInputStream ()));
-						  StringBuilder result = new StringBuilder ();
-						  String line = null;
-							  
-						  while ((line = reader.readLine ()) != null) {
-									
-								Pos.app.cloudService.serverLog (line);
-								Logger.d (line);
-						  }
-					 }
-					 catch (IOException e) { }
-						 
-		  }).start ();
     }
 }

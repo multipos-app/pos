@@ -25,15 +25,17 @@ import cloud.multipos.pos.addons.*
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.DeviceManager
 
-open class DefaultItem (): FirstItem () {
+open class DefaultItem (): FirstItem (), InputListener {
 
 	 var firstItem: Boolean = false
 	 var quantity = 1
 	 lateinit var item: Item
+	 lateinit var pricing: Pricing
 	 var ticketItem = TicketItem ()
 	 	 
 	 override fun controlAction (jar: Jar) {
 		  
+		  Pos.app.controlLayout.swipeRight ()
 		  var sku = ""
 		  
 		  jar (jar)
@@ -80,9 +82,9 @@ open class DefaultItem (): FirstItem () {
 		  }
 		  
 		  item = Item (jar ())
-
+		  
 		  if (item.exists ()) {
-				
+								
 				firstItem = false
 
 				if (Pos.app.ticket.has ("items")) {
@@ -184,25 +186,16 @@ open class DefaultItem (): FirstItem () {
 				}
 
 				// get the amount for this item
-
-				val pricing = Pricing.factory (item.getString ("class"))
+				
+				pricing = Pricing.factory (item.getString ("class"))
 				if (pricing.apply (this)) {
 					 
-					 Pos.app.controls.push (this)
-					 return;
-				}
-				
-
-				// comment item
-				
-				if (item.getInt ("department_type") == Department.COMMENT) {
-					 
-					 Pos.app.ticket.other.add (Jar ().put ("comment", ticketItem.getString ("item_desc")))
+					 // Pos.app.controls.push (this)
 				}
 		  }
 		  else {
 
-				Logger.d ("item not found... ${jar}")
+				Logger.w ("item not found... ${jar}")
 		  }
 	 }
 
@@ -327,5 +320,8 @@ open class DefaultItem (): FirstItem () {
 				
 				return Pos.app.config.getBoolean ("merge_like_items")
 		  }
+	 }
+	 
+	 override fun accept (jar: Jar) {
 	 }
 }

@@ -151,10 +151,21 @@ class StarPrinter () : Printer () {
 		  
         Logger.d ("star connect complete... ")
     }
+	 
+	 override fun drawer () {
+
+		  Logger.d ("star printer drawer... ")
+
+		  	 val printCommands = PrintCommands ()
+			 printCommands
+				  .add (PrintCommand.getInstance ().directive (PrintCommand.OPEN_DRAWER))
+			 
+			 queue (printCommands)
+
+	 }
 
 	 override fun print (title: String, report: String, ticket: Ticket) { }
 	 override fun print (ticket: Ticket, type: Int) { }
-	 override fun drawer () { }
 	 override fun qrcode (): Boolean { return true }
 	 override fun barcode (): Boolean { return true }
 
@@ -171,7 +182,6 @@ class StarPrinter () : Printer () {
 		  
         if (jobs.size > 0) {
 				
-            Logger.d ("star dequeue... ")
 				printCommands (jobs.removeAt (0))
         }
     }
@@ -180,9 +190,7 @@ class StarPrinter () : Printer () {
     }
 
     fun printCommands (builders: List <ICommandBuilder>) {
-		  
- 		  Logger.d ("star io port... " + starIOPort)
-		  
+		  		  
         if (starIOPort == null) {
 				
             Logger.d ("star thread, void port...")

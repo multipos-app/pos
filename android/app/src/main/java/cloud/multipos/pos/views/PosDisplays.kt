@@ -101,9 +101,6 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 				
 					 display.message (m)
 				}
-		  
-				// if (DeviceManager.videoCapture != null) {
-				// }
 		  }
 	 
 		  @JvmStatic
@@ -117,7 +114,7 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 		  
 		  @JvmStatic
 		  fun update () {
-		  
+				
 				for (display in displays) {
 					 
 					 display.update ()
@@ -129,7 +126,6 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 		  
 				for (display in displays) {
 
-					 Logger.d ("pos displays enter... " + display)
 					 display.enter ()
 				}
 		  }

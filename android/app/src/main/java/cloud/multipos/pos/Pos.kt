@@ -20,6 +20,7 @@ import cloud.multipos.pos.db.*
 import cloud.multipos.pos.views.*
 import cloud.multipos.pos.controls.*
 
+import cloud.multipos.pos.net.*
 import cloud.multipos.pos.services.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.receipts.*
@@ -40,6 +41,7 @@ import android.content.Intent
 import android.content.BroadcastReceiver
 import android.view.View
 import android.view.LayoutInflater
+import android.widget.LinearLayout
 import android.content.res.Resources
 import android.os.Handler
 import android.os.Message
@@ -64,13 +66,10 @@ class Pos (): AppCompatActivity () {
 	 
 	 @JvmField var db: DB
 	 
-	 lateinit var mqttClient: MqttClient
 	 lateinit var rootView: View
-	 lateinit var cloudService: CloudService
 	 lateinit var config: Config
 	 lateinit var bu: Jar
 	 lateinit var local: Local
-	 lateinit var posConnect: PosConnectService
 	 lateinit var input: Input
 	 lateinit var posSession: PosSession
 	 lateinit var totalsService: TotalsService
@@ -80,7 +79,10 @@ class Pos (): AppCompatActivity () {
     lateinit var posAppBar: PosAppBar
     lateinit var controlLayout: PosControlSwipeLayout
     lateinit var controlHomeLayout: PosControlHomeLayout
-	 
+    lateinit var dialogView: DialogView
+	 lateinit var posInit: Jar
+	 lateinit var overlay: LinearLayout
+
 	 var posMenus = mutableListOf <PosMenus> ()
 
 	 // default locale
@@ -144,7 +146,6 @@ class Pos (): AppCompatActivity () {
 				config = Config ()
 				input = Input ()
 				local = Local ()
-				cloudService = CloudService ()
 		  }
 		  else {
 				
@@ -166,6 +167,10 @@ class Pos (): AppCompatActivity () {
 				db.open ()
 		  }
 		  
+		  // start a download thread
+		  
+		  BackOffice.start ()
+
 		  start ()  // start the app
 	 }
 	 
@@ -193,13 +198,6 @@ class Pos (): AppCompatActivity () {
 
 		  when (requestCode) {
 
-				ScreenCapture.INIT-> {
-
-					 val m = Message.obtain ()
-					 m.what = ScreenCapture.INIT
-					 m.obj = ScreenInit (resultCode, intent)
-					 DeviceManager.screenCapture?.screenHandler?.sendMessage (m)
-				}
 		  }
     }
 
@@ -239,21 +237,12 @@ class Pos (): AppCompatActivity () {
 
 				// start services
 				
-				mqttClient = MqttClient ()
 				posSession = PosSession ()
 				totalsService = TotalsService.factory ()
-
-				// start a download thread
-
-				Downloads.start ()
 		  
 				// attach/start devices
 		  
 				DeviceManager.start ("devices")
-				
-				// subscribe to BU broker
-				
-				mqttClient.connect ("multipos/" + config.getString ("dbname"))
 
 				receiptBuilder = DefaultReceiptBuilder ()
 				when (config.getString ("receipt_class")) {
@@ -264,25 +253,33 @@ class Pos (): AppCompatActivity () {
 				
 				ticket ()  // get a ticket
 				setContentView (R.layout.login_main)
+
+				BackOffice.download ()
 		  }
 		  else {
 
 				setContentView (R.layout.register)
+				overlay = findViewById (R.id.register_overlay) as LinearLayout
 		  }
 	 }
 
-	 fun setup () {
-		  
-		  setContentView (R.layout.pos_setup)
+	 fun posInit (result: Jar) {
+
+		  if (result.getInt ("status") == 0) {
+
+				local.put ("merchant_id", result.getInt ("merchant_id"))
+				posInit = result
+				setContentView (R.layout.pos_init)
+				overlay = findViewById (R.id.pos_init_overlay) as LinearLayout
+		  }
 	 }
 
-	 fun registered () {
+	 fun download () {
 
 		  // start download
 
         setContentView (R.layout.download)
-		  Downloads.start ()
-		  Downloads.nudge ()
+		  BackOffice.download ()
 	 }
 	 
 	 fun stop () {
@@ -337,7 +334,9 @@ class Pos (): AppCompatActivity () {
 				}
 		  }
 
+		  Logger.d ("set layout... " + config.getString ("root_layout") + " " + resourceID (config.getString ("root_layout"), "layout") + " " + R.layout.layout_2)	  
         setContentView (resourceID (config.getString ("root_layout"), "layout"))
+		  
 		  loggedIn = true
 	 }
 
@@ -396,7 +395,7 @@ class Pos (): AppCompatActivity () {
 		  var resourceID = activity.getResources ().getIdentifier (id, type, activity.getPackageName ())
 		  if (resourceID == 0) {
 
-				Logger.w ("MISSING RESOURCE, BAD JSON CONFIG?... " + id)
+				Logger.stack ("MISSING RESOURCE, BAD JSON CONFIG?... " + id)
 		  }
 		  
 		  return resourceID
@@ -411,13 +410,14 @@ class Pos (): AppCompatActivity () {
     fun rootView (): View { return rootView }
 	 fun activity (): Activity { return activity }
 	 fun db (): DB { return db }
-	 fun dbname (): String { return config.getString ("dbname") }
-	 fun posNo (): Int { return config.get ("pos_unit").getInt ("pos_no") }
-	 fun posUnitID (): Int { return config.get ("pos_unit").getInt ("id") }
-	 fun bu (): Jar { return config.get ("business_unit") }
-	 fun buID (): Int { return config.get ("business_unit").getInt ("business_unit_id") }
-	 fun posConfigID (): Int { return config.getInt ("pos_config_id") }
- 	 fun controls (control: Control) { }
+	 
+	 fun dbname (): String { return "m_" + local.getInt ("merchant_id", 0) }
+	 fun posNo (): Int { return local.getInt ("id", 0) }
+	 fun buID (): Int { return local.getInt ("business_unit_id", 0) }
+	 fun posConfigID (): Int { return local.getInt ("pos_config_id", 0) }
+	 fun bu (): Jar { return local.get ("business_unit") }
+
+	 fun controls (control: Control) { }
  	 fun receiptBuilder (): ReceiptBuilder { return receiptBuilder }
 
 	 fun warn (text: String) { }
@@ -442,6 +442,8 @@ class Pos (): AppCompatActivity () {
 
 		  if (event.action == KeyEvent.ACTION_UP) {
 
+				Logger.d ("key event... " + event)
+				
 		  		DeviceManager.scanner?.input (event)
 		  }
 		  

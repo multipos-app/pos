@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center_horizontal"
-	 android:padding="@dimen/pos_setup_padding"
+	 android:padding="@dimen/pos_init_padding"
     android:background="@color/pos_app_bg"
     tools:context=".MainActivity"
     android:orientation="vertical">
@@ -25,7 +25,7 @@
       android:layout_centerHorizontal="true"
       android:text="@string/initialize_device"
       android:textColor="@android:color/white"
-      android:textSize="@dimen/pos_setup_md_text" />
+      android:textSize="@dimen/pos_init_md_text" />
   
   <ProgressBar
       android:id="@+id/progress_bar"
@@ -48,6 +48,6 @@
       android:gravity="right|bottom"
       android:text="@string/app_version"
       android:textColor="@color/white"
-      android:textSize="@dimen/pos_setup_sm_text" />
+      android:textSize="@dimen/pos_init_sm_text" />
   
 </LinearLayout>

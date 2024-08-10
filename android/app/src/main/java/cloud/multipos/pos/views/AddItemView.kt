@@ -39,10 +39,10 @@ import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 
 class AddItemView (control: Control,
-							sku: String,
-							departments: MutableList <Jar>,
-							deposits: MutableList <Jar>,
-							taxes: MutableList <Jar>): PosLayout (Pos.app, null) {
+						 sku: String,
+						 departments: MutableList <Jar>,
+						 deposits: MutableList <Jar>,
+						 taxes: MutableList <Jar>): PosLayout (Pos.app, null) {
 
 	 var itemDesc: EditText
 	 var depts: Spinner

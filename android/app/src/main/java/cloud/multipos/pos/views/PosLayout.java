@@ -36,13 +36,6 @@ import java.util.ArrayList;
 
 public class PosLayout extends LinearLayout implements SwipeListener {
 
-	 public PosLayout (Context context) {
-		  
-		  super (context);
-		  this.context = context;
-		  this.resources = context.getResources ();
-	 }
-	 
 	 public PosLayout (Context context, AttributeSet attrs) {
 		  
 		  super (context, attrs);
@@ -53,6 +46,7 @@ public class PosLayout extends LinearLayout implements SwipeListener {
 		  setLayoutParams (new LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 		  
 		  if (themedList == null) {
+				
 				themedList = new ArrayList <PosTheme> ();
 		  }
 	 }
@@ -88,23 +82,6 @@ public class PosLayout extends LinearLayout implements SwipeListener {
 	 }
 
 	 
-	 public PosText posText (int resourceID) {
-
-		  PosText posText = (PosText) findViewById (resourceID);
-		  themedList.add (posText);
-		  return posText;
-	 }
-	 	 
-	 public PosButton posButton (int resourceID) {
-
-		  PosButton posButton = (PosButton) findViewById (resourceID);
-		  
-		  if (posButton != null) {
-				themedList.add (posButton);
-		  }
-		  return posButton;
-	 }
-
 	 @Override
 	 public void onSwipe (SwipeDir dir) { }
 	 

@@ -19,9 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.controls.*
-import cloud.multipos.pos.db.*
-import cloud.multipos.pos.services.CloudListener
+import cloud.multipos.pos.net.Post
 
 import android.content.Context
 import android.util.AttributeSet
@@ -31,7 +29,7 @@ import android.content.Intent;
 import android.widget.EditText;
 import android.widget.Button;
 
-class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs), CloudListener {
+class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs) {
 
 	 var username: EditText
 	 var password: EditText
@@ -45,16 +43,19 @@ class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context
 
 		  val register = findViewById (R.id.pos_register) as PosText
         register.setOnClickListener {
-
-				Pos.app.cloudService.register (username.getText ().toString (), password.getText ().toString (), this);
+				
+				Pos.app.overlay.visibility = View.VISIBLE
+				
+				val register = Jar ()
+					  .put ("uname", username.getText ().toString ())
+					  .put ("passwd", password.getText ().toString ())
+				 
+				 Post ("pos/register")
+					  .add (register)
+					  .exec (fun (result: Jar): Unit {
+									 
+									 Pos.app.posInit (result)
+					  })
 		  }
-	 }
-
-	 override fun cloudResponse (responseText: String) {
-
-		  username.setText ("")
-		  username.setHint (Pos.app.getString (responseText))
-		  username.requestFocus ()
-		  password.setText ("")
 	 }
 }

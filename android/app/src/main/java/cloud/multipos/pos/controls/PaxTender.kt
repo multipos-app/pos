@@ -52,8 +52,7 @@ class PaxTender (): Tender (null) {
 				return
 		  }
 
-		  update ()
-		  paymentTendered = total
+		  tendered = total
 		  
 		  if (confirmed ()) {
 
@@ -68,7 +67,7 @@ class PaxTender (): Tender (null) {
 				
 				// dialog.auth ()
 
-				authAmount = Currency.round (paymentTendered + fees ())
+				authAmount = Currency.round (tendered + fees ())
 				if (authAmount < 0) {
 					 
 					 authAmount = authAmount * -1.0
@@ -164,7 +163,6 @@ class PaxTender (): Tender (null) {
 									 	  .put ("type", Ticket.TENDER)
 									 
 									 Pos.app.ticket.tenders.add (tt)
-									 update ()  // re-calculate sale totals
 									 Pos.app.ticket.update ()
 									 									 
 									 if (balance <= 0) {
@@ -181,7 +179,7 @@ class PaxTender (): Tender (null) {
 						  
 						  // reset
 		  
-						  paymentTendered = 0.0
+						  tendered = 0.0
 						  total = 0.0
 						  returned = 0.0
 						  paid = 0.0

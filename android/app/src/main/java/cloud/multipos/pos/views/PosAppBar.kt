@@ -43,8 +43,8 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 var clock: PosText
 	 var customerLayout: LinearLayout? = null
 	 var customerName: PosText? = null
+	 val devices = mutableListOf <DeviceIcon> ()		  
 	 var tray: LinearLayout
-	 val devices = mutableListOf <DeviceIcon> ()
 	 
 	 init {
 
@@ -99,13 +99,17 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  clock?.setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.white))
 		  
 		  // devices
-		  
+		  				
 		  tray = findViewById (Pos.app.resourceID ("app_bar_tray", "id"))
+		  
 		  for (device in Pos.app.devices) {
 				
 				var deviceIcon = DeviceIcon (device)
 				devices.add (deviceIcon)
 				tray.addView (deviceIcon, 0)
+				
+				Logger.x ("pos app bar init... " + device)
+
 		  }
 
 		  // handler,  clock and device update thread

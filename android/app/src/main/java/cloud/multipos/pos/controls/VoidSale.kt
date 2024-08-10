@@ -18,13 +18,11 @@ package cloud.multipos.pos.controls
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.views.ConfirmView
 import cloud.multipos.pos.db.DB
 import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.DeviceManager;
-
-
+import cloud.multipos.pos.views.ConfirmView
 
 class VoidSale (): CompleteTicket () {
 
@@ -62,5 +60,5 @@ class VoidSale (): CompleteTicket () {
 	 
 	 override fun printReceipt (): Boolean { return false }
 	 override fun openDrawer (): Boolean { return false }
-	 
+
 }

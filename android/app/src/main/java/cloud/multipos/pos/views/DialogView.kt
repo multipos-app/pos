@@ -30,7 +30,7 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 	 protected var dialogLayout: LinearLayout
 	 
 	 init {
-
+		  
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.dialog_container_layout, this)
 		  
@@ -52,6 +52,8 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 
 		  Pos.app.input.clear ()
 	 }
+	 
+	 open fun sticky (): Boolean { return false }
 	 	 
 	 // PosDisplay
 

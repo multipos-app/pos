@@ -23,7 +23,7 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 
-open class PosControlHomeLayout (context: Context, attrs: AttributeSet?): PosLayout (context, attrs) {
+open class PosControlHomeLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs) {
 
 	 init {
 

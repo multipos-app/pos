@@ -55,7 +55,7 @@ class ControlsGridLayout (val menu: Jar,
 	 var controls = mutableMapOf <String, Control> ()
 
 	 init {
-		  		  
+		  
 		  val buttons = menu.getList ("buttons") as ArrayList <Jar>
 		  
 		  var grid = GridLayout (Pos.app.activity, attrs)
@@ -180,8 +180,12 @@ class ControlsGridLayout (val menu: Jar,
 				setPadding (0, 0, 0, 0)
 				
 				var color = jar.getString ("color")
-						  						  					 
-				if (color == "#000") {
+
+				if (color.startsWith ("color", true)) {
+
+					 color = "%X".format (ContextCompat.getColor (Pos.app, Pos.app.resourceID (jar.getString ("color"), "color"))).replace ("FF", "#")
+				}
+				else if (color == "#000") {
 					 
 					 color = "#222222"
 				}

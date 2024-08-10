@@ -74,7 +74,7 @@ class AddItem (): Control () {
 				var id = Pos.app.db.insert ("pos_updates", Jar ()
 																  .put ("status", 0)
 																  .put ("update_table", "items")
-																  .put ("update_id", Pos.app.cloudService.downloadCount () + 5))
+																  .put ("update_id", 0))
 				var itemID = id
 				
 				var item = Jar ()
@@ -99,7 +99,7 @@ class AddItem (): Control () {
 				id = Pos.app.db.insert ("pos_updates", Jar ()
 															 .put ("status", 0)
 															 .put ("update_table", "item_prices")
-															 .put ("update_id", Pos.app.cloudService.downloadCount () + 5))
+															 .put ("update_id", 0))
 				var itemPrice = Jar ()
 					 .put ("id", id)
 					 .put ("business_unit_id", Pos.app.buID ())
@@ -119,7 +119,7 @@ class AddItem (): Control () {
 					 id = Pos.app.db.insert ("pos_updates", Jar ()
 																  .put ("status", 0)
 																  .put ("update_table", "item_links")
-																  .put ("update_id", Pos.app.cloudService.downloadCount () + 5))
+																  .put ("update_id", 0))
 					 var itemLink = Jar ()
 						  .put ("id", id)
 						  .put ("item_id", itemID)

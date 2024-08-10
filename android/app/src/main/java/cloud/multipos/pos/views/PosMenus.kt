@@ -32,13 +32,15 @@ import android.transition.Slide
 import android.transition.Transition
 import android.transition.TransitionManager
 
-class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosMenuControl {
+class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosMenuControl, SwipeListener  {
 
 	 companion object {
 		  
 		  val menus = mutableMapOf <String, PosMenus> ()
 
 		  fun set (name: String, index: Int) {
+
+				Logger.d ("set menu... $name $index")
 				
 				val m = menus.get (name)
 				m?.menu (index)
@@ -56,6 +58,7 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  name = getAttr ("menus", "")		  
 		  update ()
 		  menus.put (name, this)
+		  Pos.app.controlLayout.listeners.add (this)
 	 }
 	 
 	 fun buttonStyle (): String { return "solid" }
@@ -107,5 +110,39 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  }
 		  
 		  addView (layouts.first ())
+	 }
+	 override fun onSwipe (swipeDir: SwipeDir) {
+		  
+		  var next = 0
+		  var dir = Gravity.BOTTOM
+		  var edge = Gravity.BOTTOM
+
+		  when (swipeDir) {
+
+				SwipeDir.Up -> {
+
+					 Logger.d ("pos menu up... " + dir)
+					 if (curr > 0) next = curr - 1
+					 else next = layouts.size - 1
+				}
+				
+				SwipeDir.Down -> {
+
+					 Logger.d ("pos menu down... " + dir)
+					 next = (curr + 1) % layouts.size
+					 dir = Gravity.TOP
+					 edge = Gravity.TOP
+				}
+		  }
+
+		  val end = layouts.get (next)
+		  val scene = Scene (this, end)
+		  val slide = Slide (dir)
+		  slide.setMode (Fade.MODE_IN)
+		  val transition = slide
+		  transition.setDuration (150)
+		  TransitionManager.go (scene, transition)
+		  clearAnimation ()
+		  curr = next
 	 }
 }

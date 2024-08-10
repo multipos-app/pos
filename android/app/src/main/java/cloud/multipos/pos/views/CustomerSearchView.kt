@@ -33,7 +33,7 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import java.util.ArrayList
 
-class CustomerSearchView (listener: InputListener?) : PosLayout (Pos.app, null) {
+class CustomerSearchView (listener: InputListener?) : DialogView ("") {
 	 
     private val list: MutableList <Jar> = ArrayList ()
     private var adapter: ListAdapter? = null
@@ -127,7 +127,7 @@ class CustomerSearchView (listener: InputListener?) : PosLayout (Pos.app, null) 
             addEdit.setText (Pos.app.getString ("edit_customer"))
         }
 		  
- 		  Pos.app.controlLayout.load (this)
+ 		  Pos.app.controlLayout.push (this)
    }
 
     inner class ListAdapter (context: Context?, resource: Int, list: List <Jar?>?): ArrayAdapter <Any?> (context!!, resource, list!!) {

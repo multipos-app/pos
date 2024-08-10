@@ -32,14 +32,14 @@
   <dimen name="register_md_text">32sp</dimen>
   <dimen name="register_sm_text">12sp</dimen>
   
-  <!-- pos setup -->
+  <!-- pos init -->
 
-  <dimen name="pos_setup_margin">10dp</dimen>
-  <dimen name="pos_setup_padding">15dp</dimen>
-  <dimen name="pos_setup_arrow_text">19sp</dimen>
-  <dimen name="pos_setup_lg_text">42sp</dimen>
-  <dimen name="pos_setup_md_text">24sp</dimen>
-  <dimen name="pos_setup_sm_text">18sp</dimen>
+  <dimen name="pos_init_margin">10dp</dimen>
+  <dimen name="pos_init_padding">15dp</dimen>
+  <dimen name="pos_init_arrow_text">19sp</dimen>
+  <dimen name="pos_init_lg_text">42sp</dimen>
+  <dimen name="pos_init_md_text">24sp</dimen>
+  <dimen name="pos_init_sm_text">18sp</dimen>
   
   <!-- app bar-->
 

@@ -51,20 +51,11 @@ public class Config extends Jar {
 
 		  super ();
 
-		  metrics ();
-				
-		  put ("dbname", "");
-		  put ("pos_no", 0);
-		  put ("pos_unit_id", 0);
-		  put ("business_unit_id", 0);
-		  put ("pos_config_id", 0);
-
 		  if (!Pos.app.db ().ready ()) {
 
 				Pos.app.db ().open ();
 		  }
 
-		  // Logger.d ("config start... " + Pos.app.db ().ready ());
 		  DbResult posConfigResult = new DbResult (Pos.app.db ()
 																 .find ("pos_configs")
 																 .query (),
@@ -85,29 +76,6 @@ public class Config extends Jar {
 	 }
 
 	 public void initialize () {
-		  
-		  Display display = Pos.app.activity.getWindowManager ().getDefaultDisplay (); 
-
-		  Point size = new Point ();
-		  display.getRealSize (size);
-		  
-		  put ("display_width", display.getWidth ());
-		  put ("display_height", display.getHeight ());
-
-		  String metrics = metrics ();
-
-		  put ("metrics", metrics)
-				.put ("density", Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi)
-				.put ("model", android.os.Build.MODEL)
-				.put ("sdk", android.os.Build.VERSION.SDK_INT)
-				.put ("android_release", android.os.Build.VERSION.RELEASE)
-				.put ("android_id", Secure.getString (Pos.app.activity.getContentResolver (), Secure.ANDROID_ID))
-				.put ("fingerprint", android.os.Build.FINGERPRINT.contains ("generic"))
-				.put ("version_name", Pos.app.getString ("version_name"))
-				.put ("version_code", Pos.app.getString ("version_code"))
-				.put ("display_width", getInt ("display_width"))
-				.put ("display_height", getInt ("display_height"));
-
 						  
 		  Configuration configuration = Pos.app.activity.getResources ().getConfiguration ();
 		  Resources r = Pos.app.activity.getResources ();
@@ -149,7 +117,8 @@ public class Config extends Jar {
 		  // cache the taxes
 
 		  taxes = new HashMap <String, Jar> ();
-		  DbResult taxResult = new DbResult ("select tax_groups.id, taxes.rate, taxes.short_desc from tax_groups, taxes where tax_groups.id = taxes.tax_group_id", Pos.app.db ());
+		  DbResult taxResult = new DbResult ("select tax_groups.id, taxes.rate, taxes.short_desc from tax_groups, taxes " +
+														 "where tax_groups.id = taxes.tax_group_id", Pos.app.db ());
 		  while (taxResult.fetchRow ()) {
 					 
 				Jar tax = taxResult.row ();
@@ -162,6 +131,7 @@ public class Config extends Jar {
 		  }
 		  		  
 		  try {
+				
 		  		put ("version_name", Pos.app.activity.getPackageManager ().getPackageInfo (Pos.app.activity.getPackageName (), 0).versionName);
 		  		PackageInfo pInfo = Pos.app.activity.getPackageManager ().getPackageInfo (Pos.app.activity.getPackageName (), 0);
 		  		put ("version_code", pInfo.versionCode);
@@ -172,13 +142,6 @@ public class Config extends Jar {
 		  }
 
 		  getIPs ();
-
-		  Logger.x ("model: " + getString ("model") +
-						" sdk: " + getString ("sdk") +
-						" release: " + getString ("android_release") +
-						" android_id: " + getString ("android_id") +
-						" display_width: " + getString ("display_width") +
-						" display_height: " + getString ("display_height"));
 	 }
 
 	 public void update () {
@@ -186,15 +149,7 @@ public class Config extends Jar {
 		  Pos.app.db ().exec ("update pos_configs set config = '" + this.toString () + "'");
 	 }
 
-	 public Config put (String key, String value) {
-
-		  super.put (key, value);
-		  return this;
-	 }
-
 	 public Locale locale () { return Locale.US; }
-
-	 public static final String CONFIG_FILE_NAME = "config.json";
 
 	 private String currentMenu = null;
 	 public ArrayList setMenu (String name) { 
@@ -250,45 +205,6 @@ public class Config extends Jar {
 		  }
 	 }
 
-	 public static String metrics () {
-
-		  String metrics;
-						  
-		  switch (Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi) {
-								
-		  case DisplayMetrics.DENSITY_LOW:
-				metrics = "ldpi";
-				break;
-		  case DisplayMetrics.DENSITY_MEDIUM:
-				metrics = "mdpi";
-				break;
-		  case DisplayMetrics.DENSITY_HIGH:
-		  case 213:
-				metrics = "hdpi";
-				break;
-		  case DisplayMetrics.DENSITY_280:
-		  case DisplayMetrics.DENSITY_XHIGH:
-				metrics = "xhdpi";
-				break;
-		  case DisplayMetrics.DENSITY_XXHIGH:
-		  case DisplayMetrics.DENSITY_440:
-				metrics = "xxhdpi";
-				break;
-		  case DisplayMetrics.DENSITY_XXXHIGH:
-				metrics = "xxxhdpi";
-				break;
-		  default:
-				metrics = "unknown " + Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi;
-				break;
-		  }
-
-		  Display display = Pos.app.activity.getWindowManager ().getDefaultDisplay (); 
-
-		  Logger.d ("metrics... " + metrics + ' ' + Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi + " " + display.getWidth () + " " + display.getHeight ());
-		  
-		  return metrics;
-	 }
-	 
 	 public ArrayList menu () { return (ArrayList) menus.get (currentMenu); }
 	 public String toString () { return super.toString (); }
 	 

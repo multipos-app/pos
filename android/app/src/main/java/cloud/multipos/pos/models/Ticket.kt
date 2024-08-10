@@ -44,7 +44,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 	 @JvmField val other = mutableListOf <Jar> ()
 
 	 init {
-
+		  
 		  // check if the last ticket was not completed, if so load it
 
 		  if (ticketID == 0) {
@@ -129,6 +129,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 					 .put ("employee_id", employeeID)
 					 .put ("ticket_type", SALE)
 					 .put ("start_time", Pos.app.db.timestamp (Date ()))
+					 .put ("complete_time", Pos.app.db.timestamp (Date ()))
 					 .put ("state", OPEN)
 					 .put ("flags", 0)
 					 .put ("recall_key", recallID ())

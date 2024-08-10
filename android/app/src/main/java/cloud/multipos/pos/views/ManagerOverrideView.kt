@@ -47,7 +47,7 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 		  accept.setText (Pos.app.getString ("enter_manager_number"));
 		  
 		  PosDisplays.add (this)
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
 	 }
 
 	 override fun accept () {

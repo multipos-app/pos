@@ -32,25 +32,34 @@ class Open (): Pricing (), InputListener {
  	 override fun apply (i: DefaultItem): Boolean {
 
 		  item = i
-		  NumberInputView (this,
-								 Pos.app.getString (R.string.enter_price),
-								 item.item.getString ("item_desc"),
-								 InputListener.CURRENCY,
-								 0)
+		  Pos.app.dialogView = NumberInputView (this,
+															 Pos.app.getString (R.string.enter_price),
+															 item.item.getString ("item_desc"),
+															 InputListener.CURRENCY,
+															 0)		  
+		  Pos.app.controls.push (item)
 		  return true
 	 }
 	 
 	 override fun accept (select: Jar) {
-		  
-		  val item = Pos.app.controls.pop () as DefaultItem
 
-		  item.jar ().put ("merge_like_items", false)
+		  if (Pos.app.controls.size > 0) {
+				
+				val item = Pos.app.controls.pop () as DefaultItem
+				
+				item.jar ().put ("merge_like_items", false)
+				
+				val amount = select.getDouble ("value") / 100.0
+				
+				item.ticketItem ()
+					 .put ("amount", select.getDouble ("value") / 100.0)
+				
+				item.complete ()
 
-		  val amount = select.getDouble ("value") / 100.0
-		  
-		  item.ticketItem ()
-				.put ("amount", select.getDouble ("value") / 100.0)
+		  }
+		  else {
 
-		  item.complete ()
+				Logger.w ("attempt to pop controls on empty stack...")
+		  }
 	 }
 }

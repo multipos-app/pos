@@ -25,48 +25,43 @@ import cloud.multipos.pos.models.*
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
-import java.util.ArrayList
 import android.widget.TextView
-import android.view.Gravity
-import android.graphics.Typeface
 import android.view.View
-import android.widget.Button
 
 class NumberInputView (val control: InputListener, title: String, prompt: String, val type: Int, val decimalPlaces: Int): DialogView (title) {
 
 	 var inputEcho: TextView
 	 var decimalVal = 0.0
-	 
+
 	 init {
 		  
 		  Pos.app.inflater.inflate (R.layout.number_input_layout, dialogLayout)
-		  
+	  
 		  val inputPrompt = findViewById (R.id.number_input_prompt) as TextView
 		  inputPrompt.text = prompt
 
 		  inputEcho = findViewById (R.id.number_input_echo) as TextView
 		  
 		  PosDisplays.add (this)
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
+		  update ()
 	 }
 	 
 	 override fun accept () {
-		  
+		  		  
 		  val result = Jar ().put ("value", Pos.app.input.getString ())
+		  
 		  if (decimalVal != 0.0) {
 				
 				result.put ("value", decimalVal)
+				control.accept (result)
 		  }
-		  
-		  control.accept (result)
 		  
 		  Pos.app.input.clear ()
 		  Pos.app.controlLayout.swipeRight ()
 	 }
 	 
 	 override fun update () {
-
-		  Logger.d ("input... ${Pos.app.input.getString ()} ${Pos.app.input.getDouble ()} ${Strings.currency (Pos.app.input.getDouble (), false)}")
 		  
 		  when (type) {
 
@@ -84,17 +79,25 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 				}
 				
 				InputListener.CURRENCY -> {
-
+					 
+					 decimalVal = Pos.app.input.getDouble ()
+					 
 					 inputEcho.text = Strings.currency (Pos.app.input.getDouble () / 100.0, false)
 				}
 		  }
+	 }
+	 
+	 override fun enter () {
+
+		  Logger.d ("number input view...")
+		  accept ()
 	 }
 	 
 	 override fun clear () {
 
 		  if (Pos.app.input.length () == 0) {
 		  
-		  		inputEcho.setHint (Pos.app.getString (""));
+				inputEcho.setHint (Pos.app.getString ("register_open"));
 		  }		  
 	 }
 }

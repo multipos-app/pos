@@ -22,13 +22,14 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.views.TenderView
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.*
+import kotlin.math.abs 
 
 abstract class Tender (jar: Jar?): CompleteTicket () {
 
 	 abstract fun tenderType (): String
 	 abstract fun tenderDesc (): String
 	 
-	 var paymentTendered = 0.0
+	 var tendered = 0.0
 	 var returned = 0.0
 	 var balance = 0.0
 	 var total = 0.0
@@ -51,14 +52,9 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				setJar (jar)
 		  }
 
-		  Logger.d ("tender... ${jar}")
+		  balance () // balance the sale
 		  
-		  update ()  // update paid, returned etc...
-		  tender ()  // get the amount of this tender
-		  
-		  // get the tender amount
-
-		  balance = total - paymentTendered
+		  Logger.d ("tender... " + this)
 		  
 		  if (confirmed ()) {
 				
@@ -80,37 +76,60 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 
 	 /**
 	  *
+	  * update tender components, total, total paid, balance....
+	  *
+	  */
+
+	 open fun balance () {
+		  
+		  total = total ()  // the sale total
+		  balance = 0.0     // to be paid
+		  returned = 0.0    // returned (change)
+		  paid = 0.0        // previously tender
+	  
+		  // add up any previous tenders
+		  
+		  for (tt in Pos.app.ticket.tenders) {
+
+				paid += Currency.round (tt.getDouble ("tendered_amount"))
+		  }
+		  
+		  tender ()
+	 }
+
+	 /**
+	  *
 	  * get current tendered amount
 	  *
 	  */
 	 
 	 fun tender () {
 
-		  paymentTendered = 0.0
+		  tendered = 0.0
 		  
+		  balance = Currency.round (total - paid)
+
 	 	  if (jar ().has ("value")) {
 				
 				// fixed amount in the button jar?
 				
 				if (jar ().getDouble ("value") > 0) {
 					 
-					 paymentTendered = jar ().getDouble ("value") / 100.0
+					 tendered = jar ().getDouble ("value") / 100.0
 				}
 				else if (jar ().getDouble ("value") == 0.0) {
 					 
 					 // round up to the next ($) amount
 					 
 					 val round = total - total.toInt ().toDouble ()
-
-					 Logger.d ("round... $round " + total + " " + total.toInt ().toDouble ())
 					 
 					 if (round > 0) {
 						  
-						  paymentTendered = Currency.round ((balance - round) + 1.0)
+						  tendered = Currency.round ((balance - round) + 1.0)
 					 }
 					 else {
 						  
-						  paymentTendered = balance
+						  tendered = balance
 					 }
 				}
 		  }
@@ -118,17 +137,22 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 
 				// operator input?
 
-				paymentTendered = Currency.round (Pos.app.input.getDouble () / 100.0)
+				tendered = Currency.round (Pos.app.input.getDouble () / 100.0)
 				Pos.app.input.clear ()
 		  }
 		  else {
 
 				// assume the remaining amount of the ticket
 				
-				paymentTendered = Currency.round (total - paid)
+				tendered = Currency.round (total - paid)
 		  }
-		  
-		  Logger.d ("tender... " + this)
+
+		  balance = total () - paid - tendered
+
+		  if (balance < 0) {
+				
+				returned = total () - (paid + tendered)
+		  }
 	 }
 
 	 /**
@@ -152,7 +176,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  													.put ("total", total)
 		  													.put ("status", TicketTender.COMPLETE)
 		  													.put ("returned_amount", returned)
-		  													.put ("tendered_amount", paymentTendered)
+		  													.put ("tendered_amount", tendered)
 		  													.put ("complete", 0)
 		  													.put ("round_diff", roundDiff)
 															.put ("data_capture", dataCapture.toString ()))
@@ -162,7 +186,6 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  ticketTender.put ("type", Ticket.TENDER)
 		  
 		  Pos.app.ticket.tenders.add (ticketTender)
-		  update ()
 		  		  
 		  if (returned > 0) {
 				
@@ -182,7 +205,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 
 		  // reset
 		  
-		  paymentTendered = 0.0
+		  tendered = 0.0
 		  total = 0.0
 		  returned = 0.0
 		  paid = 0.0
@@ -195,36 +218,6 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 	  */
 
 	 open fun cancel () { }
-
-	 /**
-	  *
-	  * update tender components, total, total paid, balance....
-	  *
-	  */
-
-	 open fun update () {
-		  
-		  total = total ()  // get the amount of sale
-		  balance = 0.0     // to be paid
-		  returned = 0.0    // returned (change)
-		  paid = 0.0        // previously tender
-	  
-		  // add up any previous tenders
-		  
-		  for (tt in Pos.app.ticket.tenders) {
-
-				paid += Currency.round (tt.getDouble ("tendered_amount"))
-		  }
-		  
-		  balance = Currency.round (total - paid)
-		  		  		  
-		  Logger.d ("update... " + this)
-
-		  if ((paid + paymentTendered) > total) {
-				
-				returned = Currency.round (paid + paymentTendered - total)
-		  }
-	 }
 
 	 open fun fees (): Double {
 
@@ -284,8 +277,8 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 
 	 override fun toString (): String {
 		  
-		  return String.format ("{tender: %5.2f, sub_total: %5.2f, returned: %5.2f, balance: %5.2f, total: %5.2f, paid: %5.2f, ticket_total: %5.2f}",
-										paymentTendered,
+		  return String.format ("\n{\n   tender: %5.2f, \n   sub_total: %5.2f, \n   returned: %5.2f, \n   balance: %5.2f, \n   total: %5.2f, \n   paid: %5.2f, \n   ticket_total: %5.2f\n}",
+										tendered,
 										Pos.app.ticket.getDouble ("sub_total"),
 										returned,
 										balance,

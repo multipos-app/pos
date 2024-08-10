@@ -39,7 +39,7 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 		  text.setTypeface (Views.receiptFont ());
 		  
 		  if (jar.has ("ticket")) {
-
+				
 				var t = jar.get ("ticket").getString ("ticket_text");
 				
 				if (jar.get ("ticket").has ("aux_receipts")) {
@@ -48,6 +48,7 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 				}
 				
 				text.setText (t);
+				accept.setText (Pos.app.getString ("print"));
 		  }
 		  else if (jar.has ("report_text")) {
 
@@ -64,7 +65,7 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 									}
 		  })
 		  
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
 	 }
 
 	 override fun accept () {
@@ -72,4 +73,6 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 		  Pos.app.receiptBuilder ().print ();
 		  Pos.app.controlLayout.swipeRight ()
 	 }
+	 
+	 override fun sticky (): Boolean { return true; }
 }

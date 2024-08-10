@@ -36,7 +36,7 @@ import java.net.NetworkInterface
 import java.net.InetAddress
 import android.net.wifi.WifiManager
 
-class PosInfoView (): PosLayout (Pos.app, null) {
+class PosInfoView (): DialogView ("") {
 
 	 var version: TextView
 	 var merchant: TextView
@@ -70,7 +70,7 @@ class PosInfoView (): PosLayout (Pos.app, null) {
 		  
 		  getIPs ()
 
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
 	 }
 
 

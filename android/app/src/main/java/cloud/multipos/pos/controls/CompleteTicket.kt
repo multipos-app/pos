@@ -25,6 +25,7 @@ import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ReportView
 import cloud.multipos.pos.views.PosAppBar
 import cloud.multipos.pos.devices.*
+import cloud.multipos.pos.net.Upload
 
 import java.util.Date
 
@@ -45,7 +46,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  // total the tenders for this ticket, check if tenders >= the ticket
 		  		  
 		  var lastMessage = ""
-		  var returned = 0.0
 		  var tenderTotal = 0.0
 		  
 		  for (tt in Pos.app.ticket.tenders) {
@@ -55,7 +55,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  		if (tenderDesc.length == 0) {
 					 
 		  			 tenderDesc = tt.getString ("tender_type").toLowerCase ()
-		  			 returned = tt.getDouble ("returned_amount")
 		  		}
 		  		else {
 					 
@@ -119,30 +118,20 @@ open abstract class CompleteTicket (): ConfirmControl () {
 																	 .put ("type", Ticket.TOTAL)
 																	 .put ("total_desc", Pos.app.getString ("total"))
 																	 .put ("amount", Pos.app.ticket.getDouble ("total")))
-
-
-		  if (Pos.app.ticket.getInt ("ticket_type") == Ticket.VOID) {
 				
-				PosDisplays.message (Jar ()
-												 .put ("prompt_text", Pos.app.getString ("void_sale"))
-												 .put ("echo_text", ""))
+		  Strings.currency (Pos.app.ticket.getDouble ("total"), false)
+		  
+		  var returned = ""
+		  var prompt = Pos.app.getString ("register_open")
+		  if (tenderTotal > Pos.app.ticket.getDouble ("total")) {
+				
+				prompt = Pos.app.getString ("change_due")
+				returned = Strings.currency (tenderTotal - Pos.app.ticket.getDouble ("total"), false)
 		  }
-		  else {
-				
-				Strings.currency (Pos.app.ticket.getDouble ("total"), false)
-				
-				var returned = ""
-				var prompt = Pos.app.getString ("register_open")
-				if (tenderTotal > Pos.app.ticket.getDouble ("total")) {
-
-					 prompt = Pos.app.getString ("change_due")
-					 returned = Strings.currency (tenderTotal - Pos.app.ticket.getDouble ("total"), false)
-				}
-				
-				PosDisplays.message (Jar ()
-												 .put ("prompt_text", prompt)
-												 .put ("echo_text", returned))
-		  }
+		  
+		  PosDisplays.message (Jar ()
+											.put ("prompt_text", prompt)
+											.put ("echo_text", returned))
 
 		  var customerID = 0
 		  if (Pos.app.ticket.has ("customer")) {
@@ -164,9 +153,8 @@ open abstract class CompleteTicket (): ConfirmControl () {
 											
 		  }
 
-		  var completeTime = Pos.app.db.timestamp (Date ())		  
 		  Pos.app.ticket
-				.put ("complete_time", completeTime)
+				.put ("complete_time", Pos.app.db.timestamp (Date ()))
 				.put ("state", state)
 				.put ("total", Pos.app.ticket.getDouble ("total"))
 				.put ("discounts", discounts)
@@ -191,14 +179,12 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				
 				Pos.app.receiptBuilder.print ()
 		  }
-
-		  Logger.d ("complete ticket... " + Pos.app.ticket.getInt ("type"))
-		  
+		  		  
 		  // display receipt
-		  
+		  		  
 		  when (Pos.app.ticket.getInt ("ticket_type")) {
 
-				Ticket.SALE, Ticket.VOID -> {
+				Ticket.SALE -> {
 
 					 ReportView (Pos.app.getString ("ticket"),
 									 Jar ()
@@ -207,9 +193,12 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  }
 
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)
-		  Pos.app.cloudService.upload (Pos.app.ticket.fold (), 0)
-		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)
-
+		  
+		  Upload ()
+				.add (Pos.app.ticket)
+				.exec ()
+		  
+		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)			 
 		  Pos.app.ticket ()
 		  
 		  PosDisplays.clear ()

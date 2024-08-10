@@ -22,6 +22,7 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.controls.SessionManager
 
 import android.content.Context
+import android.util.AttributeSet;
 import android.widget.LinearLayout
 import android.view.View
 import android.view.ViewGroup
@@ -29,7 +30,7 @@ import android.widget.GridLayout
 import android.widget.GridLayout.*
 import android.widget.TextView
 
-class CashManagementReport (var sessionManager: SessionManager): PosLayout (Pos.app.activity) {
+class CashManagementReport (var sessionManager: SessionManager): PosLayout (Pos.app.activity, null) {
 
 	 init {
 		  		  

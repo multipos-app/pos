@@ -39,7 +39,7 @@ import android.text.TextWatcher
 import android.text.Editable
 import java.util.UUID
 
-class CustomerEditView (customer: Jar) : PosLayout (Pos.app, null) {
+class CustomerEditView (customer: Jar) : DialogView ("") {
 
 	 var action = "add"
 
@@ -111,6 +111,6 @@ class CustomerEditView (customer: Jar) : PosLayout (Pos.app, null) {
 				Pos.app.controlLayout.swipeRight ()
 		  }
 
-		  Pos.app.controlLayout.load (this)
+		  Pos.app.controlLayout.push (this)
 	 }
 }

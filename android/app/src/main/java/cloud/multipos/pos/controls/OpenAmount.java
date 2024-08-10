@@ -22,6 +22,7 @@ import cloud.multipos.pos.db.*;
 import cloud.multipos.pos.models.Ticket;
 import cloud.multipos.pos.services.TotalsService;
 import cloud.multipos.pos.views.PosDisplays;
+import cloud.multipos.pos.net.Upload;
 
 import java.util.Date;
 
@@ -80,7 +81,10 @@ public class OpenAmount extends DefaultItem implements InputListener {
 											  "state = " + Ticket.COMPLETE + ", " +
 											  "ticket_type = " + Ticket.BANK + " where id = " + Pos.app.ticket.getInt ("id"));
 				
-				Pos.app.cloudService.upload (Pos.app.ticket, 0);
+				new Upload ()
+					 .add (Pos.app.ticket)
+					 .exec ();
+				
 				Pos.app.ticket ();
 				updateDisplays ();
 		  }

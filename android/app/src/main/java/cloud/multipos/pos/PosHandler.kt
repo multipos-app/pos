@@ -40,7 +40,7 @@ class PosHandler (): Handler () {
 				
 				PosConst.POS_SETUP -> {
 					 
-					 Pos.app.setup ()
+					 // Pos.app.setup ()
 				}
 				
 				PosConst.LOGIN -> {
