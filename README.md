@@ -77,10 +77,6 @@ Once installed you will be prompted for android.permission.CAMERA (the integrate
 
 After download completes login in as cashier 1, PIN 1.
 
-## Example POS screen
-
-![Example POS screen](https://bg3xj.multipos.cloud/quick-start.png)
-
 ## Demo configurations
 - Deli/convienence is set up as a counter top app in landscape mode, tested on a variety of 10 inch tablets.
 - Handheld is just that, a handheld version with three tabs, a POS tab (line busting), an inventory tab, walk around the store scan an item and update inventory and an item entry tab to add/edit items in the store. This configuration also includes an android cammera scanner... more
@@ -90,7 +86,7 @@ After download completes login in as cashier 1, PIN 1.
 
 ## Back Office
 
-Go to https://multipos.cloud and log in using the same credentials that you used for the POS, i.e. 'multipos' and 'eklutna'. In a production environment each customer would have a dedicated server side database.
+Go to https://multipos.myvideoregister.com and log in using the same credentials that you used for the POS, i.e. 'multipos' and 'eklutna'. In a production environment each customer would have a dedicated server side database.
 
 ### The back office reporting and maintenance includes...
 
