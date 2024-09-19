@@ -86,7 +86,7 @@ After download completes login in as cashier 1, PIN 1.
 
 ## Back Office
 
-Go to https://multipos.myvideoregister.com and log in using the same credentials that you used for the POS, i.e. 'multipos' and 'eklutna'. In a production environment each customer would have a dedicated server side database.
+Go to https://manager.multipos.cloud and log in using the same credentials that you used for the POS, i.e. 'multipos' and 'eklutna'. In a production environment each customer would have a dedicated server side database.
 
 ### The back office reporting and maintenance includes...
 
