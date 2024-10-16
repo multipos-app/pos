@@ -172,6 +172,8 @@ class InventoryView (jar: Jar): DialogView (""), ScanListener, SwipeListener {
 					 
 					 scanner.stop ()
 				}
+
+				else -> { }
 		  }
 	 }
 }
