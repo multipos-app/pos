@@ -55,18 +55,25 @@ class InvTabDisplay (context: Context, attrs: AttributeSet, val scanDisplay: Han
 		  upButton.setOnClickListener {
 
 				var invItem = invItems.get (curr)
-				invItem?.put ("on_hand_count", invItem?.getInt ("on_hand_count") + 1)
-				redraw ()
+
+				if (invItem != null) {
+					 
+					 invItem.put ("on_hand_count", invItem.getInt ("on_hand_count") + 1)
+					 redraw ()
+				}
 		  }
 
 		  downButton.setOnClickListener {
 
 				
 				var invItem = invItems.get (curr)
-				if ((invItem != null) && (invItem.getInt ("on_hand_count") > 0)) {
-					 
-					 invItem?.put ("on_hand_count", invItem?.getInt ("on_hand_count") - 1)
-					 redraw ()
+				if (invItem != null) {
+
+					 if (invItem.getInt ("on_hand_count") > 0) {
+					 	  
+						  invItem.put ("on_hand_count", invItem.getInt ("on_hand_count") - 1)
+						  redraw ()
+					 }
 				}
 		  }
 		  
