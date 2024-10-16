@@ -1,16 +1,16 @@
 
 buildscript {
 
-	 ext.kotlin_version = '1.5.30'
+	 ext.kotlin_version = '2.1.0-Beta1'
 	 
 	 repositories {
         google()
-        jcenter()
+		  mavenCentral()
    }
 
     dependencies {
 		  
-		  classpath 'com.android.tools.build:gradle:7.1.1'
+		  classpath 'com.android.tools.build:gradle:7.3.1'
 		  classpath 'com.google.gms:google-services:4.3.10'
 						
 		  // kotlin
@@ -22,7 +22,7 @@ buildscript {
 allprojects {
     repositories {
         google()
-        jcenter()
+		  mavenCentral()
 		  maven { url 'https://maven.sumup.com/releases' }
     }
 }
