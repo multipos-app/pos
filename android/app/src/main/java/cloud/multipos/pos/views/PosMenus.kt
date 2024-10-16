@@ -133,6 +133,8 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 					 dir = Gravity.TOP
 					 edge = Gravity.TOP
 				}
+
+				else -> { }
 		  }
 
 		  val end = layouts.get (next)

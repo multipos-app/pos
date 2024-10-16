@@ -150,6 +150,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 									 									 
 									 icon.text ().setTextColor (Color.parseColor ("#00000000"))
 								}
+								else -> { }
 						  }
 					 }
 				}

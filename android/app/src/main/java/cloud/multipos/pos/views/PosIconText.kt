@@ -53,6 +53,8 @@ open class PosIconText (context: Context, attrs: AttributeSet): TextView (contex
 					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_bg));				
 					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
 				}
+
+				else -> { }
 		  }
 	 }
 	 

@@ -50,6 +50,7 @@ class PosIconButton (context: Context,  attrs: AttributeSet): PosButton (context
 					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.transparent));				
 					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
 				}
+				else -> { }
 		  }
 	 }
 }
