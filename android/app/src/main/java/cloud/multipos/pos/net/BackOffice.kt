@@ -219,7 +219,7 @@ object BackOffice: Device, DeviceCallback {
 
 						  "local_item" -> {
 
-								val itemResult =DbResult ("select id from items where sku = '" + row.getString ("sku") + "'", Pos.app.db ())
+								val itemResult = DbResult ("select id from items where sku = '" + row.getString ("sku") + "'", Pos.app.db ())
 								if (itemResult.fetchRow ()) {
 
 									 val item = itemResult.row ()
@@ -229,34 +229,21 @@ object BackOffice: Device, DeviceCallback {
 						  }
 						  
 						  "items" -> {
-
-								// Logger.x ("update item... " + update)
 								
 								Pos.app.db ().insert ( "items", row)
+								
 								val itemPrices = update.get ("update").getList ("item_prices")
-															
 								for (ip in itemPrices) {
-
-									 // Logger.x ("price... " + ip);
+									 
+									 ip.put ("pricing", ip.get ("pricing").toString ())  // stringify pricing before saving									 
 									 Pos.app.db ().insert ("item_prices", ip)
 								}
+								
+								val itemLinks = update.get ("update").getList ("item_links")
+								for (il in itemLinks) {
 									 
-								// row.put ("pricing", row.get ("pricing").toString ())
-								// Pos.app.db ().insert (update.getString ("update_table"), row)
-
-								// var select = "select * from items where id = ${row.getInt ("item_id")}"
-								// var itemResult = DbResult (select, Pos.app.db)
-								// while (itemResult.fetchRow ()) {
-				
-								// 	 val ie = itemResult.row ()
-								// }
-
-								// select = "select * from item_prices where item_id = ${row.getInt ("item_id")}"
-								// itemResult = DbResult (select, Pos.app.db)
-								// while (itemResult.fetchRow ()) {
-				
-								// 	 val ie = itemResult.row ()
-								// }
+									 Pos.app.db ().insert ("item_links", il)
+								}
 						  }
 						  
 						  "item_addons" -> {
