@@ -35,7 +35,6 @@ open class DefaultItem (): FirstItem (), InputListener {
 	 	 
 	 override fun controlAction (jar: Jar) {
 		  
-		  Pos.app.controlLayout.swipeRight ()
 		  var sku = ""
 		  
 		  jar (jar)
@@ -190,7 +189,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 				pricing = Pricing.factory (item.getString ("class"))
 				if (pricing.apply (this)) {
 					 
-					 // Pos.app.controls.push (this)
+					 Pos.app.controls.push (this)
 				}
 		  }
 		  else {

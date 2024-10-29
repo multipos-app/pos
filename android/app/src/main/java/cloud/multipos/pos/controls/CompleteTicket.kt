@@ -185,7 +185,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  when (Pos.app.ticket.getInt ("ticket_type")) {
 
 				Ticket.SALE -> {
-
+					 
 					 ReportView (Pos.app.getString ("ticket"),
 									 Jar ()
 										  .put ("ticket", Pos.app.ticket))

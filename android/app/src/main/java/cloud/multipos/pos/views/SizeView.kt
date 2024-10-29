@@ -29,6 +29,7 @@ import android.widget.LinearLayout.LayoutParams
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
+import android.graphics.Color
 
 class SizeView (val listener: InputListener, list: ArrayList <Jar>, title: String): SelectView (listener, list, title) {
 	 
@@ -48,6 +49,20 @@ class SizeView (val listener: InputListener, list: ArrayList <Jar>, title: Strin
 				
 				desc.setText (line.getString ("desc"))
 				amount.setText (Strings.currency (line.getDouble ("price"), false))
+
+				when (Themed.theme) {
+
+					 Themes.Light -> {
+
+						  desc.setTextColor (Color.BLACK)
+						  amount.setTextColor (Color.BLACK)
+					 }
+					 Themes.Dark -> {
+
+						  desc.setTextColor (Color.WHITE)
+						  amount.setTextColor (Color.WHITE)
+					 }
+				}
 				
 				setOnClickListener () {
 
