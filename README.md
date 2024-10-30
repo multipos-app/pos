@@ -30,6 +30,7 @@ This project is an Andoid POS application integrated with a cloud based back for
 - Return sale
 - Comp sale
 - Kitchen print
+- Dark/Light themes (new)
 
 ## Pricing Options
 - Standard pricing, scanned, enter sku or tied to a button
