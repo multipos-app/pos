@@ -188,7 +188,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 				
 				pricing = Pricing.factory (item.getString ("class"))
 				if (pricing.apply (this)) {
-					 
+
 					 Pos.app.controls.push (this)
 				}
 		  }
@@ -199,7 +199,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 	 }
 
 	 fun complete () {
-		  
+		  		  
 		  var negative = 1.0
 
 		  if (jar ().has ("add_item")) {
@@ -218,8 +218,15 @@ open class DefaultItem (): FirstItem (), InputListener {
 					 }
 				}
 		  }
-		  
-		  ticketItem.put ("amount", ticketItem.getDouble ("amount") * negative)
+
+		  if (jar ().has ("amount")) {
+
+				ticketItem.put ("amount", jar ().getDouble ("amount") * negative)
+		  }
+		  else {
+				
+				ticketItem.put ("amount", ticketItem.getDouble ("amount") * negative)
+		  }
 
 		  if (jar ().has ("parent")) {
 
@@ -304,6 +311,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
 		  PosDisplays.update ()
+		  Pos.app.controlLayout.swipeRight ()
 	 }
 
 	 fun ticketItem (): TicketItem { return ticketItem }

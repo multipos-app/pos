@@ -32,12 +32,21 @@ class Size (): Pricing (), InputListener {
  	 override fun apply (i: DefaultItem): Boolean {
 
 		  item = i
+
+		  Logger.d ("size pricing... " + item)
+		  
 		  sizes = item.pricing ().getList ("sizes")
 		  SizeView (this, sizes, Pos.app.getString (R.string.select_size))
 		  return true
 	 }
 	 
 	 override fun accept (select: Jar) {
+
+		  if (Pos.app.controls.empty ()) {
+
+				Logger.w ("empty stack in size pricing")
+				return
+		  }
 		  
 		  val item = Pos.app.controls.pop () as DefaultItem
 

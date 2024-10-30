@@ -32,7 +32,7 @@ import android.widget.TextView
 
 abstract class SelectView (listener: InputListener, list: ArrayList <Jar>, title: String ): DialogView (title) {
 
-	 abstract fun line (context: Context, jar: Jar, position: Int): LinearLayout
+	 abstract fun line (context: Context, jar: Jar, position: Int, ): LinearLayout
 	 
 	 var i: Int = 0
 	 var listView: LinearLayout
@@ -43,7 +43,8 @@ abstract class SelectView (listener: InputListener, list: ArrayList <Jar>, title
 		  listView = findViewById (R.id.select_layout_items) as LinearLayout
 		  
 		  for (l in list) {
-				
+
+				Logger.d ("select line... " + l)
 				listView.addView (line (context, l, i ++))
 		  }
 		  

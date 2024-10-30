@@ -42,7 +42,7 @@ class Metric (): Pricing (), InputListener {
 	 }
 	 
 	 override fun accept (select: Jar) {
-
+		  
 		  if (Pos.app.input.getString ().length == 0) {
 				
 				return

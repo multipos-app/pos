@@ -34,13 +34,15 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 	 var decimalVal = 0.0
 
 	 init {
-		  
+		  		  
 		  Pos.app.inflater.inflate (R.layout.number_input_layout, dialogLayout)
 	  
 		  val inputPrompt = findViewById (R.id.number_input_prompt) as TextView
-		  inputPrompt.text = prompt
 
+		  inputPrompt.setTextColor (fg)
+		  inputPrompt.text = prompt
 		  inputEcho = findViewById (R.id.number_input_echo) as TextView
+		  inputEcho.setTextColor (fg)
 		  
 		  PosDisplays.add (this)
 		  Pos.app.controlLayout.push (this)
@@ -48,7 +50,7 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 	 }
 	 
 	 override fun accept () {
-		  		  
+		  
 		  val result = Jar ().put ("value", Pos.app.input.getString ())
 		  
 		  if (decimalVal != 0.0) {
@@ -89,7 +91,6 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 	 
 	 override fun enter () {
 
-		  Logger.d ("number input view...")
 		  accept ()
 	 }
 	 

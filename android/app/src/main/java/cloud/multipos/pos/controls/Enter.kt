@@ -21,6 +21,7 @@ import java.util.ArrayList
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.devices.DeviceManager;
+import cloud.multipos.pos.views.PosDisplays
 
 public class Enter (): Control () {
 
@@ -31,36 +32,56 @@ public class Enter (): Control () {
 		  if (Pos.app.controls.size > 0) {
 
 				val control = Pos.app.controls.removeFirst ()
-				control.action (control.jar ())
+
+				if (control is DefaultItem) {
+					 
+					 control.jar ()
+						  .put ("merge_like_items", false)
+						  .put ("amount", Pos.app.input.getDouble () / 100.0)
+					 
+					 Pos.app.input.clear ()
+					 control.complete ()
+					 
+					 return;
+				}
+				else {
+					 
+					 control.action (control.jar ())
+				}
 		  }
 		  else if (jar ().has ("value")) {
-
-				Logger.d ("enter... " + jar ().getString ("value"))
 				
 				val value = jar ().getString ("value")
 				Control.factory ("DefaultItem")
-								.action (Jar ()
-												 .put ("sku", value)
-												 .put ("entry_mode", "keyed"))
+					 .action (Jar ()
+									  .put ("sku", value)
+									  .put ("entry_mode", "keyed"))
 
-						  // when (value.length)  {
-
-				// 	 5, 6, 7, 8, 12, 13 -> {
-						  
-				// 		  Control.factory ("DefaultItem")
-				// 				.action (Jar ()
-				// 								 .put ("sku", value)
-				// 								 .put ("entry_mode", "keyed"))
-				// 	 }
-					 
-				// 	 11, 36 -> {
-						  
-				// 		  Control.factory ("RecallByUUID")
-				// 				.action (Jar ().put ("recall_key", value))
-				// 	 }
-				// }
+				
 		  }
+		  else if (Pos.app.input.length () > 0) {
+					 
+					 // operator input sku?
+					 
+					 when (Pos.app.input.length ()) {  
+													
+													5, 6, 7, 8, 12, 13 -> {
+														 
+														 Control.factory ("DefaultItem")
+															  .action (Jar ()
+																				.put ("sku", Pos.app.input.getString ())
+																				.put ("entry_mode", "keyed"))
+													}
+													
+													11, 36 -> {  // recall by id
+																	 
+																	 Control.factory ("RecallByUUID")
+																		  .action (Jar ().put ("recall_key", Pos.app.input.getString ()))
+													}
+					 }
+				}
 		  
+		  PosDisplays.enter ()
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // wake up the customer display
 	 }
 }

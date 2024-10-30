@@ -37,23 +37,22 @@ class Open (): Pricing (), InputListener {
 															 item.item.getString ("item_desc"),
 															 InputListener.CURRENCY,
 															 0)		  
-		  Pos.app.controls.push (item)
 		  return true
 	 }
 	 
 	 override fun accept (select: Jar) {
-
+		  
 		  if (Pos.app.controls.size > 0) {
 				
 				val item = Pos.app.controls.pop () as DefaultItem
-				
-				item.jar ().put ("merge_like_items", false)
-				
+												
 				val amount = select.getDouble ("value") / 100.0
 				
-				item.ticketItem ()
+				item.jar ()
+					 .put ("merge_like_items", false)
 					 .put ("amount", select.getDouble ("value") / 100.0)
-				
+								
+				Pos.app.input.clear ()
 				item.complete ()
 
 		  }
