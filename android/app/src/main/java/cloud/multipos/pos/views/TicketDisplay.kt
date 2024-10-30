@@ -29,17 +29,23 @@ import android.view.View
 import java.util.List
 import android.view.Gravity
 import android.widget.TextView
+import android.graphics.Color
 
-class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (context, attrs), PosDisplay {
+class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (context, attrs), PosDisplay, ThemeListener {
 		  		  
 	 var prompt: RollingTextView?
 	 var echo: RollingTextView?
-	 var summaryTax: PosText?
-	 var summaryTotal: PosText?
 	 var summary: LinearLayout?
 	 
-	 val summarySubtotal: PosText?
+	 lateinit var summarySubtotalDesc: PosText
+	 lateinit var summarySubtotal: PosText
+	 lateinit var summaryTaxDesc: PosText
+	 lateinit var summaryTax: PosText
+	 lateinit var summaryTotalDesc: PosText
+	 lateinit var summaryTotal: PosText
+
 	 val ticket = mutableListOf <Jar> ()
+	 val textViews = mutableListOf <PosText> ()
 
 	 init {
 		  
@@ -51,17 +57,31 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 				
 		  			 Pos.app.inflater.inflate (R.layout.ticket_summary_tax, summary)
 					 
+					 summarySubtotalDesc = findViewById (R.id.summary_subtotal_desc) as PosText
+					 textViews.add (summarySubtotalDesc)
 					 summarySubtotal = findViewById (R.id.summary_subtotal) as PosText
+					 textViews.add (summarySubtotal)
+					 summaryTaxDesc = findViewById (R.id.summary_tax_desc) as PosText
+					 textViews.add (summaryTaxDesc)
 					 summaryTax = findViewById (R.id.summary_tax) as PosText
+					 textViews.add (summaryTax)
+					 summaryTotalDesc = findViewById (R.id.summary_total_desc) as PosText
+					 textViews.add (summaryTotalDesc)
 					 summaryTotal = findViewById (R.id.summary_total) as PosText
+					 textViews.add (summaryTotal)
 				}
 				else -> {
 				
 		  			 Pos.app.inflater.inflate (R.layout.ticket_summary_vat, summary)
 					 
-					 summarySubtotal = null
+					 summaryTaxDesc = findViewById (R.id.summary_tax_desc) as PosText
+					 textViews.add (summaryTaxDesc)
 					 summaryTax = findViewById (R.id.summary_tax) as PosText
+					 textViews.add (summaryTax)
+					 summaryTotalDesc = findViewById (R.id.summary_total_desc) as PosText
+					 textViews.add (summaryTotalDesc)
 					 summaryTotal = findViewById (R.id.summary_total) as PosText
+					 textViews.add (summaryTotal)
 				}
 		  }
 				
@@ -72,6 +92,8 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 
 		  prompt?.setText (Pos.app.getString (R.string.register_open), true)
 		  echo?.setText ("", false)
+		  
+		  Themed.add (this)
 	 }
 
 	 /**
@@ -125,10 +147,7 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 								return TenderLine (context, p)
 						  }
 						  
-						  else -> {
-								
-								// return TicketLine (context, p, pos, this)
-						  }
+						  else -> { }
 					 }
 		  }
 		  return view
@@ -218,5 +237,15 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 				
 				return text
 		  }
-	 }		
+	 }
+
+	 override fun update (theme: Themes) {
+
+		  for (view in textViews) {
+
+				view.setTextColor (Color.parseColor (Pos.app.getString (Themed.fg)))
+		  }
+		  
+		  update ()  // force list redraw
+	 }
 }

@@ -59,13 +59,14 @@ public class Config extends Jar {
 		  DbResult posConfigResult = new DbResult (Pos.app.db ()
 																 .find ("pos_configs")
 																 .query (),
-																 Pos.app.db ());
-		  Logger.x ("init config... ");
-				
+																 Pos.app.db ());				
 		  if (posConfigResult.fetchRow ()) {
+				
 
 				Jar config = posConfigResult.row ();
 				
+				Logger.d ("load config... " + config.getInt ("id") + " " + config.getString ("config_desc"));
+
 				parse (config.getString ("config"));
 				ready = true;
 		  }

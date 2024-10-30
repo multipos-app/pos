@@ -4,21 +4,28 @@
 
     <color name="empty">#ffffffff</color>
 
-	 <color name="day_bg">#efefef</color>
-    <color name="day_fg">#000000</color>
+    <color name="pos_banner_bg">#007BFF</color>
+	 <color name="light_bg">#efefef</color>
+    <color name="light_fg">#000000</color>
+    <color name="light_even_bg">#efefef</color>
+    <color name="light_odd_bg">#CFE2F3</color>
+    <color name="light_select_bg">#BCBDBF</color>
 
-	 <color name="night_bg">#445655</color>
-    <color name="night_fg">#dddddd</color>
-
-    <color name="even_bg">#99dddddd</color>
-    <color name="odd_bg">#99ffffff</color>
-    <color name="select_bg">#BCBDBF</color>
+	 <color name="dark_bg">#3F4A5C</color>
+    <color name="dark_fg">#efefef</color>
+    <color name="dark_even_bg">#3F4A5C</color>
+    <color name="dark_odd_bg">#363D47</color>
+    <color name="dark_select_bg">#BCBDBF</color>
+	 
+    <color name="tabs_default_color">#007BFF</color>
 
     <color name="black_overlay">#66000000</color>
-    <!-- <color name="pos_app_bg">#008577</color> -->
+    <!-- <color name="pos_app_bg">#0e0e0e</color> -->
 	 
-    <color name="pos_bg">#F3F3F3</color>
+    <!-- <color name="pos_bg">#F3F3F3</color> -->
+    <color name="pos_bg">#0D1117</color>
     <color name="pos_app_bg">#103D6E</color>
+    <!-- <color name="pos_app_bg">#0D1117</color> -->
 	 
     <color name="pos_primary">#007BFF</color>
     <color name="pos_secondary">#6C757D</color>

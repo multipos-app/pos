@@ -28,7 +28,7 @@ import android.widget.LinearLayout;
 import android.widget.Button
 import android.view.View;
 
-class PosKeypad (context: Context, attrs: AttributeSet): PosLayout (context, attrs) {
+class PosKeypad (context: Context, attrs: AttributeSet): PosLayout (context, attrs), ThemeListener {
 	 
 	 val enter = Enter ()
 	 val quantity = Quantity ()

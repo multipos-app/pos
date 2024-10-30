@@ -34,7 +34,7 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 	 init {
 	 
 		  Pos.app.inflater.inflate (R.layout.report_layout, dialogLayout)
-
+		  
 		  val text = findViewById (R.id.report_text) as PosText
 		  text.setTypeface (Views.receiptFont ());
 		  
@@ -48,6 +48,8 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 				}
 				
 				text.setText (t);
+				text.setTextColor (fg)
+
 				accept.setText (Pos.app.getString ("print"));
 		  }
 		  else if (jar.has ("report_text")) {
@@ -64,14 +66,15 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 										 scroller.fullScroll (View.FOCUS_UP);              
 									}
 		  })
-		  
+
+		  Logger.d ("report view...")
 		  Pos.app.controlLayout.push (this)
 	 }
 
 	 override fun accept () {
 
 		  Pos.app.receiptBuilder ().print ();
-		  Pos.app.controlLayout.swipeRight ()
+		  Pos.app.controlLayout.pop (this)
 	 }
 	 
 	 override fun sticky (): Boolean { return true; }

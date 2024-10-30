@@ -41,6 +41,8 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet): PosLayout
 	 var dir = Gravity.START
 	 var edge = Gravity.START
 	 var gestureDetector: GestureDetector
+	 
+	 val animateSwipe = true
 
 	 abstract fun swipeLeft ()
 	 abstract fun swipeRight ()
@@ -127,19 +129,18 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet): PosLayout
 
 	 fun swipe (next: PosLayout) {
 
-		  removeAllViews ()
-		  addView (next)
-		  
-        // val scene = Scene (swiper, next)
-
-        // // val slide = Slide (dir)
-        // // slide.setMode (Fade.MODE_IN)
-		  
-        // val slide = Fade (Fade.MODE_IN)
-		  
-        // val transition = slide
-        // transition.setDuration (500)
-        // TransitionManager.go (scene, transition)
-        // clearAnimation ()
+		  if (animateSwipe) {
+				
+				val scene = Scene (swiper, next)
+				val slide = Slide (dir)
+				val transition = slide
+				transition.setDuration (150)
+				TransitionManager.go (scene, transition)
+		  }
+		  else {
+				
+				removeAllViews ()
+				addView (next)
+		  }
 	 }
 }

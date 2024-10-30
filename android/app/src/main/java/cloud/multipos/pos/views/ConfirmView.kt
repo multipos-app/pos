@@ -23,6 +23,7 @@ import cloud.multipos.pos.controls.*
 import android.widget.Button
 import android.widget.TextView
 import android.widget.LinearLayout
+import android.graphics.Color
 
 class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl): DialogView (Pos.app.getString ("confirm")) {
 
@@ -32,6 +33,8 @@ class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl):
 	  
 		  val text = findViewById (R.id.confirm_text) as PosText
 		  text.setText (confirmText)
+		  text.setTextColor (fg)
+		  
 		  Pos.app.controlLayout.push (this)
 	 }
 

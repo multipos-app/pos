@@ -27,9 +27,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import android.graphics.Typeface
 
-open class PosText (context: Context, attrs: AttributeSet): TextView (context, attrs), PosTheme {
-
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
+open class PosText (context: Context, attrs: AttributeSet): TextView (context, attrs) {
 
 	 init {
 		  
@@ -50,27 +48,5 @@ open class PosText (context: Context, attrs: AttributeSet): TextView (context, a
 
 		  setTypeface (null, Typeface.ITALIC)
 	 }
-		  
-	 override fun theme (theme: PosTheme.Theme) {
-		  
-		  when (theme) {
-
-				PosTheme.Theme.Day -> {
-					 
-					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_bg));				
-					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_fg));				
-				}
-
-				PosTheme.Theme.Night -> {
-					 
-					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_bg));				
-					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-				}
-
-				else -> { }
-		  }
-	 }
-	 
-	 override fun theme (): PosTheme.Theme { return theme }
 }
 

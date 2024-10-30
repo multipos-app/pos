@@ -12,7 +12,7 @@
 	 android:background="@android:color/transparent">
 
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_subtotal_text"
+		android:id="@+id/summary_subtotal_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight=".5"
@@ -37,7 +37,7 @@
 		android:textSize="@dimen/ticket_summary_md_text"/>
 
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_tax_text"
+		android:id="@+id/summary_tax_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight=".5"
@@ -62,7 +62,7 @@
 		android:textSize="@dimen/ticket_summary_md_text"/>
 
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_total_text"
+		android:id="@+id/summary_total_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight=".5"

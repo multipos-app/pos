@@ -19,8 +19,8 @@
 		android:gravity="start|center"
 		android:popupBackground="@color/transparent"
       android:textSize="@dimen/dialog_md_text"
-      android:textColor="@color/black"
-		android:textColorHint="@color/dk_gray"
+      android:textColor="@color/white"
+		android:textColorHint="@color/lt_gray"
 		android:background="@color/transparent"
 		android:layout_margin="@dimen/dialog_md_margin"
  	 	app:layout_constraintTop_toBottomOf="@+id/customer_search_title"/>

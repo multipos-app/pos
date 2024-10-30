@@ -12,26 +12,6 @@
 	 android:background="@color/light_tint"
 	 tools:context=".Main">
 
-  <LinearLayout
-		android:id="@+id/pos_info_title"
-		android:layout_width="match_parent"
-      android:layout_height="@dimen/dialog_header_height"
-		android:orientation="horizontal"
-		android:gravity="center"
-		android:padding="@dimen/dialog_md_padding"
-		android:background="@color/pos_app_bg">
-
-	 <TextView
-		  android:id="@+id/app_name"
-		  android:layout_width="wrap_content"
-		  android:layout_height="wrap_content"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:background="@color/transparent"
-		  android:textColor="@color/white"
-		  android:text="@string/app_name"/>
-	 
-  </LinearLayout>
-
   <GridLayout 
 		android:id="@+id/pos_info_network"
 		android:layout_width="match_parent"
@@ -59,12 +39,12 @@
        android:layout_columnWeight="1"/>
 	
 	<cloud.multipos.pos.views.PosText
-		 android:id="@+id/version"
+		 android:id="@+id/info_version"
 		  android:layout_width="wrap_content"
 		  android:layout_height="wrap_content"
 		  android:textSize="@dimen/dialog_md_text"
 		  android:gravity="right"
-		  android:background="@color/transparent"
+		  android:background="@color/lt_gray"
 		  android:textColor="@color/black"
         android:layout_columnWeight="1"
 		  android:layout_marginTop="@dimen/dialog_sm_margin"

@@ -8,7 +8,7 @@
 	 android:orientation="horizontal">
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_subtotal_text"
+		android:id="@+id/summary_subtotal_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
@@ -37,7 +37,7 @@
       android:layout_alignParentBottom="true"/>
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_tax_text"
+		android:id="@+id/summary_tax_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
@@ -66,7 +66,7 @@
       android:layout_alignParentBottom="true"/>
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_total_text"
+		android:id="@+id/summary_total_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"

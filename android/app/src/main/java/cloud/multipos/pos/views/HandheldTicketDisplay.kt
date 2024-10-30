@@ -98,10 +98,7 @@ class HandheldTicketDisplay (context: Context, attrs: AttributeSet): ListDisplay
 								return TenderLine (context, p)
 						  }
 						  
-						  else -> {
-								
-								// return TicketLine (context, p, pos, this)
-						  }
+						  else -> { }
 					 }
 		  }
 		  return view

@@ -23,18 +23,33 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Button
+import android.graphics.Color
 
 abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay, SwipeListener {
 
 	 protected var accept: TextView
 	 protected var dialogLayout: LinearLayout
+	 var fg = Color.BLACK
 	 
 	 init {
 		  
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.dialog_container_layout, this)
-		  
+
 		  dialogLayout = findViewById (R.id.dialog_layout) as LinearLayout
+		  if (Themed.theme == Themes.Light) {
+
+				setBackgroundResource (R.color.light_bg)
+				dialogLayout.setBackgroundResource (R.color.light_bg)
+				fg = Color.BLACK
+		  }
+		  else {
+
+				setBackgroundResource (R.color.dark_bg)
+				dialogLayout.setBackgroundResource (R.color.dark_bg)
+				fg = Color.WHITE
+		  }
+		  		  
 		  accept = findViewById (R.id.dialog_accept) as Button
 				
 		  val header = findViewById (R.id.dialog_title) as TextView
@@ -47,7 +62,7 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 		  }
 	 }
 	 
-	 open fun accept () {}
+	 open fun accept () { }
 	 open fun cancel () {
 
 		  Pos.app.input.clear ()

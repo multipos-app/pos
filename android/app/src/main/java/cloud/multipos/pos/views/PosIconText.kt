@@ -27,9 +27,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import android.view.KeyEvent
 
-open class PosIconText (context: Context, attrs: AttributeSet): TextView (context, attrs), PosTheme {
-
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
+open class PosIconText (context: Context, attrs: AttributeSet): TextView (context, attrs) {
 
 	 init {
 		  
@@ -38,27 +36,27 @@ open class PosIconText (context: Context, attrs: AttributeSet): TextView (contex
 		  // setTextColor (ContextCompat.getColor (Pos.app.activity, R.color.night_fg))
 	 }
 
-	 override fun theme (theme: PosTheme.Theme) {
+	 // override fun theme (theme: PosTheme.Theme) {
 		  
-		  when (theme) {
+		  // when (theme) {
 
-				PosTheme.Theme.Day -> {
+				// PosTheme.Theme.Day -> {
 					 
-					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_bg));				
-					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-				}
+				// 	 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_bg));				
+				// 	 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
+				// }
 
-				PosTheme.Theme.Night -> {
+				// PosTheme.Theme.Night -> {
 					 
-					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_bg));				
-					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-				}
+				// 	 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_bg));				
+				// 	 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
+				// }
 
-				else -> { }
-		  }
-	 }
+				// else -> { }
+		  // }
+	 // }
 	 
-	 override fun theme (): PosTheme.Theme { return theme }
+	 // override fun theme (): PosTheme.Theme { return theme }
 
 	 override fun onKeyUp (keyCode: Int, event: KeyEvent): Boolean {
 

@@ -39,40 +39,28 @@ import android.text.TextWatcher
 import android.text.Editable
 import java.util.UUID
 
-class CustomerEditView (customer: Jar) : DialogView ("") {
+class CustomerEditView (val customer: Jar) : DialogView (Pos.app.getString ("edit_customer")), KeyboardListener {
 
 	 var action = "add"
-
+	 val phoneNum = StringBuffer ()
+	 val formatPhone = PhoneNumberUtils ()
+	 
+	 lateinit var fname: EditText
+	 lateinit var lname: EditText
+	 lateinit var email: EditText
+	 lateinit var phone: EditText
+	 
 	 init {
 		  
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-		  Pos.app.inflater.inflate (R.layout.customer_edit_layout, this)
+		  Pos.app.inflater.inflate (R.layout.customer_edit_layout, dialogLayout)
 
 		  Logger.d ("customer edit... ${customer}")
 
-		  val fname = findViewById (R.id.customer_fname) as EditText
-		  val lname = findViewById (R.id.customer_lname) as EditText
-		  val email = findViewById (R.id.customer_email) as EditText
-		  val phone = findViewById (R.id.customer_phone) as EditText
-
-		  // phone.addTextChangedListener (object: TextWatcher {
-					 
-		  // 			 override fun onTextChanged (s: CharSequence, start: Int, before: Int, count: Int) {
-						  
-		  // 				  Logger.d ("ph edit... " + s)
-		  // 				  var ph = PhoneNumberUtils.formatNumber (s.toString (), Locale.getDefault ().getCountry ())
-		  // 				  Logger.d ("phone... " + ph)
-		  // 			 }
-					 
-		  // 			 override fun afterTextChanged (s: Editable) { }
-		  // 			 override fun beforeTextChanged (s: CharSequence, start: Int, before: Int, count: Int) { }
-		  // 		})
-
-		  val title = findViewById (R.id.customer_edit_title) as PosText
-		  if (customer == null) {
-
-				title.setText (Pos.app.getString ("add_customer"))
-		  }
+		  fname = findViewById (R.id.customer_fname) as EditText
+		  lname = findViewById (R.id.customer_lname) as EditText
+		  email = findViewById (R.id.customer_email) as EditText
+		  phone = findViewById (R.id.customer_phone) as EditText
 
 		  if (customer.has ("phone")) {
 				
@@ -85,32 +73,61 @@ class CustomerEditView (customer: Jar) : DialogView ("") {
 				action = customer.getString ("action")
 		  }
 		  
-		  val cont = findViewById (R.id.customer_edit_continue) as Button
-		  cont.setOnClickListener {
-				
-				val cust = Customer (customer)
-
-				cust
-					 .put ("contact", fname.getText ().toString () + " " + lname.getText ().toString ())
-					 .put ("fname", fname.getText ().toString ())
-					 .put ("lname", lname.getText ().toString ())
-					 .put ("email", email.getText ().toString ())
-					 .put ("phone", phone.getText ().toString ())
-
-				if (customer.getString ("action")  == "add") {
-					 
-					 cust.put ("uuid", UUID.randomUUID ().toString ())  // add a uuid
-				}
-
-				Pos.app.ticket.put ("customer", cust)
-				
-				Pos.app.customer = cust
-				Pos.app.ticket.put ("customer", cust)
-				val customer = Customer (Pos.app.customer)
-				Pos.app.posAppBar.customer (customer.display ())
-				Pos.app.controlLayout.swipeRight ()
-		  }
-
 		  Pos.app.controlLayout.push (this)
+		  Pos.app.keyboardListeners.add (this)
+	 }
+
+	 override fun accept () {
+
+		  val cust = Customer (customer)
+
+		  Logger.d ("customer edit done... " + customer)
+		  
+		  cust
+				.put ("contact", fname.getText ().toString () + " " + lname.getText ().toString ())
+				.put ("fname", fname.getText ().toString ())
+				.put ("lname", lname.getText ().toString ())
+				.put ("email", email.getText ().toString ())
+				.put ("phone", phone.getText ().toString ())
+		  
+		  if (customer.getString ("action")  == "add") {
+				
+				cust.put ("uuid", UUID.randomUUID ().toString ())  // add a uuid
+		  }
+		  
+		  Pos.app.ticket.put ("customer", cust)
+		  
+		  Pos.app.customer = cust
+		  Pos.app.ticket.put ("customer", cust)
+		  val customer = Customer (Pos.app.customer)
+		  Pos.app.posAppBar.customer (customer.display ())
+		  Pos.app.keyboardListeners.remove (this)
+		  Pos.app.controlLayout.pop (this)
+	 }
+	 
+	 override fun onNum (num: Char) {
+		  
+		  phone.setText ("")
+		  
+		  if (phoneNum.length < 10) {
+				
+				phoneNum.append (num)
+				
+				// Logger.d ("customer edit, on num... ${num} ${phoneNum.toString ()} ${PhoneNumberUtils.formatNumber (phoneNum.toString (), "US")}")
+				phone.setText (PhoneNumberUtils.formatNumber (phoneNum.toString (), "US"))
+				// phone.setText (Strings.phone (phoneNum.toString (), "US"))
+		  }
+	 }
+	 
+	 override fun onBackspace () {
+
+		  if (phoneNum.length > 0) {
+				
+				phoneNum.setLength (phoneNum.length - 1)
+				
+				// Logger.d ("customer edit, on bs... ${phoneNum.toString ()} ${PhoneNumberUtils.formatNumber (phoneNum.toString (), "US")}")
+				phone.setText (PhoneNumberUtils.formatNumber (phoneNum.toString (), "US"))
+				// phone.setText (Strings.phone (phoneNum.toString (), "US"))
+		  }
 	 }
 }

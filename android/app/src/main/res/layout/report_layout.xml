@@ -4,7 +4,7 @@
     android:layout_height="@dimen/match_parent"
     android:layout_centerHorizontal="true"
     android:layout_gravity="center_horizontal"
-    android:background="@color/pos_bg"
+    android:background="@color/transparent"
     android:padding="@dimen/dialog_lg_padding">
 
     <ScrollView

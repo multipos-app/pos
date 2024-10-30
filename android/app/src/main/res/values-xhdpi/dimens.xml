@@ -91,7 +91,7 @@
   <dimen name="dialog_header_height">70dp</dimen>
   <dimen name="dialog_footer_height">100dp</dimen>
 
-  <dimen name="dialog_xlg_text">24sp</dimen>
+  <dimen name="dialog_xlg_text">45sp</dimen>
   <dimen name="dialog_lg_text">24sp</dimen>
   <dimen name="dialog_md_text">20sp</dimen>
   <dimen name="dialog_sm_text">16sp</dimen>

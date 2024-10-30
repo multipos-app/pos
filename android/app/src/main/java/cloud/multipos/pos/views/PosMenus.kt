@@ -32,7 +32,7 @@ import android.transition.Slide
 import android.transition.Transition
 import android.transition.TransitionManager
 
-class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosMenuControl, SwipeListener  {
+class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosMenuControl, SwipeListener, ThemeListener  {
 
 	 companion object {
 		  
@@ -54,11 +54,18 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 	 
 	 init {
 
-		  Pos.app.posMenus.add (this)
 		  name = getAttr ("menus", "")		  
 		  update ()
 		  menus.put (name, this)
-		  Pos.app.controlLayout.listeners.add (this)
+
+		  // control layout not used for all menus
+
+		  if (Pos.app.controlLayoutInit ()) {
+
+				Pos.app.controlLayout.listeners.add (this)
+		  }
+		  
+		  Themed.add (this)
 	 }
 	 
 	 fun buttonStyle (): String { return "solid" }
@@ -98,9 +105,15 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 					 
 					 for (menu in posMenus.getList ("horizontal_menus")) {
 
+						  var tabColor = Pos.app.getString (R.color.tabs_default_color)
+						  if (menu.has ("color")) {
+
+								tabColor = menu.getString ("color");
+						  }
+						  
 						  tabs.add (Jar ()
 											 .put ("name", menu.getString ("name"))
-											 .put ("color", "#555577"))
+											 .put ("color", tabColor))
 					 }
 		  }
 
@@ -111,6 +124,7 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  
 		  addView (layouts.first ())
 	 }
+	 
 	 override fun onSwipe (swipeDir: SwipeDir) {
 		  
 		  var next = 0
@@ -146,5 +160,10 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()
 		  curr = next
+	 }
+	 
+	 override fun update (theme: Themes) {
+
+		  update ()
 	 }
 }

@@ -57,7 +57,7 @@
   <dimen name="cm_dialog_padding">5dp</dimen>
   <dimen name="cm_dialog_button_margin">5dp</dimen>
   
-  <dimen name="cm_dialog_xlg_text">35sp</dimen>
+  <dimen name="cm_dialog_xlg_text">50sp</dimen>
   <dimen name="cm_dialog_lg_text">24sp</dimen>
   <dimen name="cm_dialog_md_text">20sp</dimen>
   <dimen name="cm_dialog_sm_text">28sp</dimen>
@@ -98,7 +98,7 @@
   <dimen name="dialog_add_item_height">550dp</dimen>
   <dimen name="dialog_add_item_input_width">370dp</dimen>
 
-  <dimen name="dialog_xlg_text">42sp</dimen>
+  <dimen name="dialog_xlg_text">32sp</dimen>
   <dimen name="dialog_lg_text">32sp</dimen>
   <dimen name="dialog_md_text">24sp</dimen>
   <dimen name="dialog_sm_text">16sp</dimen>

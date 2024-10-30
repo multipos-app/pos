@@ -151,14 +151,15 @@
     <item name="android:textSize">32sp</item>
   </style>
   
-  <style name="PosControlButton" parent="Widget.MaterialComponents.Button.TextButton">
+  <style name="PosControlButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
 	 
   	 <item name="android:textColor">@color/white</item>
 	 <item name="android:insetLeft">0dp</item>
     <item name="android:insetRight">0dp</item>
     <item name="android:insetBottom">0dp</item>
     <item name="android:insetTop">0dp</item>
-    <item name="cornerRadius">3dp</item>
+    <item name="cornerRadius">5dp</item>
+    <item name="strokeColor">@color/lt_gray</item>
 
   </style>
 
@@ -170,7 +171,8 @@
     <item name="android:insetRight">0dp</item>
     <item name="android:insetBottom">0dp</item>
     <item name="android:insetTop">0dp</item>
-    <item name="cornerRadius">3dp</item>
+    <item name="cornerRadius">5dp</item>
+    <item name="strokeColor">@color/white</item>
 
   </style>
 

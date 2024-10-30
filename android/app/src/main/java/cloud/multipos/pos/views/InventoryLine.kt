@@ -31,7 +31,7 @@ import java.util.Optional
 import android.view.View
 import android.view.MotionEvent
 
-open class InventoryLine (context: Context, item: Jar, pos: Int, val listDisplay: ListDisplay?): LinearLayout (context), PosTheme {
+open class InventoryLine (context: Context, item: Jar, pos: Int, val listDisplay: ListDisplay): LinearLayout (context) {
 
 	 var theme: PosTheme.Theme = PosTheme.Theme.Day
 	 var position: Int
@@ -72,11 +72,11 @@ open class InventoryLine (context: Context, item: Jar, pos: Int, val listDisplay
 
 				if (pos % 2 == 1) {
 					 
-		  			 setBackgroundResource (R.color.odd_bg)
+		  			 setBackgroundResource (Themed.oddBg)
 				}
 				else {
 					 
-		  			 setBackgroundResource (R.color.even_bg)
+		  			 setBackgroundResource (Themed.evenBg)
 				}
 				
 				quantity.normal ()
@@ -92,16 +92,13 @@ open class InventoryLine (context: Context, item: Jar, pos: Int, val listDisplay
 								
 								if (p == pos) {
 									 
-					 				 setBackgroundResource (R.color.select_bg)
-									 // quantity.bold ()
-									 // desc.bold ()
+					 				 setBackgroundResource (Themed.selectBg)
+									 quantity.bold ()
+									 desc.bold ()
 								}
 						  }
 					 }
 				}
 		  }
 	 }
-
-	 override fun theme (theme: PosTheme.Theme) { }
-	 override fun theme (): PosTheme.Theme { return theme }
 }

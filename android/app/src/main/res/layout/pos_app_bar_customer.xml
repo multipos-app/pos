@@ -22,11 +22,11 @@
   
   <cloud.multipos.pos.views.PosText
       android:id="@+id/app_bar_clock"
-      android:layout_width="0dp"
-      android:layout_weight="5"
+      android:layout_width="wrap_content"
 		android:layout_height="match_parent"
       android:gravity="center_vertical|start"
 		android:layout_marginLeft="@dimen/app_bar_icon_margin"
+		android:layout_marginRight="@dimen/app_bar_icon_margin"
 		android:text=""
       android:textColor="@color/white"
       android:textSize="@dimen/app_bar_text"/>

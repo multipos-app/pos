@@ -113,12 +113,8 @@ class ControlsGridLayout (val menu: Jar,
 		  
 		  init {
 				
-				if (jar.getString ("color") == "btn-empty") {
-
-					 jar.put ("color", "empty");
-				}
-				
 				button.setText (jar.getString ("text"))
+				button.setTypeface (Views.buttonFont ())
 
 				var control: Control?  = controls.get (jar.getString ("class"))
 				
@@ -152,6 +148,7 @@ class ControlsGridLayout (val menu: Jar,
 		  init {
 
 				button.setText (jar.getString ("text"))				
+				button.setTypeface (Views.buttonFont ())
 				button.setOnClickListener {
 					 					 
 					 posMenuControl.menu (jar.get ("jar").getInt ("menu_index"))
@@ -162,12 +159,12 @@ class ControlsGridLayout (val menu: Jar,
 	 inner open class GridButton (jar: Jar): LinearLayout (Pos.app.activity) {
 
 		  var layoutParams: GridLayout.LayoutParams
-		  // var layoutParams: ConstraintLayout.LayoutParams
 		  var button: MaterialButton
 		  
 		  init {
 				
-				Pos.app.inflater.inflate (R.layout.solid_control_button, this)
+				Pos.app.inflater.inflate (R.layout.pos_control_button, this)  //  
+				
 				button = findViewById (R.id.control_button) as MaterialButton
 				
 				layoutParams = GridLayout.LayoutParams (GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f),
@@ -178,61 +175,50 @@ class ControlsGridLayout (val menu: Jar,
 				setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 				setLayoutParams (layoutParams)
 				setPadding (0, 0, 0, 0)
-				
-				var color = jar.getString ("color")
+								
+				var color = "#777777"
+				if (jar.has ("color")) {
 
-				if (color.startsWith ("color", true)) {
-
-					 color = "%X".format (ContextCompat.getColor (Pos.app, Pos.app.resourceID (jar.getString ("color"), "color"))).replace ("FF", "#")
+					 color = jar.getString ("color")
 				}
-				else if (color == "#000") {
-					 
-					 color = "#222222"
-				}
-				
-				var colorVal = Color.DKGRAY
+						
 				when (menu.getString ("style")) {
 
 					 "solid" -> {
-
-						  try {
-
-								colorVal = Color.parseColor (color)
-						  }
-						  catch (e: Exception) {
-								
-								Logger.w ("error parsing color... " + e + " " + jar)
-						  }
 						  
-						  val states = Array (1, {intArrayOf (-android.R.attr.state_focused)})
-						  val colors = intArrayOf (colorVal, colorVal, colorVal)
-						  val csl = ColorStateList (states, colors)
-		 				  button.setBackgroundTintList (csl)
+						  button.setTextColor (Color.WHITE)
+						  val colorList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
+																				 intArrayOf(android.R.attr.state_enabled)),
+																	 intArrayOf (Color.DKGRAY,
+																					 Color.parseColor (color)))
+		 				  button.setBackgroundTintList (colorList)
 					 }
 
 					 "outline" -> {
 
-						  // lighten the color
-
-						  color = color.replace ("#", "#30")
-						  
-						  try {
+						  if (Themed.theme == Themes.Light) {  // lighten the color
 								
-								colorVal = Color.parseColor (color)
+								color = color.replace ("#", "#30")
 						  }
-						  catch (e: Exception) {
-								
-								Logger.w ("error parsing color... " + e + " " + jar)
-						  }
-						  
-						  button.strokeColor = ColorStateList.valueOf (colorVal)
-						  val states = Array (1, {intArrayOf (-android.R.attr.state_focused)})
-						  val colors = intArrayOf (colorVal, colorVal, colorVal)
-						  val csl = ColorStateList (states, colors)
-		 				  button.setBackgroundTintList (csl)
 
-						  button.strokeWidth = 2
-						  button.setTextColor (Color.BLACK)
+						  button.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
+					  						  
+						  val colorList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
+																				 intArrayOf(android.R.attr.state_enabled)),
+																	 intArrayOf (Color.DKGRAY,
+																					 Color.parseColor (color)))
+		 				  button.setBackgroundTintList (colorList)
+
+						  // add the stroke
+						  
+						  val strokeList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
+																				 intArrayOf(android.R.attr.state_enabled)),
+																	 intArrayOf (Color.BLACK,
+																					 Color.parseColor (Pos.app.getString (R.color.dk_gray)))
+						  )
+
+						  button.strokeWidth = 3
+						  button.strokeColor = strokeList
 					 }
 				}
 				

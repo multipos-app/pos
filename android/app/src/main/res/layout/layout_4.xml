@@ -51,14 +51,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/transparent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:orientation="vertical">
 		
 		<LinearLayout
 			 android:layout_height="0dp"
 			 android:layout_width="match_parent"
-			 android:layout_weight="1.2"
+			 android:layout_weight="1.19"
 			 android:background="@color/transparent"
 			 android:orientation="vertical">
 		  
@@ -66,15 +64,17 @@
 				android:id="@+id/displays"
 				android:layout_width="match_parent"	
 				android:layout_height="match_parent"
+				android:layout_margin="15dp"
 				android:background="@color/transparent"/>
 		  
 		</LinearLayout>
 
-		<cloud.multipos.pos.views.PosKeypad
-			 android:id="@+id/pos_keypad"
+		<cloud.multipos.pos.views.PosMenus
+			 custom:menus="keypad"
 			 android:layout_width="match_parent"
 			 android:layout_height="0dp"
-			 android:layout_weight=".925"
+			 android:layout_weight=".924"
+			 android:layout_marginBottom="4dp"
 			 android:background="@color/transparent"/>
 		
     </LinearLayout>
@@ -88,6 +88,7 @@
         android:background="@color/transparent">
 		
 		<cloud.multipos.pos.views.PosControlHomeLayout
+			 
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent"
 			 android:orientation="vertical">

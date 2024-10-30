@@ -157,8 +157,8 @@
 	 
 
     <string name="banner_font">fonts/banner.ttf</string>
-    <string name="button_font">fonts/button.ttf</string>
-    <string name="display_font">fonts/display.ttf</string>
+    <string name="button_font">fonts/jura.ttf</string>
+    <string name="display_font">fonts/jura.ttf</string>
     <string name="default_font">fonts/default.ttf</string>
     <string name="icon_font">fonts/font_awesome.otf</string>
     <string name="receipt_font">fonts/receipt.ttf</string>
@@ -274,7 +274,7 @@
     <string name="copy">Copy</string>
     <string name="customer_no">Customer No.</string>
     <string name="customer_name">Name</string>
-    <string name="customer_phone">Telephone</string>
+    <string name="customer_phone">(nnn) nnn-nnnn</string>
     <string name="customer_mobile">Mobile phone</string>
     <string name="customer_email">EMail</string>
     <string name="edit_customer">Edit customer</string>

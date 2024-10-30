@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dialog_lg_padding"
-    android:background="@color/pos_bg">
+    android:background="@color/transparent">
   
   <GridLayout 
       android:id="@+id/tender_detail"

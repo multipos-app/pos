@@ -30,15 +30,16 @@ import android.widget.LinearLayout.LayoutParams
 import android.widget.Button
 import android.view.View
 import android.view.View.OnLongClickListener
+import android.graphics.Color
 
-open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay: ListDisplay?): LinearLayout (context), PosTheme {
+open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay: ListDisplay?): LinearLayout (context) {
 
 	 var theme: PosTheme.Theme = PosTheme.Theme.Day
 	 var position: Int
 	 lateinit var desc: PosText
 	 lateinit var amount: PosText
 	 lateinit var quantity: PosText
-	 
+	 	 
 	 init {
 		  
 		  position = pos
@@ -47,9 +48,13 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 
 				Pos.app.inflater.inflate (itemLayout (), this);
 				
+				quantity = this.findViewById (R.id.ticket_item_line_quantity) as PosText
 				desc = this.findViewById (R.id.ticket_item_line_desc) as PosText
 				amount = this.findViewById (R.id.ticket_item_line_amount) as PosText
-				quantity = this.findViewById (R.id.ticket_item_line_quantity) as PosText
+				
+				quantity.setTypeface (Views.displayFont ())
+				desc.setTypeface (Views.displayFont ())
+				amount.setTypeface (Views.displayFont ())
 
 				if (ti.extAmount () != 0.0) {
 					 
@@ -70,39 +75,52 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 				}
 				
 				amount.setText (Strings.currency (ti.extAmount (), false))
-
-				if (listDisplay != null) {
 					 
-					 val layout = this.findViewById (R.id.ticket_item_layout) as LinearLayout
-					 layout.setOnClickListener {
+				val layout = this.findViewById (R.id.ticket_item_layout) as LinearLayout
+				layout.setOnClickListener {
+					 
+					 if (Pos.app.selectValues.indexOf (pos) >= 0) {
 						  
-						  if (Pos.app.selectValues.indexOf (pos) >= 0) {
-								
-								Pos.app.selectValues.remove (pos);
-						  }
-						  else {
-								
-	 							listDisplay.select (position);
-						  }
-						  
-						  listDisplay.redraw ();
-
+						  Pos.app.selectValues.remove (pos);
 					 }
+					 else {
+						  
+	 					  listDisplay?.select (position);
+					 }
+					 
+					 listDisplay?.redraw ();	 
 				}
-
+				
 				if (pos % 2 == 1) {
 					 
-		  			 setBackgroundResource (R.color.odd_bg)
+		  			 setBackgroundResource (Themed.oddBg)
 				}
 				else {
 					 
-		  			 setBackgroundResource (R.color.even_bg)
+		  			 setBackgroundResource (Themed.evenBg)
 				}
 				
 				quantity.normal ()
 				desc.normal ()
 				amount.normal ()
+				
+				when (Themed.theme) {
+				
+					 Themes.Light -> {
+					 
+						  quantity.setTextColor (Color.BLACK)
+						  desc.setTextColor (Color.BLACK)
+						  amount.setTextColor (Color.BLACK)
+					 }
+				
+					 Themes.Dark -> {
 
+						  quantity.setTextColor (Color.WHITE)
+						  desc.setTextColor (Color.WHITE)
+						  amount.setTextColor (Color.WHITE)
+					 }
+				}
+				
 				if (ti.hasAddons ()) {
 
 					 val addonLayout = findViewById (itemAddonLayout ()) as LinearLayout
@@ -137,7 +155,7 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 								
 								if (p == pos) {
 									 
-					 				 setBackgroundResource (R.color.select_bg)
+					 				 setBackgroundResource (Themed.selectBg)
 									 quantity.bold ()
 									 desc.bold ()
 									 amount.bold ()
@@ -168,7 +186,4 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 	 
 	 open fun itemAddonLayout (): Int { return R.id.ticket_item_addon_layout }
 	 open fun itemLinkLayout (): Int { return R.id.ticket_item_link_layout }
-
-	 override fun theme (theme: PosTheme.Theme) { }
-	 override fun theme (): PosTheme.Theme { return theme }
 }

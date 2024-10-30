@@ -32,8 +32,9 @@ import android.transition.Fade
 import android.transition.Slide
 import android.transition.Transition
 import android.transition.TransitionManager
+import android.graphics.Color
 
-class RollingTextView (context: Context, attrs: AttributeSet): LinearLayout (context, attrs) {
+class RollingTextView (context: Context, attrs: AttributeSet): LinearLayout (context, attrs)  {
 
 	 val textViews = mutableListOf <TicketPromptText> ()
 	 val dir = Gravity.BOTTOM
@@ -84,13 +85,19 @@ class RollingTextView (context: Context, attrs: AttributeSet): LinearLayout (con
 		  return textViews.get (index).getMaxWidth ()
 	 }
 
-	 inner class TicketPromptText (context: Context): LinearLayout (context) {
+	 inner class TicketPromptText (context: Context): LinearLayout (context), ThemeListener {
 
 		  lateinit var textView: TextView
 
 		  init {
 
 				setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
+				Themed.add (this)
+		  }
+
+		  fun setText (text: String) {
+				
+				textView.text = text
 		  }
 		  
 		  fun layout (layoutID: Int) {
@@ -99,14 +106,26 @@ class RollingTextView (context: Context, attrs: AttributeSet): LinearLayout (con
 				textView = findViewById (R.id.pos_text)
 		  }
 
-		  fun setText (text: String) {
-
-				textView.setText (text)
-		  }
-		  
 		  fun getMaxWidth (): Int {
 
 				return textView.getMaxWidth ()
+		  }
+		  
+		  
+		  override fun update (theme: Themes) {
+				
+				when (theme) {
+					 
+					 Themes.Light -> {
+						  
+						  textView.setTextColor (Color.BLACK)
+					 }
+					 
+					 Themes.Dark -> {
+						  
+						  textView.setTextColor (Color.WHITE)
+					 }
+				}
 		  }
 	 }
 }

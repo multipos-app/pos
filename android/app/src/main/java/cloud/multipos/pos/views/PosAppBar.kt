@@ -45,6 +45,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 var customerName: PosText? = null
 	 val devices = mutableListOf <DeviceIcon> ()		  
 	 var tray: LinearLayout
+	 var themeIcon = ThemeIcon ()
 	 
 	 init {
 
@@ -101,7 +102,8 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  // devices
 		  				
 		  tray = findViewById (Pos.app.resourceID ("app_bar_tray", "id"))
-		  
+		  tray.addView (themeIcon, 0)
+
 		  for (device in Pos.app.devices) {
 				
 				var deviceIcon = DeviceIcon (device)
@@ -111,7 +113,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 				Logger.x ("pos app bar init... " + device)
 
 		  }
-
+		  
 		  // handler,  clock and device update thread
 		  
 		  var handler: Handler = object: Handler () {
@@ -212,5 +214,27 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  }
 
 		  fun text (): PosIconText { return icon }
+	 }
+	 
+	 inner class ThemeIcon (): LinearLayout (Pos.app) {
+		  
+		  val icon: PosIconText
+
+		  init {
+		  
+				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_device", "layout"), this)
+				
+				icon = findViewById (R.id.app_bar_icon)
+				icon.setText (if (Themed.theme == Themes.Light) R.string.fa_night else  R.string.fa_day)
+				if (Themed.theme == Themes.Light) icon.setTextColor (Color.BLACK) else icon.setTextColor (Color.YELLOW)
+				
+				icon.setOnClickListener {
+
+					 Logger.d ("theme change...")
+					 Themed.toggle ()
+					 icon.setText (if (Themed.theme == Themes.Light) R.string.fa_night else  R.string.fa_day)
+					 if (Themed.theme == Themes.Light) icon.setTextColor (Color.BLACK) else icon.setTextColor (Color.YELLOW)
+				}
+		  }
 	 }
 }

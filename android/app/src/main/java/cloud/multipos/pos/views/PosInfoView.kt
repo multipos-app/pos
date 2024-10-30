@@ -36,7 +36,7 @@ import java.net.NetworkInterface
 import java.net.InetAddress
 import android.net.wifi.WifiManager
 
-class PosInfoView (): DialogView ("") {
+class PosInfoView (): DialogView ("POS Info") {
 
 	 var version: TextView
 	 var merchant: TextView
@@ -48,7 +48,7 @@ class PosInfoView (): DialogView ("") {
 	 
 	 init {
 
-		  Pos.app.inflater.inflate (R.layout.pos_info_dialog, this)
+		  Pos.app.inflater.inflate (R.layout.pos_info_layout, this)
  		  
 		  var uploadLog = findViewById (R.id.upload_log) as Button
 	  	  uploadLog.setOnClickListener {
@@ -56,7 +56,7 @@ class PosInfoView (): DialogView ("") {
 				FileUtils.uploadLog ()
 		  }
 		  
-		  version = findViewById (R.id.version) as TextView
+		  version = findViewById (R.id.info_version) as TextView
 		  merchant = findViewById (R.id.merchant_id) as TextView
 		  posNo = findViewById (R.id.pos_no) as TextView
 		  wifiIP = findViewById (R.id.wifi_ip) as TextView
@@ -70,6 +70,10 @@ class PosInfoView (): DialogView ("") {
 		  
 		  getIPs ()
 
+		  version.setText (Pos.app.getString (R.string.app_version))
+		  merchant.text = Pos.app.dbname ()
+		  posNo.text = "POS No ${Pos.app.posNo ()}" 
+				
 		  Pos.app.controlLayout.push (this)
 	 }
 
@@ -113,10 +117,12 @@ class PosInfoView (): DialogView ("") {
 								}
 								
 								if (intf.getName () == "wlan0") {
+									 
 									 wifiIP.text = ipv4Addr.substring (1)
 									 wifiMac.text = mac.toString ()
 								}
 								else {
+									 
 									 ethIP.text = ipv4Addr.substring (1)
 									 ethMac.text = mac.toString ()
 								}

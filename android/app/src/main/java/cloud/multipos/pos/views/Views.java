@@ -40,30 +40,13 @@ public class Views {
 	 public static Typeface receiptFontBold () { return Typeface.createFromAsset (Pos.app.activity.getAssets (), Pos.app.getString ("receipt_bold_font")); }
 	 public static Typeface receiptFontItalic () { return Typeface.createFromAsset (Pos.app.activity.getAssets (), Pos.app.getString ("receipt_italic_font")); }
 
-	 public static void toast (String t) {
-		  
-		  // Toast toast = Toast.makeText (Pos.app.activity, t, Toast.LENGTH_LONG);
-		  // LinearLayout linearLayout = (LinearLayout) toast.getView ();
-		  // View view = toast.getView ();
-		  // linearLayout.setGravity (Gravity.CENTER);
-		  // TextView messageTextView = (TextView) linearLayout.getChildAt (0);
-		  // messageTextView.setTextColor (Color.WHITE);
-		  // messageTextView.setTextSize (50);
-		  // toast.show ();
-
-	 }
-
 	 public static void listViews (ViewGroup v) {
-
-		  Logger.d ("view count... " + v.getChildCount ());
 
 		  for (int index=0; index < v.getChildCount (); ++index) {
 				
 				if (v.getChildAt (index) instanceof ViewGroup) {
 					 listViews ((ViewGroup) v.getChildAt (index));
 				}
-				
-				Logger.d ("view... " + v.getChildAt (index).getClass ().getName ());
 		  }
 	 }
 }

@@ -34,7 +34,6 @@ class Local () {
 		  
 		  prefs = Pos.app.activity.getPreferences (Context.MODE_PRIVATE)
 		  initNetwork ()
-		  dump ()
 	 }
 	 
 	 public fun put (key: String, value: String): Local {

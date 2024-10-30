@@ -37,20 +37,20 @@ class PosIconButton (context: Context,  attrs: AttributeSet): PosButton (context
 	 
 	 override fun theme (theme: PosTheme.Theme) {
 		  
-		  when (theme) {
+	 // 	  when (theme) {
 
-				PosTheme.Theme.Day -> {
+	 // 			PosTheme.Theme.Day -> {
 					 
-					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.transparent));				
-					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_fg));				
-				}
+	 // 				 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.transparent));				
+	 // 				 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_fg));				
+	 // 			}
 
-				PosTheme.Theme.Night -> {
+	 // 			PosTheme.Theme.Night -> {
 					 
-					 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.transparent));				
-					 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-				}
-				else -> { }
-		  }
+	 // 				 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.transparent));				
+	 // 				 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
+	 // 			}
+	 // 			else -> { }
+	 // 	  }
 	 }
 }

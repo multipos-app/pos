@@ -32,8 +32,9 @@ import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import java.util.ArrayList
+import android.graphics.Color
 
-class CustomerSearchView (listener: InputListener?) : DialogView ("") {
+class CustomerSearchView (listener: InputListener?) : DialogView (Pos.app.getString ("search_customer")) {
 	 
     private val list: MutableList <Jar> = ArrayList ()
     private var adapter: ListAdapter? = null
@@ -43,13 +44,23 @@ class CustomerSearchView (listener: InputListener?) : DialogView ("") {
 	 
     init {
 
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-		  Pos.app.inflater.inflate (R.layout.customer_search_layout, this)
-
-        val title = findViewById (R.id.customer_search_title) as PosText
-        title.text = Pos.app.getString ("search_customer")
+		  Logger.d ("customer seach... ")
 		  
-        val text = findViewById <View> (R.id.customer_search_input) as AutoCompleteTextView
+		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
+
+		  when (Themed.theme) {
+
+				Themes.Dark -> {
+					 
+					 Pos.app.inflater.inflate (R.layout.customer_search_dark_layout, dialogLayout)
+				}
+				else -> {
+					 
+					 Pos.app.inflater.inflate (R.layout.customer_search_layout, dialogLayout)
+				}
+		  }
+
+        val text = findViewById (R.id.customer_search_input) as AutoCompleteTextView		  
 		  
         val cont = findViewById (R.id.customer_search_complete) as Button
         cont.setOnClickListener {
@@ -75,14 +86,6 @@ class CustomerSearchView (listener: InputListener?) : DialogView ("") {
 				
  				Pos.app.controlLayout.swipeRight ()
 		  }
-
-		  // search transactions for this customer?
-		  
-        // val tickets = findViewById (R.id.customer_search_tickets) as Button
-        // tickets?.setOnClickListener {
-				
-        //     Control.factory ("TicketsByCustomer").action (Jar ().put ("customer_id", customer.getInt ("id")))
-        // }
 
         val addEdit = findViewById (R.id.customer_search_add_edit) as Button
         addEdit.setOnClickListener {
@@ -116,7 +119,7 @@ class CustomerSearchView (listener: InputListener?) : DialogView ("") {
 
 																			val cust = Customer (customer)
 																			text.setText (cust.display ())
-																			Pos.app.posAppBar.customer (cust.display ())
+																			// Pos.app.posAppBar.customer (cust.display ())
 																			addEdit.text = Pos.app.getString ("edit_customer")
 																			
 																			Pos.app.lowerKeyboard (Pos.app.controlLayout)

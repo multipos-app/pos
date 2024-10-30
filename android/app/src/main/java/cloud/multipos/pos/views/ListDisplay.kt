@@ -37,16 +37,7 @@ import java.util.ArrayList
 import java.util.List
 
 abstract class ListDisplay (context: Context, attrs: AttributeSet): LinearLayout (context, attrs) {
-	 
-	 // override fun theme (): Theme { return theme }
-	 // fun fg (): Int { return fg }
-	 // fun bg (): Int{ return bg }
-	 // fun selectBg (): Int { return selectBg }
-	 // var theme: Theme
-	 
-	 var fg = R.color.day_fg
-	 var bg = R.color.day_bg
-	 var selectBg = R.color.select_bg
+	 	 
 	 var singleSelect = false
 	 
 	 lateinit var listView: ListView
@@ -162,34 +153,12 @@ abstract class ListDisplay (context: Context, attrs: AttributeSet): LinearLayout
 				
 				listAdapter.notifyDataSetChanged ()
 		  }
+		  
+		  invalidate ()
 	 }
 	 
 	 fun selectValues (): MutableList <Int> {
 		  
 		  return selectValues
 	 }
-	 
-	 fun fg (): Int { return fg }
-	 fun bg (): Int { return bg }
-	 fun selectBg (): Int { return selectBg }
-	 
-	 // fun theme (theme: Theme) {
-		  		  
-	 // 	  this.theme = theme
-
-	 // 	  when (theme) {
-
-	 // 			Day -> {
-					 
-	 // 				 fg = R.color.day_fg
-	 // 				 bg = R.color.day_bg
-	 // 			}
-				
-	 // 			Night -> {
-					 
-	 // 				 fg = R.color.night_fg
-	 // 				 bg = R.color.night_bg
-	 // 			}
-	 // 	  }
-	 // }
 }

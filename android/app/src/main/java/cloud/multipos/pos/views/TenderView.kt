@@ -34,7 +34,7 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 	 init {
 		  
 		  Pos.app.inflater.inflate (R.layout.tender_layout, dialogLayout)
-		  
+
 		  val grid = findViewById (R.id.tender_detail) as GridLayout
 		  
 		  grid.addView (TenderLine (Pos.app.getString ("total"), tender.total, R.layout.tender_detail))

@@ -45,11 +45,11 @@ class CustomerSummaryLine (context: Context, desc: String, amount: Double, pos: 
 
 		  if (pos % 2 == 1) {
 				
-		  		setBackgroundResource (R.color.odd_bg)
+		  		setBackgroundResource (R.color.light_odd_bg)
 		  }
 		  else {
 				
-		  		setBackgroundResource (R.color.even_bg)
+		  		setBackgroundResource (R.color.light_even_bg)
 		  }
 	 }
 }
