@@ -209,7 +209,7 @@ object BackOffice: Device, DeviceCallback {
 
 								Pos.app.config = config
 								row.put ("config", config.toString ())
-								Pos.app.db ().insert (update.getString ("update_table"), row)
+								Pos.app.db ().insert ("pos_configs", row)
 								
 								config.initialize ()
 								Pos.app.config.put ("config_loaded", true)
