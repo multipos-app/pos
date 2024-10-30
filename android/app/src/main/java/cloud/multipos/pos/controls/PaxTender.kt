@@ -67,20 +67,21 @@ class PaxTender (): Tender (null) {
 				
 				// dialog.auth ()
 
-				authAmount = Currency.round (tendered + fees ())
 				if (authAmount < 0) {
 					 
 					 authAmount = authAmount * -1.0
 					 transactionType = "RETURN"
 				}
 				
-				var authString = (authAmount * 100.0).toInt ().toString ()
+				var authString = (total () * 100.0).toInt ().toString ()
 				
 				var p = Jar ()
 					 .put ("tender_type", tenderType)
 					 .put ("transaction_type", transactionType)
 					 .put ("amount", authString)
 					 .put ("ticket_no", Pos.app.ticket.getInt ("ticket_no"))
+
+				Logger.x ("pax auth... " + p)
 				
 				DeviceManager.payment?.authorize (p, handler)
 		  }
