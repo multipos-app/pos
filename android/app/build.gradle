@@ -18,8 +18,8 @@ android {
         minSdkVersion 22   // for the e800 23, need level 24 to get camera/fmpeg to work on some tablets
         targetSdkVersion 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        versionCode 82
-        versionName "1.0"
+        versionCode 83
+        versionName "1.1"
     }
 
 	 signingConfigs {
