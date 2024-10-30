@@ -83,14 +83,13 @@ class Pos (): AppCompatActivity () {
 	 lateinit var posInit: Jar
 	 lateinit var overlay: LinearLayout
 
-	 var posMenus = mutableListOf <PosMenus> ()
-
 	 // default locale
 	 
 	 var locale = Locale.US
 
 	 val inventoryList = mutableListOf <Device> ()
-	 
+	 val posMenus = mutableListOf <PosMenus> ()
+	 val keyboardListeners = mutableListOf <KeyboardListener> ()
 	 @JvmField val devices = mutableListOf <Device> ()
 
 	 var receiptBuilder = ReceiptBuilder ()
@@ -206,6 +205,11 @@ class Pos (): AppCompatActivity () {
         super.onBackPressed ()
 	 }
 	 
+	 fun controlLayoutInit (): Boolean {
+
+		  return this::controlLayout.isInitialized
+	 }
+
 	 fun start () {
 		  		  		  
 		  if (config.ready ()) {
@@ -334,8 +338,9 @@ class Pos (): AppCompatActivity () {
 				}
 		  }
 
-		  Logger.d ("set layout... " + config.getString ("root_layout") + " " + resourceID (config.getString ("root_layout"), "layout") + " " + R.layout.layout_2)	  
+		  Logger.d ("set layout... " + config.getString ("root_layout") + " " + buID ())	  
         setContentView (resourceID (config.getString ("root_layout"), "layout"))
+		  Themed () // init theme
 		  
 		  loggedIn = true
 	 }
@@ -442,12 +447,24 @@ class Pos (): AppCompatActivity () {
 
 		  if (event.action == KeyEvent.ACTION_UP) {
 
-				Logger.d ("key event... " + event)
+				// Logger.d ("key event... " + event)
+
+				DeviceManager.scanner?.input (event)
 				
-		  		DeviceManager.scanner?.input (event)
+				for (kl in keyboardListeners) {
+					 
+					 if (event.keyCode == KeyEvent.KEYCODE_DEL) {
+						  
+						  kl.onBackspace ()
+					 }
+					 else {
+						  
+						  kl.onNum (event.getNumber ())
+					 }
+				}
 		  }
 		  
-        return true
+        return false
 	 }
 	 
 	 fun copyAssets (context: Context) {
