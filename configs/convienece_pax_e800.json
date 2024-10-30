@@ -11,9 +11,8 @@
     "prompt_open_amount": "false",
     "show_previous_receipt": "true",
     "disable_quantity_void": "true",
-    "root_layout": "layout_2",
+    "root_layout": "layout_4",
     "item_line_layout": "ticket_item_line",
-    "keypad_layout": "pos_keypad_2",
     "pos": "generic_tablet",
     "enter_clerk": "false",
     "confirm_tender": "true",
@@ -46,6 +45,7 @@
                 {
                     "type": "controls",
                     "style": "outline",
+                    "color": "#21512D",
                     "name": "BREAKFAST",
                     "width": "5",
                     "buttons": [
@@ -252,6 +252,7 @@
                 {
                     "type": "controls",
                     "style": "outline",
+                    "color": "#1B1B7C",
                     "name": "SIGNATURE SANDWICHES",
                     "width": "5",
                     "buttons": [
@@ -415,6 +416,7 @@
                 {
                     "type": "controls",
                     "style": "outline",
+                    "color": "#1B454C",
                     "name": "SIGNATURE MELTS",
                     "width": "5",
                     "buttons": [
@@ -558,6 +560,7 @@
                 {
                     "type": "controls",
                     "style": "outline",
+                    "color": "#1B454C",
                     "name": "SIGNATURE SALADS",
                     "width": "5",
                     "buttons": [
@@ -714,6 +717,7 @@
                 {
                     "type": "controls",
                     "style": "outline",
+                    "color": "#5E7981",
                     "name": "FUNCTIONS",
                     "width": "5",
                     "buttons": [
@@ -865,11 +869,12 @@
                 {
                     "type": "controls",
                     "style": "outline",
-                    "name": "tender 1",
+                    "color": "#21512D",
+                    "name": "Tender",
                     "width": "5",
                     "buttons": [
                         {
-                            "class": "OpenItem",
+                            "class": "Item",
                             "text": "NON TAX DELI",
                             "color": "#5E7981",
                             "params": {
@@ -878,7 +883,7 @@
                             "fixed": "1"
                         },
                         {
-                            "class": "OpenItem",
+                            "class": "Item",
                             "text": "TAXABLE DELI",
                             "color": "#5E7981",
                             "params": {
@@ -887,7 +892,7 @@
                             "fixed": "1"
                         },
                         {
-                            "class": "OpenItem",
+                            "class": "Item",
                             "text": "NON TAX GROCERY",
                             "color": "#5E7981",
                             "params": {
@@ -896,7 +901,7 @@
                             "fixed": "1"
                         },
                         {
-                            "class": "OpenItem",
+                            "class": "Item",
                             "text": "TAXABLE GROCERY",
                             "color": "#5E7981",
                             "params": {
@@ -963,7 +968,7 @@
                         {
                             "text": "COUPON",
                             "color": "#5E7981",
-                            "class": "OpenItem",
+                            "class": "Item",
                             "params": {
                                 "sku": "20002"
                             },
@@ -1040,7 +1045,163 @@
                     ]
                 }
             ]
-        }
+        },
+        "keypad": {
+            "menu_description": "Keypad",
+            "tabs": "false",
+            "horizontal_menus": [
+                {
+                    "type": "controls",
+                    "style": "outline",
+                    "color": "#5E7981",
+                    "name": "keypad",
+                    "width": "4",
+                    "buttons": [
+								{
+                            "text": "7",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "7"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "8",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "8"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "9",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "9"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "Quantity",
+                            "class": "Quantity",
+                            "color": "#5E7981",
+                            "params": {
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "4",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "4"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "5",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "5"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "6",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "6"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "Qty+",
+                            "class": "Quantity",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "1"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "1",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "1"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "2",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "2"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "3",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "3"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "Qty-",
+                            "class": "Quantity",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "-1"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "Clear",
+                            "class": "Clear",
+                            "color": "#5E7981",
+                            "params": {
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "0",
+                            "class": "NumKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "0"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "00",
+                            "class": "MultKey",
+                            "color": "#5E7981",
+                            "params": {
+                                "value": "00"
+                            },
+                            "fixed": "1"
+                        },
+								{
+                            "text": "Enter",
+                            "class": "Enter",
+                            "color": "#5E7981",
+                            "params": {
+                            },
+                            "fixed": "1"
+                        }
+						  ]
+					 }
+				]
+		  }
     },
     "pos_displays": [
         {
