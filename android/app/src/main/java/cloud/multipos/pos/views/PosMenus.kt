@@ -39,8 +39,6 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  val menus = mutableMapOf <String, PosMenus> ()
 
 		  fun set (name: String, index: Int) {
-
-				Logger.d ("set menu... $name $index")
 				
 				val m = menus.get (name)
 				m?.menu (index)
@@ -100,7 +98,7 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  tabs = mutableListOf <Jar> ()
 		  
 		  val posMenus = Pos.app.config.get ("pos_menus").get (name)
-
+		  
 		  if (posMenus.getBoolean ("tabs") && (posMenus.getList ("horizontal_menus").size > 1)) {
 					 
 					 for (menu in posMenus.getList ("horizontal_menus")) {
@@ -116,9 +114,9 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 											 .put ("color", tabColor))
 					 }
 		  }
-
+		  
 		  for (menu in posMenus.getList ("horizontal_menus")) {
-
+				
 				layouts.add (ControlsGridLayout (menu, this, tabs, attrs))
 		  }
 		  
@@ -135,14 +133,12 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 
 				SwipeDir.Up -> {
 
-					 Logger.d ("pos menu up... " + dir)
 					 if (curr > 0) next = curr - 1
 					 else next = layouts.size - 1
 				}
 				
 				SwipeDir.Down -> {
 
-					 Logger.d ("pos menu down... " + dir)
 					 next = (curr + 1) % layouts.size
 					 dir = Gravity.TOP
 					 edge = Gravity.TOP
