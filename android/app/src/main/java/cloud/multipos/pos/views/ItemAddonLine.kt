@@ -28,10 +28,9 @@ import androidx.core.widget.TextViewCompat
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.view.View
+import android.graphics.Color
 
-class ItemAddonLine (context: Context, tia: Jar): LinearLayout (context), PosTheme {
-
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
+class ItemAddonLine (context: Context, tia: Jar): LinearLayout (context) {
 
 	 init {
 
@@ -42,10 +41,20 @@ class ItemAddonLine (context: Context, tia: Jar): LinearLayout (context), PosThe
 		  
 		  desc.setText (tia.getString ("addon_description"))
 		  amount.setText (Strings.currency (tia.getDouble ("addon_amount"), false))
+
+		  when (Themed.theme) {
+				
+				Themes.Light -> {
+					 
+					 desc.setTextColor (Color.BLACK)
+					 amount.setTextColor (Color.BLACK)
+				}
+				
+				Themes.Dark -> {
+					 
+					 desc.setTextColor (Color.WHITE)
+					 amount.setTextColor (Color.WHITE)
+				}
+		  }
 	 }
-	 
-	 override fun theme (theme: PosTheme.Theme) {
-	 }
-	 
-	 override fun theme (): PosTheme.Theme { return theme }
 }

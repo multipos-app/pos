@@ -33,7 +33,6 @@ import android.view.MotionEvent
 
 open class InventoryLine (context: Context, item: Jar, pos: Int, val listDisplay: ListDisplay): LinearLayout (context) {
 
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
 	 var position: Int
 	 var desc: PosText
 	 var quantity: PosText

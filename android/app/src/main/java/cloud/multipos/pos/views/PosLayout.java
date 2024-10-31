@@ -44,11 +44,6 @@ public class PosLayout extends LinearLayout implements SwipeListener {
 		  this.attrs = attrs;
 		  this.resources = context.getResources ();
 		  setLayoutParams (new LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
-		  
-		  if (themedList == null) {
-				
-				themedList = new ArrayList <PosTheme> ();
-		  }
 	 }
 	 
 	 public int getIntAttr (String name, int defValue) {
@@ -75,19 +70,9 @@ public class PosLayout extends LinearLayout implements SwipeListener {
 		  return defValue;
 	 }
 	 
-	 public void theme (PosTheme.Theme theme) {
-
-		  // Logger.d ("pos layout theme... " + themedList.size ());
-		  // themedList.stream ().forEach (t -> { t.theme (theme); });
-	 }
-
-	 
 	 @Override
 	 public void onSwipe (SwipeDir dir) { }
-	 
-	 public ArrayList <PosTheme> themedList () { return themedList; }
-	 	 
-	 private ArrayList <PosTheme> themedList = new ArrayList <PosTheme> ();
+	 	 	 
 	 protected Context context;
 	 protected AttributeSet attrs;
 	 protected Resources resources;

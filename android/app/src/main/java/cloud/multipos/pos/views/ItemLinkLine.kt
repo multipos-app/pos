@@ -28,10 +28,9 @@ import androidx.core.widget.TextViewCompat
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.view.MotionEvent
+import android.graphics.Color
 
-class ItemLinkLine (context: Context, ti: TicketItem): LinearLayout (context), PosTheme {
-
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
+class ItemLinkLine (context: Context, ti: TicketItem): LinearLayout (context) {
 
 	 init {
 		  
@@ -48,10 +47,22 @@ class ItemLinkLine (context: Context, ti: TicketItem): LinearLayout (context), P
 				
 				amount.setText (Strings.currency (ti.extAmount (), false))
 		  }
+
+		  when (Themed.theme) {
+				
+				Themes.Light -> {
+					 
+					 quantity.setTextColor (Color.BLACK)
+					 desc.setTextColor (Color.BLACK)
+					 amount.setTextColor (Color.BLACK)
+				}
+				
+				Themes.Dark -> {
+					 
+					 quantity.setTextColor (Color.WHITE)
+					 desc.setTextColor (Color.WHITE)
+					 amount.setTextColor (Color.WHITE)
+				}
+		  }
 	 }
-	 	 
-	 override fun theme (theme: PosTheme.Theme) {
-	 }
-	 
-	 override fun theme (): PosTheme.Theme { return theme }
 }

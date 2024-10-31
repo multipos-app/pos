@@ -28,10 +28,9 @@ import androidx.core.widget.TextViewCompat
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.view.View
+import android.graphics.Color
 
-class TenderLine (context: Context, tt: TicketTender): LinearLayout (context), PosTheme {
-
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
+class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 
 	 init {
 
@@ -42,10 +41,20 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context), P
 		  
 		  desc.setText (Pos.app.getString ("paid").uppercase () + " " + tt.getString ("tender_type").uppercase ())
 		  amount.setText (Strings.currency (tt.getDouble ("tendered_amount"), false))
+
+		  when (Themed.theme) {
+				
+				Themes.Light -> {
+					 
+					 desc.setTextColor (Color.BLACK)
+					 amount.setTextColor (Color.BLACK)
+				}
+				
+				Themes.Dark -> {
+					 
+					 desc.setTextColor (Color.WHITE)
+					 amount.setTextColor (Color.WHITE)
+				}
+		  }
 	 }
-	 
-	 override fun theme (theme: PosTheme.Theme) {
-	 }
-	 
-	 override fun theme (): PosTheme.Theme { return theme }
 }

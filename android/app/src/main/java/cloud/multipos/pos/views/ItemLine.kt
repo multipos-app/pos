@@ -34,7 +34,6 @@ import android.graphics.Color
 
 open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay: ListDisplay?): LinearLayout (context) {
 
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
 	 var position: Int
 	 lateinit var desc: PosText
 	 lateinit var amount: PosText

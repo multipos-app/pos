@@ -28,6 +28,7 @@ import android.widget.TextView
 import android.widget.GridLayout
 import android.widget.LinearLayout
 import android.view.View;
+import android.graphics.Color
 
 class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + " " + tender.tenderType) {
 	 
@@ -38,7 +39,7 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 		  val grid = findViewById (R.id.tender_detail) as GridLayout
 		  
 		  grid.addView (TenderLine (Pos.app.getString ("total"), tender.total, R.layout.tender_detail))
-
+		  
 		  if (tender.paid > 0) {
 				
 		  		grid.addView (TenderLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_detail))
@@ -90,6 +91,21 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 		  
 				val a = findViewById (R.id.tender_detail_amount) as TextView
 				a.setText (Strings.currency (amount, false))
+
+				when (Themed.theme) {
+				
+					 Themes.Light -> {
+					 
+						  a.setTextColor (Color.BLACK)
+						  d.setTextColor (Color.BLACK)
+					 }
+				
+					 Themes.Dark -> {
+
+						  a.setTextColor (Color.WHITE)
+						  d.setTextColor (Color.WHITE)
+					 }
+				}
 		  }
 	 }
 }

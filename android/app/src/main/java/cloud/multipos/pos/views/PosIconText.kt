@@ -32,36 +32,5 @@ open class PosIconText (context: Context, attrs: AttributeSet): TextView (contex
 	 init {
 		  
 		  setTypeface (Views.icons ());
-		  // setTextColor (R.color.night_fg)
-		  // setTextColor (ContextCompat.getColor (Pos.app.activity, R.color.night_fg))
-	 }
-
-	 // override fun theme (theme: PosTheme.Theme) {
-		  
-		  // when (theme) {
-
-				// PosTheme.Theme.Day -> {
-					 
-				// 	 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_bg));				
-				// 	 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-				// }
-
-				// PosTheme.Theme.Night -> {
-					 
-				// 	 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_bg));				
-				// 	 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-				// }
-
-				// else -> { }
-		  // }
-	 // }
-	 
-	 // override fun theme (): PosTheme.Theme { return theme }
-
-	 override fun onKeyUp (keyCode: Int, event: KeyEvent): Boolean {
-
-		  // intercept KeyEvent action=ACTION_UP
-		  
-		  return false
 	 }
 }

@@ -29,9 +29,7 @@ import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.view.View
 
-class ItemNoteLine (context: Context, note: Jar): LinearLayout (context), PosTheme {
-
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
+class ItemNoteLine (context: Context, note: Jar): LinearLayout (context) {
 
 	 init {
 
@@ -41,9 +39,4 @@ class ItemNoteLine (context: Context, note: Jar): LinearLayout (context), PosThe
 		  
 		  desc.setText (note.getString ("note"))
 	 }
-	 
-	 override fun theme (theme: PosTheme.Theme) {
-	 }
-	 
-	 override fun theme (): PosTheme.Theme { return theme }
 }

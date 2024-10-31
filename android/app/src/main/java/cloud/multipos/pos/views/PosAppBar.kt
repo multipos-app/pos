@@ -37,7 +37,7 @@ import java.util.TimeZone
 import android.os.Handler
 import android.os.Message
 
-class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosDisplay {
+class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosDisplay, ThemeListener {
 
 	 var p: ImageView
 	 var clock: PosText
@@ -47,6 +47,8 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 var tray: LinearLayout
 	 var themeIcon = ThemeIcon ()
 	 
+	 lateinit var rootLayout: LinearLayout
+	 
 	 init {
 
 		  Pos.app.posAppBar = this
@@ -54,6 +56,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  if (Pos.app.config.getBoolean ("customers")) {
 				
 				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar_customer", "layout"), this)
+				rootLayout = findViewById (R.id.app_bar_root) as LinearLayout
 				
 				// customer
 		  
@@ -172,6 +175,8 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 						  }
 						  
 		  }).start ()
+
+		  Themed.add (this)
 	 }
 
 	 override fun update () {
@@ -234,6 +239,24 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 					 Themed.toggle ()
 					 icon.setText (if (Themed.theme == Themes.Light) R.string.fa_night else  R.string.fa_day)
 					 if (Themed.theme == Themes.Light) icon.setTextColor (Color.BLACK) else icon.setTextColor (Color.YELLOW)
+				}
+		  }
+	 }
+
+	 override fun update (theme: Themes) {
+
+		  Logger.d ("pos app bar theme update... ${theme}")
+		  
+		  when (theme) {
+					 
+				Themes.Light -> {
+						  
+					 rootLayout.setBackgroundResource (R.color.pos_app_bg)
+				}
+					 
+				Themes.Dark -> {
+						  
+					 rootLayout.setBackgroundResource (R.color.dark_bg)
 				}
 		  }
 	 }

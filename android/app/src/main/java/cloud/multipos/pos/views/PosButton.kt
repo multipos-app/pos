@@ -26,34 +26,10 @@ import com.google.android.material.button.MaterialButton
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 
-open class PosButton (context: Context,  attrs: AttributeSet?): MaterialButton (context, attrs), PosTheme {
-
-	 var theme: PosTheme.Theme = PosTheme.Theme.Day
+open class PosButton (context: Context,  attrs: AttributeSet?): MaterialButton (context, attrs) {
 
 	 init {
 
 		  setTypeface (Views.displayFont ())
 	 }
-	 
-	 override fun theme (theme: PosTheme.Theme) {
-		  
-		  // when (theme) {
-
-		  // 		PosTheme.Theme.Day -> {
-					 
-		  // 			 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_bg));				
-		  // 			 setStrokeColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_fg));				
-		  // 			 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.day_fg));				
-		  // 		}
-
-		  // 		PosTheme.Theme.Night -> {
-					 
-		  // 			 setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_bg));				
-		  // 			 setStrokeColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-		  // 			 setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.night_fg));				
-		  // 		}
-		  // }
-	 }
-	 
-	 override fun theme (): PosTheme.Theme { return theme }
 }
