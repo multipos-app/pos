@@ -3,6 +3,7 @@
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
+      android:id="@+id/app_bar_root"
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
 	 android:background="@color/pos_app_bg"
@@ -18,6 +19,7 @@
       android:src="@drawable/app_icon"
 		android:padding="0dp"
       android:layout_gravity="center_vertical|center_horizontal"
+      android:background="@color/transparent"
       app:layout_constraintStart_toStartOf="parent"/>
   
   <cloud.multipos.pos.views.PosText
@@ -29,6 +31,7 @@
 		android:layout_marginRight="@dimen/app_bar_icon_margin"
 		android:text=""
       android:textColor="@color/white"
+      android:background="@color/transparent"
       android:textSize="@dimen/app_bar_text"/>
   
   <LinearLayout
@@ -50,6 +53,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/app_bar_text"
 		  android:layout_marginLeft="10dp"
+        android:background="@color/transparent"
 		  android:clickable="false"/>
 	 
 	 <cloud.multipos.pos.views.PosText
@@ -62,6 +66,7 @@
         android:textColor="@color/white"
 		  android:maxLines="1"
         android:textSize="@dimen/app_bar_customer_text"
+        android:background="@color/transparent"
 		  android:clickable="false"/>
 	 
   </LinearLayout>
