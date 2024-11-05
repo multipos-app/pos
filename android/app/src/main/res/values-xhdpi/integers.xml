@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <integer name="ticket_prompt_max">18</integer>
-    <integer name="ticket_echo_max">12</integer>
-</resources>
-
