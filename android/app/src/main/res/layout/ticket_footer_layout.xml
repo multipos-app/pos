@@ -1,14 +1,14 @@
 <LinearLayout
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:tools="http://schemas.android.com/tools"
-	 android:id="@+id/ticket_item_summary"
+	 android:id="@+id/ticket_item_footer"
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content"
 	 android:background="@color/transparent"
 	 android:orientation="horizontal">
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_subtotal_desc"
+		android:id="@+id/footer_subtotal_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
@@ -18,11 +18,11 @@
 		android:background="@color/transparent"
 		android:text="@string/sub_total"
 		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_summary_sm_text"
+		android:textSize="@dimen/ticket_footer_sm_text"
       android:layout_alignParentBottom="true"/>
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_subtotal"
+		android:id="@+id/footer_subtotal"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
@@ -31,27 +31,27 @@
 		android:layout_margin="5dp"
 		android:background="@color/transparent"
 		android:text=""
+		android:textStyle="bold|italic"
 		android:textColor="@color/black"
-		android:textStyle="bold"
-		android:textSize="@dimen/ticket_summary_md_text"
+		android:textSize="@dimen/ticket_footer_md_text"
       android:layout_alignParentBottom="true"/>
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_tax_desc"
+		android:id="@+id/footer_tax_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
-		android:layout_weight="1"
+		android:layout_weight=".3"
 		android:gravity="bottom"
 		android:textAlignment="viewStart"
 		android:layout_margin="5dp"
 		android:background="@color/transparent"
 		android:text="@string/tax"
 		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_summary_sm_text"
+		android:textSize="@dimen/ticket_footer_sm_text"
       android:layout_alignParentBottom="true"/>
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_tax"
+		android:id="@+id/footer_tax"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
@@ -60,27 +60,27 @@
 		android:layout_margin="5dp"
 		android:background="@color/transparent"
 		android:text=""
+		android:textStyle="bold|italic"
 		android:textColor="@color/black"
-		android:textStyle="bold"
-		android:textSize="@dimen/ticket_summary_md_text"
+		android:textSize="@dimen/ticket_footer_md_text"
       android:layout_alignParentBottom="true"/>
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_total_desc"
+		android:id="@+id/footer_total_desc"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
-		android:layout_weight="1"
+		android:layout_weight=".34"
 		android:gravity="bottom"
 		android:textAlignment="viewStart"
 		android:layout_margin="5dp"
 		android:background="@color/transparent"
 		android:text="@string/total"
 		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_summary_sm_text"
+		android:textSize="@dimen/ticket_footer_sm_text"
       android:layout_alignParentBottom="true"/>
   
   <cloud.multipos.pos.views.PosText
-		android:id="@+id/summary_total"
+		android:id="@+id/footer_total"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
@@ -90,8 +90,8 @@
 		android:textAlignment="viewEnd"
 		android:layout_margin="5dp"
 		android:textColor="@color/black"
-		android:textStyle="bold"
-		android:textSize="@dimen/ticket_summary_md_text"
+		android:textStyle="bold|italic"
+		android:textSize="@dimen/ticket_footer_lg_text"
       android:layout_alignParentBottom="true"/>
   
 </LinearLayout>

@@ -24,12 +24,9 @@ import cloud.multipos.pos.devices.DeviceManager
 class Clear (): Control () {
 
 	 override fun controlAction (jar: Jar?) {
-		  
+		  				
 		  Pos.app.input.clear ()
-		  PosDisplays.message (Jar ()
-											.put ("prompt_text", Pos.app.getString ("register_open"))
-											.put ("echo_text", ""))
-									  
+		  PosDisplays.clear () 
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // wake up the customer display
 	 }
 }

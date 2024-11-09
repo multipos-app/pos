@@ -24,11 +24,7 @@ import android.view.View
 open class DefaultDisplay: PosDisplay {
 
 	 override fun update () { }
-	 override fun view (): View { return View (Pos.app) }
 	 override fun clear () { }
 	 override fun message (message: String) { }
 	 override fun message (message: Jar) { }
-	 // override fun select (): Int { return 0 }
-	 // override fun select (position: Int) { }
-	 // override fun selectValues (): MutableList <Int>  { return mutableListOf <Int> () }
 }

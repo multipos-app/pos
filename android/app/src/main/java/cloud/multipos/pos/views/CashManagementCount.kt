@@ -261,7 +261,6 @@ class CashManagementCount (var sessionManager: SessionManager, var cashManagemen
 		  denoms.get (denom).add (Pos.app.input.getInt ())
 	 }
 	 
-	 override fun view (): View { return this }
 	 override fun clear () { }
 	 override fun message (message: String) { }
 	 override fun message (message: Jar) { }

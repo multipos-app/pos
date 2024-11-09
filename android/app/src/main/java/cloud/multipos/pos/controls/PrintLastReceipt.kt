@@ -25,11 +25,6 @@ class PrintLastReceipt (): Control () {
 
 	 override fun controlAction (jar: Jar) {
 
-		  Control.factory ("LoadTicket").action (Jar ().put ("dir", -1))
-
-		  Logger.x ("print last... " + Pos.app.ticket)
-		  
-		  Control.factory ("PrintReceipt").action (Jar ())
-		  Control.factory ("LoadTicket").action (Jar ().put ("dir", 1))
+		  Pos.app.controlLayout.swipeLeft ()
 	 }
 }

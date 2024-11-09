@@ -41,8 +41,28 @@ class Themed () {
 				Pos.app.local.put ("theme", "light")
 		  }
 		  
-		  var rootLayout = Pos.app.findViewById (R.id.root_layout) as LinearLayout?
-		  if (theme == Themes.Light) rootLayout?.setBackgroundResource (R.color.light_bg) else rootLayout?.setBackgroundResource (R.color.dark_bg)
+		  when (theme) {
+				
+				Themes.Light -> {
+					 
+					 fg = R.color.light_fg
+					 bg = R.color.light_bg
+					 oddBg = R.color.light_odd_bg
+					 evenBg = R.color.light_even_bg
+					 selectBg = R.color.light_select_bg
+				}
+				
+				Themes.Dark -> {
+					 
+					 fg = R.color.dark_fg
+					 bg = R.color.dark_bg
+					 oddBg = R.color.dark_odd_bg
+					 evenBg = R.color.dark_even_bg
+					 selectBg = R.color.dark_select_bg
+				}
+		  }
+		  // var rootLayout = Pos.app.findViewById (R.id.root_layout) as LinearLayout?
+		  // if (theme == Themes.Light) rootLayout?.setBackgroundResource (R.color.light_bg) else rootLayout?.setBackgroundResource (R.color.dark_bg)
 	 }
 	 
 	 companion object {
@@ -59,7 +79,7 @@ class Themed () {
 		  fun add (listener: ThemeListener) { listeners.add (listener) }
 		  
 		  fun toggle () {
-
+								
 				theme = if (theme == Themes.Light) Themes.Dark else Themes.Light
 				
 				var rootLayout = Pos.app.findViewById (R.id.root_layout) as LinearLayout?
@@ -74,6 +94,7 @@ class Themed () {
 						  oddBg = R.color.light_odd_bg
 						  evenBg = R.color.light_even_bg
 						  selectBg = R.color.light_select_bg
+						  Pos.app.local.put ("theme", "light")
 					 }
 				
 					 Themes.Dark -> {
@@ -83,13 +104,26 @@ class Themed () {
 						  oddBg = R.color.dark_odd_bg
 						  evenBg = R.color.dark_even_bg
 						  selectBg = R.color.dark_select_bg
+						  Pos.app.local.put ("theme", "dark")
 					 }
 				}
 					 
+				updateListeners ()
+		  }
+
+		  fun updateListeners () {
+				
 				for (listener in listeners) {
 					 
 					 listener.update (theme)
 				}
+		  }
+
+		  fun start () {
+				
+				var rootLayout = Pos.app.findViewById (R.id.root_layout) as LinearLayout?
+				if (theme == Themes.Light) rootLayout?.setBackgroundResource (R.color.light_bg) else rootLayout?.setBackgroundResource (R.color.dark_bg)
+				updateListeners ()
 		  }
 	 }
 }

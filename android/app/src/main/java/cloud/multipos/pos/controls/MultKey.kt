@@ -28,6 +28,7 @@ public class MultKey (): Control () {
 		  if (jar.has ("value")) {
 
 				Pos.app.input.append (jar.getString ("value"))
-		  }
+				updateDisplays ()
+		  }		  
 	 }
 }

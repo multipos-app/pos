@@ -31,7 +31,7 @@ class Input () {
 		  if (sb.length < MAX) {
 				
 				sb.append (a)
-				PosDisplays.update ()
+				// PosDisplays.update ()
 		  }
 	 }
 	 
@@ -39,19 +39,19 @@ class Input () {
 
 		  sb.setLength (0)
 		  sb.append (i.toString ())
-		  PosDisplays.update ()
+		  // PosDisplays.update ()
 	 }
 	 
 	 fun clear () {
 
 		  sb.setLength (0)
 		  quantity = 1
-		  PosDisplays.update ()
+		  // PosDisplays.update ()
 	 }
 	 	 
 	 fun del () {
 
-		  PosDisplays.update ()
+		  // PosDisplays.update ()
 		  if (sb.length > 0) {
 				
 				sb.setLength (sb.length - 1)

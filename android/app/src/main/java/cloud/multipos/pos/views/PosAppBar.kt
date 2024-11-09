@@ -191,7 +191,6 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  }
 	 }
 	 
-	 override fun view (): View { return this }
 	 override fun clear () { }
 	 override fun message (message: String) { }
 	 override fun message (message: Jar) { }
@@ -235,7 +234,6 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 				
 				icon.setOnClickListener {
 
-					 Logger.d ("theme change...")
 					 Themed.toggle ()
 					 icon.setText (if (Themed.theme == Themes.Light) R.string.fa_night else  R.string.fa_day)
 					 if (Themed.theme == Themes.Light) icon.setTextColor (Color.BLACK) else icon.setTextColor (Color.YELLOW)

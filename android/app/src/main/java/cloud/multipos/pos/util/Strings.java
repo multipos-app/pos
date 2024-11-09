@@ -159,17 +159,19 @@ public class Strings {
 				symbols = format.getDecimalFormatSymbols ();
 				symbols.setCurrencySymbol("");
 				currency = format.format (amount);
+				
 				return currency.substring (0, currency.length () - 2);
 		  
 		  default:
 				
-				return String.format ("$%.2f", amount);
-				
-				// format = (DecimalFormat) NumberFormat.getCurrencyInstance (locale);
-				// symbols = format.getDecimalFormatSymbols ();
-				// symbols.setCurrencySymbol("");
-				// currency = format.format (amount);
-				// return currency.substring (1, currency.length ());
+				if (amount < 0.0) {
+					 
+					 return "(" + String.format ("$%.2f", Math.abs (amount)) + ")";
+				}
+				else {
+					 
+					 return String.format ("$%.2f", amount);
+				}
 		  }
     }
 	 
@@ -469,6 +471,20 @@ public class Strings {
 		  }
 	 }
 	 
+	 public static String trunc (String text, int id) {
+				
+		  int max = Pos.app.getInt (id);
+				
+		  if (text.length () > max) {
+				
+				return text.substring (0, max - 3) + "...";
+		  }
+		  else {
+				
+				return text;
+		  }
+	 }
+
 	 public static final int EAN =       13;
 	 public static final int UPC_A =     12;
 	 public static final int UPC_E =      6;

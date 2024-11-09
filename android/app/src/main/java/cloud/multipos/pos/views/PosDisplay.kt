@@ -24,10 +24,10 @@ import android.view.View
 interface PosDisplay {
 
 	 fun update () { }
-	 fun view (): View
 	 fun clear () { }
-	 fun message (message: String)
-	 fun message (message: Jar)
+	 fun message (message: String) { }
+	 fun message (message: Jar) { }
 	 fun del () { }
 	 fun enter () { }
+	 fun alert (message: String) { }
 }

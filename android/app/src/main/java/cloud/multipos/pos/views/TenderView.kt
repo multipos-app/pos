@@ -42,7 +42,7 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 		  
 		  if (tender.paid > 0) {
 				
-		  		grid.addView (TenderLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_detail))
+				grid.addView (TenderLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_detail))
 		  }
 		  
 		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_detail_lg))
@@ -54,11 +54,11 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 		  
 		  if (tender.balance > 0) {
 				
-		  		grid.addView (TenderLine (Pos.app.getString ("balance_due"), tender.balance, R.layout.tender_detail_lg))
+				grid.addView (TenderLine (Pos.app.getString ("balance_due"), tender.balance, R.layout.tender_detail_lg))
 		  } 
 		  else if (tender.returned > 0) {
 				
-		  		grid.addView (TenderLine (Pos.app.getString ("change"), tender.returned, R.layout.tender_detail_lg))
+				grid.addView (TenderLine (Pos.app.getString ("change"), tender.returned, R.layout.tender_detail_lg))
 		  }
 
 		  Pos.app.controlLayout.push (this)

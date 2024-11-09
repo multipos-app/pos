@@ -200,7 +200,7 @@ class ControlsGridLayout (val menu: Jar,
 								
 								color = color.replace ("#", "#30")
 						  }
-
+						  
 						  button.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
 					  						  
 						  val colorList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),

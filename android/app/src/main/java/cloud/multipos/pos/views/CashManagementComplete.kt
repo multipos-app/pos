@@ -95,7 +95,6 @@ class CashManagementComplete (var sessionManager: SessionManager, var cashManage
 		  floatInput.setText (Strings.currency (sessionManager.sessionFloat, true))
 	 }
 	 
-	 override fun view (): View { return this }
 	 override fun clear () { }
 	 override fun message (message: String) { }
 	 override fun message (message: Jar) { }

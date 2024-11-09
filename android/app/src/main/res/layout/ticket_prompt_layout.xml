@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/ticket_keypad_prompt_height"
+	 android:background="@color/transparent"
+	 app:layout_constraintTop_toBottomOf="parent"
+	 android:orientation="horizontal">
+
+  <cloud.multipos.pos.views.PosText
+		android:id="@+id/ticket_prompt_text"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/transparent"
+		android:textAlignment="viewStart"
+		android:paddingLeft="10dp"
+		android:gravity="bottom"
+		android:textColor="@color/black"
+		android:textSize="@dimen/ticket_summary_lg_text"
+		android:maxLines="1"/>
+  
+  <cloud.multipos.pos.views.PosText
+		android:id="@+id/ticket_echo_text"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/transparent"
+		android:textAlignment="viewStart"
+		android:paddingLeft="10dp"
+		android:gravity="bottom"
+		android:textColor="@color/black"
+		android:textSize="@dimen/ticket_summary_lg_text"
+		android:maxLines="1"/>
+  
+</LinearLayout>

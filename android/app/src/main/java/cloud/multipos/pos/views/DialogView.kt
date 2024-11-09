@@ -77,7 +77,6 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 		  accept ()
 	 }
 	 
-	 override fun view (): View { return this }
 	 override fun message (message: String) { }
 	 override fun message (message: Jar) { }
 }

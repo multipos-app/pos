@@ -8,34 +8,21 @@
 	 android:layout_marginLeft="@dimen/ticket_item_margin"
 	 android:layout_marginRight="@dimen/ticket_item_margin"
 	 android:orientation="horizontal">
-  
-  <cloud.multipos.pos.views.PosText
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight=".5"
-      android:gravity="end"
-      android:text=""
-      android:textColor="@color/black"
-      android:textSize="@dimen/ticket_item_md_text" />
 
-  <cloud.multipos.pos.views.PosText
-      android:id="@+id/ticket_tender_line_desc"
+    <LinearLayout
+ 		android:clickable="false"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight=".5"/>
+
+	 <cloud.multipos.pos.views.PosText
+      android:id="@+id/ticket_tender_line"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_weight="4"
+		android:layout_weight="5.5"
       android:gravity="start"
       android:text=""
       android:textColor="@color/black"
-      android:textSize="@dimen/ticket_item_md_text" />
-
-  <cloud.multipos.pos.views.PosText
-      android:id="@+id/ticket_tender_line_amount"
-      android:layout_width="0dp"
-      android:layout_height="wrap_content"
-      android:layout_weight="1.5"
-      android:gravity="end"
-      android:text=""
-      android:textColor="@color/black"
-      android:textSize="@dimen/ticket_item_md_text" />
+      android:textSize="@dimen/ticket_item_xlg_text" />
 
 </LinearLayout>

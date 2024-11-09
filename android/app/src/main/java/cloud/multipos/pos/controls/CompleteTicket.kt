@@ -172,11 +172,13 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  // save the ticket
 		  
 		  Pos.app.ticket.update ()
+		  
+		  updateDisplays ()
 
 		  // print a receitpt...
 		  
 		  if (printReceipt ()) {
-				
+
 				Pos.app.receiptBuilder.print ()
 		  }
 		  		  
@@ -200,9 +202,8 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  
 		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)			 
 		  Pos.app.ticket ()
-		  
-		  PosDisplays.clear ()
-		  updateDisplays ()
+		  		  
+		  // updateDisplays ()
 
 		  itemCount = 0
 		  voidItems = 0

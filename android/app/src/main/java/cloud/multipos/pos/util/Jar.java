@@ -400,6 +400,23 @@ public class Jar extends HashMap {
 		  return this;
 	 }
 
+	 /**
+	  *
+	  * remove
+	  *
+	  */
+	 
+	 public Jar remove (String key) {
+
+		  super.remove (key);
+		  return this;
+	 }
+	 
+	 /**
+	  *
+	  * utils
+	  *
+	  */
 
 	 public JSONObject json () {
 		  try {
@@ -411,6 +428,7 @@ public class Jar extends HashMap {
 		  return null;
 	 }
 
+	 
 	 public Iterator <String> keys () { return entrySet ().iterator (); }
 
 	 public Jar copy (Jar p) {

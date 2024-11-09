@@ -36,7 +36,7 @@ class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context
 	 
 	 init {
 		  		  
-		  Pos.app.inflater.inflate (R.layout.register_layout, this)
+		  Pos.app.inflater.inflate (R.layout.pos_register_layout, this)
 
 		  username = findViewById (R.id.pos_user_name) as EditText
         password = findViewById (R.id.pos_password) as EditText

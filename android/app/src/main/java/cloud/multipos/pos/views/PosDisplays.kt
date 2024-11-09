@@ -39,7 +39,7 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 					 
 						  val ticket = TicketDisplay (context, attrs)
 						  displays.add (ticket)
-						  addView (ticket.view ())
+						  addView (ticket)
 						  break
 					 }
 					 
@@ -47,7 +47,7 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 					 
 						  val ticket = HandheldTicketDisplay (context, attrs)
 						  displays.add (ticket)
-						  addView (ticket.view ())
+						  addView (ticket)
 						  break
 					 }
 				}
@@ -121,6 +121,15 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 				}
 		  }
 		  
+		  @JvmStatic
+		  fun alert (message: String) {
+				
+				for (display in displays) {
+					 
+					 display.alert (message)
+				}
+		  }
+		  		  
 		  @JvmStatic
 		  fun enter () {
 		  

@@ -32,19 +32,19 @@ import android.widget.TextView
 
 class HandheldTicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (context, attrs), PosDisplay {
 		  		  
-	 var prompt: RollingTextView?
-	 var echo: RollingTextView?
+	 // lateinit var prompt: RollingTextView?
+	 // lateinit var echo: RollingTextView?
 	 val ticket = mutableListOf <Jar> ()
 
 	 init {
 		  
-		  prompt = findViewById (R.id.ticket_prompt) as RollingTextView
-		  prompt?.layout (R.layout.ticket_prompt)
-		  echo = findViewById (R.id.ticket_echo) as RollingTextView
-		  echo?.layout (R.layout.ticket_echo)
+		  // prompt = findViewById (R.id.ticket_prompt) as RollingTextView
+		  // prompt?.layout (R.layout.ticket_prompt)
+		  // echo = findViewById (R.id.ticket_echo) as RollingTextView
+		  // echo?.layout (R.layout.ticket_echo)
 
-		  prompt?.setText (Pos.app.getString (R.string.register_open), true)
-		  echo?.setText ("", false)
+		  // prompt?.setText (Pos.app.getString (R.string.register_open), true)
+		  // echo?.setText ("", false)
 	 }
 
 	 /**
@@ -125,7 +125,7 @@ class HandheldTicketDisplay (context: Context, attrs: AttributeSet): ListDisplay
 
 					 "currency" -> {
 
-						  echo?.setText (Strings.currency (Pos.app.input.getDouble (), true), true)
+						  // echo?.setText (Strings.currency (Pos.app.input.getDouble (), true), true)
 					 }
 					 
 					 else -> { }
@@ -135,7 +135,7 @@ class HandheldTicketDisplay (context: Context, attrs: AttributeSet): ListDisplay
 								
 				if (Pos.app.input.length () > 0) {
 					 
-					 echo?.setText (Pos.app.input.getString (), true)
+					 // echo?.setText (Pos.app.input.getString (), true)
 				}
 		  }
 		  				
@@ -144,24 +144,22 @@ class HandheldTicketDisplay (context: Context, attrs: AttributeSet): ListDisplay
 		  updateList ()
 	 }
 	 
-	 override fun view (): View { return this }
-
 	 override fun clear () {
 		  
 		  clearSelect ()
-		  prompt?.setText (trunc (Pos.app.getString (R.string.register_open), R.integer.ticket_prompt_max), true)
-		  echo?.setText ("", true)
+		  // prompt?.setText (trunc (Pos.app.getString (R.string.register_open), R.integer.ticket_prompt_max), true)
+		  // echo?.setText ("", true)
 	 }
 
 	 override fun message (message: String) {
 		  
-		  prompt?.setText (trunc (message, R.integer.ticket_prompt_max), false)
+		  // prompt?.setText (trunc (message, R.integer.ticket_prompt_max), false)
 	 }
 	 
 	 override fun message (message: Jar) {
 		  
-		  if (message.has ("prompt_text")) prompt?.setText (trunc (message.getString ("prompt_text"), R.integer.ticket_prompt_max), true)
-		  if (message.has ("echo_text")) echo?.setText (trunc (message.getString ("echo_text"), R.integer.ticket_echo_max), true)
+		  // if (message.has ("prompt_text")) prompt?.setText (trunc (message.getString ("prompt_text"), R.integer.ticket_prompt_max), true)
+		  // if (message.has ("echo_text")) echo?.setText (trunc (message.getString ("echo_text"), R.integer.ticket_echo_max), true)
 	 }
 
 	 fun trunc (text: String, id: Int): String {

@@ -34,25 +34,36 @@ import android.transition.TransitionManager
 
 class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosMenuControl, SwipeListener, ThemeListener  {
 
+	 var layouts = mutableListOf <PosLayout> ()
+	 var tabs = mutableListOf <Jar> ()
+	 var curr = 0
+	 var name: String
+
 	 companion object {
 		  
 		  val menus = mutableMapOf <String, PosMenus> ()
+		  lateinit var posMenus: PosMenus
 
 		  fun set (name: String, index: Int) {
 				
 				val m = menus.get (name)
 				m?.menu (index)
 		  }
+
+		  fun reload () {
+				
+				if (Pos.app.config.ready ()) {
+					 					 
+					 menus.forEach { (name, menu) -> menu.update () }
+				}
+		  }
 	 }
-	 
-	 var layouts = mutableListOf <PosLayout> ()
-	 var tabs = mutableListOf <Jar> ()
-	 var curr = 0
-	 var name: String
 	 
 	 init {
 
-		  name = getAttr ("menus", "")		  
+		  posMenus = this;
+		  name = getAttr ("menus", "")
+
 		  update ()
 		  menus.put (name, this)
 
@@ -62,14 +73,13 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 
 				Pos.app.controlLayout.listeners.add (this)
 		  }
-		  
+		  		  
 		  Themed.add (this)
 	 }
 	 
 	 fun buttonStyle (): String { return "solid" }
 	 		  
-	 override fun menu (name: String) {
-	 }
+	 override fun menu (name: String) { }
 	 
 	 override fun menu (index: Int) {
 		  
@@ -77,9 +87,13 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  var edge = Gravity.END
 		  val end = layouts.get (index)
 		  val scene = Scene (this, end)
-		  val slide = Slide (dir)
-		  slide.setMode (Fade.MODE_IN)
-		  val transition = slide
+		  
+		  // val slide = Slide (dir)
+		  // slide.setMode (Fade.MODE_IN)
+		  // val transition = slide
+
+		  val transition = Fade ()
+
 		  transition.setDuration (250)
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()
@@ -92,7 +106,7 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 	 }
 
 	 override fun update () {
-
+		  		  		  
 		  removeAllViews ()
 		  layouts = mutableListOf <PosLayout> ()
 		  tabs = mutableListOf <Jar> ()
@@ -116,7 +130,7 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  }
 		  
 		  for (menu in posMenus.getList ("horizontal_menus")) {
-				
+
 				layouts.add (ControlsGridLayout (menu, this, tabs, attrs))
 		  }
 		  
@@ -149,10 +163,14 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 
 		  val end = layouts.get (next)
 		  val scene = Scene (this, end)
-		  val slide = Slide (dir)
-		  slide.setMode (Fade.MODE_IN)
-		  val transition = slide
-		  transition.setDuration (150)
+
+		  
+		  // val slide = Slide (dir)
+		  // slide.setMode (Fade.MODE_IN)
+		  
+		  val transition = Fade ()
+
+		  transition.setDuration (250)
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()
 		  curr = next

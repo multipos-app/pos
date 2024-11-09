@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+	 android:background="@color/transparent">
+
+  <cloud.multipos.pos.views.PosText
+		android:id="@+id/ticket_header_left"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="2"
+		android:textAlignment="viewStart"
+		android:paddingLeft="10dp"
+		android:textColor="@color/black"
+		android:background="@color/transparent"
+		android:text="@string/register_open"
+		android:textSize="@dimen/ticket_header_lg_text"
+		android:maxLines="1"/>
+
+  <cloud.multipos.pos.views.PosText
+		android:id="@+id/ticket_header_right"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
+		android:layout_weight="1"
+		android:textAlignment="viewEnd"
+		android:paddingLeft="10dp"
+		android:textColor="@color/black"
+		android:background="@color/transparent"
+		android:text=""
+		android:textSize="@dimen/ticket_header_lg_text"
+		android:maxLines="1"/>
+  
+</LinearLayout>

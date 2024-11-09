@@ -68,7 +68,7 @@ class Item (jar: Jar) {
 		  }
 		  else {
 
-				Logger.w ("item not found... ${jar}")
+				exists = false
 		  }
 	 }
 	 

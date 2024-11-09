@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+	 android:id="@+id/ticket_header_layout"
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
 	 xmlns:tools="http://schemas.android.com/tools"
@@ -8,52 +9,27 @@
 	 android:background="@color/transparent"
 	 android:orientation="vertical">
 
-	 <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ticket_keypad_prompt_height"
-		  android:background="@color/transparent"
-        android:orientation="horizontal">
+  <cloud.multipos.pos.views.TicketHeader
+		android:id="@+id/ticket_header"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"
+		app:layout_constraintTop_toTopOf="parent"/>
 
-		<cloud.multipos.pos.views.RollingTextView
-			 android:id="@+id/ticket_prompt"
-			 android:layout_width="0dp"
-			 android:layout_weight="1"
-			 android:layout_height="match_parent"
-			 android:maxLength="20"
-			 android:gravity="bottom"
-			 android:background="@color/transparent"/>
-		
-		<cloud.multipos.pos.views.RollingTextView
-			 android:id="@+id/ticket_echo"
-			 android:layout_width="0dp"
-			 android:layout_weight="1"
-			 android:layout_height="match_parent"
-			 android:gravity="bottom"
-			 android:background="@color/transparent"/>
-
-	 </LinearLayout>
-	 
-	 <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-		  android:layout_marginTop="2dp"
-		  android:layout_marginBottom="2dp"
-		  android:background="@color/black"/>
-
-	 <LinearLayout
+  <LinearLayout
 		android:id="@+id/list_display"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
-		android:layout_weight="5"
-		android:background="@color/transparent"
-		android:padding="@dimen/ticket_padding"/>
+		android:layout_weight="7"
+		android:background="@color/transparent"/>
   
-  <LinearLayout
-		android:id="@+id/ticket_summary"
+  <cloud.multipos.pos.views.TicketFooter
+		android:id="@+id/ticket_footer"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="1"
-		android:gravity="left|bottom"
-		android:background="@color/transparent"/>
-  
+		android:background="@color/transparent"
+  		app:layout_constraintBottom_toBottomOf="parent"/>
+
 </LinearLayout>

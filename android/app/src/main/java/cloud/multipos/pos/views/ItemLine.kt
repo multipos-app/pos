@@ -42,7 +42,7 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 	 init {
 		  
 		  position = pos
-				
+		  
 		  if (ti.getInt ("state") != TicketItem.VOID_ITEM) {
 
 				Pos.app.inflater.inflate (itemLayout (), this);
@@ -162,12 +162,6 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 						  }
 					 }
 				}
-		  }
-
-		  var note = this.findViewById (R.id.ticket_item_line_note) as Button?
-		  note?.setOnClickListener {
-											  					 
-				// ItemAddNoteDialog (Pos.app.ticket.items.get (pos))
 		  }
 	 }
 	 

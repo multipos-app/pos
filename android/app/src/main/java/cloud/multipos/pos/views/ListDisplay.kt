@@ -107,13 +107,13 @@ abstract class ListDisplay (context: Context, attrs: AttributeSet): LinearLayout
 					 
 					 return listEntry (pos, view)
 				}
-				
+
 				return view
 		  }
 	 }
 	 
 	 fun redraw () {
-		  
+		  		  
 		  listAdapter.notifyDataSetChanged ()
 	 }
 

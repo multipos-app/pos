@@ -46,11 +46,8 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 	 }
 
 	 override fun controlAction (jar: Jar) {
-		  
-		  if (jar != null) {
-				
-				setJar (jar)
-		  }
+		  				
+		  jar (jar)
 
 		  balance () // balance the sale
 		  
@@ -105,13 +102,28 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 	 
 	 fun tender () {
 
+		  Logger.d ("tender 1... ${Pos.app.input.getString ()} ${jar ()} ${Pos.app.input.hasInput ()}")
+		  
 		  tendered = 0.0
 		  
 		  balance = Currency.round (total - paid)
 
-	 	  if (jar ().has ("value")) {
+		  if (Pos.app.input.hasInput ()) {
+
+				// operator input?
+
+				jar ()
+					 .put ("entry_mode", "keyed")
+					 .put ("value", Pos.app.input.getInt ())
+
+				paid = Pos.app.input.getDouble () / 100.0
+				Pos.app.input.clear ()
+		  }
+	 	  else if (jar ().has ("value")) {
 				
-				// fixed amount in the button jar?
+				Logger.d ("tender 2... ${Pos.app.input.getString ()} ${jar ()}")
+			
+				// fixed amount in the jar?
 				
 				if (jar ().getDouble ("value") > 0) {
 					 
@@ -133,13 +145,6 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 					 }
 				}
 		  }
-		  else if (Pos.app.input.hasInput ()) {
-
-				// operator input?
-
-				tendered = Currency.round (Pos.app.input.getDouble () / 100.0)
-				Pos.app.input.clear ()
-		  }
 		  else {
 
 				// assume the remaining amount of the ticket
@@ -153,6 +158,8 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				
 				returned = total () - (paid + tendered)
 		  }
+		  
+		  Logger.d ("tender 3... ${Pos.app.input.getString ()} ${jar ()}")
 	 }
 
 	 /**
@@ -194,6 +201,15 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  
 		  if (balance <= 0.0) {
 
+				if (jar ().has ("entry_mode") && (jar ().getString ("entry_mode") == "keyed")) {
+
+					 // remove any keyed values
+					 
+					 jar ()
+						  .remove ("entry_mode")
+						  .remove ("value")
+				}
+					 
 				completeTicket (Ticket.COMPLETE)
 		  }
 		  else {

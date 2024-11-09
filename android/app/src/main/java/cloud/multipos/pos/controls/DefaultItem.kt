@@ -195,6 +195,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  else {
 
 				Logger.w ("item not found... ${jar}")
+				PosDisplays.alert ("Item not found, ${sku}")
 		  }
 	 }
 
@@ -302,16 +303,17 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  }
 
 		  Pos.app.input.clear ()  // clean things up
-		  
-		  PosDisplays.message (Jar ()
-											.put ("prompt_text", ticketItem.getString ("item_desc"))
-											.put ("echo_text", Strings.currency (ticketItem.getDouble ("amount"), false)))
+
 		  
 		  Pos.app.ticket.update ()		  		  				
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
-		  PosDisplays.update ()
 		  Pos.app.controlLayout.swipeRight ()
+		  
+		  PosDisplays.update ()
+		  PosDisplays.message (Jar ()
+											.put ("prompt_text", ticketItem.getString ("item_desc"))
+											.put ("echo_text", Strings.currency (ticketItem.getDouble ("amount"), false)))
 	 }
 
 	 fun ticketItem (): TicketItem { return ticketItem }

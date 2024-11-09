@@ -65,15 +65,18 @@ public class Config extends Jar {
 
 				Jar config = posConfigResult.row ();
 				
-				Logger.d ("load config... " + config.getInt ("id") + " " + config.getString ("config_desc"));
+				// Logger.d ("load config... " + config.getInt ("id") + " " + config.getString ("config_desc"));
 
 				parse (config.getString ("config"));
+				initialize ();
 				ready = true;
 		  }
 		  else {
 
 				Logger.d ("no config...");
 		  }
+
+		  deviceData ();
 	 }
 
 	 public void initialize () {
@@ -221,6 +224,8 @@ public class Config extends Jar {
 				.put ("display_width", getInt ("display_width"))
 				.put ("display_height", getInt ("display_height"))
 				.put ("density", Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi);
+
+		  Logger.d ("device data... " + deviceData);
 				
 		  return deviceData;
 	 }

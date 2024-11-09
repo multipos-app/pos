@@ -29,6 +29,7 @@ import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.view.View
 import android.graphics.Color
+import android.graphics.Typeface;
 
 class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 
@@ -36,24 +37,33 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 
 		  Pos.app.inflater.inflate (R.layout.ticket_tender_line, this);
 
-		  var desc = this.findViewById (R.id.ticket_tender_line_desc) as PosText
-		  var amount = this.findViewById (R.id.ticket_tender_line_amount) as PosText
-		  
-		  desc.setText (Pos.app.getString ("paid").uppercase () + " " + tt.getString ("tender_type").uppercase ())
-		  amount.setText (Strings.currency (tt.getDouble ("tendered_amount"), false))
+		  var tender = this.findViewById (R.id.ticket_tender_line) as PosText
+		  tender.setTypeface(null, Typeface.BOLD or Typeface.ITALIC)
+
+		  var t = "\n" + Pos.app.getString ("total").uppercase () + " " +
+		  Strings.currency (tt.getDouble ("total"), false) +
+		  "\n" + Pos.app.getString ("paid").uppercase () + " " +
+		  tt.getString ("tender_type").uppercase () + " " +
+		  Strings.currency (tt.getDouble ("tendered_amount"), false)
+
+		  if (tt.getDouble ("returned_amount") != 0.0) {
+
+				t += "\n" + Pos.app.getString ("change").uppercase () + " " +
+				Strings.currency (tt.getDouble ("returned_amount"), false)
+		  }
+	 
+		  tender.setText (t)
 
 		  when (Themed.theme) {
 				
 				Themes.Light -> {
 					 
-					 desc.setTextColor (Color.BLACK)
-					 amount.setTextColor (Color.BLACK)
+					 tender.setTextColor (Color.BLACK)
 				}
 				
 				Themes.Dark -> {
 					 
-					 desc.setTextColor (Color.WHITE)
-					 amount.setTextColor (Color.WHITE)
+					 tender.setTextColor (Color.WHITE)
 				}
 		  }
 	 }

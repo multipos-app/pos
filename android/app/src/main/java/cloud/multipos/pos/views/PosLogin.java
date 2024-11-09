@@ -43,12 +43,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 
 public class PosLogin extends PosLayout {
-
+	 	 
 	 public PosLogin (Context context, AttributeSet attrs) {
 
 		  super (context, attrs);
 		  
- 		  Pos.app.inflater.inflate (Pos.app.resourceID ("login_buttons", "layout"), this);
+		  Pos.app.inflater.inflate (Pos.app.resourceID ("login_buttons", "layout"), this);
 
 		  // final ProgressBar progress = (ProgressBar) findViewById (R.id.login_loading);
 		  // progress.setScaleX (.25f);
@@ -122,6 +122,15 @@ public class PosLogin extends PosLayout {
 
 		  				  if (getPin) {
 
+								if (loginOverlay != null) {
+									 
+									 loginOverlay.setVisibility (View.VISIBLE);
+								}
+								else {
+
+									 Logger.w ("overlay is null...");
+								}
+
 		  						if ((cashier.length () > 0) && (pin.length () > 0)) {
 
 		  							 DbResult employeeResult  = new DbResult ("select username, password, fname, lname, profile_id, id from employees " +
@@ -164,6 +173,10 @@ public class PosLogin extends PosLayout {
 		  cashier = "";
 		  pin = "";
 		  mask = "";
+
+		  loginOverlay = (LinearLayout) findViewById (Pos.app.resourceID ("login_overlay", "id"));
+		  
+		  Logger.d ("login overlay... " + loginOverlay);
 	 }
 
 	 private boolean getPin = false;
@@ -173,4 +186,5 @@ public class PosLogin extends PosLayout {
 	 private Context context;
 	 private PosText loginInput;
 	 private Button login;
+	 private LinearLayout loginOverlay;
 }

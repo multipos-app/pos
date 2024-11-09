@@ -48,9 +48,9 @@ class VoidSale (): CompleteTicket () {
 											  "where id = " + Pos.app.ticket.getInt ("id"))
 
 		  		confirmed (false)
-				
 		  		completeTicket (Ticket.COMPLETE)
 		  		Pos.app.ticket ()
+				PosDisplays.clear ()
 		  }
 		  else {
 

@@ -45,10 +45,11 @@
     <color name="warn">#DE381C</color>
     <color name="tender_warn">#DE381C</color>
     <color name="light_tint">#22ffffff</color>
-    <color name="dark_tint">#aa000000</color>
+    <color name="dark_tint">#44000000</color>
     <color name="select_tint">#55ffffff</color>
     <color name="blue">#0058B5</color>
     <color name="yellow">#F7CE00</color>
+    <color name="red">#F71111</color>
 	 
     <color name="color_0">#60C0EB</color>
     <color name="color_1">#91A1A0</color>
