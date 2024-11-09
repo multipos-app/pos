@@ -27,8 +27,8 @@
     <string name="totals">Totals</string>
     <string name="tendered">Tender amount</string>
     <string name="tax">Tax</string>
-    <string name="tax_total">Tax total</string>
-    <string name="sub_total">Sub total</string>
+    <string name="tax_total">Tax-Total</string>
+    <string name="sub_total">Sub-Total</string>
 	 <string name="service_fee">Cashier fee</string>
 	 <string name="service_fee_refund">Cashier fee refund</string>
 	 <string name="auth_amount">Authorize amount</string>
@@ -157,8 +157,8 @@
 	 
 
     <string name="banner_font">fonts/banner.ttf</string>
-    <string name="button_font">fonts/jura.ttf</string>
-    <string name="display_font">fonts/jura.ttf</string>
+    <string name="button_font">fonts/ubuntu_reg.ttf</string>
+    <string name="display_font">fonts/ubuntu_reg.ttf</string>
     <string name="default_font">fonts/default.ttf</string>
     <string name="icon_font">fonts/font_awesome.otf</string>
     <string name="receipt_font">fonts/receipt.ttf</string>
