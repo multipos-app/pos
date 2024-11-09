@@ -199,6 +199,8 @@ object BackOffice: Device, DeviceCallback {
 								
 								var config = Config ()
 								var json = row.get ("config").toString ()
+
+								Logger.d ("pos config update... ${update.getInt ("id")}")
 								
 								config.parse (json)
 								config
@@ -214,7 +216,28 @@ object BackOffice: Device, DeviceCallback {
 								config.initialize ()
 								Pos.app.config.put ("config_loaded", true)
 
-								Pos.app.updateMenus ()								
+								PosMenus.reload ()
+								
+								// Pos.app.updateMenus ()
+
+								// may be a problem with re-loading the config in the background...
+
+								// Logger.x ("config before.... " + Pos.app.config.get ("pos_menus").get ("main_menu"))
+								
+								// Pos.app.config.parse (row.get ("config").toString ())
+								// Pos.app.config.initialize ()
+								// Pos.app.config
+								// 	 .put ("dbname", Pos.app.dbname ())
+								// 	 .put ("business_unit", Pos.app.config.get ("business_unit"))
+								// 	 .put ("pos_unit", Pos.app.config.get ("pos_unit"))
+								// 	 .put ("pos_config_id", Pos.app.posConfigID ())
+
+								// Pos.app.db ().exec ("delete from pos_configs")
+								// Pos.app.db ().insert ("pos_configs", Pos.app.config)
+
+								// // PosMenus.reload ()  // may be some menu changes
+								
+								// Logger.x ("config after...." + Pos.app.config.get ("posMenus").get ("main_menu"))
 						  }
 
 						  "local_item" -> {

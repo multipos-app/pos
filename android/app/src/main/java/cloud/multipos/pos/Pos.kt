@@ -209,12 +209,12 @@ class Pos (): AppCompatActivity () {
 
 		  return this::controlLayout.isInitialized
 	 }
-
+	 
 	 fun start () {
 		  		  		  
 		  if (config.ready ()) {
 				
-				config.initialize ()
+				// config.initialize ()
 
 				// set the screen orientation
 				
@@ -262,7 +262,7 @@ class Pos (): AppCompatActivity () {
 		  }
 		  else {
 
-				setContentView (R.layout.register)
+				setContentView (R.layout.pos_register)
 				overlay = findViewById (R.id.register_overlay) as LinearLayout
 		  }
 	 }
@@ -306,6 +306,8 @@ class Pos (): AppCompatActivity () {
 	 	 
 	 fun login () {
 		  
+		  Themed () // init theme
+
 		  /**
 			* Check if this config needs an open cash amount
 			*/
@@ -340,8 +342,8 @@ class Pos (): AppCompatActivity () {
 
 		  Logger.d ("set layout... " + config.getString ("root_layout") + " " + buID ())	  
         setContentView (resourceID (config.getString ("root_layout"), "layout"))
-		  Themed () // init theme
-		  
+		  Themed.start ()
+		  PosDisplays.update ()
 		  loggedIn = true
 	 }
 
