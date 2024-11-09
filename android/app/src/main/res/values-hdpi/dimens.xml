@@ -1,0 +1,34 @@
+<resources>
+  
+  <dimen name="login_spinner_padding">200dp</dimen>
+
+  <!-- ticket header/footer display full -->
+
+  <dimen name="ticket_header_height">48dp</dimen>
+  <dimen name="ticket_footer_height">48dp</dimen>
+
+  <dimen name="ticket_margin">5dp</dimen>
+  <dimen name="ticket_padding">5dp</dimen>
+  
+  <dimen name="ticket_header_xlg_text">42sp</dimen>
+  <dimen name="ticket_header_lg_text">32sp</dimen>
+  <dimen name="ticket_header_md_text">24sp</dimen>
+
+  <dimen name="ticket_footer_xlg_text">32sp</dimen>
+  <dimen name="ticket_footer_lg_text">28sp</dimen>
+  <dimen name="ticket_footer_md_text">32sp</dimen>
+  <dimen name="ticket_footer_sm_text">18sp</dimen>
+
+  <!-- ticket -->
+  
+  <dimen name="ticket_item_icon_text">32sp</dimen>
+  <dimen name="ticket_item_xlg_text">32sp</dimen>
+  <dimen name="ticket_item_lg_text">28sp</dimen>
+  <dimen name="ticket_item_md_text">20sp</dimen>
+  <dimen name="ticket_item_sm_text">12sp</dimen>
+  <dimen name="ticket_item_margin">5dp</dimen>
+  <dimen name="ticket_item_padding">3dp</dimen>
+  <dimen name="ticket_item_sm_padding">3dp</dimen>
+  <dimen name="ticket_margin_bottom">3dp</dimen>
+
+</resources>
