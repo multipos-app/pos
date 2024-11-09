@@ -6,7 +6,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dialog_lg_padding"
+    android:padding="@dimen/dialog_padding"
     android:background="@color/transparent">
   
   <GridLayout 
@@ -14,8 +14,8 @@
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:columnCount="1"
-		android:padding="@dimen/dialog_lg_padding"
-		android:layout_margin="@dimen/dialog_lg_margin"
+		android:padding="@dimen/dialog_padding"
+		android:layout_margin="@dimen/dialog_margin"
 		android:background="@color/transparent"
       app:layout_constraintTop_toBottomOf="parent"/>
   

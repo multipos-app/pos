@@ -6,7 +6,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dialog_lg_padding"
+    android:padding="@dimen/dialog_padding"
     android:background="@color/white">
  
   <cloud.multipos.pos.views.PosText
@@ -18,8 +18,8 @@
       android:background="@color/pos_bg"
       android:textColor="@color/white"
       android:textSize="@dimen/dialog_md_text"
-		android:padding="@dimen/dialog_md_padding"
-		android:layout_marginTop="@dimen/dialog_lg_margin"
+		android:padding="@dimen/dialog_padding"
+		android:layout_marginTop="@dimen/dialog_margin"
 		android:clickable="true"/>
 
   <GridLayout 
@@ -27,9 +27,9 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:columnCount="4"
-		android:layout_marginTop="@dimen/dialog_lg_margin"
-		android:layout_marginLeft="@dimen/dialog_lg_margin"
-		android:padding="@dimen/dialog_md_padding"
+		android:layout_marginTop="@dimen/dialog_margin"
+		android:layout_marginLeft="@dimen/dialog_margin"
+		android:padding="@dimen/dialog_padding"
 		android:background="@color/transparent"
 		app:layout_constraintTop_toBottomOf="@+id/add_item_title">
 
@@ -44,7 +44,7 @@
 		  android:id="@+id/add_item_desc"
 		  android:nextFocusDown="@+id/add_item_price"
 		  style="@style/editTextStyle"
-		  android:layout_width="@dimen/dialog_add_item_input_width"
+		  android:layout_width="@dimen/add_item_input_width"
         android:layout_height="wrap_content"
 		  android:inputType="text"
 		  android:maxLines="1"
@@ -54,8 +54,8 @@
 		  android:textColor="@color/black"
 		  android:textColorHint="@color/lt_gray"
 		  android:background="@drawable/spinner_outline"
-		  android:padding="@dimen/dialog_md_padding"
-		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+		  android:padding="@dimen/dialog_padding"
+		  android:layout_marginLeft="@dimen/dialog_margin"/>
 	 
 	 <cloud.multipos.pos.views.PosText
 		  android:layout_width="wrap_content"
@@ -68,7 +68,7 @@
 		  android:id="@+id/add_item_price"
 		  android:nextFocusDown="@+id/add_item_departments"
 		  android:imeOptions="actionNext"
-		  android:layout_width="@dimen/dialog_add_item_input_width"
+		  android:layout_width="@dimen/add_item_input_width"
         android:layout_height="wrap_content"
 		  android:inputType="numberDecimal"
 		  android:maxLines="1"
@@ -79,8 +79,8 @@
 		  android:textColor="@color/black"
 		  android:textColorHint="@color/lt_gray"
 		  android:background="@drawable/spinner_outline"
-		  android:padding="@dimen/dialog_md_padding"
-		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+		  android:padding="@dimen/dialog_padding"
+		  android:layout_marginLeft="@dimen/dialog_margin"/>
 
 	 <cloud.multipos.pos.views.PosText
 		  android:layout_width="wrap_content"
@@ -92,14 +92,14 @@
 	 <Spinner
 		  android:id="@+id/add_item_departments"
 		  android:nextFocusRight="@+id/add_item_deposits"
-		  android:layout_width="@dimen/dialog_add_item_input_width"
+		  android:layout_width="@dimen/add_item_input_width"
         android:layout_height="wrap_content"
 		  android:spinnerMode="dropdown"
 		  android:background="@drawable/spinner_outline"
 		  android:textSize="@dimen/dialog_md_text"
-		  android:layout_marginTop="@dimen/dialog_md_margin"
-		  android:layout_marginRight="@dimen/dialog_lg_margin"
-		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+		  android:layout_marginTop="@dimen/dialog_margin"
+		  android:layout_marginRight="@dimen/dialog_margin"
+		  android:layout_marginLeft="@dimen/dialog_margin"/>
 	 
 	 <cloud.multipos.pos.views.PosText
 		  android:layout_width="wrap_content"
@@ -111,14 +111,14 @@
 	 <Spinner
 		  android:id="@+id/add_item_deposits"
 		  android:nextFocusDown="@+id/add_item_taxes"
-		  android:layout_width="@dimen/dialog_add_item_input_width"
+		  android:layout_width="@dimen/add_item_input_width"
         android:layout_height="wrap_content"
 		  android:spinnerMode="dropdown"
 		  android:background="@drawable/spinner_outline"
 		  android:textSize="@dimen/dialog_md_text"
-		  android:layout_marginTop="@dimen/dialog_md_margin"
-		  android:layout_marginRight="@dimen/dialog_lg_margin"
-		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>
+		  android:layout_marginTop="@dimen/dialog_margin"
+		  android:layout_marginRight="@dimen/dialog_margin"
+		  android:layout_marginLeft="@dimen/dialog_margin"/>
 	 
 	 <cloud.multipos.pos.views.PosText
 		  android:layout_width="wrap_content"
@@ -129,14 +129,14 @@
 
 	 <Spinner
 		  android:id="@+id/add_item_taxes"
-		  android:layout_width="@dimen/dialog_add_item_input_width"
+		  android:layout_width="@dimen/add_item_input_width"
         android:layout_height="wrap_content"
 		  android:spinnerMode="dropdown"
 		  android:background="@drawable/spinner_outline"
 		  android:textSize="@dimen/dialog_md_text"
-		  android:layout_marginTop="@dimen/dialog_md_margin"
-		  android:layout_marginRight="@dimen/dialog_lg_margin"
-		  android:layout_marginLeft="@dimen/dialog_lg_margin"/>  
+		  android:layout_marginTop="@dimen/dialog_margin"
+		  android:layout_marginRight="@dimen/dialog_margin"
+		  android:layout_marginLeft="@dimen/dialog_margin"/>  
 
   </GridLayout>
 
@@ -148,8 +148,8 @@
 		android:text="@string/add_item_complete"
 		android:textColor="@color/white"
 		android:textSize="@dimen/dialog_md_text"
-		android:padding="@dimen/dialog_md_padding"
-		android:layout_margin="@dimen/dialog_lg_margin"
+		android:padding="@dimen/dialog_padding"
+		android:layout_margin="@dimen/dialog_margin"
 		app:layout_constraintBottom_toBottomOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

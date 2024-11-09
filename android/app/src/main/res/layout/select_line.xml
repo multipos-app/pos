@@ -5,8 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/dialog_select_line_height"
     android:background="@drawable/dialog_button"
-    android:padding="@dimen/app_lg_padding"
-    android:layout_margin="@dimen/app_lg_margin"
+    android:padding="@dimen/dialog_padding"
+    android:layout_margin="@dimen/dialog_margin"
     android:orientation="horizontal">
 
     <TextView

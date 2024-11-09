@@ -5,23 +5,23 @@
     android:layout_centerHorizontal="true"
     android:layout_gravity="center_horizontal"
     android:background="@color/transparent"
-    android:padding="@dimen/dialog_lg_padding">
+    android:padding="@dimen/dialog_padding">
 
     <ScrollView
         android:id="@+id/report_scroller"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-		  android:layout_marginTop="@dimen/dialog_lg_padding">
+		  android:layout_marginTop="@dimen/dialog_padding">
 
         <cloud.multipos.pos.views.PosText
             android:id="@+id/report_text"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_vertical|center_horizontal"
-            android:padding="@dimen/dialog_sm_padding"
+            android:padding="@dimen/dialog_padding"
             android:text=""
             android:textColor="@android:color/black"
-            android:textSize="@dimen/dialog_receipt_text"/>
+            android:textSize="@dimen/dialog_report_text"/>
 
     </ScrollView>
 

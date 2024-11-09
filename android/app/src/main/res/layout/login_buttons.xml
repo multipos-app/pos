@@ -176,5 +176,23 @@
         android:textSize="@dimen/login_button_lg_text"/>
 	 
   </LinearLayout>
-
+  
+  <LinearLayout
+      android:id="@+id/login_overlay"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/pos_app_bg"
+		android:visibility="gone"
+		android:padding="@dimen/login_spinner_padding"
+		android:clickable="false">
+	 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerHorizontal="true"
+ 		  android:gravity="center|center_vertical"/>
+	 
+	 </LinearLayout>
+	 
 </LinearLayout>
