@@ -1,97 +1,125 @@
 <LinearLayout
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:tools="http://schemas.android.com/tools"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
 	 android:id="@+id/ticket_item_footer"
 	 android:layout_width="match_parent"
-	 android:layout_height="wrap_content"
+	 android:layout_height="@dimen/ticket_footer_height"
 	 android:background="@color/transparent"
 	 android:orientation="horizontal">
   
-  <cloud.multipos.pos.views.PosText
-		android:id="@+id/footer_subtotal_desc"
+  <androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:gravity="bottom"
-		android:textAlignment="viewStart"
-		android:layout_margin="5dp"
-		android:background="@color/transparent"
-		android:text="@string/sub_total"
-		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_footer_sm_text"
-      android:layout_alignParentBottom="true"/>
+		android:background="@color/transparent">
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/footer_subtotal_desc"
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:gravity="bottom"
+		  android:textAlignment="viewStart"
+		  android:layout_margin="5dp"
+		  android:background="@color/transparent"
+		  android:text="@string/sub_total"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_footer_sm_text"
+        android:layout_alignParentBottom="true"
+		  app:layout_constraintStart_toStartOf="parent"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/footer_subtotal"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:gravity="bottom"
+		  android:textAlignment="viewEnd"
+		  android:layout_margin="5dp"
+		  android:background="@color/transparent"
+		  android:text=""
+		  android:textStyle="bold|italic"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_footer_md_text"
+        android:layout_alignParentBottom="true"
+		  app:layout_constraintStart_toEndOf="@+id/footer_subtotal_desc"
+		  app:layout_constraintEnd_toEndOf="parent"/>
+	 
+  </androidx.constraintlayout.widget.ConstraintLayout>
   
-  <cloud.multipos.pos.views.PosText
-		android:id="@+id/footer_subtotal"
+  <androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:gravity="bottom"
-		android:textAlignment="viewEnd"
-		android:layout_margin="5dp"
-		android:background="@color/transparent"
-		android:text=""
-		android:textStyle="bold|italic"
-		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_footer_md_text"
-      android:layout_alignParentBottom="true"/>
-  
-  <cloud.multipos.pos.views.PosText
-		android:id="@+id/footer_tax_desc"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_weight=".3"
-		android:gravity="bottom"
-		android:textAlignment="viewStart"
-		android:layout_margin="5dp"
-		android:background="@color/transparent"
-		android:text="@string/tax"
-		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_footer_sm_text"
-      android:layout_alignParentBottom="true"/>
-  
-  <cloud.multipos.pos.views.PosText
-		android:id="@+id/footer_tax"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_weight="1"
-		android:gravity="bottom"
-		android:textAlignment="viewEnd"
-		android:layout_margin="5dp"
-		android:background="@color/transparent"
-		android:text=""
-		android:textStyle="bold|italic"
-		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_footer_md_text"
-      android:layout_alignParentBottom="true"/>
-  
-  <cloud.multipos.pos.views.PosText
-		android:id="@+id/footer_total_desc"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_weight=".34"
-		android:gravity="bottom"
-		android:textAlignment="viewStart"
-		android:layout_margin="5dp"
-		android:background="@color/transparent"
-		android:text="@string/total"
-		android:textColor="@color/black"
-		android:textSize="@dimen/ticket_footer_sm_text"
-      android:layout_alignParentBottom="true"/>
-  
-  <cloud.multipos.pos.views.PosText
-		android:id="@+id/footer_total"
+		android:background="@color/transparent">
+
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/footer_tax_desc"
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:gravity="bottom"
+		  android:textAlignment="viewStart"
+		  android:layout_margin="5dp"
+		  android:background="@color/transparent"
+		  android:text="@string/tax"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_footer_sm_text"
+        android:layout_alignParentBottom="true"
+		  app:layout_constraintStart_toStartOf="parent"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/footer_tax"
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:gravity="bottom"
+		  android:textAlignment="viewEnd"
+		  android:layout_margin="5dp"
+		  android:background="@color/transparent"
+		  android:text=""
+		  android:textStyle="bold|italic"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_footer_md_text"
+        android:layout_alignParentBottom="true"
+		  app:layout_constraintStart_toEndOf="@+id/footer_tax_desc"
+		  app:layout_constraintEnd_toEndOf="parent"/>
+	 
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
+  <androidx.constraintlayout.widget.ConstraintLayout
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:gravity="bottom"
-		android:background="@color/transparent"
-		android:text=""
-		android:textAlignment="viewEnd"
-		android:layout_margin="5dp"
-		android:textColor="@color/black"
-		android:textStyle="bold|italic"
-		android:textSize="@dimen/ticket_footer_lg_text"
-      android:layout_alignParentBottom="true"/>
-  
+		android:background="@color/transparent">
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/footer_total_desc"
+		  android:layout_width="wrap_content"
+		  android:layout_height="match_parent"
+		  android:gravity="bottom"
+		  android:textAlignment="viewStart"
+		  android:layout_margin="5dp"
+		  android:background="@color/transparent"
+		  android:text="@string/total"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/ticket_footer_sm_text"
+        android:layout_alignParentBottom="true"
+		  app:layout_constraintStart_toStartOf="parent"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/footer_total"
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:gravity="bottom"
+		  android:background="@color/transparent"
+		  android:text=""
+		  android:textAlignment="viewEnd"
+		  android:layout_margin="5dp"
+		  android:textColor="@color/black"
+		  android:textStyle="bold|italic"
+		  android:textSize="@dimen/ticket_footer_lg_text"
+        android:layout_alignParentBottom="true"
+		  app:layout_constraintStart_toEndOf="@+id/footer_total_desc"
+		  app:layout_constraintEnd_toEndOf="parent"/>
+	 
+  </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>
