@@ -52,7 +52,7 @@ public class Quantity extends TicketModifier {
 				for (TicketItem ti: Pos.app.ticket.selectItems ()) {
 
 					 quantity (ti);
-
+					 
 					 for (TicketItem linkItem: ti.links) {
 							  
 						  quantity (linkItem);
@@ -68,11 +68,13 @@ public class Quantity extends TicketModifier {
 		  int multiplier = 0;
 		  int quantity = ti.getInt ("quantity");
 		  
-		  if ((jar () != null) && jar ().has ("multiplier")) {
+		  if ((jar () != null) && jar ().has ("value")) {
 				
-				multiplier = jar ().getInt ("multiplier");
+				multiplier = jar ().getInt ("value");
 		  }
 		  
+		  Logger.d ("qty... " + ti.getString ("item_desc") + " " + jar () + " " + quantity + " " + multiplier);
+
 		  if (multiplier != 0) {
 				
 				quantity += multiplier;
