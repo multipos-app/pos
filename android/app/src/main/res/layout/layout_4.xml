@@ -64,7 +64,7 @@
 				android:id="@+id/displays"
 				android:layout_width="match_parent"	
 				android:layout_height="match_parent"
-				android:layout_margin="15dp"
+				android:layout_margin="@dimen/ticket_margin"
 				android:background="@color/transparent"/>
 		  
 		</LinearLayout>
