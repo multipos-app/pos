@@ -29,7 +29,7 @@ open class Pricing {
 	 companion object {
 		  
 		  val pricing = mapOf <String, Pricing> ("standard" to Standard (), 
-															  "size" to Size (),
+															  "variant" to Variant (),
 															  "open" to Open (),
 															  "metric" to Metric ())
 

@@ -149,7 +149,7 @@
 	 <string name="approval_code">Approval code</string>
 	 <string name="entry_mode">Entry mode</string>
     <string name="unknown_error">Unknown error</string>
-    <string name="select_size">Select size</string>
+    <string name="select_variant">Select variant</string>
     <string name="lb">Pounds</string>
     <string name="liter">Liters</string>
     <string name="oz">Ounces</string>
