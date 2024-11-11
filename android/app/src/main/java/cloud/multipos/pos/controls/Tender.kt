@@ -50,9 +50,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  jar (jar)
 
 		  balance () // balance the sale
-		  
-		  Logger.d ("tender... " + this)
-		  
+		  		  
 		  if (confirmed ()) {
 				
 				fees ()     // add any fees for this tender type
@@ -101,8 +99,6 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 	  */
 	 
 	 fun tender () {
-
-		  Logger.d ("tender 1... ${Pos.app.input.getString ()} ${jar ()} ${Pos.app.input.hasInput ()}")
 		  
 		  tendered = 0.0
 		  
@@ -120,9 +116,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				Pos.app.input.clear ()
 		  }
 	 	  else if (jar ().has ("value")) {
-				
-				Logger.d ("tender 2... ${Pos.app.input.getString ()} ${jar ()}")
-			
+							
 				// fixed amount in the jar?
 				
 				if (jar ().getDouble ("value") > 0) {
@@ -158,8 +152,6 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				
 				returned = total () - (paid + tendered)
 		  }
-		  
-		  Logger.d ("tender 3... ${Pos.app.input.getString ()} ${jar ()}")
 	 }
 
 	 /**
@@ -189,8 +181,14 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 															.put ("data_capture", dataCapture.toString ()))
 		  
 		  var id = Pos.app.db.insert ("ticket_tenders", ticketTender)
+		  
 		  ticketTender.put ("id", id)
 		  ticketTender.put ("type", Ticket.TENDER)
+
+		  if (balance > 0.0) {
+				
+				ticketTender.put ("balance_due", Currency.round (balance))
+		  }
 		  
 		  Pos.app.ticket.tenders.add (ticketTender)
 		  		  
@@ -217,7 +215,9 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				PosDisplays.message (Jar ()
 												 .put ("prompt_text", Pos.app.getString ("balance_due"))
 												 .put ("echo_text", Strings.currency (balance, false)))
+				updateDisplays ()
 		  }
+		  
 
 		  // reset
 		  

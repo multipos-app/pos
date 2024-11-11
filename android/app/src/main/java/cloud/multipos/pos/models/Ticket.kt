@@ -78,6 +78,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 						  .put ("tax_total", 0)
 						  .put ("total", 0)
 						  .put ("item_count", 0)
+						  .put ("balance_due", 0)
 
 					 addItems (ticketID)
 					 addTaxes (ticketID)
@@ -241,6 +242,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 		  var taxTotalInc = 0.0
 		  var tenderTotal = 0.0
 		  var total = 0.0
+		  var balanceDue = 0.0
 		  var addonTotal = 0.0
 		  var totalProfit = 0.0
 		  var totalWithoutTax = 0.0
@@ -365,6 +367,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 		  }
 		  
 		  put ("tendered_amount", tenderTotal)
+		  put ("balance_due", total - tenderTotal)
 		  
 		  putUpdate ("state", getInt ("state"))
 				.putUpdate ("item_count", itemCount)

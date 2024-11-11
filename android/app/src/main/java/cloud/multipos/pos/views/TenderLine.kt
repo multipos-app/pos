@@ -35,36 +35,55 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 
 	 init {
 
-		  Pos.app.inflater.inflate (R.layout.ticket_tender_line, this);
+		  Logger.x ("tender line balance due... ${Pos.app.ticket.getDouble ("balance_due")}")
+		  var t: String
+		  var color = Color.RED
+		  	  
+		  if (Pos.app.ticket.getDouble ("balance_due") > 0.0) {
+					 
+				Pos.app.inflater.inflate (R.layout.ticket_tender_line_balance_due, this);
+				
+				t = Pos.app.getString ("total").uppercase () + " " +
+				Strings.currency (tt.getDouble ("total"), false) +
+				"\n" + Pos.app.getString ("paid").uppercase () + " " +
+				tt.getString ("tender_type").uppercase () + " " +
+				Strings.currency (tt.getDouble ("tendered_amount"), false) +
+				"\n" + Pos.app.getString ("balance_due").uppercase () + " " +
+				Strings.currency (tt.getDouble ("balance_due"), false)
+		  }
+		  else {
+				
+				Pos.app.inflater.inflate (R.layout.ticket_tender_line, this);
+				
+				t = "\n" + Pos.app.getString ("total").uppercase () + " " +
+				Strings.currency (tt.getDouble ("total"), false) +
+				"\n" + Pos.app.getString ("paid").uppercase () + " " +
+				tt.getString ("tender_type").uppercase () + " " +
+				Strings.currency (tt.getDouble ("tendered_amount"), false)
+				
+				if (tt.getDouble ("returned_amount") != 0.0) {
+					 
+					 t += "\n" + Pos.app.getString ("change").uppercase () + " " +
+					 Strings.currency (tt.getDouble ("returned_amount"), false)
+				}
 
+				when (Themed.theme) {
+					 
+					 Themes.Light -> {
+						  
+						  color = Color.BLACK
+					 }
+					 
+					 Themes.Dark -> {
+						  
+						  color = Color.WHITE
+					 }
+				}
+		  }
+		  
 		  var tender = this.findViewById (R.id.ticket_tender_line) as PosText
-		  tender.setTypeface(null, Typeface.BOLD or Typeface.ITALIC)
-
-		  var t = "\n" + Pos.app.getString ("total").uppercase () + " " +
-		  Strings.currency (tt.getDouble ("total"), false) +
-		  "\n" + Pos.app.getString ("paid").uppercase () + " " +
-		  tt.getString ("tender_type").uppercase () + " " +
-		  Strings.currency (tt.getDouble ("tendered_amount"), false)
-
-		  if (tt.getDouble ("returned_amount") != 0.0) {
-
-				t += "\n" + Pos.app.getString ("change").uppercase () + " " +
-				Strings.currency (tt.getDouble ("returned_amount"), false)
-		  }
-	 
+		  tender.setTypeface (null, Typeface.BOLD or Typeface.ITALIC)
+		  tender.setTextColor (color)
 		  tender.setText (t)
-
-		  when (Themed.theme) {
-				
-				Themes.Light -> {
-					 
-					 tender.setTextColor (Color.BLACK)
-				}
-				
-				Themes.Dark -> {
-					 
-					 tender.setTextColor (Color.WHITE)
-				}
-		  }
 	 }
 }

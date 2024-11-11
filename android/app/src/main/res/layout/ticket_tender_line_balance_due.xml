@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 android:layout_width="match_parent"
+	 android:layout_height="wrap_content"
+	 android:background="@color/transparent"
+	 android:layout_marginLeft="@dimen/ticket_item_margin"
+	 android:layout_marginRight="@dimen/ticket_item_margin"
+	 android:orientation="horizontal">
+
+    <LinearLayout
+ 		android:clickable="false"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight=".5"/>
+
+	 <cloud.multipos.pos.views.PosText
+      android:id="@+id/ticket_tender_line"
+      android:layout_width="0dp"
+      android:layout_height="wrap_content"
+		android:layout_weight="5.5"
+      android:gravity="start"
+      android:text=""
+      android:textColor="@color/red"
+      android:textSize="@dimen/ticket_item_md_text" />
+
+</LinearLayout>
