@@ -41,7 +41,7 @@ class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl):
 	 override fun accept () {
 
 		  confirmControl.confirmed (true)
-		  confirmControl.action (null)
+		  confirmControl.action (Jar ())
 		  Pos.app.controlLayout.pop (this)
 	 }
 }

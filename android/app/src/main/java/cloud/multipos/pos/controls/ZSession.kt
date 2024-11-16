@@ -32,34 +32,7 @@ class ZSession (): SessionManager () {
 
 	 override fun controlAction (jar: Jar) {
 
-		  Logger.d ("z session... " + jar)
-
-		  jar (Jar ())
-		  if (jar != null) {
-				
-				jar (jar)
-		  }
-
 		  if (confirmed ()) {
-
-				// confirmed (false)
-				// super.controlAction (jar ())
-				// complete (Ticket.Z_SESSION)
-
-				// val timeStamp = Pos.app.db.timestamp (java.util.Date ())
-				
-				// Pos.app
-				// 	 .ticket
-		  		// 	 .put ("ticket_type", Ticket.Z_SESSION)
-		  		// 	 .put ("state", Ticket.COMPLETE)
-		  		// 	 .put ("star_time", timeStamp)
-		  		// 	 .put ("complete_time", timeStamp)
-				
-				// Pos.app.db.exec ("update tickets set start_time = '" + timeStamp + "', " +
-				// 							  "complete_time = '" + timeStamp + "', " +
-				// 							  "ticket_type = " + Ticket.VOID + ", " +
-				// 							  "state = " + Ticket.COMPLETE + " " +
-				// 							  "where id = " + Pos.app.ticket.getInt ("id"))
 
 		  		confirmed (false)
 				setJar (Jar ().put ("print_report", true))
@@ -77,8 +50,8 @@ class ZSession (): SessionManager () {
 				complete (Ticket.Z_SESSION)
 		  }
 		  else {
-
-				setJar (Jar ())
+				
+				jar (jar)
 				ConfirmView (Pos.app.getString ("confirm_z_session"), this)
 		  }
 	 }
