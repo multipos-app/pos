@@ -35,7 +35,7 @@ class CreditTender (): Tender (null) {
 
 	 override fun tenderType (): String { return "credit" }
 	 override fun tenderDesc (): String { return "credit" }
-	 override fun subTenderDesc (): String { return "VISA" }
+	 override fun subTenderDesc (): String { return "external_credit" }
 	 override fun openDrawer (): Boolean { return  jar ().getBoolean ("open_drawer") }
 	 override fun printReceipt (): Boolean { return jar ().getBoolean ("print_receipt") }
 }
