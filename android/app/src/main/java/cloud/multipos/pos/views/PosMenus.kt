@@ -82,17 +82,10 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 	 override fun menu (name: String) { }
 	 
 	 override fun menu (index: Int) {
-		  
-		  var dir = Gravity.END
-		  var edge = Gravity.END
+		  		  
 		  val end = layouts.get (index)
-		  val scene = Scene (this, end)
-		  
-		  // val slide = Slide (dir)
-		  // slide.setMode (Fade.MODE_IN)
-		  // val transition = slide
-
 		  val transition = Fade ()
+		  val scene = Scene (this, end)
 
 		  transition.setDuration (250)
 		  TransitionManager.go (scene, transition)
