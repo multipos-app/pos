@@ -68,8 +68,6 @@ open class SessionManager (): CompleteTicket () {
 	 override fun controlAction (jar: Jar) {
 		  		  
 		  var sessionID = Pos.app.config.getInt ("pos_session_id")
-
-		  // clear these each time since the control is reused
 		  
 		  cashSales = 0.0
 		  total = 0.0
@@ -85,14 +83,7 @@ open class SessionManager (): CompleteTicket () {
 		  departments.clear ()
 		  exceptions.clear ()
 
-		  var sessionTotal: Jar
-		  
-		  /**
-			*
-			* open amount
-			*
-			*/
-		  
+		  var sessionTotal: Jar		  
 		  var sessionResults = DbResult (Pos.app.db
 														 .find ("pos_session_totals")
 														 .conditions (arrayOf ("pos_session_id = " + sessionID,
@@ -107,39 +98,30 @@ open class SessionManager (): CompleteTicket () {
 				openAmount = sessionTotal.getDouble ("amount")
 		  }
 		  
-		  /**
-			*
-			* cash in
-			*
-			*/
-
 		  totalQuantity = 0
 		  total = 0.0
 		  var cardQuantity = 0
 		  var card = 0.0
 		  var totalReceived = 0.0
 		  
-		  sessionResults = DbResult (Pos.app.db
-													.find ("pos_session_totals")
-													.conditions (arrayOf ("pos_session_id = " + sessionID + " and " +
-																				 "total_type in (" + TotalsService.TENDER + ", " + TotalsService.ACCOUNT + ")"))
+		  sessionResults = DbResult (Pos.app.db.find ("pos_session_totals")
+													.conditions (arrayOf ("pos_session_id = " + sessionID + " and " + "total_type in (" + TotalsService.TENDER + ", " + TotalsService.ACCOUNT + ")"))
 													.query (),
-													Pos.app.db)
+											  Pos.app.db)
 		  
 		  while (sessionResults.fetchRow ()) {
 
 				sessionTotal = sessionResults.row ()
-				
+								
 				when (sessionTotal.getString ("total_type_desc")) {
 
 				"cash" -> {
 
-					 totals
-						  .add (Jar ()
-										.put ("type", "total")
-										.put ("desc", sessionTotal.getString ("total_type_desc"))
-										.put ("quantity", sessionTotal.getInt ("quantity"))
-										.put ("amount", sessionTotal.getDouble ("amount")))
+					 totals.add (Jar ()
+										  .put ("type", "total")
+										  .put ("desc", sessionTotal.getString ("total_type_desc"))
+										  .put ("quantity", sessionTotal.getInt ("quantity"))
+										  .put ("amount", sessionTotal.getDouble ("amount")))
 					 
 					 cashSales = sessionTotal.getDouble ("amount")
 					 total += sessionTotal.getDouble ("amount")
@@ -148,19 +130,17 @@ open class SessionManager (): CompleteTicket () {
 
 				"card", "credit" -> {
 					 
-					 cards
-						  .add (Jar ()
-										.put ("type", "card")
-										.put ("desc", sessionTotal.getString ("total_sub_type_desc"))
-										.put ("quantity", sessionTotal.getInt ("quantity"))
-										.put ("amount", sessionTotal.getDouble ("amount")))
+					 cards.add (Jar ()
+										 .put ("type", "card")
+										 .put ("desc", sessionTotal.getString ("total_sub_type_desc"))
+										 .put ("quantity", sessionTotal.getInt ("quantity"))
+										 .put ("amount", sessionTotal.getDouble ("amount")))
 					 
 					 card += sessionTotal.getDouble ("amount")
 					 cardQuantity += sessionTotal.getInt ("quantity")
 					 total += sessionTotal.getDouble ("amount")
 					 totalQuantity ++
 				}
-					 
 				else -> {
 
 					 var p = Jar ()
@@ -170,39 +150,37 @@ open class SessionManager (): CompleteTicket () {
 					 
 					 if (sessionTotal.getInt ("total_type") == TotalsService.ACCOUNT) {
 						  
-						  p
-								.put ("account_tag", sessionTotal.getString ("total_sub_type_desc"))
+						  p.put ("account_tag", sessionTotal.getString ("total_sub_type_desc"))
 					 }
 					 else {
-
-						  totals
-								.add (Jar ()
-										.put ("type", "total")
-										.put ("desc", sessionTotal.getString ("total_type_desc"))
-										.put ("quantity", sessionTotal.getInt ("quantity"))
-										.put ("amount", sessionTotal.getDouble ("amount")))
+						  
+						  totals.add (Jar ()
+												.put ("type", "total")
+												.put ("desc", sessionTotal.getString ("total_type_desc"))
+												.put ("quantity", sessionTotal.getInt ("quantity"))
+												.put ("amount", sessionTotal.getDouble ("amount")))
 						  
 						  total += sessionTotal.getDouble ("amount")
 						  totalQuantity ++
 					 }
 				}
-		  }
+				}
+				}
 						  
 		  if (card > 0) {
 				
 				totals.add (Jar ()
-								.put ("type", "total")
-								.put ("desc", "card")
-								.put ("quantity", cardQuantity)
-								.put ("amount", card))
+									 .put ("type", "total")
+									 .put ("desc", "card")
+									 .put ("quantity", cardQuantity)
+									 .put ("amount", card))
 		  }
 		  
 		  totals.add (Jar ()
-						  .put ("type", "total")
-						  .put ("desc", "total")
-						  .put ("quantity", totalQuantity)
-						  .put ("amount", total))
-
+								.put ("type", "total")
+								.put ("desc", "total")
+								.put ("quantity", totalQuantity)
+								.put ("amount", total))
 		  
 		  /**
 			*
@@ -370,15 +348,13 @@ open class SessionManager (): CompleteTicket () {
 								  .put ("quantity", sessionTotal.getInt ("quantity"))
 								  .put ("amount", sessionTotal.getDouble ("amount")))
 		  }
-		  }
 		  
 		  Pos.app.ticket
 				.put ("totals", totals)
 				.put ("cards", cards)
 				.put ("departments", departments)
 				.put ("exceptions", exceptions)
-		  }
- 
+	 }
 	 
 	 fun complete (ticketType: Int) {
 		  
@@ -435,9 +411,14 @@ open class SessionManager (): CompleteTicket () {
 				.put ("business_unit_id", Pos.app.config.getInt ("business_unit_id"))
 				.put ("pos_no", Pos.app.posNo ())
 		  
-		  var sessionID = Pos.app.db.insert ("pos_sessions", posSession)
-		  Pos.app.config.put ("pos_session_id", sessionID)
+		  if (ticketType == Ticket.Z_SESSION) {
 
+				// start a new session
+				
+				var sessionID = Pos.app.db.insert ("pos_sessions", posSession)
+				Pos.app.config.put ("pos_session_id", sessionID)
+		  }
+		  
 		  // build the session report
 		  
 		  Pos.app.receiptBuilder ().ticket (Pos.app.ticket, PosConst.PRINTER_REPORT)

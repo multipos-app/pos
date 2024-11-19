@@ -29,15 +29,14 @@ import android.widget.Button;
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 
-class CashManagementView (sessionManager: SessionManager): DialogView ("") {
+class CashManagementView (sessionManager: SessionManager): DialogView (Pos.app.getString (R.string.cash_count)) {
 	 	 
 	 private lateinit var cashManagementContent: ViewGroup
 	 private var currentView: View?
 	 
 	 init {
 
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-		  Pos.app.inflater.inflate (R.layout.cash_management_layout, this)
+		  Pos.app.inflater.inflate (R.layout.cash_management_layout, dialogLayout)
 
 		  currentView = null
 		  
@@ -48,6 +47,9 @@ class CashManagementView (sessionManager: SessionManager): DialogView ("") {
 		  Pos.app.controlLayout.push (this)
   
 	 }
+
+	 override fun layout (): Int { return (R.layout.dialog_cm_container_layout) }
+	 override fun actions (dialogView: DialogView) { }
 
 	 fun replaceView (view : View) {
 		  
@@ -60,7 +62,6 @@ class CashManagementView (sessionManager: SessionManager): DialogView ("") {
 		  cashManagementContent.addView (view);
 	 }
 
-	 fun updateCount () {
-	 }
+	 fun updateCount () { }
 }
 	 

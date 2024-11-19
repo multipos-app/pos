@@ -29,7 +29,7 @@
           android:background="@color/transparent"
           android:gravity="left"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 		<cloud.multipos.pos.views.PosText
           android:id="@+id/drawer_start"
@@ -40,7 +40,7 @@
           android:gravity="end"
           android:text=""
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 	 </LinearLayout>
 
@@ -58,7 +58,7 @@
           android:background="@color/transparent"
           android:gravity="left"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 		<cloud.multipos.pos.views.PosText
           android:id="@+id/drawer_sales"
@@ -69,7 +69,7 @@
           android:gravity="end"
           android:text="0"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 	 </LinearLayout>
 
@@ -87,7 +87,7 @@
           android:background="@color/transparent"
           android:gravity="left"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 		<cloud.multipos.pos.views.PosText
           android:id="@+id/drawer_total"
@@ -98,7 +98,7 @@
           android:gravity="end"
           android:text="0"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 	 </LinearLayout>
 
@@ -116,7 +116,7 @@
           android:background="@color/transparent"
           android:gravity="left"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 		<cloud.multipos.pos.views.PosText
           android:id="@+id/drawer_count"
@@ -127,7 +127,7 @@
           android:gravity="end"
           android:text="0"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 	 </LinearLayout>
 
@@ -145,7 +145,7 @@
           android:background="@color/transparent"
           android:gravity="left"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 		<cloud.multipos.pos.views.PosText
           android:id="@+id/drawer_diff"
@@ -156,14 +156,14 @@
           android:gravity="end"
           android:text="0"
           android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
+          android:textSize="@dimen/cm_dialog_lg_text" />
 
 	 </LinearLayout>
 
 	 <LinearLayout
 		  android:layout_width="match_parent"
 		  android:layout_height="wrap_content"
-		  android:layout_marginTop="@dimen/cm_dialog_lg_margin"
+		  android:layout_marginTop="@dimen/cm_dialog_margin"
 		  android:orientation="horizontal">
 
 		<cloud.multipos.pos.views.PosText
@@ -174,7 +174,7 @@
 			 android:background="@color/transparent"
 			 android:gravity="left"
 			 android:textColor="@color/black"
-			 android:textSize="@dimen/cm_dialog_lg_text" />
+			 android:textSize="@dimen/cm_dialog_xlg_text" />
 		
 		<cloud.multipos.pos.views.PosText
 			 android:id="@+id/float_input"
@@ -194,7 +194,7 @@
   <LinearLayout
       android:id="@+id/cm_controls"
 		android:layout_width="match_parent"
-      android:layout_height="@dimen/dialog_header_height"
+      android:layout_height="@dimen/dialog_footer_height"
 		android:orientation="horizontal"
 		app:layout_constraintTop_toBottomOf="@+id/drawer_count_list"
 		app:layout_constraintBottom_toBottomOf="parent">

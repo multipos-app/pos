@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<cloud.multipos.pos.views.PosButton
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_accept"
+ 	 style="@style/DialogContinue"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+ 	 android:text="@string/print"
+    android:textSize="@dimen/dialog_lg_text"/>

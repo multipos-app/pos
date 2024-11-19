@@ -13,180 +13,199 @@
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="@color/transparent"
-      android:orientation="vertical">
+      android:orientation="horizontal">
 	 
 	 <LinearLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="wrap_content"
-		  android:orientation="horizontal">
-
-		<cloud.multipos.pos.views.PosText
-          android:text="@string/cash_start"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="left"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-		<cloud.multipos.pos.views.PosText
-          android:id="@+id/drawer_start"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="end"
-          android:text=""
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-	 </LinearLayout>
-
-	 <LinearLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="wrap_content"
-		  android:orientation="horizontal">
-
-		<cloud.multipos.pos.views.PosText
-          android:text="@string/cash_sales"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="left"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-		<cloud.multipos.pos.views.PosText
-          android:id="@+id/drawer_sales"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="end"
-          android:text="0"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-	 </LinearLayout>
-
-	 <LinearLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="wrap_content"
-		  android:orientation="horizontal">
-
-		<cloud.multipos.pos.views.PosText
-          android:text="@string/cash_total"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="left"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-		<cloud.multipos.pos.views.PosText
-          android:id="@+id/drawer_total"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="end"
-          android:text="0"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-	 </LinearLayout>
-
-	 <LinearLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="wrap_content"
-		  android:orientation="horizontal">
-
-		<cloud.multipos.pos.views.PosText
-          android:text="@string/cash_count"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="left"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-		<cloud.multipos.pos.views.PosText
-          android:id="@+id/drawer_count"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="end"
-          android:text="0"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-	 </LinearLayout>
-
-	 <LinearLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="wrap_content"
-		  android:orientation="horizontal">
-
-		<cloud.multipos.pos.views.PosText
-          android:text="@string/cash_diff"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="left"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-		<cloud.multipos.pos.views.PosText
-          android:id="@+id/drawer_diff"
-          android:layout_width="0dp"
-          android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:background="@color/transparent"
-          android:gravity="end"
-          android:text="0"
-          android:textColor="@color/black"
-          android:textSize="@dimen/cm_dialog_md_text" />
-
-	 </LinearLayout>
-
-	 <LinearLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="0dp"
-		  android:layout_weight=".75"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
 		  android:background="@color/transparent"
-		  android:orientation="horizontal">
-		
-		<cloud.multipos.pos.views.PosText
-			 android:text="@string/total"
-			 android:layout_width="0dp"
+		  android:layout_margin="@dimen/cm_dialog_margin"
+        android:orientation="vertical">
+
+		<LinearLayout
+			 android:layout_width="match_parent"
 			 android:layout_height="wrap_content"
-			 android:layout_weight="1"
-			 android:layout_margin="@dimen/cm_dialog_button_margin"
-			 android:background="@color/transparent"
-			 android:gravity="start"
-			 android:textColor="@color/black"
-			 android:textSize="@dimen/cm_dialog_lg_text" />
-		
-		<cloud.multipos.pos.views.PosText
-			 android:id="@+id/drawer_count_total"
-			 android:layout_width="0dp"
+			 android:orientation="horizontal">
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:text="@string/cash_start"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="left"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:id="@+id/drawer_start"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="end"
+				android:text=""
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+		  
+		</LinearLayout>
+
+		<LinearLayout
+			 android:layout_width="match_parent"
 			 android:layout_height="wrap_content"
-			 android:layout_weight="1"
-			 android:background="@color/transparent"
-			 android:layout_margin="@dimen/cm_dialog_button_margin"
-			 android:gravity="end"
-			 android:text=""
-			 android:textColor="@color/black"
-			 android:textSize="@dimen/cm_dialog_lg_text" />
+			 android:orientation="horizontal">
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:text="@string/cash_sales"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="left"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:id="@+id/drawer_sales"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="end"
+				android:text="0"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+		  
+		</LinearLayout>
+		
+		<LinearLayout
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:orientation="horizontal">
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:text="@string/cash_total"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="left"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:id="@+id/drawer_total"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="end"
+				android:text="0"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+
+		</LinearLayout>
 		
 	 </LinearLayout>
-	 
+
+	 <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_margin="@dimen/cm_dialog_margin"
+        android:orientation="vertical">
+
+		<LinearLayout
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:orientation="horizontal">
+
+		  <cloud.multipos.pos.views.PosText
+				android:text="@string/cash_count"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="left"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+
+		  <cloud.multipos.pos.views.PosText
+				android:id="@+id/drawer_count"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="end"
+				android:text="0"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			 android:layout_width="match_parent"
+			 android:layout_height="wrap_content"
+			 android:orientation="horizontal">
+
+		  <cloud.multipos.pos.views.PosText
+				android:text="@string/cash_diff"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="left"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+
+		  <cloud.multipos.pos.views.PosText
+				android:id="@+id/drawer_diff"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:gravity="end"
+				android:text="0"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_md_text" />
+
+		</LinearLayout>
+
+		<LinearLayout
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight=".75"
+			 android:background="@color/transparent"
+			 android:orientation="horizontal">
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:text="@string/total"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:layout_margin="@dimen/cm_dialog_button_margin"
+				android:background="@color/transparent"
+				android:gravity="start"
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_lg_text" />
+		  
+		  <cloud.multipos.pos.views.PosText
+				android:id="@+id/drawer_count_total"
+				android:layout_width="0dp"
+				android:layout_height="wrap_content"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:layout_margin="@dimen/cm_dialog_button_margin"
+				android:gravity="end"
+				android:text=""
+				android:textColor="@color/black"
+				android:textSize="@dimen/cm_dialog_lg_text" />
+		  
+		</LinearLayout>
+	 </LinearLayout>
+
   </LinearLayout>
 
   <ScrollView
@@ -198,48 +217,48 @@
 		android:textColor="@android:color/background_dark"
 		app:layout_constraintTop_toBottomOf="@+id/cm_summary"
 		app:layout_constraintBottom_toTopOf="@+id/cm_controls"/>
-	 
+  
   <LinearLayout
       android:id="@+id/cm_controls"
 		android:layout_width="match_parent"
-      android:layout_height="@dimen/dialog_header_height"
+      android:layout_height="@dimen/dialog_footer_height"
 		android:orientation="horizontal"
 		app:layout_constraintTop_toBottomOf="@+id/drawer_count_list"
 		app:layout_constraintBottom_toBottomOf="parent">
 
-  		<cloud.multipos.pos.views.PosButton
-          android:id="@+id/cm_next_denom"
- 			 style="@style/DialogContinue"
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_margin="@dimen/cm_dialog_button_margin"
-          android:layout_weight="1"
-          android:text="@string/cm_next_denom"
-          android:textColor="@color/white"
-          android:textSize="@dimen/cm_dialog_md_text" />
+  	 <cloud.multipos.pos.views.PosButton
+        android:id="@+id/cm_next_denom"
+ 		  style="@style/DialogContinue"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/cm_dialog_button_margin"
+        android:layout_weight="1"
+        android:text="@string/cm_next_denom"
+        android:textColor="@color/white"
+        android:textSize="@dimen/cm_dialog_md_text" />
 
-		<cloud.multipos.pos.views.PosButton
-          android:id="@+id/cm_reset"
- 			 style="@style/DialogWarn"
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_margin="@dimen/cm_dialog_button_margin"
-          android:layout_weight="1"
-          android:text="@string/cm_reset"
-          android:textColor="@color/white"
-          android:textSize="@dimen/cm_dialog_md_text" />
+	 <cloud.multipos.pos.views.PosButton
+        android:id="@+id/cm_reset"
+ 		  style="@style/DialogWarn"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/cm_dialog_button_margin"
+        android:layout_weight="1"
+        android:text="@string/cm_reset"
+        android:textColor="@color/white"
+        android:textSize="@dimen/cm_dialog_md_text" />
 
-		<cloud.multipos.pos.views.PosButton
-          android:id="@+id/cm_continue"
- 			 style="@style/DialogSuccess"
-          android:layout_width="0dp"
-          android:layout_height="match_parent"
-          android:layout_margin="@dimen/cm_dialog_button_margin"
-          android:layout_weight="1"
-          android:text="@string/cm_continue"
-          android:textColor="@color/white"
-          android:textSize="@dimen/cm_dialog_md_text" />
+	 <cloud.multipos.pos.views.PosButton
+        android:id="@+id/cm_continue"
+ 		  style="@style/DialogSuccess"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/cm_dialog_button_margin"
+        android:layout_weight="1"
+        android:text="@string/cm_continue"
+        android:textColor="@color/white"
+        android:textSize="@dimen/cm_dialog_md_text" />
 
-    </LinearLayout>
+  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
