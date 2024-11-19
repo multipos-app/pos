@@ -49,8 +49,6 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 				
 				text.setText (t);
 				text.setTextColor (fg)
-
-				accept.setText (Pos.app.getString ("print"));
 		  }
 		  else if (jar.has ("report_text")) {
 
@@ -67,10 +65,19 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 									}
 		  })
 
-		  Logger.d ("report view...")
 		  Pos.app.controlLayout.push (this)
 	 }
-
+	 
+	 override fun actions (dialogView: DialogView) {
+		  
+		  Pos.app.inflater.inflate (R.layout.dialog_print_action, dialogActions)	  		  
+		  val accept = findViewById (R.id.dialog_accept) as Button
+		  accept.setOnClickListener () {
+				
+				accept ()
+		  }
+	 }
+	 
 	 override fun accept () {
 
 		  Pos.app.receiptBuilder ().print ();

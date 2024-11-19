@@ -44,14 +44,16 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 		  Pos.app.inflater.inflate (R.layout.manager_override_layout, dialogLayout)
 		  		  
 		  echo = findViewById (Pos.app.resourceID ("echo", "id")) as TextView
-		  accept.setText (Pos.app.getString ("enter_manager_number"));
+		  // accept.setText (Pos.app.getString ("enter_manager_number"));
 		  
 		  PosDisplays.add (this)
 		  Pos.app.controlLayout.push (this)
 	 }
 
 	 override fun accept () {
-				
+
+		  Logger.d ("manager overide ${manager} ${pin}")
+		  
 		  if ((manager.length > 0) && (pin.length > 0)) {
 					 
 				val select = "select username, password, fname, lname, profile_id, id from employees " +
@@ -68,7 +70,8 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 				}
 				else {
 						  
-		  			 echo.setHint (Pos.app.getString ("invalid_login"));
+					 echo.setText ("");
+					 echo.setHint (Pos.app.getString ("invalid_login"));
 					 manager = ""
 					 pin = ""
 					 mask = false
@@ -78,8 +81,8 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 
 				manager = echo.text.toString ()
 				mask = true
-		  		echo.setHint (Pos.app.getString ("pincode"));
-		  		accept.setText (Pos.app.getString ("enter_manager_pin"));
+				echo.setText ("");
+				echo.setHint (Pos.app.getString ("pincode"));
 		  }
 		  
 		  Pos.app.input.clear ()

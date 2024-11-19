@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
-	 android:paddingTop="@dimen/dialog_sm_padding"
+	 android:paddingTop="@dimen/dialog_padding"
     android:orientation="horizontal">
   
   <cloud.multipos.pos.views.PosText
@@ -13,7 +13,6 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="start"
-		  android:paddingLeft="@dimen/dialog_md_padding"
         android:textColor="@color/black"
         android:text=""
 		  android:textStyle="bold|italic"
@@ -25,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_weight=".5"
         android:gravity="end"
-		  android:paddingRight="@dimen/dialog_md_padding"
+		  android:paddingRight="@dimen/dialog_padding"
         android:textColor="@color/black"
         android:text=""
 		  android:textStyle="bold|italic"

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_container_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
@@ -25,18 +26,15 @@
       android:id="@+id/dialog_layout"		
       android:layout_width="match_parent"
       android:layout_height="0dp"
+		android:background="@color/transparent"
       app:layout_constraintTop_toBottomOf="@+id/dialog_title"
-      app:layout_constraintBottom_toTopOf="@+id/dialog_accept"/>
+      app:layout_constraintBottom_toTopOf="@+id/dialog_actions_layout"/>
 
-<cloud.multipos.pos.views.PosButton
-      android:id="@+id/dialog_accept"
- 		style="@style/DialogContinue"
+  <LinearLayout
+      android:id="@+id/dialog_actions_layout"
       android:layout_width="match_parent"
       android:layout_height="@dimen/dialog_footer_height"
- 		android:text="@string/ok"
-		android:layout_gravity="bottom"
-      android:textSize="@dimen/dialog_lg_text"
-		android:layout_margin="@dimen/dialog_margin"
+		android:background="@color/transparent"
       app:layout_constraintBottom_toBottomOf="parent"/>
- 
+  
 </androidx.constraintlayout.widget.ConstraintLayout>

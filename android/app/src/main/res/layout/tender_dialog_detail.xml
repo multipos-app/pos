@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/transparent"
-	 android:paddingTop="@dimen/dialog_sm_padding"
     android:orientation="horizontal">
   
   <cloud.multipos.pos.views.PosText

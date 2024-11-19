@@ -27,14 +27,14 @@ import android.graphics.Color
 
 abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay, SwipeListener {
 
-	 protected var accept: TextView
 	 protected var dialogLayout: LinearLayout
+	 lateinit var dialogActions: LinearLayout
 	 var fg = Color.BLACK
 	 
 	 init {
 		  
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-		  Pos.app.inflater.inflate (R.layout.dialog_container_layout, this)
+		  Pos.app.inflater.inflate (layout (), this)
 
 		  dialogLayout = findViewById (R.id.dialog_layout) as LinearLayout
 		  if (Themed.theme == Themes.Light) {
@@ -49,15 +49,26 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 				dialogLayout.setBackgroundResource (R.color.dark_bg)
 				fg = Color.WHITE
 		  }
-		  		  
-		  accept = findViewById (R.id.dialog_accept) as Button
+
+		  if (layout () == R.layout.dialog_container_layout) {
 				
+				dialogActions = findViewById (R.id.dialog_actions_layout) as LinearLayout
+		  }
+	  		  				
 		  val header = findViewById (R.id.dialog_title) as TextView
 		  header.setText (title)
-		  
-		  accept = findViewById (R.id.dialog_accept) as TextView
-		  accept.setOnClickListener () {
 
+		  actions (this)
+	 }
+
+	 open fun layout (): Int { return (R.layout.dialog_container_layout) }
+								 
+	 open fun actions (dialogView: DialogView) {
+		  
+		  Pos.app.inflater.inflate (R.layout.dialog_default_action, dialogActions)	  		  
+		  val accept = findViewById (R.id.dialog_accept) as Button
+		  accept.setOnClickListener () {
+				
 				accept ()
 		  }
 	 }

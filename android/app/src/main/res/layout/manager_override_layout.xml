@@ -4,9 +4,9 @@
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/pos_bg"
+    android:background="@color/transparent"
     android:orientation="vertical"
-	 android:padding="@dimen/keypad_lg_padding"
+	 android:padding="@dimen/dialog_padding"
     android:gravity="center_horizontal">
 
   <cloud.multipos.pos.views.PosText
@@ -17,7 +17,7 @@
       android:gravity="center_vertical|center_horizontal"
       android:textColor="@color/black"
       android:textSize="@dimen/dialog_xlg_text"
-		android:layout_margin="@dimen/dialog_lg_margin"
+		android:layout_margin="@dimen/dialog_margin"
       android:hint="@string/manager_number"
  		app:layout_constraintTop_toBottomOf="@+id/manager_override_title"/>
  

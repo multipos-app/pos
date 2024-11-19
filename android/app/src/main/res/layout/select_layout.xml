@@ -7,12 +7,20 @@
     android:padding="@dimen/dialog_padding"
     android:background="@color/transparent">
 
-  <LinearLayout
-      android:id="@+id/select_layout_items"
+  <ScrollView
+      android:id="@+id/select_scroller"
       android:layout_width="match_parent"
       android:layout_height="match_parent"
-      android:background="@color/transparent"
-		android:orientation="vertical"/>
-
+		android:layout_marginTop="@dimen/dialog_padding">
+	 
+	 <LinearLayout
+        android:id="@+id/select_layout_items"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+		  android:orientation="vertical"/>
+	 
+  </ScrollView>
+  
 </androidx.constraintlayout.widget.ConstraintLayout>
 

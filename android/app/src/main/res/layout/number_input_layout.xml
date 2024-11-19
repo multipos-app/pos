@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:orientation="vertical"
- 	 android:layout_margin="@dimen/dialog_padding"
+ 	 android:layout_margin="@dimen/dialog_margin"
     android:gravity="center_horizontal">
   
   <cloud.multipos.pos.views.PosText

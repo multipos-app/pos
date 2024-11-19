@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/dialog_actions"		
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent">
+
+<cloud.multipos.pos.views.PosButton
+      android:id="@+id/dialog_actions_layout"
+ 		style="@style/DialogContinue"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/dialog_footer_height"
+ 		android:text="@string/ok"
+		android:layout_gravity="bottom"
+      android:textSize="@dimen/dialog_lg_text"
+		android:layout_margin="@dimen/dialog_margin"
+      app:layout_constraintBottom_toBottomOf="parent"/>
+
+</LinearLayout>

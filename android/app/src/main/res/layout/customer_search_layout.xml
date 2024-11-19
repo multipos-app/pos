@@ -6,7 +6,7 @@
     xmlns:custom="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/dialog_lg_padding"
+    android:padding="@dimen/dialog_padding"
     android:background="@color/transparent">
 
   <AutoCompleteTextView
@@ -15,41 +15,15 @@
 		android:inputType="text"
 		android:hint="@string/search_customer_hint"
 		android:layout_width="match_parent"
-      android:layout_height="@dimen/dialog_search_height"
+      android:layout_height="@dimen/dialog_header_height"
 		android:gravity="start|center"
+		android:dropDownHeight="@dimen/dialog_dropdown_height"
 		android:popupBackground="@color/transparent"
       android:textSize="@dimen/dialog_md_text"
       android:textColor="@color/black"
 		android:textColorHint="@color/dk_gray"
 		android:background="@color/transparent"
-		android:layout_margin="@dimen/dialog_md_margin"
+		android:layout_margin="@dimen/dialog_margin"
  	 	app:layout_constraintTop_toBottomOf="@+id/customer_search_title"/>
-
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-		android:orientation="horizontal"
-      android:background="@color/transparent"
-  	 	app:layout_constraintTop_toBottomOf="@+id/customer_search_input">
-
-	 <cloud.multipos.pos.views.PosButton
-        android:id="@+id/customer_search_complete"
-  		  style="@style/DialogSuccess"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dialog_header_height"
-		  android:layout_weight="1"
-        android:text="@string/button_select"
-        android:textSize="@dimen/dialog_md_text"/>
-	 	 
-	 <cloud.multipos.pos.views.PosButton
-        android:id="@+id/customer_search_add_edit"
-  		  style="@style/DialogContinue"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/dialog_header_height"
-		  android:layout_weight="1"
-        android:text="@string/add_customer"
-        android:textSize="@dimen/dialog_md_text"/>
-	 
-  </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

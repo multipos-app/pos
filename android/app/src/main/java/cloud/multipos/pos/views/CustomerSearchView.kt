@@ -34,7 +34,7 @@ import android.widget.*
 import java.util.ArrayList
 import android.graphics.Color
 
-class CustomerSearchView (listener: InputListener?) : DialogView (Pos.app.getString ("search_customer")) {
+class CustomerSearchView (val listener: InputListener?) : DialogView (Pos.app.getString ("search_customer")) {
 	 
     private val list: MutableList <Jar> = ArrayList ()
     private var adapter: ListAdapter? = null
@@ -43,8 +43,6 @@ class CustomerSearchView (listener: InputListener?) : DialogView (Pos.app.getStr
     private var customer = Jar ()
 	 
     init {
-
-		  Logger.d ("customer seach... ")
 		  
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 
@@ -59,24 +57,46 @@ class CustomerSearchView (listener: InputListener?) : DialogView (Pos.app.getStr
 					 Pos.app.inflater.inflate (R.layout.customer_search_layout, dialogLayout)
 				}
 		  }
+		  
 
         val text = findViewById (R.id.customer_search_input) as AutoCompleteTextView		  
+        text.setTypeface (Views.displayFont ())
+        adapter = ListAdapter (Pos.app.activity, android.R.layout.simple_dropdown_item_1line, list)
+        text.setAdapter (adapter)
+        text.threshold = 0
 		  
-        val cont = findViewById (R.id.customer_search_complete) as Button
-        cont.setOnClickListener {
+        text.onItemClickListener = OnItemClickListener { _, _, position, _ -> selected = position
+																			
+																			customer = list [selected]
+
+																			val cust = Customer (customer)
+																			text.setText (cust.display ())
+																			// Pos.app.posAppBar.customer (cust.display ())
+																			// addEdit.text = Pos.app.getString ("edit_customer")
+																			// Pos.app.lowerKeyboard (Pos.app.controlLayout)
+		  }
+
+		  text.requestFocus ()
+		  
+        if (Pos.app.ticket.has ("customer")) {
+				
+            // addEdit.setText (Pos.app.getString ("edit_customer"))
+        }
+		  
+ 		  Pos.app.controlLayout.push (this)
+    }
+	 
+	 override fun actions (dialogView: DialogView) {
+		  
+		  Pos.app.inflater.inflate (R.layout.customer_search_actions, dialogActions)	  		  
+		  
+        val select = findViewById (R.id.customer_search_complete) as Button
+        select.setOnClickListener {
 				
 				val cust = Customer (customer)
 				Pos.app.posAppBar.customer (cust.display ())
 				cust.update ()
 				
-				// check if there is more work to do
-					 
-				if (Pos.app.controls.size > 0) {
-					 
-					 var control = Pos.app.controls.removeFirst ()
-					 control.action (control.jar ())
-				}
-
 				if (listener != null) {
 					 
 					 listener.accept (Jar ()
@@ -107,32 +127,8 @@ class CustomerSearchView (listener: InputListener?) : DialogView (Pos.app.getStr
 				
             CustomerEditView (customer)
         }
-
-        text.setTypeface (Views.displayFont ())
-        adapter = ListAdapter (Pos.app.activity, android.R.layout.simple_dropdown_item_1line, list)
-        text.setAdapter (adapter)
-        text.threshold = 0
-		  
-        text.onItemClickListener = OnItemClickListener { _, _, position, _ -> selected = position
-																			
-																			customer = list [selected]
-
-																			val cust = Customer (customer)
-																			text.setText (cust.display ())
-																			// Pos.app.posAppBar.customer (cust.display ())
-																			addEdit.text = Pos.app.getString ("edit_customer")
-																			
-																			Pos.app.lowerKeyboard (Pos.app.controlLayout)
-		  }
-		  
-        if (Pos.app.ticket.has ("customer")) {
-				
-            addEdit.setText (Pos.app.getString ("edit_customer"))
-        }
-		  
- 		  Pos.app.controlLayout.push (this)
-   }
-
+	 }
+	 
     inner class ListAdapter (context: Context?, resource: Int, list: List <Jar?>?): ArrayAdapter <Any?> (context!!, resource, list!!) {
 		  
 		  private val listFilter: ListFilter = ListFilter ()
@@ -160,6 +156,8 @@ class CustomerSearchView (listener: InputListener?) : DialogView (Pos.app.getStr
 				
 				override fun performFiltering (prefix: CharSequence): FilterResults {
 
+					 Logger.d ("list filter... ${prefix}")
+					 
 					 val results = FilterResults ()
 					 
 					 if (prefix.length > 0) {
@@ -188,7 +186,6 @@ class CustomerSearchView (listener: InputListener?) : DialogView (Pos.app.getStr
 						  
 						  results.values = list
 						  results.count = 0
-						  
 					 }
 					 
 					 return results

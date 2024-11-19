@@ -115,17 +115,17 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 	 
 	 fun cancel (text: String) {
 
-		  Logger.d ("tender view cancel... ${text}")
+		  // Logger.d ("tender view cancel... ${text}")
 		  
-		  accept.text = Pos.app.getString ("cancel")
-		  statusText.text = text
-		  progress.visibility = View.INVISIBLE
-		  accept.setText (Pos.app.getString ("cancel"))
+		  // accept.text = Pos.app.getString ("cancel")
+		  // statusText.text = text
+		  // progress.visibility = View.INVISIBLE
+		  // accept.setText (Pos.app.getString ("cancel"))
 
-		  accept.setOnClickListener () {
+		  // accept.setOnClickListener () {
 				
-				Pos.app.controlLayout.swipeRight ()
-		  }
+		  // 		Pos.app.controlLayout.swipeRight ()
+		  // }
 	 }
 
 	 fun updateStatus (text: String) {

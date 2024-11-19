@@ -54,7 +54,6 @@ class Open (): Pricing (), InputListener {
 								
 				Pos.app.input.clear ()
 				item.complete ()
-
 		  }
 		  else {
 
