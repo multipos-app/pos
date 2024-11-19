@@ -44,7 +44,6 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 var customerLayout: LinearLayout? = null
 	 var customerName: PosText? = null
 	 val devices = mutableListOf <DeviceIcon> ()		  
-	 var tray: LinearLayout
 	 var themeIcon = ThemeIcon ()
 	 
 	 lateinit var rootLayout: LinearLayout
@@ -52,7 +51,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 init {
 
 		  Pos.app.posAppBar = this
-
+		  
 		  if (Pos.app.config.getBoolean ("customers")) {
 				
 				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar_customer", "layout"), this)
@@ -103,20 +102,9 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  clock?.setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.white))
 		  
 		  // devices
-		  				
-		  tray = findViewById (Pos.app.resourceID ("app_bar_tray", "id"))
-		  tray.addView (themeIcon, 0)
 
-		  for (device in Pos.app.devices) {
-				
-				var deviceIcon = DeviceIcon (device)
-				devices.add (deviceIcon)
-				tray.addView (deviceIcon, 0)
-				
-				Logger.x ("pos app bar init... " + device)
-
-		  }
-		  
+		  addDevices ()
+		  		  
 		  // handler,  clock and device update thread
 		  
 		  var handler: Handler = object: Handler () {
@@ -177,6 +165,24 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  }).start ()
 
 		  Themed.add (this)
+	 }
+
+	 fun addDevices () {
+		  
+		  val tray = findViewById (Pos.app.resourceID ("app_bar_tray", "id")) as LinearLayout
+		  
+		  tray.removeAllViews ();
+		  tray.addView (themeIcon, 0)
+		  
+		  for (device in Pos.app.devices) {
+				
+				var deviceIcon = DeviceIcon (device)
+				devices.add (deviceIcon)
+				tray.addView (deviceIcon, 0)
+				
+				Logger.x ("pos app bar init... " + device)
+
+		  }
 	 }
 
 	 override fun update () {
@@ -242,8 +248,6 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 }
 
 	 override fun update (theme: Themes) {
-
-		  Logger.d ("pos app bar theme update... ${theme}")
 		  
 		  when (theme) {
 					 
