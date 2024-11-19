@@ -24,6 +24,7 @@ import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.models.TicketTender
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.*
+import cloud.multipos.pos.views.NumberInputView
 
 import java.util.Date
 
@@ -34,20 +35,28 @@ class Bank (): CompleteTicket (), InputListener {
 		  if (Pos.app.ticket.hasItems ()) {
 				
 				PosDisplays.message (Pos.app.getString ("invalid_operation"))
+				PosDisplays.message (Jar ()
+												 .put ("prompt_text", Pos.app.getString ("invalid_operation"))
+												 .put ("echo_text", ""))
 				return
 		  }
 
 		  jar (jar)
 
 		  val floatVal: Double = if (jar.has ("float_total")) jar.get ("float_total").getDouble ("amount") else 0.0
-		  		  
-		  // val numberDialog = NumberDialog (this, R.string.enter_amount, NumberDialog.CURRENCY, true)
-		  // numberDialog.value (floatVal * 100.0)
+		  
+		  NumberInputView (this,
+								 Pos.app.getString (R.string.drop),
+								 Pos.app.getString (R.string.enter_drop_amount),
+								 InputListener.CURRENCY,
+								 0)
 	 }
 	 
 	 override fun accept (result: Jar) {
 		  
-		  var amount = result.getDouble ("value")
+		  var amount = result.getDouble ("value") / 100.0
+
+		  Logger.d ("bank amount... ${amount}")
 		  
 		  if (jar ().has ("float_total")) {  // remove float total
 				
@@ -90,10 +99,10 @@ class Bank (): CompleteTicket (), InputListener {
 		  									  .put ("status", TicketTender.COMPLETE)
 		  									  .put ("returned_amount", 0)
 		  									  .put ("tendered_amount", amount)
-		  									  .put ("locale_language", Pos.app.getString ("locale_language"))
-		  									  .put ("locale_country", Pos.app.getString ("locale_country"))
+		  									  .put ("locale_language", Pos.app.config.getString ("language"))
+		  									  .put ("locale_country", Pos.app.config.getString ("country"))
 		  									  .put ("locale_variant", "")
-		  									  .put ("data_capture", ""))
+		  									  .put ("data_capture", "{}"))
 		  
 		  var id = Pos.app.db.insert ("ticket_tenders", tt)
 		  tt.put ("id", id)
@@ -102,8 +111,6 @@ class Bank (): CompleteTicket (), InputListener {
 		  Pos.app.ticket.tenders.add (tt)
 		  
 		  completeTicket (Ticket.COMPLETE)
-		  
-		  updateDisplays ()
 	 }
 	 
 	 override fun openDrawer (): Boolean { return true }

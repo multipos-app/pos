@@ -67,7 +67,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  
 		  header ()
 		  customer ()
-		  feed (1)
 		  printCommands
 				.add (PrintCommand.getInstance ().directive (PrintCommand.NORMAL_TEXT))
 				.add (PrintCommand.getInstance ().directive (PrintCommand.SMALL_TEXT))
@@ -79,7 +78,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 				PosConst.PRINTER_RECEIPT -> {
 
 					 items ()
-					 separator ()
 					 summary ()
 					 tender ()
 				}
@@ -98,7 +96,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 
 		  }
 		  
-		  separator ()
 		  notes ()
 		  footer ()
 		  
@@ -180,7 +177,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  
 		  if (ticketType.length > 0) {
 
-				separator ()
 		  		printCommands
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.ITALIC_TEXT))
 		  			 .add (PrintCommand.getInstance ().directive (PrintCommand.BIG_TEXT))
@@ -437,11 +433,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  
 		  printCommands.add (PrintCommand.getInstance ()
 										 .directive (PrintCommand.LINE))
-
-		  // printCommands.add (PrintCommand.getInstance ()
-		  // 								 .directive (PrintCommand.MEDIUM_TEXT)
-		  // 								 .directive (PrintCommand.CENTER_TEXT)
-		  // 								 .text (Strings.fill ("~", DeviceManager.printer.width ())))
 		  return this
 	 }
 	 

@@ -35,7 +35,6 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 
 	 init {
 
-		  Logger.x ("tender line balance due... ${Pos.app.ticket.getDouble ("balance_due")}")
 		  var t: String
 		  var color = Color.RED
 		  	  
@@ -55,11 +54,23 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 				
 				Pos.app.inflater.inflate (R.layout.ticket_tender_line, this);
 				
-				t = "\n" + Pos.app.getString ("total").uppercase () + " " +
-				Strings.currency (tt.getDouble ("total"), false) +
-				"\n" + Pos.app.getString ("paid").uppercase () + " " +
-				tt.getString ("tender_type").uppercase () + " " +
-				Strings.currency (tt.getDouble ("tendered_amount"), false)
+				t = "\n" + Pos.app.getString ("total").uppercase () + " " + Strings.currency (tt.getDouble ("total"), false)
+
+				when (tt.getString ("sub_tender_type")) {
+
+					 "cash_drop" -> {
+
+						  t += "\n" + Pos.app.getString ("bank").uppercase () + " " +
+						  tt.getString ("tender_type").uppercase () + " " +
+						  Strings.currency (tt.getDouble ("tendered_amount"), false)
+					 }
+					 else -> {
+						  
+						  t += "\n" + Pos.app.getString ("paid").uppercase () + " " +
+						  tt.getString ("tender_type").uppercase () + " " +
+						  Strings.currency (tt.getDouble ("tendered_amount"), false)
+					 }
+				}
 				
 				if (tt.getDouble ("returned_amount") != 0.0) {
 					 

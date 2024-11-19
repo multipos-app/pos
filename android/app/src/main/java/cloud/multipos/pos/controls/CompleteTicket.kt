@@ -183,11 +183,14 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  }
 		  		  
 		  // display receipt
-		  		  
+		  
 		  when (Pos.app.ticket.getInt ("ticket_type")) {
 
-				Ticket.SALE -> {
+				Ticket.SALE,
+				Ticket.BANK -> {
 					 
+					 Logger.d ("complete report view... ${Pos.app.ticket.getInt ("ticket_type")}")
+			 
 					 ReportView (Pos.app.getString ("ticket"),
 									 Jar ()
 										  .put ("ticket", Pos.app.ticket))
