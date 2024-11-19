@@ -67,14 +67,10 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 	 }
 	 
 	 override fun swipeLeft () {
-
-		  Logger.d ("control swipe layout swipeLeft... ${dialogs.size} ")
 		  
 		  if (dialogs.size > 0) {
 				
 				swiper = this
-				dir = Gravity.START
-				edge = Gravity.START
  				swipe (dialogs [0])
 				notifyListeners (SwipeDir.Left)
 		  }
@@ -86,8 +82,6 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 
 	 override fun swipeRight () {
 		  
-		  dir = Gravity.START
-		  edge = Gravity.START
 		  swipe (Pos.app.controlHomeLayout)
 		  notifyListeners (SwipeDir.Right)
 
