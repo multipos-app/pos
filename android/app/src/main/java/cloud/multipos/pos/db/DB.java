@@ -334,7 +334,7 @@ public class DB {
 	 public ResultSet query (String query) {
 
 		  synchronized (activity) {
-				
+
 				Cursor cursor = database.rawQuery (query, null);
 
 				if (cursor == null) {
@@ -638,6 +638,8 @@ public class DB {
 			 "(id integer primary key autoincrement not null," +
 			 "table_no integer DEFAULT '0'," + 
 			 "ticket_id integer DEFAULT NULL DEFAULT '0'," + 
+			 "seats integer DEFAULT NULL DEFAULT '0'," + 
+			 "geometry integer DEFAULT NULL DEFAULT '0'," + 
 			 "create_time timestamp NOT NULL default current_timestamp," + 
 			 "update_time timestamp DEFAULT NULL," + 
 			 "status integer DEFAULT '0')"},
