@@ -22,9 +22,9 @@
 	 android:enabled="true"
 	 android:text=""
 	 android:textSize="@dimen/menu_button_text"
-	 android:maxLines="2"
+	 android:maxLines="3"
 	 android:gravity="left|top"
-	 android:paddingTop="@dimen/menu_button_margin_top"
-	 android:paddingLeft="@dimen/menu_button_margin_start"/>
+	 android:paddingTop="@dimen/menu_button_padding_top"
+	 android:paddingLeft="@dimen/menu_button_padding_start"/>
   
 </LinearLayout>
