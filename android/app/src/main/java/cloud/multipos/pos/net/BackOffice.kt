@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2023 multiPOS, LLC
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -40,9 +40,9 @@ object BackOffice: Device, DeviceCallback {
 	 var poll = 120000L
 	 var deviceStatus = DeviceStatus.Unknown
 	 var mqttClient: MqttClient
-	 var started = false;
-	 val DOWNLOAD = 1
-	 
+	 val DOWNLOAD = 1		  
+	 var started = false
+
 	 override fun deviceStatus (): DeviceStatus { return deviceStatus }
 	 override fun deviceClass (): DeviceClass  { return DeviceClass.BackOffice }
 	 override fun deviceName (): String { return "BackOffice"  }
@@ -107,14 +107,15 @@ object BackOffice: Device, DeviceCallback {
 													}
 													
 													downloadCount += result.getInt ("count")
-																										
+													
+													val dm = Message.obtain ()
+													dm.what = DOWNLOAD													
 													if (progress != null) {
 
 														 // update the progress gui
 																					 
-														 val m = Message.obtain ()
-														 m.obj = ProgressUpdate (downloadCount, downloadTotal, result.getInt ("count"));
-														 progress?.sendMessage (m);
+														 dm.obj = ProgressUpdate (downloadCount, downloadTotal, result.getInt ("count"))
+														 progress?.sendMessage (dm)
 													}
 													
 													handler.sendMessage (Message.obtain ())  // send message to self
@@ -125,20 +126,27 @@ object BackOffice: Device, DeviceCallback {
 
 														 // kill the progress gui
 																					 
-														 val m = Message.obtain ()
-														 m.obj = ProgressUpdate (0, 0, 0);
-														 progress?.sendMessage (m);
-														 progress = null;
+														 val dm = Message.obtain ()
+														 dm.what = DOWNLOAD
+														 dm.obj = ProgressUpdate (0, 0, 0)
+														 progress?.sendMessage (dm)
+														 progress = null
 													}
-													
-													handler.sendMessageDelayed (Message.obtain (), poll)
+
+													handler.removeMessages (DOWNLOAD)
+													val dm = Message.obtain ()
+													dm.what = DOWNLOAD
+													handler.sendMessageDelayed (dm, poll)
 													upload ()
 											  }
 										 }
 										 else {  // error handler, wait and try again...
 													
 													Logger.w ("error... " + result.getInt ("status") + " " + result.getString ("status_text"))
-													handler.sendMessageDelayed (Message.obtain (), 30000L)
+													handler.removeMessages (DOWNLOAD)
+													val dm = Message.obtain ()
+													dm.what = DOWNLOAD
+													handler.sendMessageDelayed (dm, 30000L)
 										 }
 										 
 						  })
@@ -148,13 +156,13 @@ object BackOffice: Device, DeviceCallback {
 	 
     fun start (handler: Handler) {
 
-		  progress = handler;
-		  start ();
+		  progress = handler
+		  start ()
 	 }
 	 
 	 override fun start (jar: Jar) {
 		  
-		  download ();
+		  download ()
 	 }
 
 	 private fun process (update: Jar): Boolean {
@@ -217,27 +225,6 @@ object BackOffice: Device, DeviceCallback {
 								Pos.app.config.put ("config_loaded", true)
 
 								PosMenus.reload ()
-								
-								// Pos.app.updateMenus ()
-
-								// may be a problem with re-loading the config in the background...
-
-								// Logger.x ("config before.... " + Pos.app.config.get ("pos_menus").get ("main_menu"))
-								
-								// Pos.app.config.parse (row.get ("config").toString ())
-								// Pos.app.config.initialize ()
-								// Pos.app.config
-								// 	 .put ("dbname", Pos.app.dbname ())
-								// 	 .put ("business_unit", Pos.app.config.get ("business_unit"))
-								// 	 .put ("pos_unit", Pos.app.config.get ("pos_unit"))
-								// 	 .put ("pos_config_id", Pos.app.posConfigID ())
-
-								// Pos.app.db ().exec ("delete from pos_configs")
-								// Pos.app.db ().insert ("pos_configs", Pos.app.config)
-
-								// // PosMenus.reload ()  // may be some menu changes
-								
-								// Logger.x ("config after...." + Pos.app.config.get ("posMenus").get ("main_menu"))
 						  }
 
 						  "local_item" -> {
@@ -280,8 +267,6 @@ object BackOffice: Device, DeviceCallback {
 								
 								if (update.getInt ("update_id") == Pos.app.buID ()) {
 									 
-									 // Logger.x ("bu update... " + update.get ("update"))
-
 									 Pos.app.config.put ("business_unit", update.get ("update"))
 									 Pos.app.config.update ()
 								}
@@ -319,29 +304,29 @@ object BackOffice: Device, DeviceCallback {
 	 
 	 private fun message (message: Jar) {
 		  
-        val m = message.get (message.getString ("method"));
+        val m = message.get (message.getString ("method"))
 
 		  when (message.getString ("method")) {
 				
 				"control" -> {
 
-					 Pos.app.sendMessage (PosConst.CONTROL, m);
+					 Pos.app.sendMessage (PosConst.CONTROL, m)
 				}
 				
 				"exit" -> {
 					 
-					 Pos.app.stop ();
+					 Pos.app.stop ()
 				}
 				
 				"message" -> {
 					 
-					 Pos.app.sendMessage (PosConst.MESSAGE, m);
+					 Pos.app.sendMessage (PosConst.MESSAGE, m)
 				}
 								
 				"sql" -> {
 
-					 Logger.x ("sql... " + message.getString ("sql"));
-					 Pos.app.db.exec (message.getString ("sql"));
+					 Logger.x ("sql... " + message.getString ("sql"))
+					 Pos.app.db.exec (message.getString ("sql"))
 				}
 		  }
 	 }
