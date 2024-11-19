@@ -56,10 +56,7 @@
 
   <!-- cash management -->
 
-  <dimen name="cm_dialog_width">800dp</dimen>
-  <dimen name="cm_dialog_height">600dp</dimen>
   <dimen name="cm_dialog_margin">5dp</dimen>
-  <dimen name="cm_dialog_lg_margin">5dp</dimen>
   <dimen name="cm_dialog_padding">5dp</dimen>
   <dimen name="cm_dialog_button_margin">5dp</dimen>
   <dimen name="cm_dialog_xlg_text">32sp</dimen>
@@ -94,12 +91,21 @@
   <dimen name="dialog_footer_height">125dp</dimen>
   <dimen name="dialog_margin">15dp</dimen>
   <dimen name="dialog_padding">15dp</dimen>
+  <dimen name="dialog_sm_text">24sp</dimen>
   <dimen name="dialog_md_text">32sp</dimen>
   <dimen name="dialog_lg_text">42sp</dimen>
   <dimen name="dialog_xlg_text">52sp</dimen>
   <dimen name="dialog_search_height">75dp</dimen>
   <dimen name="dialog_select_line_height">80dp</dimen>
-  <dimen name="dialog_report_text">24sp</dimen>
+  <dimen name="dialog_report_text">18sp</dimen>
+  <dimen name="dialog_dropdown_height">300dp</dimen>
+
+  
+  <dimen name="tabs_button_height">120dp</dimen>
+  <dimen name="tabs_button_sm_text">14sp</dimen>
+  <dimen name="tabs_button_md_text">20sp</dimen>
+  <dimen name="tabs_button_lg_text">30sp</dimen>
+  <dimen name="tabs_button_xlg_text">50sp</dimen>
 
   <dimen name="add_item_width">1200dp</dimen>
   <dimen name="add_item_height">550dp</dimen>
@@ -162,15 +168,15 @@
 
   <!-- menu buttons -->
 
-  <dimen name="menu_button_text">15sp</dimen>
+  <dimen name="menu_button_text">16sp</dimen>
   
   <dimen name="menu_button_margin_start">3dp</dimen>
   <dimen name="menu_button_margin_top">3dp</dimen>
   <dimen name="menu_button_margin_end">1dp</dimen>
   <dimen name="menu_button_margin_bottom">1dp</dimen>
   
-  <dimen name="menu_button_padding_start">3dp</dimen>
-  <dimen name="menu_button_padding_top">3dp</dimen>
+  <dimen name="menu_button_padding_start">7dp</dimen>
+  <dimen name="menu_button_padding_top">5dp</dimen>
   <dimen name="menu_button_padding_end">1dp</dimen>
   <dimen name="menu_button_padding_bottom">1dp</dimen>
   

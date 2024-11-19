@@ -30,5 +30,12 @@
   <dimen name="ticket_item_padding">3dp</dimen>
   <dimen name="ticket_item_sm_padding">3dp</dimen>
   <dimen name="ticket_margin_bottom">3dp</dimen>
+  
+  <!-- menu buttons -->
+  
+  <dimen name="menu_button_text">14sp</dimen>
+  
+  <dimen name="menu_button_padding_start">7dp</dimen>
+  <dimen name="menu_button_padding_top">5dp</dimen>
 
 </resources>
