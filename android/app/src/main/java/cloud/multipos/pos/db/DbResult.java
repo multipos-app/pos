@@ -53,7 +53,7 @@ public class DbResult {
 	 public DbResult (String table, String column, String search, DB db) {
 
 		  this.query = "select * from " + table + " where " + column + " like " + "'" + search + "%'";
-		  
+		  		  
 		  synchronized (this) {
 				
 				cursor = db.database ().rawQuery (query, null);
@@ -131,7 +131,7 @@ public class DbResult {
 
 	 public static Jar findByID (String table, int id, DB db) {
 		  
-		  DbResult result  = new DbResult ("select * from " + table + " where id = " + id,db);
+		  DbResult result  = new DbResult ("select * from " + table + " where id = " + id, db);
 		  if (result.fetchRow ()) {
 				
 				Jar e = result.row ();
