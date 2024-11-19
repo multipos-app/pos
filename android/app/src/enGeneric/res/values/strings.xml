@@ -83,6 +83,7 @@
     <string name="bad_cashier_pin">Bad PIN</string>
     <string name="bad_cashier_number">Bad cashier number</string>
     <string name="split">Split</string>
+    <string name="bank">Bank/Drop</string>
     <string name="comp_sale">Comp sale</string>
     <string name="return_sale">Return</string>
     <string name="no_sale">No sale</string>
