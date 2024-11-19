@@ -303,13 +303,12 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  }
 
 		  Pos.app.input.clear ()  // clean things up
-
-		  
 		  Pos.app.ticket.update ()		  		  				
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
-		  Pos.app.controlLayout.swipeRight ()
 		  
+		  Pos.app.controlLayout.swipeRight ()  // clear input views
+
 		  PosDisplays.update ()
 		  PosDisplays.message (Jar ()
 											.put ("prompt_text", ticketItem.getString ("item_desc"))
