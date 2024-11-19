@@ -43,7 +43,8 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet): PosLayout
 	 var gestureDetector: GestureDetector
 	 
 	 val animateSwipe = true
-
+	 val duration = 250L
+	 
 	 abstract fun swipeLeft ()
 	 abstract fun swipeRight ()
 	 abstract fun swipeUp ()
@@ -132,8 +133,8 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet): PosLayout
 		  if (animateSwipe) {
 				
 				val scene = Scene (swiper, next)
-				val transition = Fade ()  // Slide (dir)
-				transition.setDuration (250)
+				val transition = Fade ()
+				transition.setDuration (duration)
 				TransitionManager.go (scene, transition)
 		  }
 		  else {
