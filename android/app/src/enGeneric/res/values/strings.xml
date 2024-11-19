@@ -72,6 +72,8 @@
     <string name="enter_manager_number">Enter manager number</string>
     <string name="enter_manager_pin">Enter manager pin</string>
     <string name="enter_clerk_number">Enter washing attendant</string>
+    <string name="drop">Drop</string>
+    <string name="enter_drop_amount">Enter drop amount</string>
     <string name="clerk_desc">Washing attendant</string>
     <string name="enter_cashier_number">Enter cashier number</string>
     <string name="enter_cashier_pin">Enter PIN</string>
@@ -277,13 +279,14 @@
     <string name="customer_phone">(nnn) nnn-nnnn</string>
     <string name="customer_mobile">Mobile phone</string>
     <string name="customer_email">EMail</string>
-    <string name="edit_customer">Edit customer</string>
     <string name="search_tickets_result">Tickets</string>
     <string name="telephone_hint">###-###-####</string>
     <string name="telephone">Telephone</string>
     <string name="customer_fname">First name</string>
     <string name="customer_lname">Last name</string>
     <string name="add_customer">Add customer</string>
+    <string name="edit_customer">Edit customer</string>
+    <string name="add_edit_customer">Add/Edit</string>
     <string name="gift_card_sale">Gift card sale</string>
     <string name="choose_refund">Refund</string>
     <string name="select_item_group">Select item group</string>
@@ -318,7 +321,7 @@
     <string name="cash_sales">Cash sales</string>
     <string name="tender_received">Cash sales</string>
     <string name="cash_total">Total sales</string>
-    <string name="cash_count">Drawer count</string>
+    <string name="cash_count">Drawer Count</string>
     <string name="cash_diff">Cash difference</string>
     <string name="drawer_totals">Drawer totals</string>
 

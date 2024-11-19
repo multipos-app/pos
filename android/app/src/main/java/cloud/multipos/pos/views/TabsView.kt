@@ -29,25 +29,35 @@ import android.widget.LinearLayout.LayoutParams
 import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
+import android.graphics.Color
+import android.widget.GridLayout
+import com.google.android.material.button.MaterialButton
 
-abstract class SelectView (listener: InputListener, list: ArrayList <Jar>, title: String): DialogView (title) {
-
-	 abstract fun line (context: Context, jar: Jar, position: Int, ): LinearLayout
+class TabsView (val listener: InputListener, title: String): DialogView (title) {
 	 
-	 var i: Int = 0
-	 var listView: LinearLayout
-
-	 init {
-
-		  Pos.app.inflater.inflate (R.layout.select_layout, dialogLayout)
-		  listView = findViewById (R.id.select_layout_items) as LinearLayout
+	 var tabs: LinearLayout
+	 
+	 init  {
 		  
-		  for (l in list) {
-
-				Logger.d ("select line... " + l)
-				listView.addView (line (context, l, i ++))
-		  }
+		  Pos.app.inflater.inflate (R.layout.tabs_layout, dialogLayout)
 		  
+		  tabs = findViewById (R.id.tabs_layout_items) as LinearLayout
+		  tabs.addView (StartTab ())		  
 		  Pos.app.controlLayout.push (this)
+	 }
+
+	 inner open class StartTab (): LinearLayout (Pos.app.activity) {
+
+		  init {
+				
+				Pos.app.inflater.inflate (R.layout.start_tab_button, this)
+				val button = findViewById (R.id.start_tab_button) as MaterialButton
+				button.setTypeface (Views.icons ())
+				
+				button.setOnClickListener {
+
+					 Logger.d ("add tab...")
+				}
+		  }
 	 }
 }
