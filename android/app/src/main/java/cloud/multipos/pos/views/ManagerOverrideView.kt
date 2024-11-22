@@ -18,6 +18,7 @@ package cloud.multipos.pos.views
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.models.*
@@ -57,7 +58,7 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 		  if ((manager.length > 0) && (pin.length > 0)) {
 					 
 				val select = "select username, password, fname, lname, profile_id, id from employees " +
-				"where username = '" +  manager + "'" + " and password = '" + Strings.getMd5Hash (pin) + "'"
+				"where username = '" +  manager + "'" + " and password = '" + pin.md5Hash () + "'"
 					 
 				val employeeResult  = DbResult (select, Pos.app.db)
 

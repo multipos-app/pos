@@ -19,6 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.SessionManager
 
 import android.content.Context
@@ -73,7 +74,7 @@ class CashManagementReport (var sessionManager: SessionManager): PosLayout (Pos.
 						  		
 								quantity.setText (qty)
 								desc.setText (p.getString ("desc"))
-								amount.setText (Strings.currency (p.getDouble ("amount"), false))
+								amount.setText (p.getDouble ("amount").currency ())
 					 }
 					 
 					 "header" -> {

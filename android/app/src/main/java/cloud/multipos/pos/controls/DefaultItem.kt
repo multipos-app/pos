@@ -20,6 +20,7 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.pricing.*
 import cloud.multipos.pos.addons.*
 import cloud.multipos.pos.views.PosDisplays
@@ -312,7 +313,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  PosDisplays.update ()
 		  PosDisplays.message (Jar ()
 											.put ("prompt_text", ticketItem.getString ("item_desc"))
-											.put ("echo_text", Strings.currency (ticketItem.getDouble ("amount"), false)))
+											.put ("echo_text", ticketItem.getDouble ("amount").currency ()))
 	 }
 
 	 fun ticketItem (): TicketItem { return ticketItem }

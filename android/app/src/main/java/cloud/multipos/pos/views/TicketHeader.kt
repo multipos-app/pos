@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.*
 
 import android.content.Context
@@ -132,10 +133,10 @@ class TicketHeader (context: Context, attrs: AttributeSet): LinearLayout (contex
 		  fun update (message: Jar) {
 
 				if (message.has ("prompt_text") &&
-					 (message.getString ("prompt_text").length > 0)) left.setText (Strings.trunc (message.getString ("prompt_text"), R.integer.ticket_prompt_max))
+					 (message.getString ("prompt_text").length > 0)) left.setText (message.getString ("prompt_text").trunc (R.integer.ticket_prompt_max))
 				
 				if (message.has ("echo_text") &&
-					 (message.getString ("echo_text").length > 0)) right.setText (Strings.trunc (message.getString ("echo_text"), R.integer.ticket_echo_max))
+					 (message.getString ("echo_text").length > 0)) right.setText (message.getString ("echo_text").trunc (R.integer.ticket_echo_max))
 		  }
 		  
 		  fun update (theme: Themes) {

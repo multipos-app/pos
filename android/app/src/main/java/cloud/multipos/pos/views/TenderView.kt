@@ -18,6 +18,7 @@ package cloud.multipos.pos.views
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.Tender
 import cloud.multipos.pos.models.Ticket
 
@@ -90,7 +91,7 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 				d.setText (desc)
 		  
 				val a = findViewById (R.id.tender_detail_amount) as TextView
-				a.setText (Strings.currency (amount, false))
+				a.setText (amount.currency ())
 
 				when (Themed.theme) {
 				

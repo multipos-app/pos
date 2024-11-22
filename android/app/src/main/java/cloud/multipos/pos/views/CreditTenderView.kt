@@ -16,6 +16,11 @@
  
 package cloud.multipos.pos.views
 
+import cloud.multipos.pos.*
+import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
+import cloud.multipos.pos.controls.Tender
+
 import cloud.multipos.pos.R
 import android.view.View
 import android.widget.GridLayout
@@ -25,10 +30,6 @@ import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import androidx.core.content.ContextCompat
 import android.graphics.Color
-
-import cloud.multipos.pos.*
-import cloud.multipos.pos.util.*
-import cloud.multipos.pos.controls.Tender
 
 class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tender.tenderType ())) {
 
@@ -149,7 +150,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 				var d = findViewById (R.id.tender_dialog_detail_desc) as PosText
 				d.setText (desc)
 				var a = findViewById (R.id.tender_dialog_detail_amount) as PosText
-				a.setText (Strings.currency (amount, false))
+				a.setText (amount.currency ())
 		  }
 	 }
 }

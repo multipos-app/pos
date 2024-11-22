@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.*
 
 import android.content.Context
@@ -78,26 +79,26 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 				return
 		  }
 
-		  footerSubtotal?.setText (Strings.currency (Pos.app.ticket.getDouble ("sub_total"), false))
+		  footerSubtotal?.setText (Pos.app.ticket.getDouble ("sub_total").currency ())
 		  if (Pos.app.ticket.getDouble ("tax_total_inc") != 0.0) {
 				
-				footerTax?.setText (Strings.currency (Pos.app.ticket.getDouble ("tax_total_inc"), false))
+				footerTax?.setText (Pos.app.ticket.getDouble ("tax_total_inc").currency ())
 		  }
 		  else {
 					 
-				footerTax?.setText (Strings.currency (Pos.app.ticket.getDouble ("tax_total"), false))
+				footerTax?.setText (Pos.app.ticket.getDouble ("tax_total").currency ())
 		  }
 		  				
-		  footerTotal?.setText (Strings.currency (Pos.app.ticket.getDouble ("total"), false))
+		  footerTotal?.setText (Pos.app.ticket.getDouble ("total").currency ())
 	 }
 	 
 	 override fun clear () {
 
 		  if (!Pos.app.ticket.hasItems ()) {
 				
-				footerSubtotal?.setText (Strings.currency (0.0, false))
-				footerTax?.setText (Strings.currency (0.0, false))
-				footerTotal?.setText (Strings.currency (0.0, false))
+				footerSubtotal?.setText (0.0.currency ())
+				footerTax?.setText (0.0.currency ())
+				footerTotal?.setText (0.0.currency ())
 		  }
 	 }
 

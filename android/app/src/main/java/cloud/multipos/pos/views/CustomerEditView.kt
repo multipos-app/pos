@@ -19,6 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.models.*
@@ -112,10 +113,7 @@ class CustomerEditView (val customer: Jar) : DialogView (Pos.app.getString ("edi
 		  if (phoneNum.length < 10) {
 				
 				phoneNum.append (num)
-				
-				// Logger.d ("customer edit, on num... ${num} ${phoneNum.toString ()} ${PhoneNumberUtils.formatNumber (phoneNum.toString (), "US")}")
-				phone.setText (PhoneNumberUtils.formatNumber (phoneNum.toString (), "US"))
-				// phone.setText (Strings.phone (phoneNum.toString (), "US"))
+				phone.setText (phoneNum.toString ().phone ("US"))
 		  }
 	 }
 	 
@@ -123,11 +121,8 @@ class CustomerEditView (val customer: Jar) : DialogView (Pos.app.getString ("edi
 
 		  if (phoneNum.length > 0) {
 				
-				phoneNum.setLength (phoneNum.length - 1)
-				
-				// Logger.d ("customer edit, on bs... ${phoneNum.toString ()} ${PhoneNumberUtils.formatNumber (phoneNum.toString (), "US")}")
-				phone.setText (PhoneNumberUtils.formatNumber (phoneNum.toString (), "US"))
-				// phone.setText (Strings.phone (phoneNum.toString (), "US"))
+				phoneNum.setLength (phoneNum.length - 1)				
+				phone.setText (phoneNum.toString ().phone ("US"))
 		  }
 	 }
 }

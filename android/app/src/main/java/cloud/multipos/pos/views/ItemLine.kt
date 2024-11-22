@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.models.TicketItem
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -73,7 +74,7 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 					 desc.setText (ti.getString ("item_desc"))
 				}
 				
-				amount.setText (Strings.currency (ti.extAmount (), false))
+				amount.setText (ti.extAmount ().currency ())
 					 
 				val layout = this.findViewById (R.id.ticket_item_layout) as LinearLayout
 				layout.setOnClickListener {

@@ -19,6 +19,7 @@ package cloud.multipos.pos.models;
 import cloud.multipos.pos.*;
 import cloud.multipos.pos.db.*;
 import cloud.multipos.pos.util.*;
+import cloud.multipos.pos.util.extensions.*;
 import cloud.multipos.pos.pricing.*
 
 class Item (jar: Jar) {
@@ -75,7 +76,7 @@ class Item (jar: Jar) {
 	 fun exists (): Boolean { return exists }
 	 fun price (): String {
 
-		  return Strings.currency (item.getDouble ("amount"), false)
+		  return item.getDouble ("amount").currency ()
 	 }
 
 	 fun getString (key: String): String {

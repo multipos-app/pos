@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.*
 
 import android.content.Context
@@ -125,7 +126,7 @@ class HandheldTicketDisplay (context: Context, attrs: AttributeSet): ListDisplay
 
 					 "currency" -> {
 
-						  // echo?.setText (Strings.currency (Pos.app.input.getDouble (), true), true)
+						  // echo?.setText (Pos.app.input.getDouble ().currency (true))
 					 }
 					 
 					 else -> { }

@@ -19,6 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.SessionManager
 import cloud.multipos.pos.models.Ticket
 
@@ -51,10 +52,10 @@ class CashManagementComplete (var sessionManager: SessionManager, var cashManage
 		  drawerDiff = findViewById (R.id.drawer_diff) as TextView
 		  floatInput = findViewById (R.id.float_input) as TextView
 		  		  
-		  drawerStart.text = Strings.currency (sessionManager.openAmount, false)
-		  drawerSales.text = Strings.currency (sessionManager.cashSales, false)
-		  drawerTotal.text = Strings.currency (sessionManager.openAmount + sessionManager.cashSales, false)
-		  drawerCount.text = Strings.currency (sessionManager.drawerCount (), false)
+		  drawerStart.text = sessionManager.openAmount.currency ()
+		  drawerSales.text = sessionManager.cashSales.currency ()
+		  drawerTotal.text = (sessionManager.openAmount + sessionManager.cashSales).currency ()
+		  drawerCount.text = sessionManager.drawerCount ().currency ()
 
 		  Pos.app.input.clear ()
 		  
@@ -69,7 +70,7 @@ class CashManagementComplete (var sessionManager: SessionManager, var cashManage
 				
 		  }
 		  
-		  drawerDiff.text = Strings.currency (diff, false)
+		  drawerDiff.text = diff.currency ()
 		  
 		  val prev = findViewById (R.id.cm_previous) as Button
 		  prev.setOnClickListener {
@@ -92,7 +93,7 @@ class CashManagementComplete (var sessionManager: SessionManager, var cashManage
 	 override fun update () {
 		  
 		  sessionManager.sessionFloat = Pos.app.input.getDouble () / 100.0
-		  floatInput.setText (Strings.currency (sessionManager.sessionFloat, true))
+		  floatInput.setText (sessionManager.sessionFloat.currency ())
 	 }
 	 
 	 override fun clear () { }

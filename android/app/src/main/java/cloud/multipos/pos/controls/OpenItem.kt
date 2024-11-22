@@ -18,6 +18,7 @@ package cloud.multipos.pos.controls
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.db.*
 
@@ -33,14 +34,14 @@ open class OpenItem (): DefaultItem (), InputListener {
 
 				PosDisplays.message (Jar ()
 												 .put ("prompt_text", jar ().getString ("prompt_text"))
-												 .put ("echo_text", Strings.currency (0.0, false)))
+												 .put ("echo_text", 0.0.currency ()))
 											
 		  }
 		  else {
 				
 				PosDisplays.message (Jar ()
 												 .put ("prompt_text", R.string.enter_price)
-												 .put ("echo_text", Strings.currency (0.0, false)))
+												 .put ("echo_text", 0.0.currency ()))
 		  }
 		  
 		  Pos.app.controls.push (this)

@@ -19,7 +19,7 @@ package cloud.multipos.pos.models
 import cloud.multipos.pos.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.devices.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.receipts.*
 
 class Customer (val customer: Jar?): Jar (), Model {
@@ -60,7 +60,7 @@ class Customer (val customer: Jar?): Jar (), Model {
 
 		  if (has ("phone") && (getString ("phone").length > 0)) {
 
-				sb.append (Strings.phone (getString ("phone"), Pos.app.config.getString ("locale")) + " ")
+				sb.append (getString ("phone").phone (Pos.app.config.getString ("locale")) + " ")
 		  }
 
 		  if (has ("email") && (getString ("email").length > 0)) {
@@ -102,7 +102,7 @@ class Customer (val customer: Jar?): Jar (), Model {
 
 				pc
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.ITALIC_TEXT))
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (Strings.phone (getString ("phone"), Pos.app.config.getString ("locale"))))
+					 .add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (getString ("phone").phone (Pos.app.config.getString ("locale"))))
 		  }
 
 		  if (has ("email") && (getString ("email").length > 0)) {

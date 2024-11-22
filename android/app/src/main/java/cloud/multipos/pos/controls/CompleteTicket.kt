@@ -20,6 +20,7 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.util.Currency
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ReportView
@@ -118,15 +119,13 @@ open abstract class CompleteTicket (): ConfirmControl () {
 																	 .put ("type", Ticket.TOTAL)
 																	 .put ("total_desc", Pos.app.getString ("total"))
 																	 .put ("amount", Pos.app.ticket.getDouble ("total")))
-				
-		  Strings.currency (Pos.app.ticket.getDouble ("total"), false)
-		  
+						  
 		  var returned = ""
 		  var prompt = Pos.app.getString ("register_open")
 		  if (tenderTotal > Pos.app.ticket.getDouble ("total")) {
 				
 				prompt = Pos.app.getString ("change_due")
-				returned = Strings.currency (tenderTotal - Pos.app.ticket.getDouble ("total"), false)
+				returned = (tenderTotal - Pos.app.ticket.getDouble ("total")).currency ()
 		  }
 		  
 		  PosDisplays.message (Jar ()

@@ -19,6 +19,7 @@ package cloud.multipos.pos.receipts
 import cloud.multipos.pos.*
 import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.devices.DeviceManager
 
@@ -127,7 +128,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 									  .put ("font", "normal")
 									  .put ("size", "normal"))
 					 .append (Jar ()
-									  .put ("text", Strings.phone (bu.getString ("phone_1"), "en_US"))
+									  .put ("text", bu.getString ("phone_1").phone ("en_US"))
 									  .put ("justify",  "center")
 									  .put ("feed", 0)
 									  .put ("font", "normal")
@@ -228,7 +229,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 								.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (sessionFormat,
 																																						quantity,
 																																						total.getString ("desc"),
-																																						Strings.currency (total.getDouble ("amount"), false))))
+																																						total.getDouble ("amount").currency ())))
 						  
 					 }
 					 printCommands
@@ -259,15 +260,15 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (sessionFormat,
 																																			 "",
 																																			 Pos.app.getString ("cash_sales"),
-																																			 Strings.currency (ticket.get ("cash_management").getDouble ("cash_sales"), false), false)))
+																																			 ticket.get ("cash_management").getDouble ("cash_sales").currency (), false)))
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (sessionFormat,
 																																			 "",
 																																			 Pos.app.getString ("drawer_count"),
-																																			 Strings.currency (ticket.get ("cash_management").getDouble ("drawer_count"), false), false)))
+																																			 ticket.get ("cash_management").getDouble ("drawer_count").currency (), false)))
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (sessionFormat,
 																																			 "",
 																																			 Pos.app.getString ("over_short"),
-																																			 Strings.currency (ticket.get ("cash_management").getDouble ("over_short"), false), false)))
+																																			 ticket.get ("cash_management").getDouble ("over_short").currency (), false)))
 		  }
 		  
 		  return this
@@ -275,8 +276,8 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 	 
 	 override fun orderItems (): ReceiptBuilder {
 		  
-		  val qtyFormat = "%7s %8d " + Strings.fill ("_", DeviceManager.printer.width () - 17) + "\n\n"
-		  val costFormat = "%7s %8s " + Strings.fill ("_",  DeviceManager.printer.width () - 17) + "\n"
+		  val qtyFormat = "%7s %8d " + "_".fill (DeviceManager.printer.width () - 17) + "\n\n"
+		  val costFormat = "%7s %8s " + "_".fill (DeviceManager.printer.width () - 17) + "\n"
 		  var totalCost = 0.0
 		  var totalQuantity = 0
 		  
@@ -295,13 +296,13 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (item.getString ("sku")))
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (item.getString ("item_desc") + "\n"))
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (qtyFormat, "QTY:", item.getInt ("order_quantity"))))
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (costFormat, "COST:", Strings.currency (item.getDouble ("cost"), false))))
+					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (costFormat, "COST:", item.getDouble ("cost").currency ())))
 		  }
 		  
 		  printCommands
-				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n" + Strings.center (" " + Pos.app.getString ("totals") + " ", DeviceManager.printer.width (), "*") + "\n"))
+				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n" + " " + Pos.app.getString ("totals") + " ".center (DeviceManager.printer.width (), "*") + "\n"))
 				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (qtyFormat, "QTY:", totalQuantity)))
-				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (costFormat, "COST:", Strings.currency (totalCost, false))))
+				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (costFormat, "COST:", totalCost.currency ())))
 		  
 		  return this
 	 }
@@ -313,15 +314,15 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  printCommands
 				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (summaryFormat,
 																																		Pos.app.getString ("sub_total"),
-																																		Strings.currency (ticket.getDouble ("sub_total"), false))))
+																																		ticket.getDouble ("sub_total").currency ())))
 		  
 				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (summaryFormat,
 																																		Pos.app.getString ("tax"),
-																																		Strings.currency (ticket.getDouble ("tax_total"), false))))
+																																		ticket.getDouble ("tax_total").currency ())))
 		  
 				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (summaryFormat,
 																																		Pos.app.getString ("total"),
-																																		Strings.currency (ticket.getDouble ("total"), false))))
+																																		ticket.getDouble ("total").currency ())))
 		  return this
 	 }
 	 
@@ -336,14 +337,14 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 				printCommands
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (tenderFormat,
 																																			Pos.app.getString (t.getString ("tender_type")),
-																																			Strings.currency (t.getDouble ("tendered_amount"), false))))
+																																			t.getDouble ("tendered_amount").currency ())))
 				
 				if (t.getDouble ("returned_amount") != 0.0) {
 
 					 printCommands
 						  .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (tenderFormat,
 																																				  Pos.app.getString ("change"),
-																																				  Strings.currency (t.getDouble ("returned_amount"), false))))
+																																				  t.getDouble ("returned_amount").currency ())))
 				}
 				
 				val dc = t.get ("data_capture")
@@ -508,7 +509,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 
 					 PrintCommand.CENTER_TEXT -> {
 
-						  sb.append (Strings.center (pc.text, DeviceManager.printer.width (), " ")).append ("\n")
+						  sb.append (pc.text.center (DeviceManager.printer.width (), " ")).append ("\n")
 					 }
 					 
 					 PrintCommand.LEFT_TEXT -> {
@@ -518,7 +519,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 					 
 					 PrintCommand.LINE -> {
 
-						  sb.append (Strings.fill ("—", DeviceManager.printer.width ())).append ("\n")
+						  sb.append ("—".fill (DeviceManager.printer.width ())).append ("\n")
 					 }
 				}
 		  }

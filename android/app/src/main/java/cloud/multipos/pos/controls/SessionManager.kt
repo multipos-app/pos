@@ -22,6 +22,7 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.services.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.views.PosDisplays
@@ -40,7 +41,7 @@ open class SessionManager (): CompleteTicket () {
 	 "s%" + DeviceManager.printer.amountWidth () + "s"
 	 val summaryFormat = " %-" + (DeviceManager.printer.quantityWidth () + DeviceManager.printer.descWidth ()) +
 	 "s%" + DeviceManager.printer.amountWidth () + "s"
-	 val sep = "\n" + Strings.center ("", DeviceManager.printer.width (), "*") + "\n"
+	 val sep = "\n" + "".center (DeviceManager.printer.width (), "*") + "\n"
 	 
 	 val totals = mutableListOf <Jar> ()
 	 val cards = mutableListOf <Jar> ()

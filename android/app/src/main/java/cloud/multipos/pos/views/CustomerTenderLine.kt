@@ -21,6 +21,7 @@ import cloud.multipos.pos.Pos
 import cloud.multipos.pos.models.TicketItem
 import cloud.multipos.pos.models.TicketTender
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -42,9 +43,8 @@ class CustomerTenderLine (context: Context, tt: TicketTender, pos: Int): LinearL
 		  var pa = this.findViewById (R.id.customer_ticket_tender_paid) as PosText
 		  var ra = this.findViewById (R.id.customer_ticket_tender_returned) as PosText
 		  
-		  ta.setText (Strings.currency (tt.getDouble ("amount"), false))
-		  pa.setText (Strings.currency (tt.getDouble ("tendered_amount"), false))
-		  ra.setText (Strings.currency (tt.getDouble ("returned_amount"), false))
+		  ta.setText (tt.getDouble ("amount").currency ())
+		  pa.setText (tt.getDouble ("tendered_amount").currency ())
 
 		  if (pos % 2 == 1) {
 				

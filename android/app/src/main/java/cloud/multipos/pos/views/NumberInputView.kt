@@ -18,6 +18,7 @@ package cloud.multipos.pos.views
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.models.*
@@ -83,8 +84,7 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 				InputListener.CURRENCY -> {
 					 
 					 decimalVal = Pos.app.input.getDouble ()
-					 
-					 inputEcho.text = Strings.currency (Pos.app.input.getDouble () / 100.0, false)
+					 inputEcho.text = (Pos.app.input.getDouble () / 100.0).currency ()
 				}
 		  }
 	 }

@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.models.TicketTender
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -43,18 +44,18 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 				Pos.app.inflater.inflate (R.layout.ticket_tender_line_balance_due, this);
 				
 				t = Pos.app.getString ("total").uppercase () + " " +
-				Strings.currency (tt.getDouble ("total"), false) +
+				tt.getDouble ("total").currency () +
 				"\n" + Pos.app.getString ("paid").uppercase () + " " +
 				tt.getString ("tender_type").uppercase () + " " +
-				Strings.currency (tt.getDouble ("tendered_amount"), false) +
+				tt.getDouble ("tendered_amount").currency () +
 				"\n" + Pos.app.getString ("balance_due").uppercase () + " " +
-				Strings.currency (tt.getDouble ("balance_due"), false)
+				tt.getDouble ("balance_due").currency ()
 		  }
 		  else {
 				
 				Pos.app.inflater.inflate (R.layout.ticket_tender_line, this);
 				
-				t = "\n" + Pos.app.getString ("total").uppercase () + " " + Strings.currency (tt.getDouble ("total"), false)
+				t = "\n" + Pos.app.getString ("total").uppercase () + " " + tt.getDouble ("total").currency ()
 
 				when (tt.getString ("sub_tender_type")) {
 
@@ -62,20 +63,20 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 
 						  t += "\n" + Pos.app.getString ("bank").uppercase () + " " +
 						  tt.getString ("tender_type").uppercase () + " " +
-						  Strings.currency (tt.getDouble ("tendered_amount"), false)
+						  tt.getDouble ("tendered_amount").currency ()
 					 }
 					 else -> {
 						  
 						  t += "\n" + Pos.app.getString ("paid").uppercase () + " " +
 						  tt.getString ("tender_type").uppercase () + " " +
-						  Strings.currency (tt.getDouble ("tendered_amount"), false)
+						  tt.getDouble ("tendered_amount").currency ()
 					 }
 				}
 				
 				if (tt.getDouble ("returned_amount") != 0.0) {
 					 
 					 t += "\n" + Pos.app.getString ("change").uppercase () + " " +
-					 Strings.currency (tt.getDouble ("returned_amount"), false)
+					 tt.getDouble ("returned_amount").currency ()
 				}
 
 				when (Themed.theme) {

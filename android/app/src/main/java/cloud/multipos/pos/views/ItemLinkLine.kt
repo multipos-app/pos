@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.models.TicketItem
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -45,7 +46,7 @@ class ItemLinkLine (context: Context, ti: TicketItem): LinearLayout (context) {
 
 		  if (ti.getInt ("link_type") == TicketItem.DEPOSIT_LINK) {
 				
-				amount.setText (Strings.currency (ti.extAmount (), false))
+				amount.setText (ti.extAmount ().currency ())
 		  }
 
 		  when (Themed.theme) {

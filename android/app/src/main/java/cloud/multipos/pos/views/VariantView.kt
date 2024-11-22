@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 
 import android.view.View
 import android.view.ViewGroup
@@ -48,7 +49,7 @@ class VariantView (val listener: InputListener, list: ArrayList <Jar>, title: St
 				val amount = findViewById (R.id.select_line_amount) as TextView
 				
 				desc.setText (line.getString ("desc"))
-				amount.setText (Strings.currency (line.getDouble ("price"), false))
+				amount.setText (line.getDouble ("price").currency ())
 
 				when (Themed.theme) {
 

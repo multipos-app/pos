@@ -19,6 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.models.*
@@ -165,8 +166,8 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 		  val item = Item (Jar ().put ("sku", scan))
 		  
 		  itemDesc.setText (item.getString ("item_desc"))
-		  price.setText (Strings.currency (item.getDouble ("price"), false))
-		  cost.setText (Strings.currency (item.getDouble ("cost"), false))
+		  price.setText (item.getDouble ("price").currency ())
+		  cost.setText (item.getDouble ("cost").currency ())
 		  
 		  // packageQuantity.setText (item.get ("inv_items").getInt ("package_quantity").toString ())
 		  
@@ -191,8 +192,8 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 		  // 																		 Logger.x ("item... " + item)
 																				 
 		  // 																		 itemDesc.setText (item.getString ("item_desc"))
-		  // 																		 price.setText (Strings.currency (item.get ("item_prices").getDouble ("price"), false))
-		  // 																		 cost.setText (Strings.currency (item.get ("item_prices").getDouble ("cost"), false))
+		  // 																		 price.setText (item.get ("item_prices").getDouble ("price").currency ())
+		  // 																		 cost.setText (item.get ("item_prices").getDouble ("cost").currency ())
 		  // 																		 packageQuantity.setText (item.get ("inv_items").getInt ("package_quantity").toString ())
 																				 
 		  // 																		 position (departments, item.getInt ("department_id"), departmentsSpinner, "id")

@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.models.TicketItemAddon
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -40,7 +41,7 @@ class ItemAddonLine (context: Context, tia: Jar): LinearLayout (context) {
 		  var amount = this.findViewById (R.id.ticket_item_addon_line_amount) as PosText
 		  
 		  desc.setText (tia.getString ("addon_description"))
-		  amount.setText (Strings.currency (tia.getDouble ("addon_amount"), false))
+		  amount.setText (tia.getDouble ("addon_amount").currency ())
 
 		  when (Themed.theme) {
 				

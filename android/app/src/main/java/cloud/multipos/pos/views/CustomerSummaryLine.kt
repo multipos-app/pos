@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.models.TicketItem
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -41,7 +42,7 @@ class CustomerSummaryLine (context: Context, desc: String, amount: Double, pos: 
 		  var a = this.findViewById (R.id.customer_ticket_summary_line_amount) as PosText
 		  
 		  d.setText (desc)
-		  a.setText (Strings.currency (amount, false))
+		  a.setText (amount.currency ())
 
 		  if (pos % 2 == 1) {
 				

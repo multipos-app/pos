@@ -2,6 +2,7 @@ package cloud.multipos.pos.devices
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.views.Views
 import cloud.multipos.pos.receipts.*
 import cloud.multipos.pos.models.*
@@ -86,7 +87,7 @@ class PaxA920Printer (val pl: PrintListener): Printer () {
 					 PrintCommand.CENTER_TEXT -> {
 					 
 						  //printer.setAlignment (Alignment.CENTER);
-						  printer.print (Strings.center (pc.text, width (), " "), null, false);
+						  printer.print (pc.text.center (width (), " "), null, false);
 						  // reset ();
 					 }
 					 

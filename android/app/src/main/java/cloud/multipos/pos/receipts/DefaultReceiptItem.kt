@@ -18,6 +18,7 @@ package cloud.multipos.pos.receipts
 
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.devices.DeviceManager
 
 class DefaultReceiptItem (ti: TicketItem): ReceiptItem (ti) {
@@ -34,18 +35,18 @@ class DefaultReceiptItem (ti: TicketItem): ReceiptItem (ti) {
 		  }
 		  
 		  printCommands
-				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (itemFormat, ti.getInt ("quantity"), desc, Strings.currency (ti.extAmount (), false))))
+				.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (itemFormat, ti.getInt ("quantity"), desc, ti.extAmount ().currency ())))
 
 		  ti.addons.forEach {
 
 				printCommands
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (modFormat, it.getString ("addon_description"), Strings.currency (it.getDouble ("addon_amount"), false))))
+					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (modFormat, it.getString ("addon_description"), it.getDouble ("addon_amount").currency ())))
 		  }
 
 		  ti.mods.forEach {
 
 				printCommands
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (modFormat, "add " + it.getString ("mod_desc"), Strings.currency (it.getDouble ("price"), false))))
+					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (modFormat, "add " + it.getString ("mod_desc"), it.getDouble ("price").currency ())))
 		  }
 		  
 		  ti.links.forEach {
@@ -57,7 +58,7 @@ class DefaultReceiptItem (ti: TicketItem): ReceiptItem (ti) {
 				}
 		  			 
 				printCommands
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (itemFormat, it.getInt ("quantity"), desc, Strings.currency (it.extAmount (), false))))
+					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (itemFormat, it.getInt ("quantity"), desc, it.extAmount ().currency ())))
 		  }
 	 }
 }

@@ -18,6 +18,7 @@ package cloud.multipos.pos.devices
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.receipts.*
 import cloud.multipos.pos.views.Views
 
@@ -94,7 +95,7 @@ class StarTSP100 : StarCommandBuilder {
 						  
 						  // https://en.wikipedia.org/wiki/Box-drawing_character
 						  
-						  val line = Strings.fill ("┅", width () - 7)
+						  val line = "┅".fill (width () - 7)
 						  
                     image = createBitmapFromText (line, Layout.Alignment.ALIGN_CENTER)
                     builder.appendBitmap (image, false)

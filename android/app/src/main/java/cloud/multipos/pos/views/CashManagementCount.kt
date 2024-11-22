@@ -19,6 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.SessionManager
 import cloud.multipos.pos.devices.*;
 
@@ -78,9 +79,9 @@ class CashManagementCount (var sessionManager: SessionManager, var cashManagemen
 		  
 		  total = findViewById (R.id.drawer_count_total) as TextView
 
-		  drawerStart.text = Strings.currency (sessionManager.openAmount, false)
-		  drawerSales.text = Strings.currency (sessionManager.cashSales, false)
-		  drawerTotal.text = Strings.currency (sessionManager.openAmount + sessionManager.cashSales, false)
+		  drawerStart.text = sessionManager.openAmount.currency ()
+		  drawerSales.text = sessionManager.cashSales.currency ()
+		  drawerTotal.text = (sessionManager.openAmount + sessionManager.cashSales).currency ()
 		  
 		  val next = findViewById (R.id.cm_next_denom) as Button
 		  next.setOnClickListener {
@@ -150,9 +151,9 @@ class CashManagementCount (var sessionManager: SessionManager, var cashManagemen
 		  sessionManager.drawerCount = Currency.round (sessionManager.drawerCount / 100.0)
 		  sessionManager.overShort = Currency.round ((sessionManager.cashSales + sessionManager.openAmount - sessionManager.drawerCount ()) * -1)
 
-		  drawerCount.text = Strings.currency (sessionManager.drawerCount (), false)
-		  total.text = Strings.currency (sessionManager.drawerCount (), false)
-		  drawerDiff.text =  Strings.currency (sessionManager.overShort, false)
+		  drawerCount.text = sessionManager.drawerCount ().currency ()
+		  total.text = sessionManager.drawerCount ().currency ()
+		  drawerDiff.text = sessionManager.overShort.currency ()
 	 }
 	 
 	 inner class CountLine (var count: Jar, var pos: Int): LinearLayout (Pos.app.activity) {
@@ -180,7 +181,7 @@ class CashManagementCount (var sessionManager: SessionManager, var cashManagemen
 				
 				desc.setText (count.get ("denom").getString ("denom_name"))
 				quantity.setText (q.toString ())
-				amount.setText (Strings.currency ((a * q) / 100.0, false))
+				amount.setText (((a * q) / 100.0).currency ())
 				value = 0
 				bg ()
 		  }
@@ -192,7 +193,7 @@ class CashManagementCount (var sessionManager: SessionManager, var cashManagemen
 				count.put ("denom_count", value)
 				
 				quantity.text = value.toString ()
-				amount.text = Strings.currency ((count.get ("denom").getDouble ("denom") * value) / 100f, false)
+				amount.text = ((count.get ("denom").getDouble ("denom") * value) / 100f).currency ()
 				
 				updateCounts ()
 		  }
@@ -205,7 +206,7 @@ class CashManagementCount (var sessionManager: SessionManager, var cashManagemen
 					 count.put ("denom_count", value)
 					 
 					 quantity.text = value.toString ()
-					 amount.text = Strings.currency ((count.get ("denom").getDouble ("denom") * value) / 100f, false)
+					 amount.text = ((count.get ("denom").getDouble ("denom") * value) / 100f).currency ()
 				}
 				
 				updateCounts ()
