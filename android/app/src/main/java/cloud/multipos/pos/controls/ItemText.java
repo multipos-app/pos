@@ -31,7 +31,6 @@ public class ItemText extends Control {
 
 		  Jar tmp  = new Jar ().put ("item_detail", jar.getString ("text"));
 		  String text = tmp.toString ();
-		  // text = Strings.base64encode (text);
 		  
 		  if (Pos.app.ticket.currentItem.hasAddons ()) {
 
