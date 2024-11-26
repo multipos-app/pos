@@ -54,7 +54,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  
 		  if (Pos.app.config.getBoolean ("customers")) {
 				
-				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar_customer", "layout"), this)
+				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar", "layout"), this)
 				rootLayout = findViewById (R.id.app_bar_root) as LinearLayout
 				
 				// customer
