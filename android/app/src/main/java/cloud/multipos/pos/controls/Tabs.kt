@@ -18,17 +18,55 @@ package cloud.multipos.pos.controls
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.db.*
+import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.views.TabsView
+import cloud.multipos.pos.views.PosDisplays
 
-class Tabs (): Control (), InputListener {
+class Tabs (): Suspend (), InputListener {
 
 	 override fun controlAction (jar: Jar) {
 
-		  Logger.d ("tabs... ")
-		  TabsView (this, Pos.app.getString ("open_tabs"))
+		  val tabs = ArrayList <Jar> ()
+
+		  var count = 0
+		  val tabsResult = DbResult ("select * from tickets where state = ${Ticket.SUSPEND} order by id asc", Pos.app.db)
+		  while (tabsResult.fetchRow ()) {
+				
+				tabs.add (tabsResult.row ())
+				count ++
+		  }
+
+		  if (count > 0) {
+				
+				TabsView (this, Pos.app.getString ("open_tabs"), tabs)
+		  }
+		  else {
+
+				PosDisplays.message (Jar ()
+												 .put ("prompt_text", Pos.app.getString ("no_suspended_tickets"))
+												 .put ("echo_text", ""))
+		  }
 	 }
 	 
-	 override fun accept (jar: Jar) {
+	 override fun accept (result: Jar) {
 
+		  if (result.has ("ticket")) {
+
+				val ticket = result.get ("ticket")
+
+				Logger.d ("ticket... ${ticket.getInt ("id")}")
+
+				var sel = "select id from tickets where id = " + ticket.getInt ("id")
+		  
+				val ticketResult = DbResult (sel, Pos.app.db)
+				if (ticketResult.fetchRow ()) {
+				
+					 val t = ticketResult.row ()
+								
+					 Pos.app.ticket = Ticket (t.getInt ("id"), Ticket.RECALLED)
+					 PosDisplays.update ();
+				}
+		  }
 	 }
 }

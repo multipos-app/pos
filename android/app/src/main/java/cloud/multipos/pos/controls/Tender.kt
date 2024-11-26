@@ -19,6 +19,7 @@ package cloud.multipos.pos.controls
 import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.views.TenderView
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.*
@@ -214,7 +215,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				
 				PosDisplays.message (Jar ()
 												 .put ("prompt_text", Pos.app.getString ("balance_due"))
-												 .put ("echo_text", Strings.currency (balance, false)))
+												 .put ("echo_text", balance.currency ()))
 				updateDisplays ()
 		  }
 		  

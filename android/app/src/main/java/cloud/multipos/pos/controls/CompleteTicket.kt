@@ -174,25 +174,27 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  
 		  updateDisplays ()
 
-		  // print a receitpt...
+		  // generate receitpt...
 		  
 		  if (printReceipt ()) {
 
 				Pos.app.receiptBuilder.print ()
 		  }
-		  		  
-		  // display receipt
 		  
-		  when (Pos.app.ticket.getInt ("ticket_type")) {
+		  // display receipt?
 
-				Ticket.SALE,
-				Ticket.BANK -> {
+		  if (state == Ticket.COMPLETE) {
+				
+				when (Pos.app.ticket.getInt ("ticket_type")) {
 					 
-					 Logger.d ("complete report view... ${Pos.app.ticket.getInt ("ticket_type")}")
-			 
-					 ReportView (Pos.app.getString ("ticket"),
-									 Jar ()
-										  .put ("ticket", Pos.app.ticket))
+					 Ticket.SALE,
+					 Ticket.BANK -> {
+						  						  
+						  ReportView (Pos.app.getString ("ticket"),
+										  Jar ()
+												.put ("ticket", Pos.app.ticket))
+					 }
+
 				}
 		  }
 
@@ -205,8 +207,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)			 
 		  Pos.app.ticket ()
 		  		  
-		  // updateDisplays ()
-
 		  itemCount = 0
 		  voidItems = 0
 		  discounts = 0.0

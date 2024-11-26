@@ -17,32 +17,36 @@
 package cloud.multipos.pos.controls
 
 import cloud.multipos.pos.*
-import cloud.multipos.pos.models.*
+import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.views.PosDisplays
 
 import java.util.Date
 
-open class Suspend (): CompleteTicket () {
+class Recall (): Control () {
 
 	 override fun controlAction (jar: Jar) {
 
-		  if (!Pos.app.ticket!!.hasItems ()) {  // nothing to suspend
-															 
-				return
-		  }
+		  jar (jar)
+
+		  var sel = "select id from tickets where state = ${Ticket.SUSPEND} and id < ${Pos.app.ticket.getInt ("id")} order by id desc limit 1"
+
+		  Logger.d ("recall... " + sel)
 		  
-		  completeTicket (Ticket.SUSPEND)  // suspend and clear the displays
-		  var clear = Clear ()
-		  clear.controlAction (Jar ())
+		  val ticketResult = DbResult (sel, Pos.app.db)
+		  if (ticketResult.fetchRow ()) {
+				
+				val t = ticketResult.row ()
+								
+				Pos.app.ticket = Ticket (t.getInt ("id"), Ticket.SUSPEND)
+				PosDisplays.update ()
+		  }
+		  else {
+		  
+				PosDisplays.message (Jar ()
+												 .put ("prompt_text", Pos.app.getString ("no_suspended_tickets"))
+												 .put ("echo_text", ""))
+		  }
 	 }
-
-	 override fun taxes (): TicketTax? {
-
-		  return null
-	 }
-	 
-	 override fun beforeAction (): Boolean { return true }
-	 override fun printReceipt (): Boolean { return false }
-	 override fun openDrawer (): Boolean { return false }
 }
