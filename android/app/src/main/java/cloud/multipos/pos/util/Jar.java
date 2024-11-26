@@ -60,7 +60,7 @@ public class Jar extends HashMap {
 	 }
 	 
 	 public Jar parse (String jsonString) {
-
+		  
 		  if (jsonString.length () == 0) {
 
 				Logger.stack ("jar, attempt to parse empty string...");
