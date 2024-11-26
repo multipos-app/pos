@@ -140,37 +140,10 @@ public class DB {
 
 				switch (newVersion) {
 
-				case 331:
-					 
-					 database.execSQL ("alter table ticket_items add column ticket_item_link_id integer");
-					 database.execSQL ("alter table ticket_items add column link_type integer");
-					 break;
-					 
-				case 333:
-					 
-					 // database.execSQL ("alter table item_links add column link_type integer");
-					 break;
-					 
-				case 334:
-					 
-					 database.execSQL ("alter table ticket_items add column metric real default 0");
-					 database.execSQL ("alter table ticket_items add column metric_type integer default 0");
-					 break;
+					 // tables -> tab and add session_id and employee id
 
-				case 335:
+				case 340:
 					 
-					 database.execSQL ("alter table ticket_items add column entry_mode varchar(20) default NULL");
-					 break;
-					 
-				case 336:
-				case 337:
-					 
-					 database.execSQL ("alter table tickets add column clerk_id integer default 0");
-					 break;
-					 
-				case 338:
-					 
-					 database.execSQL ("alter table tickets add column table_id integer default 0");
 					 break;
 				}
 		  }
@@ -633,16 +606,6 @@ public class DB {
 		  { "profiles",
 			 "(id integer NOT NULL," + 
 			 "profile_desc varchar(32) DEFAULT NULL)"},
-		  
-		  { "tables",
-			 "(id integer primary key autoincrement not null," +
-			 "table_no integer DEFAULT '0'," + 
-			 "ticket_id integer DEFAULT NULL DEFAULT '0'," + 
-			 "seats integer DEFAULT NULL DEFAULT '0'," + 
-			 "geometry integer DEFAULT NULL DEFAULT '0'," + 
-			 "create_time timestamp NOT NULL default current_timestamp," + 
-			 "update_time timestamp DEFAULT NULL," + 
-			 "status integer DEFAULT '0')"},
 
 		  { "tax_groups",
 			 "(id integer NOT NULL," + 
@@ -838,6 +801,7 @@ public class DB {
 	 
 	 };
 
+	 public static final int DATABASE_VERSION = 340;
 	 public static final String DATABASE_NAME = "pos.db";
 	 
 	 public static final int INTEGER =   1;
@@ -846,28 +810,7 @@ public class DB {
 	 public static final int TIMESTAMP = 4;
 	 public static final int TEXT =      5;
 	 public static final int BOOLEAN =   6;
-
-	 // public static final int DATABASE_VERSION = 316;
-	 // public static final int DATABASE_VERSION = 317;  // add currecies, v_volumenew
-	 // public static final int DATABASE_VERSION = 318;  // item addons
-	 // public static final int DATABASE_VERSION = 319;  // item price and cost
-	 // public static final int DATABASE_VERSION = 321;  // add data capture to all ticket components, addon_type to addons
-	 // public static final int DATABASE_VERSION = 322;  // flags
-	 // public static final int DATABASE_VERSION = 324;  // totals desc type and sub type
-	 // public static final int DATABASE_VERSION = 326;  // tender_sub_type -> sub_tender_type, like the server
-	 // public static final int DATABASE_VERSION = 327;  // pos session counts
-	 // public static final int DATABASE_VERSION = 328;  // fix tables with time columns
-	 // public static final int DATABASE_VERSION = 329;  // volume
-	 // public static final int DATABASE_VERSION = 329;  // customer
-	 // public static final int DATABASE_VERSION = 331;  // add item linked items
-	 // public static final int DATABASE_VERSION = 333;  // add item linked items
-	 // public static final int DATABASE_VERSION = 334;  // metric in ticket items
-	 // public static final int DATABASE_VERSION = 335;  // entry mode in ticket items
-	 // public static final int DATABASE_VERSION = 336;  // entry mode in ticket items
-	 // public static final int DATABASE_VERSION = 337;  // clerk id tickets
 	 
-	 public static final int DATABASE_VERSION = 338;  // table id id tickets
-
 	 /**
 	  * vars...
 	  */
