@@ -314,6 +314,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  PosDisplays.message (Jar ()
 											.put ("prompt_text", ticketItem.getString ("item_desc"))
 											.put ("echo_text", ticketItem.getDouble ("amount").currency ()))
+
 	 }
 
 	 fun ticketItem (): TicketItem { return ticketItem }

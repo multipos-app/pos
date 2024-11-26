@@ -20,6 +20,7 @@ import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.db.*
 
 import android.view.View
@@ -134,7 +135,7 @@ class AddItemView (control: Control,
 																  val cleanString: String = s.replace ("""[$,.]""".toRegex (), "")
 																  
 																  val parsed = cleanString.toDouble ()
-																  val formatted = Strings.currency ((parsed / 100), false)
+																  val formatted = (parsed / 100.0).currency ()
 																  
 																  current = formatted
 																  price.setText (formatted)

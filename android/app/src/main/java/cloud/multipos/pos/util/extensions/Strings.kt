@@ -28,20 +28,30 @@ import java.math.BigInteger;
 import android.telephony.PhoneNumberUtils
 
 fun String.toDate (dateFormat: String = "yyyy-MM-dd HH:mm:ss", timeZone: TimeZone = TimeZone.getTimeZone ("UTC"),): Date {
-	 val parser = SimpleDateFormat (dateFormat, Locale.getDefault ())
-	 parser.timeZone = timeZone
-	 return parser.parse (this)
+
+	 if (this.length > 0) {
+		  
+		  val parser = SimpleDateFormat (dateFormat, Locale.getDefault ())
+		  parser.timeZone = timeZone
+		  
+		  return parser.parse (this)
+	 }
+	 else {
+
+		  return Date ()
+	 }
 }
 
 fun Date.formatTo (dateFormat: String, timeZone: TimeZone = TimeZone.getDefault (),): String {
-	 val formatter = SimpleDateFormat(dateFormat, Locale.getDefault ())
+	 
+	 val formatter = SimpleDateFormat (dateFormat, Locale.getDefault ())
 	 formatter.timeZone = timeZone
-	 return formatter.format(this)
+	 return formatter.format (this)
 }
 
-fun String.utcToLocal (timestamp: String, format: String): String {
+fun String.utcToLocal (format: String): String {
 		  
-	 return timestamp.toDate ().formatTo (format)
+	 return this.toDate ().formatTo (format)
 }
 
 fun String.md5Hash (): String {

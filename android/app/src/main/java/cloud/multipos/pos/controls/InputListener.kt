@@ -28,6 +28,6 @@ interface InputListener {
 		  val CURRENCY = 3
 	 }
 	 
-	 fun accept (jar: Jar)
+	 fun accept (jar: Jar) { }
 	 fun type (): String { return "string" }
 }
