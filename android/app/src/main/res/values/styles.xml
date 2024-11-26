@@ -135,7 +135,6 @@
     <item name="cornerFamilyTopRight">cut</item>
     <item name="cornerFamilyBottomRight">cut</item>
     <item name="cornerSizeTopLeft">32dp</item>
-
     <item name="cornerSizeBottomLeft">32dp</item>
   </style>
   
@@ -159,20 +158,7 @@
     <item name="android:insetBottom">0dp</item>
     <item name="android:insetTop">0dp</item>
     <item name="cornerRadius">5dp</item>
-    <item name="strokeColor">@color/lt_gray</item>
-
-  </style>
-
-  <style name="PosControlOutlineButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-	 
-	 <item name="background">@color/transparent</item>
-    <item name="backgroundTint">@color/transparent</item>
-	 <item name="android:insetLeft">0dp</item>
-    <item name="android:insetRight">0dp</item>
-    <item name="android:insetBottom">0dp</item>
-    <item name="android:insetTop">0dp</item>
-    <item name="cornerRadius">5dp</item>
-    <item name="strokeColor">@color/white</item>
+    <item name="strokeColor">@color/black</item>
 
   </style>
 

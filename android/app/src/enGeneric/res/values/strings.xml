@@ -157,6 +157,7 @@
     <string name="liter">Liters</string>
     <string name="oz">Ounces</string>
     <string name="gram">Grams</string>
+    <string name="no_suspended_tickets">No suspended tickets</string>
 	 
 
     <string name="banner_font">fonts/banner.ttf</string>
@@ -225,6 +226,9 @@
     <string name="recall_sale">Recall</string>
     <string name="cancel_recall">Cancel</string>
     <string name="ticket_no">TXN#</string>
+    <string name="tab_no">Table</string>
+    <string name="guests">Guests</string>
+    <string name="tab_time">Started</string>
     <string name="store_no">Store #</string>
     <string name="confirm_dialog_title">Confirm</string>
     <string name="return_prompt">Return</string>
@@ -313,6 +317,7 @@
 	 <string name="search_customer_hint">Search customer, enter phone or email</string>
 	 <string name="search_department">Search departments</string>
 	 <string name="search_item">Search items</string>
+	 <string name="items">Items</string>
 	 <string name="invalid_username_or_password">Invalid user name or password</string>
 	 <string name="suppliers">Suppliers</string>
 	 <string name="echo_dot">\u2022</string>
@@ -325,8 +330,6 @@
     <string name="cash_count">Drawer Count</string>
     <string name="cash_diff">Cash difference</string>
     <string name="drawer_totals">Drawer totals</string>
-
-	 <!-- multipos strings -->
 	 
 	 <string name="inv_tab">Inventory</string>
 	 <string name="item_edit_tab">Item Edit</string>
@@ -340,6 +343,7 @@
 	 <string name="server_count">Current</string>
 	 <string name="inv_count">Count</string>
 	 <string name="inv_send">Send Counts</string>
+	 <string name="scan_or_enter_sku">Scan or enter SKU</string>
 
 	 <string name="add_item_title">Add iItem</string>
 	 <string name="add_item_sku">UPC/SKU</string>
@@ -385,6 +389,7 @@
     <string name="item_add_note_hint">Notes...</string>
     <string name="item_add_note_title">Add note to... </string>
     <string name="tables">Tables</string>
+    <string name="tables_init">Select or add table</string>
     <string name="enter_table_number">Enter table number</string>
 
     <string name="fa_del">&#xf55a;</string>
@@ -425,5 +430,6 @@
     <string name="fa_rewind">&#xf2f1;</string>
     <string name="fa_lock">&#xf023;</string>
     <string name="fa_unlock">&#xf3c1;</string>
+    <string name="fa_clock">&#xf017;</string>
 
 </resources>

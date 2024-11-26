@@ -184,14 +184,15 @@
 		android:background="@color/pos_app_bg"
 		android:visibility="gone"
 		android:padding="@dimen/login_spinner_padding"
-		android:clickable="false">
+		android:clickable="false"
+		android:orientation="vertical">
 	 
-    <ProgressBar
+	 <ProgressBar
         android:id="@+id/progress_bar"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
- 		  android:gravity="center|center_vertical"/>
+ 		  android:gravity="center_horizontal|center_vertical"/>
 	 
 	 </LinearLayout>
 	 

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 android:id="@+id/tab_button"
+ 	 style="@style/PosControlButton"
+    android:layout_width="match_parent"
+ 	 android:layout_height="@dimen/tabs_button_height"
+	 android:clickable="true"
+	 android:enabled="true"
+	 android:orientation="vertical"
+	 android:elevation="3dp"
+    android:background="@drawable/button_border">
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/ticket_no"
+		  android:layout_height="wrap_content"
+ 		  android:layout_width="match_parent"
+		  android:clickable="false"
+		  android:text=""
+ 		  android:textSize="@dimen/tabs_button_lg_text"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+		  android:textStyle="bold|italic"
+		  android:gravity="center"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+		  android:id="@+id/ticket_details"
+		  android:layout_height="wrap_content"
+ 		  android:layout_width="match_parent"
+		  android:clickable="false"
+		  android:text=""
+ 		  android:textSize="@dimen/tabs_button_sm_text"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+ 		  android:layout_marginTop="@dimen/tabs_button_margin"
+		  android:gravity="left"/>
+	 
+</LinearLayout>

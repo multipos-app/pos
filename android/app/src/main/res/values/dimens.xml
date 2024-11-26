@@ -73,6 +73,7 @@
   <dimen name="login_row_height">100dp</dimen>
   <dimen name="login_input_text">32sp</dimen>
   <dimen name="login_button_lg_text">42sp</dimen>
+  <dimen name="login_button_xlg_text">62sp</dimen>
   <dimen name="login_button_text">32sp</dimen>
   <dimen name="login_del_text">32sp</dimen>
   <dimen name="login_button_margin">10dp</dimen>
@@ -100,12 +101,16 @@
   <dimen name="dialog_report_text">18sp</dimen>
   <dimen name="dialog_dropdown_height">300dp</dimen>
 
-  
+  <!-- tab/table buttons -->
+    
   <dimen name="tabs_button_height">120dp</dimen>
   <dimen name="tabs_button_sm_text">14sp</dimen>
   <dimen name="tabs_button_md_text">20sp</dimen>
   <dimen name="tabs_button_lg_text">30sp</dimen>
   <dimen name="tabs_button_xlg_text">50sp</dimen>
+  <dimen name="tabs_button_margin">10dp</dimen>
+
+  <!-- add item -->
 
   <dimen name="add_item_width">1200dp</dimen>
   <dimen name="add_item_height">550dp</dimen>
@@ -132,6 +137,8 @@
   <dimen name="ticket_footer_lg_text">28sp</dimen>
   <dimen name="ticket_footer_md_text">24sp</dimen>
   <dimen name="ticket_footer_sm_text">14sp</dimen>
+  
+  <dimen name="ticket_footer_padding">5dp</dimen>
 
   <!-- ticket -->
   
@@ -168,7 +175,7 @@
 
   <!-- menu buttons -->
 
-  <dimen name="menu_button_text">16sp</dimen>
+  <dimen name="menu_button_text">14sp</dimen>
   
   <dimen name="menu_button_margin_start">3dp</dimen>
   <dimen name="menu_button_margin_top">3dp</dimen>

@@ -67,4 +67,10 @@
 		android:orientation="vertical"
 		android:background="@color/transparent"/>
   
+    <LinearLayout
+ 		android:clickable="false"
+		android:layout_width="match_parent"
+		android:layout_height="1px"
+		android:background="@color/lt_gray"/>
+  
 </LinearLayout>
