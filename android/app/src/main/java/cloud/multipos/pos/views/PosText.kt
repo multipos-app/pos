@@ -36,17 +36,17 @@ open class PosText (context: Context, attrs: AttributeSet): TextView (context, a
 
 	 fun normal () {
 
-		  // setTypeface (null, Typeface.NORMAL)
+		  setTypeface (null, Typeface.NORMAL)
 	 }
 		  
 	 fun bold () {
 
-		  // setTypeface (null, Typeface.BOLD)
+		  setTypeface (null, Typeface.BOLD)
 	 }
 		  
 	 fun italic () {
 
-		  // setTypeface (null, Typeface.ITALIC)
+		  setTypeface (null, Typeface.ITALIC)
 	 }
 }
 
