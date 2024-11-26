@@ -91,7 +91,7 @@ object BackOffice: Device, DeviceCallback {
 					 Post ("pos-download")
 						  .add (download)
 						  .exec (fun (result: Jar): Unit {
-										 
+
 										 if (result.getInt ("status") == 0) {
 										 	  
 											  if (downloadTotal == 0) {
@@ -207,8 +207,6 @@ object BackOffice: Device, DeviceCallback {
 								
 								var config = Config ()
 								var json = row.get ("config").toString ()
-
-								Logger.d ("pos config update... ${update.getInt ("id")}")
 								
 								config.parse (json)
 								config
@@ -283,11 +281,14 @@ object BackOffice: Device, DeviceCallback {
 								Pos.app.db ().insert (update.getString ("update_table"), row)
 						  }
 						  
+						  "pos_messages", "message" -> {
+
+								message (update)
+						  }
 						  else -> {
 								
 								Pos.app.db ().insert (update.getString ("update_table"), row)
 						  }
-
 					 }
 				}
 				
@@ -303,7 +304,7 @@ object BackOffice: Device, DeviceCallback {
 	 }
 	 
 	 private fun message (message: Jar) {
-		  
+		  		  
         val m = message.get (message.getString ("method"))
 
 		  when (message.getString ("method")) {
@@ -325,8 +326,13 @@ object BackOffice: Device, DeviceCallback {
 								
 				"sql" -> {
 
-					 Logger.x ("sql... " + message.getString ("sql"))
-					 Pos.app.db.exec (message.getString ("sql"))
+					 Pos.app.db.query (message.getString ("sql"))
+
+					 val result = DbResult (message.getString ("sql"), Pos.app.db)
+					 while (result.fetchRow ()) {
+
+						  var row = result.row ()
+					 }
 				}
 		  }
 	 }
