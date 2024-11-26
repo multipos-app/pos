@@ -45,10 +45,10 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet): PosLayout
 	 val animateSwipe = true
 	 val duration = 250L
 	 
-	 abstract fun swipeLeft ()
-	 abstract fun swipeRight ()
-	 abstract fun swipeUp ()
-	 abstract fun swipeDown ()
+	 open fun swipeLeft () { }
+	 open fun swipeRight () { }
+	 open fun swipeUp () { }
+	 open fun swipeDown () { }
 
 	 var swiper: PosLayout?
 	 

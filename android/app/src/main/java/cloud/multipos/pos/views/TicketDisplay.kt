@@ -31,7 +31,7 @@ import android.view.Gravity
 import android.widget.TextView
 import android.graphics.Color
 
-class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (context, attrs), PosDisplay, ThemeListener {
+class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (context, attrs), PosDisplay, SwipeListener, ThemeListener {
 		  		  
 	 init {
 		  		  
@@ -103,7 +103,7 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 	 
 	 override fun update () {
 		  
-		  // // update the ticket items
+		  // update the ticket items
 		  
 		  updateList ()
 	 }
@@ -116,5 +116,25 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 	 override fun update (theme: Themes) {
 		  
 		  update ()  // force list redraw with new theme
+	 }
+	 
+	 /**
+	  *
+	  * Swipe impl
+	  *
+	  */
+
+	 override fun swipeUp () { }
+	 
+	 override fun swipeDown () { }
+	 
+	 override fun swipeLeft () {
+
+		  Control.factory ("Suspend").controlAction (Jar ())  // suspend current ticket
+	 }
+	 
+	 override fun swipeRight () {
+
+		  Control.factory ("Recall").controlAction (Jar ())  // get next suspended ticket
 	 }
 }

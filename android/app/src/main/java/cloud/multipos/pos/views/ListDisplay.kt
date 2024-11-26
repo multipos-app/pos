@@ -36,7 +36,7 @@ import android.widget.AdapterView.OnItemClickListener
 import java.util.ArrayList
 import java.util.List
 
-abstract class ListDisplay (context: Context, attrs: AttributeSet): LinearLayout (context, attrs) {
+abstract class ListDisplay (context: Context, attrs: AttributeSet): PosSwipeLayout (context, attrs) {
 	 	 
 	 var singleSelect = false
 	 

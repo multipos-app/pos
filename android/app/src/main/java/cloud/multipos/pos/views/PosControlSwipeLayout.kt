@@ -76,7 +76,7 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 		  }
 		  else {
 
-				Logger.w ("wha... no dialgos...")
+				Logger.w ("wha... no dialogs...")
 		  }
 	 }
 
