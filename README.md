@@ -1,6 +1,9 @@
 # Android POS (point of sale)
 This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark. 
 
+## New
+Swipe left on ticket dislay to suspend a ticket, added Tabs control to display/select a suspended ticket
+
 ## Includes most retail and restaurant features
 - Cash, credit, debit, EBT foodstams, gift card, check, split
 - Void item, void sale
