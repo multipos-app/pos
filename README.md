@@ -4,8 +4,6 @@ This project is an Andoid POS application integrated with a cloud based back for
 ## New
 Swipe left on ticket dislay to suspend a ticket, added Tabs control to display/select a suspended ticket
 
-Added a demo APK
-
 ## Includes most retail and restaurant features
 - Cash, credit, debit, EBT foodstams, gift card, check, split
 - Void item, void sale
