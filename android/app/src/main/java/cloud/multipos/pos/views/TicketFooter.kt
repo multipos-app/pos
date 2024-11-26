@@ -34,31 +34,37 @@ import android.graphics.Color
 
 class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (context, attrs), PosDisplay, ThemeListener {
 	 
-	 var footerSubtotalDesc: TextView
-	 var footerSubtotal: TextView
-	 var footerTaxDesc: TextView
-	 var footerTax: TextView
-	 var footerTotalDesc: TextView
-	 var footerTotal: TextView
+	 var footerSubtotalDesc: PosText
+	 var footerSubtotal: PosText
+	 var footerTaxDesc: PosText
+	 var footerTax: PosText
+	 var footerTotalDesc: PosText
+	 var footerTotal: PosText
 	 
-	 val textViews = mutableListOf <TextView> ()
+	 val textViews = mutableListOf <PosText> ()
 
 	 init {
 		  
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.ticket_footer_layout, this)
 	  
-		  footerSubtotalDesc = findViewById (R.id.footer_subtotal_desc) as TextView	  
+		  footerSubtotalDesc = findViewById (R.id.footer_subtotal_desc) as PosText
+		  footerSubtotalDesc.italic ()
 		  textViews.add (footerSubtotalDesc)
-		  footerSubtotal = findViewById (R.id.footer_subtotal) as TextView
+		  footerSubtotal = findViewById (R.id.footer_subtotal) as PosText
 		  textViews.add (footerSubtotal)
-		  footerTaxDesc = findViewById (R.id.footer_tax_desc) as TextView
+		  
+		  footerTaxDesc = findViewById (R.id.footer_tax_desc) as PosText
+		  footerTaxDesc.italic ()
 		  textViews.add (footerTaxDesc)
-		  footerTax = findViewById (R.id.footer_tax) as TextView
+		  footerTax = findViewById (R.id.footer_tax) as PosText
 		  textViews.add (footerTax)
-		  footerTotalDesc = findViewById (R.id.footer_total_desc) as TextView
+
+		 
+		  footerTotalDesc = findViewById (R.id.footer_total_desc) as PosText
+		  footerTotalDesc.italic ()
 		  textViews.add (footerTotalDesc)
-		  footerTotal = findViewById (R.id.footer_total) as TextView
+		  footerTotal = findViewById (R.id.footer_total) as PosText
 		  textViews.add (footerTotal)
 
 		  Themed.add (this)
