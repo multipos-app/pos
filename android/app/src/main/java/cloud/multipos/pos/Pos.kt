@@ -114,7 +114,7 @@ class Pos (): AppCompatActivity () {
 	 }
 
 	 init {
-
+		  
 		  app = this
 		  activity = this
 		  db = DB (this)
