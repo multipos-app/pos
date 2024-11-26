@@ -328,11 +328,22 @@ object BackOffice: Device, DeviceCallback {
 
 					 Pos.app.db.query (message.getString ("sql"))
 
+					 val jars = ArrayList <Jar> ()
 					 val result = DbResult (message.getString ("sql"), Pos.app.db)
 					 while (result.fetchRow ()) {
 
 						  var row = result.row ()
+						  jars.add (row)
 					 }
+				 
+					 Post ("pos-download/pos-message")
+						  .add (Jar ()
+										.put ("results", jars))
+						  .exec (fun (result: Jar): Unit {
+										 
+										 Logger.d ("message post... ${result}")
+									}
+						  )
 				}
 		  }
 	 }

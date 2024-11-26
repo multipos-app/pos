@@ -50,6 +50,8 @@ public class Post (val url: String) {
 
 		  var url = Pos.app.getString ("posapi") + url
 		  var sep = ""
+
+		  Logger.d ("post... ${url}")
 		  
 		  val req = JsonObjectRequest (Request.Method.POST,
 												 url,
