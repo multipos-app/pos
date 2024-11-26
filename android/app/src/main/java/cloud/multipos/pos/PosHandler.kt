@@ -59,13 +59,14 @@ class PosHandler (): Handler () {
 						  
 						  val scan = m.obj as String
 
-						  Logger.d ("scan... " + scan.length + " " + scan)
+						  Logger.d ("scan... ${scan.length} ${scan} ${Pos.app.controls.size}")
 						  
 						  if (Pos.app.controls.size > 0) {
 
-								val control = Pos.app.controls.get (0)
-								Pos.app.controls.remove (control)
-								control.action (control.jar ().put ("scan", scan))
+								val control = Pos.app.controls.pop ()
+								control.action (Jar ()
+														  .put ("scan", scan))
+
 								return
 						  }
 
