@@ -28,39 +28,42 @@ class PriceCheck (): Control () {
 
 		  var input = Pos.app.input.getString ()
 						  
-		  if (input.length > 0) {
-	 				
-				var select =
-					 "select items.id, " +
-					 "items.sku, " +
-					 "items.department_id, " +
-					 "items.item_desc, " +
-					 "item_prices.*, " +
-					 "departments.is_negative, " +
-					 "addon_links.* " +
-					 "from departments, item_prices, items left join addon_links on items.id = addon_links.item_id " +
-					 "where items.department_id = departments.id and items.id = item_prices.item_id and sku = '" + input + "'"
+		  if (jar.has ("scan")) {
+	 								
+				var select = "select i.id, i.sku, i.item_desc, ip.* " +
+				"from " +
+				"items i, item_prices ip " +
+				"where i.id = ip.item_id " +
+				"and i.sku = '" + jar.getString ("scan") + "'"
 				
 				val itemResult  = DbResult (select, Pos.app.db)
 				if (itemResult.fetchRow ()) {
 					 
 					 var item = itemResult.row ()
+					 
 					 if (item.getDouble ("price") != 0.0) {
-
-						  PosDisplays.message (item.getString ("sku") + " " +
-													  item.getString ("item_desc") + " " +
-													  item.getDouble ("price").currency ())
+						  
+						  PosDisplays.message (Jar ()
+															.put ("prompt_text", item.getString ("item_desc"))
+															.put ("echo_text", item.getDouble ("price").currency ()))
 					 }
 				}
 				else {
-					 PosDisplays.message (Pos.app.getString ("item_not_found"))
+
+					 Pos.app.controls.pop ()
+					 PosDisplays.message (Jar ()
+													  .put ("prompt_text", Pos.app.getString ("item_not_found"))
+													  .put ("echo_text", ""))
 				}
 		  }
 		  else {
-				
+
 				if (Pos.app.controls.size == 0) {
-					 Pos.app.controls (this)
-					 PosDisplays.message (Pos.app.getString ("scan_or_enter_sku"))
+					 
+					 Pos.app.controls.push (this)
+					 PosDisplays.message (Jar ()
+													  .put ("prompt_text", Pos.app.getString ("scan_or_enter_sku"))
+													  .put ("echo_text", ""))
 				}
 		  }
 	 }
