@@ -158,7 +158,8 @@
     <string name="oz">Ounces</string>
     <string name="gram">Grams</string>
     <string name="no_suspended_tickets">No suspended tickets</string>
-	 
+	 <string name="price_override">Price override</string>
+	 <string name="price_override_amount">Enter amount</string>
 
     <string name="banner_font">fonts/banner.ttf</string>
     <string name="button_font">fonts/ubuntu_reg.ttf</string>
