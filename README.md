@@ -1,7 +1,7 @@
 # Android POS (point of sale)
 This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark. 
 
-## New
+## New 11/27/2024
 Swipe left on ticket dislay to suspend a ticket, added Tabs control to display/select a suspended ticket
 
 Youtube POS Registration https://www.youtube.com/watch?v=XiFy3Gc5Cmo
