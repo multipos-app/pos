@@ -8,6 +8,8 @@ Youtube POS Registration https://www.youtube.com/watch?v=XiFy3Gc5Cmo
 
 Youtube POS demo https://www.youtube.com/watch?v=mMtDKhiB6AY
 
+Youtube dark/light themes https://www.youtube.com/watch?v=W7eabIH1uAk
+
 Latest APK https://apps.multipos.cloud/oasis-pos-84.apk
 
 ## Includes most retail and restaurant features
