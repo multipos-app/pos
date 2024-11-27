@@ -4,6 +4,12 @@ This project is an Andoid POS application integrated with a cloud based back for
 ## New
 Swipe left on ticket dislay to suspend a ticket, added Tabs control to display/select a suspended ticket
 
+Youtube POS Registration https://www.youtube.com/watch?v=XiFy3Gc5Cmo
+
+Youtube POS demo https://www.youtube.com/watch?v=mMtDKhiB6AY
+
+Latest APK https://apps.multipos.cloud/oasis-pos-84.apk
+
 ## Includes most retail and restaurant features
 - Cash, credit, debit, EBT foodstams, gift card, check, split
 - Void item, void sale
