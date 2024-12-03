@@ -35,8 +35,6 @@ class VoidItem (): Control () {
 		  }
 	  
 		  for (ti in Pos.app.ticket.selectItems ()) {
-
-				Logger.d ("void select items.. " + ti.getString ("item_desc"))
 				
 				ti.put ("state", TicketItem.VOID_ITEM)
 				Pos.app.db.exec ("update ticket_items set state = " + TicketItem.VOID_ITEM + " where id = " + ti.getInt ("id"))

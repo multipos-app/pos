@@ -29,9 +29,7 @@ class CameraIP (): Control (), InputListener {
 	 init { }
 
 	 override fun controlAction (jar: Jar) {
-		  
-	 	  Logger.d ("camera ip control action... " + DeviceManager.payment)
-		  
+		  		  
 		  NumberInputView (this,
 								 Pos.app.getString (R.string.camera_ip),
 								 "Enter the last digit of the CAMERA IP address, ${Pos.app.config.getString ("base_ip_address")}.nnn",

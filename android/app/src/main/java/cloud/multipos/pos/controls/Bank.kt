@@ -55,8 +55,6 @@ class Bank (): CompleteTicket (), InputListener {
 	 override fun accept (result: Jar) {
 		  
 		  var amount = result.getDouble ("value") / 100.0
-
-		  Logger.d ("bank amount... ${amount}")
 		  
 		  if (jar ().has ("float_total")) {  // remove float total
 				

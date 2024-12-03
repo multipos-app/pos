@@ -31,8 +31,6 @@ class Recall (): Control () {
 		  jar (jar)
 
 		  var sel = "select id from tickets where state = ${Ticket.SUSPEND} and id < ${Pos.app.ticket.getInt ("id")} order by id desc limit 1"
-
-		  Logger.d ("recall... " + sel)
 		  
 		  val ticketResult = DbResult (sel, Pos.app.db)
 		  if (ticketResult.fetchRow ()) {

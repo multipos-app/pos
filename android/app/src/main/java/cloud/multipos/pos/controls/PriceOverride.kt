@@ -59,9 +59,7 @@ class PriceOverride (): TicketModifier (), InputListener {
 					 
 					 price *= -1
 				}
-				
-				Logger.d ("accept... " + price)
-				
+								
 				ti.put ("price", price)
 				ti.put ("amount", price)
 				Pos.app.db.update ("ticket_items", ti)

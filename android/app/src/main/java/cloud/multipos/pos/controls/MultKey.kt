@@ -22,8 +22,6 @@ import cloud.multipos.pos.util.*
 public class MultKey (): Control () {
 	 
 	 override fun  controlAction (jar: Jar) {
-
-		  Logger.d ("mult... " + jar)
 				
 		  if (jar.has ("value")) {
 

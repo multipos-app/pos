@@ -49,12 +49,10 @@ class ReturnSale (): ConfirmControl () {
 								
 				if (Pos.app.ticket.getInt ("ticket_type") == Ticket.RETURN_SALE) {
 
-					 Logger.d ("return sale on... ")
 					 PosDisplays.message (Pos.app.getString ("return_sale"))
 				}
 				else {
 
-					 Logger.d ("return sale off... ")
 					 PosDisplays.message ("")
 				}
 		  }

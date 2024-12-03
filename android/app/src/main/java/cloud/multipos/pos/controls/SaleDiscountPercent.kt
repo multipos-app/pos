@@ -29,13 +29,10 @@ class SaleDiscountPercent (): TicketModifier () {
 
 	 override fun controlAction (jar: Jar) {
 
-		  Logger.d ("sale discount... " + jar)
-
 		  var percent = 0.0
 		  if (jar.has ("percent")) {
 
 				percent = jar.getDouble ("percent") / 100.0
-				Logger.d ("sale discount percent... " + percent)
 		  }
 		  else {
 				

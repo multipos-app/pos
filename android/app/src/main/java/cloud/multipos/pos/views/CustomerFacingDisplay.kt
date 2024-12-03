@@ -122,10 +122,7 @@ class CustomerFacingDisplay (): CustomerDisplay () {
 		  }
 	 }
 	 
-	 override fun text (text: String, lineNo: Int) {
-
-		  // cfd?.setLine (lineNo, text)
-	 }
+	 override fun text (text: String, lineNo: Int) { }
 
 	 override fun clear () {
 

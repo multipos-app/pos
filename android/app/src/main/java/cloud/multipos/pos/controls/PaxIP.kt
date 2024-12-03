@@ -29,9 +29,7 @@ class PaxIP (): Control (), InputListener {
 	 init { }
 
 	 override fun controlAction (jar: Jar) {
-		  
-	 	  Logger.d ("pax ip control action... " + DeviceManager.payment)
-		  
+		  		  
 		  NumberInputView (this,
 								 Pos.app.getString (R.string.pax_ip),
 								 "Enter the last digit of the PAX S300 IP address, ${Pos.app.config.getString ("base_ip_address")}.nnn",

@@ -80,8 +80,6 @@ class PaxTender (): Tender (null) {
 					 .put ("transaction_type", transactionType)
 					 .put ("amount", authString)
 					 .put ("ticket_no", Pos.app.ticket.getInt ("ticket_no"))
-
-				Logger.x ("pax auth... " + p)
 				
 				DeviceManager.payment?.authorize (p, handler)
 		  }
@@ -126,8 +124,6 @@ class PaxTender (): Tender (null) {
 
 				var result = m.obj as Jar
 				tender.result = result.getInt ("result")
-
-				Logger.d ("auth result... ${result}")
 				
 				when (m.what) {
 
