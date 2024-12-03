@@ -41,7 +41,7 @@ class Metric (): Pricing (), InputListener {
 		  return true
 	 }
 	 
-	 override fun accept (select: Jar) {
+	 override fun accept (metric: Jar) {
 		  
 		  if (Pos.app.input.getString ().length == 0) {
 				
@@ -52,7 +52,7 @@ class Metric (): Pricing (), InputListener {
 
 		  item.jar ().put ("merge_like_items", false)
 
-		  val amount = select.getDouble ("value") * item.item.getDouble ("price")
+		  val amount = metric.getDouble ("value") * item.item.getDouble ("price")
 		  
 		  item.ticketItem ()
 				.put ("amount", amount)
