@@ -444,12 +444,14 @@ public class Jar extends HashMap {
 		  return this;
 	 }
 
-	 public String prettyPrint () {
+	 public String stringify () {
 
 		  String s = "{\"result\": \"json parse error\"}";
 		  try {
 				
-				s = json.toString (3).replace ("\\", "").replace ("\"[", "[").replace ("]\"", "]");
+				// s = json.toString (3).replace ("\\", "").replace ("\"[", "[").replace ("]\"", "]");
+				JSONObject j = new JSONObject (toString ());
+				s = j.toString (3);
 		  }
 		  catch (JSONException je) { }
 		  return s;
