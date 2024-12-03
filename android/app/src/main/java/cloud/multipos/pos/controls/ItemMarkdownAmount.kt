@@ -28,8 +28,6 @@ class ItemMarkdownAmount(): ItemMarkdown (), InputListener {
 	 override fun controlAction (jar: Jar) {
 
 		  jar (jar)
-
-		  Logger.d ("item markdown... " + jar ())
 		  
 		  if (jar.has ("amount") && (jar.getDouble ("amount") > 0.0)) {
 				
