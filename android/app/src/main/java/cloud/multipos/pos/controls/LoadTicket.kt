@@ -66,8 +66,6 @@ class LoadTicket (): Control () {
 					 Logger.w ("attempt to load unknown ticket... " + ticketID)
 					 return
 				}
-
-				Logger.d ("load ticket... " + ticketID)
 				
 				Pos.app.ticket = Ticket (ticketID, Ticket.RECALLED)
 		  }
@@ -84,8 +82,6 @@ class LoadTicket (): Control () {
 				
 				Pos.app.posAppBar.customer (Customer (Pos.app.ticket.get ("customer")).display ())
 		  }
-
-		  Logger.d ("load ticket... " + Pos.app.ticket.get ("customer"))
 		  
 		  PosDisplays.update ()
 		  PosDisplays.home ()

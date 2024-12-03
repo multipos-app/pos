@@ -27,8 +27,6 @@ open class OpenItem (): DefaultItem (), InputListener {
 	 override fun controlAction (jar: Jar) {
 
 		  jar (jar)
-
-		  Logger.x ("open item... ${jar}")
 		  
 		  if (jar ().has ("prompt_text")) {
 
@@ -53,8 +51,6 @@ open class OpenItem (): DefaultItem (), InputListener {
 		  
 		  var amount = Pos.app.input.getDouble ()
 		  Pos.app.input.clear ()
-
-		  Logger.d ("open amount accept... ${amount}")
 		  
 		  if (amount != 0.0) {
 				

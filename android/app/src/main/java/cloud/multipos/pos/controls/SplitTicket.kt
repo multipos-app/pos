@@ -29,20 +29,21 @@ class SplitTicket (): Control () {
 		  var split = Pos.app.ticket!!
 		  var splitItems: MutableList <TicketItem> = mutableListOf ()
 
+		  // save the split items
+		  
 		  for (index in Pos.app.selectValues) {
 				
-		  		Logger.x ("copy... " + index)
 		  		splitItems.add (split.items.get (index))
 		  }
+
+		  // start a new ticket
 		  
 		  Pos.app.ticket ()
 
 		  for (ti in splitItems) {
 		
 		  		split.items.remove (ti)
-				
-		  		Logger.x ("move... " + ti.getInt ("id") + " " + ti.getString ("item_desc"))
-				
+								
 		  		Pos.app.ticket!!.items.add (ti)
 		  		Pos.app.db.exec ("update ticket_items set ticket_id = " +
 											  Pos.app.ticket!!.getInt ("id") +
