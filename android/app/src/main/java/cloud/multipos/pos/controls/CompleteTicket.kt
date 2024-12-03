@@ -168,19 +168,13 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				.put ("ticket_addons", Pos.app.ticket.addons)
 				.put ("customer_id", customerID)
 
-		  // save the ticket
+		  // update ticket as complete
 		  
 		  Pos.app.ticket.update ()
 		  
 		  updateDisplays ()
 
-		  // generate receitpt...
-		  
-		  if (printReceipt ()) {
 
-				Pos.app.receiptBuilder.print ()
-		  }
-		  
 		  // display receipt?
 
 		  if (state == Ticket.COMPLETE) {
@@ -189,12 +183,18 @@ open abstract class CompleteTicket (): ConfirmControl () {
 					 
 					 Ticket.SALE,
 					 Ticket.BANK -> {
-						  						  
+
+						  // generate a receitpt...
+		  
+						  if (printReceipt ()) {
+								
+								Pos.app.receiptBuilder.print ()
+						  }
+		  				  
 						  ReportView (Pos.app.getString ("ticket"),
 										  Jar ()
 												.put ("ticket", Pos.app.ticket))
 					 }
-
 				}
 		  }
 
