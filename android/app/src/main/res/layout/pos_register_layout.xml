@@ -36,6 +36,7 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
 		android:layout_weight="1"
+		android:imeOptions="actionDone"
       android:hint="@string/merchant_password"
       android:inputType="textPassword"
       android:maxLines="1"
