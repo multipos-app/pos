@@ -10,7 +10,7 @@ Youtube POS demo https://www.youtube.com/watch?v=mMtDKhiB6AY
 
 Youtube dark/light themes https://www.youtube.com/watch?v=W7eabIH1uAk
 
-Latest APK https://apps.multipos.cloud/oasis-pos-84.apk
+Latest APK https://apps.multipos.cloud/oasis-pos-86.apk
 
 ## Includes most retail and restaurant features
 - Cash, credit, debit, EBT foodstams, gift card, check, split
