@@ -106,6 +106,12 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  
 		  val posMenus = Pos.app.config.get ("pos_menus").get (name)
 		  
+		  if (posMenus.get ("horizontal_menus") is String) {
+
+				Logger.w ("no menus in pos menus... " + posMenus)
+				return
+		  }
+
 		  if (posMenus.getBoolean ("tabs") && (posMenus.getList ("horizontal_menus").size > 1)) {
 					 
 					 for (menu in posMenus.getList ("horizontal_menus")) {
@@ -126,8 +132,15 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 
 				layouts.add (ControlsGridLayout (menu, this, tabs, attrs))
 		  }
-		  
-		  addView (layouts.first ())
+
+		  if (layouts.size > 0) {
+				
+				addView (layouts.first ())
+		  }
+		  else {
+
+				Logger.w ("no menus in pos menus... " + posMenus)
+		  }
 	 }
 	 
 	 override fun onSwipe (swipeDir: SwipeDir) {

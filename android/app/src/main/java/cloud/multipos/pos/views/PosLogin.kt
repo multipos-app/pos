@@ -108,9 +108,7 @@ class PosLogin (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  login.setOnClickListener {
 
 		  		if (getPin) {
-									 
-					 loginOverlay.setVisibility (View.VISIBLE)
-					 
+									 					 
 		  			 if ((cashier.length > 0) && (pin.length > 0)) {
 
 		  				  var employeeResult  = DbResult ("select username, password, fname, lname, profile_id, id from employees " +
@@ -120,11 +118,15 @@ class PosLogin (context: Context, attrs: AttributeSet): PosLayout (context, attr
 									 
 		  				  if (employeeResult.fetchRow ()) {
 
+								val employee = employeeResult.row ()
+								
+								loginOverlay.setVisibility (View.VISIBLE)
 								login.setText (Pos.app.getString ("please_wait"))
 								Pos.app.sendMessage (PosConst.LOGIN, employeeResult.row ());
 						  }
 		  				  else {
-										  
+
+								Logger.d ("invalid login... ${cashier}");
 		  						loginInput.setText (Pos.app.getString ("invalid_login"))
 		  						cashier = ""
 		  						pin = ""

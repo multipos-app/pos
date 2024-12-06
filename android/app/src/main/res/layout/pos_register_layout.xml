@@ -15,7 +15,7 @@
 		android:layout_weight="3"/>
   
   <EditText
-      android:id="@+id/pos_user_name"
+      android:id="@+id/pos_username"
       android:layout_width="match_parent"
       android:layout_height="0dp"
 		android:layout_weight="1"

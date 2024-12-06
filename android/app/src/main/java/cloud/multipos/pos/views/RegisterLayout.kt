@@ -25,36 +25,54 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
-import android.content.Intent;
 import android.widget.EditText;
-import android.widget.Button;
+import android.widget.TextView;
 
 class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs) {
 
 	 var username: EditText
 	 var password: EditText
+	 var register: TextView
 	 
 	 init {
 		  		  
 		  Pos.app.inflater.inflate (R.layout.pos_register_layout, this)
 
-		  username = findViewById (R.id.pos_user_name) as EditText
+		  username = findViewById (R.id.pos_username) as EditText
         password = findViewById (R.id.pos_password) as EditText
+        register = findViewById (R.id.pos_register) as TextView
 
-		  val register = findViewById (R.id.pos_register) as PosText
         register.setOnClickListener {
 				
 				Pos.app.overlay.visibility = View.VISIBLE
 				
-				val register = Jar ()
+				val jar = Jar ()
 					  .put ("uname", username.getText ().toString ())
 					  .put ("passwd", password.getText ().toString ())
 				 
 				 Post ("pos/register")
-					  .add (register)
+					  .add (Jar ()
+									.put ("uname", username.getText ().toString ())
+									.put ("passwd", password.getText ().toString ()))
 					  .exec (fun (result: Jar): Unit {
-									 
-									 Pos.app.posInit (result)
+
+									 if (result.has ("register_status")) {
+
+										  when (result.getInt ("register_status")) {
+
+												0 -> {
+													 
+													 Pos.app.posInit (result)
+												}
+												else -> {
+
+													 Logger.d ("bad username in register... ")
+													 register.setText (Pos.app.getString ("invalid_login"))
+													 username.getText ().clear ()
+													 password.getText ().clear ()
+												}
+										  }
+									 }
 					  })
 		  }
 	 }
