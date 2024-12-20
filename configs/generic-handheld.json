@@ -12,6 +12,7 @@
     "show_previous_receipt": "true",
     "disable_quantity_void": "true",
     "root_layout": "handheld_1",
+	 "orientation" : "reverse_portrait",
     "confirm_tender": "true",
     "show_previous_receipt_no_print": "false",
     "surveillance": "false",
@@ -20,14 +21,8 @@
     "cash_management": "false",
     "merge_like_items": "false",
     "enter_clerk": "false",
-    "devices": {
-        "payment": {
-            "name": "pax_a920",
-            "class": "cloud.multipos.pos.devices.PaxPayment",
-				"params": {"debug": true}
-        }
-    },
-    "pos_displays": [
+    "devices": { },
+	 "pos_displays": [
         {
             "name": "ticket",
             "type": "handheld_ticket_display",

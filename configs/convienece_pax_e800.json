@@ -11,7 +11,7 @@
     "prompt_open_amount": "false",
     "show_previous_receipt": "true",
     "disable_quantity_void": "true",
-    "root_layout": "layout_4",
+    "root_layout": "layout_1",
     "item_line_layout": "ticket_item_line",
     "pos": "generic_tablet",
     "enter_clerk": "false",

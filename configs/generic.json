@@ -11,7 +11,7 @@
     "prompt_open_amount": "false",
     "show_previous_receipt": "true",
     "disable_quantity_void": "true",
-    "root_layout": "layout_4",
+    "root_layout": "layout_1",
     "item_line_layout": "ticket_item_line",
     "pos": "generic_tablet",
     "enter_clerk": "false",
@@ -225,28 +225,25 @@
                             "pos": "19"
                         },
                         {
-                            "text": "ADD SUB",
-                            "class": "Item",
-                            "color": "#21512D",
+                            "color": "#8C0306",
+                            "fixed": "1",
+                            "text": "10% OFF",
+                            "class": "SaleDiscount",
                             "params": {
-                                "sku": "11222"
-                            },
-                            "pos_config_id": "24051",
-                            "container": "main_menu",
-                            "menu": "0",
-                            "pos": "20"
+                                "receipt_text": "10% off",
+                                "percent": "10"
+                            }
                         },
                         {
-                            "text": "ADD BREAKFAST MEAT",
-                            "class": "Item",
-                            "color": "#21512D",
+                            "color": "#2A0001",
+                            "fixed": "1",
+                            "text": "MARKDOWN ITEM",
+                            "class": "ItemMarkdown",
                             "params": {
-                                "sku": "12211"
-                            },
-                            "pos_config_id": "24051",
-                            "container": "main_menu",
-                            "menu": "0",
-                            "pos": "21"
+                                "receipt_text": "",
+                                "currency_value": "",
+                                "percent_value": ""
+                            }
                         },
                         {
                             "text": "ADD CHEESE",
@@ -284,7 +281,8 @@
                             "menu": "0",
                             "pos": "19"
                         }
-                    ]
+                    ],
+                    "size": "20"
                 },
                 {
                     "type": "controls",
@@ -374,7 +372,13 @@
                             }
                         },
                         {
-                            "class": "Null"
+                            "color": "#003000",
+                            "fixed": "1",
+                            "text": "BUSCH SINGLE CAN 12OZ N\/A",
+                            "class": "Item",
+                            "button": {
+                                "sku": ""
+                            }
                         },
                         {
                             "class": "Item",
@@ -448,7 +452,8 @@
                                 "sku": "789987"
                             }
                         }
-                    ]
+                    ],
+                    "size": "20"
                 },
                 {
                     "type": "controls",
@@ -1028,7 +1033,8 @@
                             },
                             "fixed": "1"
                         }
-                    ]
+                    ],
+                    "size": "20"
                 }
             ]
         },
@@ -1042,7 +1048,7 @@
                     "name": "keypad",
                     "width": "4",
                     "buttons": [
-								{
+                        {
                             "text": "7",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1051,7 +1057,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "8",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1060,7 +1066,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "9",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1069,15 +1075,13 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Quantity",
                             "class": "Quantity",
                             "color": "#5E7981",
-                            "params": {
-                            },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "4",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1086,7 +1090,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "5",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1095,7 +1099,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "6",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1104,7 +1108,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Qty+",
                             "class": "Quantity",
                             "color": "#5E7981",
@@ -1113,7 +1117,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "1",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1122,7 +1126,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "2",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1131,7 +1135,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "3",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1140,7 +1144,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Qty-",
                             "class": "Quantity",
                             "color": "#5E7981",
@@ -1149,15 +1153,13 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Clear",
                             "class": "Clear",
                             "color": "#5E7981",
-                            "params": {
-                            },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "0",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1166,7 +1168,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "00",
                             "class": "MultKey",
                             "color": "#5E7981",
@@ -1174,19 +1176,18 @@
                                 "value": "00"
                             },
                             "fixed": "1"
-								},
-								{
+                        },
+                        {
                             "text": "Enter",
                             "class": "Enter",
                             "color": "#5E7981",
-                            "params": {
-                            },
                             "fixed": "1"
                         }
-						  ]
-					 }
-				]
-		  }
+                    ],
+                    "size": "16"
+                }
+            ]
+        }
     },
     "pos_displays": [
         {
