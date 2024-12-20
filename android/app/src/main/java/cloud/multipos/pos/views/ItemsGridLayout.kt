@@ -42,7 +42,7 @@ import android.graphics.Color
 class ItemsGridLayout (posMenus: PosMenus, jar: Jar, attrs: AttributeSet): PosLayout (Pos.app.activity, attrs) {
 	 
 	 var theme = "solid"
-	 var themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.SolidButton)
+	 var themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.PosControlButton)
 	 val item = Control.factory ("DefaultItem")
 	 val items: MutableList <Jar> = mutableListOf ()
 	 var pos = 0
@@ -50,36 +50,6 @@ class ItemsGridLayout (posMenus: PosMenus, jar: Jar, attrs: AttributeSet): PosLa
 	 
 	 var grid: GridLayout
 	 
-	 // val gradient = arrayOf ("273085",
-	 // 								 "2D3282",
-	 // 								 "33337F",
-	 // 								 "3A357D",
-	 // 								 "40367A",
-	 // 								 "463877",
-	 // 								 "4C3A74",
-	 // 								 "533B72",
-	 // 								 "593D6F",
-	 // 								 "5F3F6C",
-	 // 								 "654069",
-	 // 								 "6C4267",
-	 // 								 "724364",
-	 // 								 "784561",
-	 // 								 "7E475E",
-	 // 								 "85485C",
-	 // 								 "8B4A59",
-	 // 								 "914C56",
-	 // 								 "974D53",
-	 // 								 "9E4F51",
-	 // 								 "A4504E",
-	 // 								 "AA524B",
-	 // 								 "B05448",
-	 // 								 "B75546",
-	 // 								 "BD5743",
-	 // 								 "C35940",
-	 // 								 "C95A3D",
-	 // 								 "D05C3B",
-	 // 								 "D65D38")
-
 	 val gradient = arrayOf ("102128","11232A","12242C","13262E","142830","152932","162B34","172D36","182F38","19303A","1A323C","1B343E","1C3540","1D3742","1E3944","1E3A47","1F3C49","203E4B","213F4D","22414F","234351","244453","254655","264857","274A59","284B5B","294D5D","2A4F5F","2B5061")
 
 
@@ -92,7 +62,7 @@ class ItemsGridLayout (posMenus: PosMenus, jar: Jar, attrs: AttributeSet): PosLa
 
 				"solid" -> {
 
-					 themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.SolidButton)
+					 themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.PosControlButton)
 				}
 		  }
 		  

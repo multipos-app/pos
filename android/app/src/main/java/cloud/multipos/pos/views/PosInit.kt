@@ -49,8 +49,7 @@ class PosInit (context: Context, attrs: AttributeSet): PosLayout (context, attrs
 	 
 	 init {
 
-				
-				setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
+				// setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 				Pos.app.inflater.inflate (R.layout.pos_init_layout, this)
 
 				register = findViewById (R.id.pos_init_register) as Button
@@ -83,8 +82,10 @@ class PosInit (context: Context, attrs: AttributeSet): PosLayout (context, attrs
 								.put ("android_release", android.os.Build.VERSION.RELEASE)
 								.put ("android_id", Secure.getString (Pos.app.activity.getContentResolver (), Secure.ANDROID_ID))
 								.put ("fingerprint", android.os.Build.FINGERPRINT.contains ("generic"))
-								.put ("version_name", Pos.app.getString ("version_name"))
-								.put ("version_code", Pos.app.getString ("version_code"))
+								// .put ("version_name", Pos.app.getString ("version_name"))
+								// .put ("version_code", Pos.app.getString ("version_code"))
+								.put ("version_name", "version")
+								.put ("version_code", "86")
 								.put ("display_width", display.getWidth ())
 								.put ("display_height", display.getHeight ())
 

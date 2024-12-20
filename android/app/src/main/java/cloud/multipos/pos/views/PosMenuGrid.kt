@@ -40,7 +40,7 @@ class PosMenuGrid (context: Context,
 						 menu: Jar): GridLayout (context, attrs) {
 
 	 var theme = "solid"
-	 var themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.SolidButton)
+	 var themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.PosControlButton)
 	 val title = menu.getString ("name")
 	 
 	 init {
@@ -52,7 +52,7 @@ class PosMenuGrid (context: Context,
 						
 				"solid" -> {
 							 
-					 themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.SolidButton)
+					 themeWrapper = ContextThemeWrapper (Pos.app.activity, R.style.PosControlButton)
 				}
 		  }
 		  
