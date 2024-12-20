@@ -24,9 +24,7 @@ import android.widget.LinearLayout
 class Themed () {
 
 	 init {
-		  
-		  Logger.d ("themed init... " + Pos.app.local.getString ("theme", "light"))
-		  
+		  		  
 		  if (Pos.app.local.has ("theme")) {
 
 				when (Pos.app.local.getString ("theme", "light")) {
@@ -61,8 +59,6 @@ class Themed () {
 					 selectBg = R.color.dark_select_bg
 				}
 		  }
-		  // var rootLayout = Pos.app.findViewById (R.id.root_layout) as LinearLayout?
-		  // if (theme == Themes.Light) rootLayout?.setBackgroundResource (R.color.light_bg) else rootLayout?.setBackgroundResource (R.color.dark_bg)
 	 }
 	 
 	 companion object {
