@@ -107,9 +107,12 @@
     <string name="ten_percent">10%</string>
     <string name="fifteen_percent">15%</string>
     <string name="twenty_percent">20%</string>
+	 
     <string name="percent_markdown">Percent markdown</string>
-    <string name="enter_percent">Enter percent</string>
-    <string name="amount_markdown">Markdown by amount</string>
+    <string name="enter_markdown_percent">Enter percent markdown (%)</string>
+    <string name="amount_markdown">Amount markdown</string>
+    <string name="enter_markdown_amount">Enter amount markdown ($)</string>
+	 
     <string name="x_report">X Report</string>
     <string name="z_report">Z Report</string>
     <string name="settle_summary">Settlement summary</string>
@@ -332,7 +335,7 @@
     <string name="cash_diff">Cash difference</string>
     <string name="drawer_totals">Drawer totals</string>
 	 
-	 <string name="inv_tab">Inventory</string>
+	 <string name="inv_tab">Item Counts</string>
 	 <string name="item_edit_tab">Item Edit</string>
 	 <string name="pos_tab">POS</string>
 	 <string name="item_not_found">Item not found</string>
@@ -358,7 +361,7 @@
 	 <string name="add_item_tax_desc">Tax:</string>
 	 <string name="add_item_tax">Taxable</string>
 	 <string name="add_item_non_tax">Tax exempt</string>
-	 <string name="add_item_complete">Complete</string>
+	 <string name="add_item_complete">Save</string>
 	 <string name="add_item_clear">Clear</string>
 	 <string name="none">None</string>
 	 <string name="camera_ip">Enter camera IP</string>
@@ -373,7 +376,7 @@
 	 <string name="date">Date</string>
 	 <string name="status">Status</string>
 	 <string name="no_results">No results</string>
-	 <string name="currency_zero">0.00</string>
+	 <string name="currency_zero">$0.00</string>
 
  	 <string name="decimal_hint">#.##</string>
  	 <string name="integer_hint">###</string>
@@ -406,6 +409,7 @@
     <string name="fa_payment">&#xf09d;</string>
     <string name="fa_receipt_printer">&#xf543;</string>
     <string name="fa_scanner">&#xf02a;</string>
+    <string name="fa_tag">&#xf02b;</string>
     <string name="fa_www">&#xf0c2;</string>
     <string name="fa_day">&#xf185;</string>
     <string name="fa_night">&#xf186;</string>
@@ -421,8 +425,10 @@
     <string name="fa_cloud_download">&#xf0ed;</string>
     <string name="fa_cloud_upload">&#xf0ee;</string>
     <string name="fa_exit">&#xf00d;</string>
-    <string name="fa_plus">&#xf055;</string>
+    <string name="fa_plus">&#xf067;</string>
+    <string name="fa_plus_circle">&#xf055;</string>
     <string name="fa_minus">&#xf056;</string>
+    <string name="fa_minus_circle">&#xf067;</string>
     <string name="fa_edit">&#xf044;</string>
     <string name="fa_scale">&#xf496;</string>
     <string name="fa_kitchen_printer">&#xe3d2;</string>
@@ -432,5 +438,6 @@
     <string name="fa_lock">&#xf023;</string>
     <string name="fa_unlock">&#xf3c1;</string>
     <string name="fa_clock">&#xf017;</string>
+    <string name="fa_chain">&#xf0c1;</string>
 
 </resources>
