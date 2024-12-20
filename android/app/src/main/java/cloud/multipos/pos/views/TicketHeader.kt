@@ -41,7 +41,6 @@ class TicketHeader (context: Context, attrs: AttributeSet): LinearLayout (contex
 	 
 	 init {
 
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.ticket_header_layout, this);
 		  
 		  PosDisplays.add (this)
@@ -69,8 +68,6 @@ class TicketHeader (context: Context, attrs: AttributeSet): LinearLayout (contex
 	 }
 	 
 	 override fun clear () {
-		  
-		  Logger.d ("ticket header clear...")
 		  
 		  animate (headerPrompt)
 		  alert = false

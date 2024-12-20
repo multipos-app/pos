@@ -45,7 +45,6 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 
 	 init {
 		  
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.ticket_footer_layout, this)
 	  
 		  footerSubtotalDesc = findViewById (R.id.footer_subtotal_desc) as PosText
@@ -112,7 +111,6 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 	 
 	 override fun update (theme: Themes) {
 
-		  Logger.d ("ticket footer theme update... ${theme}")
 		  var color = Color.BLACK
 		  if (theme == Themes.Dark) {
 				
