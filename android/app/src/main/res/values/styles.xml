@@ -1,157 +1,64 @@
 <resources>
 
   <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
+    <item name="android:spinnerDropDownItemStyle">@style/SpinnerItemStyle</item>
   </style>
-
+  
   <style name="AppTheme.NoActionBar">
     <item name="windowActionBar">false</item>
     <item name="windowNoTitle">true</item>
   	 <item name="android:editTextStyle">@style/editTextStyle</item>
   </style>
-
-  <style name="Dialog">
+  
+  <style name="SpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
+    <item name="android:textColor">@color/black</item>
+    <item name="android:textSize">24sp</item>
+	 <item name="background">@drawable/spinner_background</item>
+    <item name="dropDownHorizontalOffset">0dip</item>
+    <item name="dropDownWidth">wrap_content</item>
+	 <item name="popupPromptView">@layout/simple_dropdown_hint</item>
   </style>
   
-  <style name="Dialog.PosDialog">
-    <item name="windowActionBar">true</item>
-    <item name="windowNoTitle">false</item>
+  <style name="editTextStyle" parent="@style/Widget.AppCompat.EditText">
+	 <item name="android:textColor">@color/black</item>
+	 <item name="android:background">@color/white</item>
   </style>
-
-  
-  <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
-  <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
   
   <style name="PosButton" parent="Widget.MaterialComponents.Button.TextButton">
-	 
     <item name="android:elevation">5dp</item>
     <item name="cornerRadius">3dp</item>
 	 <item name="android:insetLeft">7dp</item>
 	 <item name="android:insetTop">7dp</item>
 	 <item name="android:insetRight">7dp</item>
 	 <item name="android:insetBottom">7dp</item>
-	 
-  </style>
-    
-  <style name="LoginButton" parent="Widget.MaterialComponents.Button.TextButton">
-	 
-  	 <item name="android:textColor">@color/white</item>
-    <item name="backgroundTint">@color/light_tint</item>
-
-  </style>
-  
-  <style name="SetupButton" parent="PosButton">
-	 
-  	 <item name="android:textColor">@color/white</item>
-    <item name="backgroundTint">@color/light_tint</item>
-    <item name="android:elevation">0dp</item>
-    <item name="cornerRadius">0dp</item>
-	 <item name="android:insetLeft">0dp</item>
-	 <item name="android:insetTop">0dp</item>
-	 <item name="android:insetRight">0dp</item>
-	 <item name="android:insetBottom">0dp</item>
-	 
-  </style>
-  
-  <style name="MenuButton" parent="PosButton">
   </style>
 
+  <style name="LoginButton" parent="Widget.MaterialComponents.Button.TextButton"> 
+  	 <item name="android:textColor">@color/white</item>
+    <item name="backgroundTint">@color/light_tint</item>
+  </style>
+  
   <style name="DialogCancel" parent="PosButton">
-	 
 	 <item name="android:textColor">@color/white</item>
     <item name="backgroundTint">@color/warn</item>
-	 
   </style>
 
   <style name="DialogContinue" parent="PosButton">
-	 
 	 <item name="android:textColor">@color/white</item>
     <item name="backgroundTint">@color/pos_primary</item>
-
   </style>
 
   <style name="DialogSuccess" parent="PosButton">
-	 
 	 <item name="android:textColor">@color/white</item>
     <item name="backgroundTint">@color/pos_success</item>
-
   </style>
-
-  <style name="DialogAction" parent="PosButton">
-	 
-	 <item name="android:textColor">@color/white</item>
-    <item name="backgroundTint">@color/md_gray</item>
-	 
-  </style>
-
-  <style name="DialogWarn" parent="PosButton">
-	 
+  
+  <style name="DialogWarn" parent="PosButton">	 
 	 <item name="android:textColor">@color/white</item>
     <item name="backgroundTint">@color/warn</item>
-	 
-  </style>
-
-  <style name="AppBarIcon" parent="PosButton">
-	 
-	 <item name="android:textColor">@color/white</item>
-    <item name="backgroundTint">@color/transparent</item>
-	 
-  </style>
-  
-  <style name="EmptyButton" parent="PosButton">
-	 <item name="android:elevation">0dp</item>
-
-  </style>
-
-  <style name="editTextStyle" parent="@style/Widget.AppCompat.EditText">
-	 
-	 <item name="android:textColor">@color/black</item>
-	 <item name="android:background">@color/white</item>
-
-  </style>
-
-  <style name="SolidButton" parent="PosButton">
-	 
-  	 <item name="android:textColor">@color/white</item>
-  	 <item name="android:elevation">3dp</item>
-  	 <item name="android:translationZ">3dp</item>
-
-  </style>
-
-  <style name="PosTabButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-
-	 <item name="shapeAppearanceOverlay">@style/TabButtonAppearence</item>
-	 
-  </style>
-  
-  <style name="PosOutlinedButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-
-	 <item name="shapeAppearanceOverlay">@style/TabButtonAppearence</item>
-	 
-  </style>
-
-  <style name="TabButtonAppearence">
-
-    <item name="cornerFamily">rounded</item>
-    <item name="cornerFamilyTopRight">cut</item>
-    <item name="cornerFamilyBottomRight">cut</item>
-    <item name="cornerSizeTopLeft">32dp</item>
-    <item name="cornerSizeBottomLeft">32dp</item>
-  </style>
-  
-  <style name="AppTheme.DatePickerDialog" parent="Theme.MaterialComponents.Light.Dialog">
-    <item name="android:calendarViewStyle">@style/date_picker_style</item>
-  </style>
-
-  <style name="date_picker_style">
-    <item name="android:textSize">32sp</item>
-  </style>
-  
-  <style name="time_picker_style">
-    <item name="android:textSize">32sp</item>
   </style>
   
   <style name="PosControlButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-	 
   	 <item name="android:textColor">@color/white</item>
 	 <item name="android:insetLeft">0dp</item>
     <item name="android:insetRight">0dp</item>
@@ -159,20 +66,13 @@
     <item name="android:insetTop">0dp</item>
     <item name="cornerRadius">5dp</item>
     <item name="strokeColor">@color/black</item>
-
   </style>
 
-  <style name="KeypadButton" parent="Widget.MaterialComponents.Button.OutlinedButton">
-	 
-	 <item name="android:textColor">@color/black</item>
-    <item name="background">@color/transparent</item>
-    <item name="backgroundTint">@color/transparent</item>
-    <item name="strokeColor">@color/black</item>
-    <item name="android:gravity">center</item>
-	 <item name="android:textSize">@dimen/keypad_sm_text</item>
-	 <item name="android:layout_margin">3dp</item>
-	 
-    <item name="cornerRadius">3dp</item>
+  <style name="SetupButton" parent="PosButton">	 
+  	 <item name="android:textColor">@color/white</item>
+    <item name="backgroundTint">@color/light_tint</item>
+    <item name="android:elevation">0dp</item>
+    <item name="cornerRadius">0dp</item>
 	 <item name="android:insetLeft">0dp</item>
 	 <item name="android:insetTop">0dp</item>
 	 <item name="android:insetRight">0dp</item>
