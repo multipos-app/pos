@@ -63,7 +63,7 @@ public class Jar extends HashMap {
 		  
 		  if (jsonString.length () == 0) {
 
-				Logger.stack ("jar, attempt to parse empty string...");
+				Logger.stack ("jar, attempt to parse empty json string...");
 				return new Jar ();
 		  }
 		  
@@ -76,13 +76,13 @@ public class Jar extends HashMap {
 				}
 				else {
 					 
-					 Logger.stack ("parse error... " + json.length () + " " + json);
+					 Logger.stack ("jar parse error... " + json.length () + " " + json);
 					 return null;
 				}
 		  }
 		  catch (JSONException je) {
 				
-				Logger.w ("Error json parse str... " + je.toString () + "\n" + json);
+				Logger.w ("jar json parse str... " + je.toString () + "\n" + json);
 		  }
 		  return this;
 	 }
@@ -149,8 +149,6 @@ public class Jar extends HashMap {
 		  while (it.hasNext ()) {
 				
 		  		Map.Entry pair = (Map.Entry) it.next ();
-
-				// Logger.x ("to string... " + pair);
 				
 				if (pair.getValue () instanceof Jar) {
 	 
