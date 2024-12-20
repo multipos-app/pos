@@ -80,7 +80,8 @@ class PaxTender (): Tender (null) {
 					 .put ("transaction_type", transactionType)
 					 .put ("amount", authString)
 					 .put ("ticket_no", Pos.app.ticket.getInt ("ticket_no"))
-				
+
+				Pos.app.authInProgress = true
 				DeviceManager.payment?.authorize (p, handler)
 		  }
 		  else {
@@ -122,6 +123,8 @@ class PaxTender (): Tender (null) {
 
 		  override fun handleMessage (m: Message) {
 
+				Logger.d ("auth handler... ${m}")
+				
 				var result = m.obj as Jar
 				tender.result = result.getInt ("result")
 				

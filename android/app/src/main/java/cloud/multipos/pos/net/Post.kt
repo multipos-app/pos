@@ -40,14 +40,14 @@ public class Post (val url: String) {
 				
 		  jar
 				.put ("version", Pos.app.getString ("app_version"))
-				.put ("dbname", Pos.app.local.getString ("dbname", ""))
+				.put ("merchant_id", Pos.app.local.getInt ("merchant_id", 0))
 				.put ("business_unit_id", Pos.app.local.getInt ("business_unit_id", 0))
 				.put ("device_id", Pos.app.local.getInt ("id", 0))
 				.put ("access_token", Pos.app.local.getString ("access_token", ""))
 	 }
 	 
 	 fun exec (fn: (p: Jar) -> Unit ) {
-
+		  
 		  var url = Pos.app.getString ("posapi") + url
 		  var sep = ""
 		  
