@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!-- 
-1 menu layout, main_menu
+2 menu layout, main_menu and function_menu 
 -->
 
 <androidx.constraintlayout.widget.ConstraintLayout
@@ -28,7 +28,7 @@
       android:id="@+id/pos_app_bar"
       android:layout_width="match_parent"
       android:layout_height="@dimen/activity_main_app_bar_height"
-      android:background="@color/pos_bg"
+      android:background="@color/transparent"
       android:layout_gravity="fill_horizontal"
       android:orientation="horizontal"
 		app:layout_constraintEnd_toEndOf="parent"
@@ -51,14 +51,12 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="@color/transparent"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:orientation="vertical">
 		
 		<LinearLayout
 			 android:layout_height="0dp"
 			 android:layout_width="match_parent"
-			 android:layout_weight="1.2"
+			 android:layout_weight="1.19"
 			 android:background="@color/transparent"
 			 android:orientation="vertical">
 		  
@@ -66,15 +64,17 @@
 				android:id="@+id/displays"
 				android:layout_width="match_parent"	
 				android:layout_height="match_parent"
+				android:layout_margin="@dimen/ticket_margin"
 				android:background="@color/transparent"/>
 		  
 		</LinearLayout>
 
-		<cloud.multipos.pos.views.PosKeypad
-			 android:id="@+id/pos_keypad"
+		<cloud.multipos.pos.views.PosMenus
+			 custom:menus="keypad"
 			 android:layout_width="match_parent"
 			 android:layout_height="0dp"
-			 android:layout_weight=".925"
+			 android:layout_weight=".924"
+			 android:layout_marginBottom="4dp"
 			 android:background="@color/transparent"/>
 		
     </LinearLayout>
@@ -85,9 +85,10 @@
         android:layout_weight="1.5"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:background="@color/pos_bg">
+        android:background="@color/transparent">
 		
 		<cloud.multipos.pos.views.PosControlHomeLayout
+			 
 			 android:layout_width="match_parent"
 			 android:layout_height="match_parent"
 			 android:orientation="vertical">
@@ -95,9 +96,17 @@
         <cloud.multipos.pos.views.PosMenus
 				custom:menus="main_menu"
 				android:layout_width="match_parent"
-				android:layout_height="match_parent"
+				android:layout_height="0dp"
+				android:layout_weight="2"
 				android:background="@color/transparent"/>
 		  
+        <cloud.multipos.pos.views.PosMenus
+				custom:menus="tender_menu"
+				android:layout_width="match_parent"
+				android:layout_height="0dp"
+ 				android:layout_weight="1.55"
+				android:background="@android:color/transparent"/>
+
 		</cloud.multipos.pos.views.PosControlHomeLayout>
 		
     </cloud.multipos.pos.views.PosControlSwipeLayout>

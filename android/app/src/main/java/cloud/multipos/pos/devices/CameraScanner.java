@@ -57,7 +57,7 @@ import androidx.databinding.DataBindingUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CameraScanner extends LinearLayout {
+public class CameraScanner extends LinearLayout implements Device {
 
     @Nullable
     private ProcessCameraProvider cameraProvider;
@@ -105,8 +105,11 @@ public class CameraScanner extends LinearLayout {
                             cameraProvider = provider;
 									 bindAllCameraUseCases ();
                         });
-	 }
 
+		  deviceStatus = DeviceStatus.OnLine;
+		  Pos.app.devices.add (this);
+	 }
+	 
 	 public void scanListener (ScanListener scanListener) {
 
 		  this.scanListener = scanListener;
@@ -226,4 +229,35 @@ public class CameraScanner extends LinearLayout {
 
 	 private AppCompatActivity activity;
 	 public AppCompatActivity activity () { return activity; }
+
+	 // Device implementation
+	 
+	 private DeviceStatus deviceStatus = DeviceStatus.Unknown;
+	 
+	 @Override
+	 public DeviceClass deviceClass () { return DeviceClass.HandScanner; }
+	 @Override
+	 public DeviceStatus deviceStatus () { return deviceStatus; }
+	 @Override
+	 public int deviceIcon () { return R.string.fa_scanner; }
+	 @Override
+	 public String  deviceName () { return "Camera scanner"; }
+
+	 @Override
+	 public void start (Jar jar) { }
+
+	 // @Override
+	 // public void success (Device device) {
+
+	 // 	  deviceStatus = DeviceStatus.OnLine;
+	 // 	  DeviceManager.scanner = device;
+	 // 	  Pos.app.devices.add (this);
+	 // }
+
+	 // @Override
+	 // public void fail () {
+
+	 // 	  Logger.w ("pos scanner fail...");
+	 // 	  deviceStatus = DeviceStatus.OnLine;
+	 // }
 }

@@ -6,4 +6,4 @@
    android:textColor="#21abcd"
 	android:textSize="@dimen/dialog_md_text"
    android:textStyle="bold|italic"
-   android:padding="@dimen/dialog_md_padding" />
+   android:padding="@dimen/dialog_padding" />

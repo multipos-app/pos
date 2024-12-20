@@ -34,7 +34,7 @@ public class BarcodeGraphic extends Graphic {
     //private static final float TEXT_SIZE = 54.0f;
     private static final float STROKE_WIDTH = 4.0f;
 
-    private static final int BOX_COLOR = Color.GREEN;
+    private static final int BOX_COLOR = Color.YELLOW;
 
     private final Paint rectPaint;
     //private final Paint barcodePaint;

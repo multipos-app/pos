@@ -83,27 +83,25 @@
 		
 		<cloud.multipos.pos.views.PosIconButton
 			 android:id="@+id/inv_up"
- 			 style="@style/KeypadButton"
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight="1"
-			 android:text="@string/fa_plus"
+			 android:text="@string/fa_plus_circle"
 			 android:textColor="@color/black" 
 			 android:textStyle="bold"
 			 android:background="@color/transparent" 
-			 android:textSize="@dimen/inventory_lg_text"/>
+			 android:textSize="@dimen/inventory_xlg_text"/>
 		
 		<cloud.multipos.pos.views.PosIconButton
 			 android:id="@+id/inv_down"
- 			 style="@style/KeypadButton"
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight="1"
-			 android:text="@string/fa_minus"
+			 android:text="@string/fa_minus_circle"
 			 android:textColor="@color/black"
 			 android:textStyle="bold"
 			 android:background="@color/transparent" 
-			 android:textSize="@dimen/inventory_lg_text"/>
+			 android:textSize="@dimen/inventory_xlg_text"/>
 		
 	  </LinearLayout>
   
@@ -118,7 +116,7 @@
 			  android:layout_height="match_parent"
 			  android:layout_width="match_parent"
 			  android:text="@string/inv_send"
-			  android:textSize="@dimen/inventory_md_text"/>
+			  android:textSize="@dimen/inventory_lg_text"/>
 		 
 	  </LinearLayout>
 

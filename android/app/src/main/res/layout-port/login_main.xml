@@ -7,8 +7,7 @@
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
 	 android:gravity="start"
-    android:background="@color/pos_app_bg"
-	 android:padding="@dimen/register_padding">
+    android:background="@color/pos_app_bg">
 	 
   <ImageView
 		android:id="@+id/login_company"
@@ -21,10 +20,11 @@
   
   <cloud.multipos.pos.views.PosLogin
 		android:layout_width="match_parent"
-		android:layout_height="@dimen/login_body_height"
+		android:layout_height="0dp"
 		android:background="@color/pos_app_bg"
 		android:orientation="horizontal"
-  		app:layout_constraintTop_toBottomOf="@+id/login_company"/>
+  		app:layout_constraintTop_toBottomOf="@+id/login_company"
+  		app:layout_constraintBottom_toTopOf="@+id/app_version_text"/>
 	 
   <TextView
 		android:id="@+id/app_version_text"

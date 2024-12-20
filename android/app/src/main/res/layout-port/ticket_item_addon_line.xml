@@ -4,25 +4,33 @@
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content"
 	 android:background="@color/transparent"
-	 android:padding="@dimen/ticket_item_padding"
 	 android:orientation="horizontal">
-
+  
   <cloud.multipos.pos.views.PosText
       android:id="@+id/ticket_item_addon_line_extra"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_weight="2"
+      android:layout_weight=".5"
       android:gravity="end"
       android:text=""
       android:textColor="@color/black"
       android:textSize="@dimen/ticket_item_md_text" />
 
+  <cloud.multipos.pos.views.PosIconText
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:gravity="end"
+      android:layout_marginRight="@dimen/ticket_item_link_icon_margin"
+      android:text="@string/fa_tag"
+		android:textColor="@color/red"
+      android:textSize="@dimen/ticket_item_md_text"/>
+
   <cloud.multipos.pos.views.PosText
       android:id="@+id/ticket_item_addon_line_desc"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_weight="2"
-      android:gravity="end"
+      android:layout_weight="4"
+      android:gravity="start"
       android:text=""
       android:textColor="@color/warn"
       android:textSize="@dimen/ticket_item_md_text" />
@@ -31,7 +39,7 @@
       android:id="@+id/ticket_item_addon_line_amount"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
-      android:layout_weight="1"
+      android:layout_weight="1.5"
       android:gravity="end"
       android:text=""
       android:textColor="@color/warn"

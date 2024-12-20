@@ -1,0 +1,102 @@
+<resources>
+  
+  <!-- register -->
+
+  <dimen name="register_margin_left">20dp</dimen>
+  <dimen name="register_margin_top">10dp</dimen>
+  <dimen name="register_margin">20dp</dimen>
+  <dimen name="register_padding">5dp</dimen>
+  <dimen name="register_height">32dp</dimen>
+  
+  <dimen name="register_lg_text">28sp</dimen>
+  <dimen name="register_md_text">22sp</dimen>
+  <dimen name="register_sm_text">18sp</dimen>
+  
+  <!-- pos init -->
+
+  <dimen name="pos_init_header">150dp</dimen>
+  <dimen name="pos_init_margin">12dp</dimen>
+  <dimen name="pos_init_padding">12dp</dimen>
+  <dimen name="pos_init_arrow_text">19sp</dimen>
+  <dimen name="pos_init_xlg_text">64sp</dimen>
+  <dimen name="pos_init_lg_text">32sp</dimen>
+  <dimen name="pos_init_md_text">18sp</dimen>
+  <dimen name="pos_init_sm_text">12sp</dimen>
+  
+   <!-- login-->
+  
+  <dimen name="login_header_height">100dp</dimen>
+  <dimen name="login_body_height">400dp</dimen>
+  <dimen name="login_margin_top">10dp</dimen>
+  <dimen name="login_margin_bottom">100dp</dimen>
+  <dimen name="login_margin">15dp</dimen>
+  <dimen name="login_input_text">35sp</dimen>
+  <dimen name="login_button_text">35sp</dimen>
+  <dimen name="login_del_text">45sp</dimen>
+  <dimen name="login_button_margin">10dp</dimen>
+  <dimen name="login_button_xlg_text">50dp</dimen>
+ 
+  <!-- handheld -->
+  
+  <dimen name="handheld_controls_height">100dp</dimen>
+  <dimen name="handheld_tab_margin_top">10dp</dimen>
+  <dimen name="handheld_tab_margin">3dp</dimen>
+  <dimen name="handheld_tab_text">20sp</dimen>
+  <dimen name="handheld_scanner">100dp</dimen>
+
+   <!-- ticket header/footer display full -->
+
+  <dimen name="ticket_header_height">60dp</dimen>
+  <dimen name="ticket_footer_height">50dp</dimen>
+
+  <dimen name="ticket_margin">25dp</dimen>
+  <dimen name="ticket_padding">25dp</dimen>
+  
+  <dimen name="ticket_header_xlg_text">42sp</dimen>
+  <dimen name="ticket_header_lg_text">32sp</dimen>
+  <dimen name="ticket_header_md_text">28sp</dimen>
+  <dimen name="ticket_header_sm_text">20sp</dimen>
+
+  <dimen name="ticket_footer_xlg_text">64sp</dimen>
+  <dimen name="ticket_footer_lg_text">42sp</dimen>
+  <dimen name="ticket_footer_md_text">28sp</dimen>
+  <dimen name="ticket_footer_sm_text">20sp</dimen>
+  
+  <dimen name="ticket_footer_padding">3dp</dimen>
+  
+  <!-- ticket -->
+  
+  <dimen name="ticket_item_icon_text">32sp</dimen>
+  <dimen name="ticket_item_xlg_text">32sp</dimen>
+  <dimen name="ticket_item_lg_text">32sp</dimen>
+  <dimen name="ticket_item_md_text">28sp</dimen>
+  <dimen name="ticket_item_sm_text">18sp</dimen>
+  <dimen name="ticket_item_margin">15dp</dimen>
+  <dimen name="ticket_item_padding">5dp</dimen>
+  <dimen name="ticket_item_sm_padding">5dp</dimen>
+  <dimen name="ticket_margin_bottom">5dp</dimen>
+
+  <dimen name="ticket_item_addon_text">18sp</dimen>
+  <dimen name="ticket_item_link_margin">10dp</dimen>
+
+  <!-- menu buttons -->
+
+  <dimen name="menu_button_text">22sp</dimen>
+  <dimen name="menu_button_padding_start">7dp</dimen>
+  <dimen name="menu_button_padding_top">5dp</dimen>
+  
+  <!-- inventory-->
+  
+  <dimen name="inventory_xlg_text">75sp</dimen>
+  <dimen name="inventory_lg_text">32sp</dimen>
+  <dimen name="inventory_md_text">28sp</dimen>
+  <dimen name="inventory_sm_text">20sp</dimen>
+  <dimen name="inventory_button_height">14sp</dimen>
+
+    <!-- item edit-->
+  
+  <dimen name="item_edit_lg_text">42sp</dimen>
+  <dimen name="item_edit_md_text">32sp</dimen>
+  <dimen name="item_edit_sm_text">28sp</dimen>
+  
+</resources>

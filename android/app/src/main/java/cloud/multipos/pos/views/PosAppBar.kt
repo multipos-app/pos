@@ -54,10 +54,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  
 		  if (Pos.app.config.getBoolean ("customers")) {
 				
-				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar", "layout"), this)
-				rootLayout = findViewById (R.id.app_bar_root) as LinearLayout
-				
-				// customer
+				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar_customer", "layout"), this)
 		  
 				customerLayout = findViewById (R.id.app_bar_customer_layout) as LinearLayout?
 				customerName = findViewById (R.id.app_bar_customer_name) as PosText?
@@ -79,6 +76,8 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 
 				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar", "layout"), this)
 		  }
+		  
+		  rootLayout = findViewById (R.id.app_bar_root) as LinearLayout
 		  
 		  // app icon
 		  
@@ -172,7 +171,11 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  val tray = findViewById (Pos.app.resourceID ("app_bar_tray", "id")) as LinearLayout
 		  
 		  tray.removeAllViews ();
-		  tray.addView (themeIcon, 0)
+
+		  if (Pos.app.config.getBoolean ("themed")) {
+				
+				tray.addView (themeIcon, 0)
+		  }
 		  
 		  for (device in Pos.app.devices) {
 				

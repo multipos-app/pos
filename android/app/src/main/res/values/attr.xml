@@ -53,6 +53,10 @@
 	 <attr name="button_padding_end" format="integer"/>
 	 <attr name="button_padding_bottom" format="integer"/>
 
- </declare-styleable>
+	 <attr name="dropDownHorizontalOffset" format="string"/>
+	 <attr name="dropDownWidth" format="string"/>
+	 <attr name="popupPromptView" format="string"/>
+
+  </declare-styleable>
 
 </resources>

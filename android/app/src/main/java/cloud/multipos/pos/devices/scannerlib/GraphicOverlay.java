@@ -16,6 +16,8 @@
  
 package cloud.multipos.pos.devices.scannerlib;
 
+import cloud.multipos.pos.R;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
@@ -144,6 +146,8 @@ public class GraphicOverlay extends View {
     addOnLayoutChangeListener(
             (view, left, top, right, bottom, oldLeft, oldTop, oldRight, oldBottom) ->
                     needUpdateTransformation = true);
+	 
+	 // setBackgroundResource (R.drawable.scanner_mask);  // put a cricle around it
   }
 
   /**

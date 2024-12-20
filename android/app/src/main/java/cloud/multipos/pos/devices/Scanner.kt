@@ -23,7 +23,7 @@ import android.os.Build
 
 abstract class Scanner (): Device, DeviceCallback {
 	 
-	 var deviceStatus = DeviceStatus.Unknown
+	public var deviceStatus = DeviceStatus.Unknown
 	 
 	 init { }
 	 

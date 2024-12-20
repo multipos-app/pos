@@ -1,46 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:custom="http://schemas.android.com/apk/res-auto"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
+	 android:orientation="vertical"
     android:background="@color/pos_app_bg">
 
-  <LinearLayout
+  <ImageView
+      android:id="@+id/login_company"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:gravity="center_horizontal|bottom"
+      android:src="@drawable/app_logo"/>
+  
+  <cloud.multipos.pos.views.RegisterLayout
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:background="@color/pos_app_bg"
-		android:gravity="center_horizontal"
-		android:orientation="vertical"
-		android:padding="@dimen/register_padding">
-
-	 <ImageView
-        android:id="@+id/login_company"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_horizontal|bottom"
-        android:src="@drawable/app_logo"/>
-	 
-	 <cloud.multipos.pos.views.RegisterLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="0dp"
-        android:layout_weight="3"
-		  android:background="@color/pos_app_bg"/>
-	 
-	 <cloud.multipos.pos.views.PosText
-        android:id="@+id/register_version"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight=".5"
-        android:gravity="right|top"
-        android:text="@string/app_version"
-        android:textColor="@color/white"
-        android:textSize="@dimen/app_version_text"/>
-	 
-  </LinearLayout>
-
+		android:layout_height="0dp"
+      android:layout_weight="3"
+		android:background="@color/pos_app_bg"/>
+  
+  <cloud.multipos.pos.views.PosText
+      android:id="@+id/register_version"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight=".5"
+      android:gravity="right|top"
+      android:text="@string/app_version"
+      android:textColor="@color/white"
+      android:textSize="@dimen/app_version_text"/>
+  
   <LinearLayout
       android:id="@+id/register_overlay"
 		android:layout_width="match_parent"
@@ -48,4 +39,4 @@
 		android:background="@color/dark_tint"
 		android:visibility="gone"/>
   
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

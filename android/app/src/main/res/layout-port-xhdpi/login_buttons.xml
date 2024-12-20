@@ -7,8 +7,6 @@
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
 	 android:background="@color/transparent"
-	 android:padding="@dimen/login_padding"
-	 android:layout_marginBottom="@dimen/login_margin_bottom"
 	 android:orientation="vertical">
   
   <cloud.multipos.pos.views.PosText
@@ -175,7 +173,7 @@
         android:background="@color/transparent"
 		  android:textColor="@color/white"
         android:text="@string/fa_del"
-        android:textSize="@dimen/login_button_text"/>
+        android:textSize="@dimen/login_button_lg_text"/>
 	 
   </LinearLayout>
   
@@ -189,13 +187,26 @@
 		android:clickable="false"
 		android:orientation="vertical">
 	 
-	 <ProgressBar
-        android:id="@+id/progress_bar"
+    <cloud.multipos.pos.views.PosIconText
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+		  android:text="@string/fa_clock"
+		  android:textColor="@color/white"
         android:layout_centerHorizontal="true"
+        android:textSize="@dimen/login_button_xlg_text"
  		  android:gravity="center_horizontal|center_vertical"/>
 	 
-  </LinearLayout>
-
+    <cloud.multipos.pos.views.PosText
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+		  android:text="@string/please_wait"
+		  android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/login_button_xlg_text"
+ 		  android:gravity="center_horizontal|center_vertical"/>
+	 
+	 </LinearLayout>
+	 
 </LinearLayout>

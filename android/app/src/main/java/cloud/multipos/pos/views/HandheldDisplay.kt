@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2023 multiPOS, LLC
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -34,6 +34,7 @@ import android.widget.TextView
 import com.google.android.material.button.MaterialButton
 import androidx.core.content.ContextCompat
 import java.util.Date
+import android.graphics.Color
 
 class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (context, attrs), ScanListener {
 	 
@@ -42,10 +43,10 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 	 var editTab: MaterialButton
 	 var posTab: MaterialButton
 	 var layout: LinearLayout
-	 var itemDesc: TextView
-	 var sku: TextView
-	 var posTabListeners = mutableListOf <PosTabListener> ()
+	 
 	 var tab = 0
+	 var posTabListeners = mutableListOf <PosTabListener> ()
+	 var tabs = mutableListOf <MaterialButton> ()
 	 var lastScan = Date ().getTime ()
 
 	 init {
@@ -61,62 +62,63 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 		  scanner = findViewById (R.id.camera_scanner) as CameraScanner
 		  scanner.scanListener (this)
 
-		  sku = findViewById (R.id.scan_sku) as TextView
-		  itemDesc = findViewById (R.id.scan_desc) as TextView
-
 		  layout = findViewById (R.id.handheld_tabs) as LinearLayout
 
 		  posTab = findViewById (R.id.pos_tab) as MaterialButton
 		  invTab = findViewById (R.id.inv_tab) as MaterialButton
 		  editTab = findViewById (R.id.item_edit_tab) as MaterialButton
 
-		  posTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.white));				
-		  invTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));				
-		  editTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));				
+		  tabs.add (posTab)
+		  tabs.add (invTab)
+		  tabs.add (editTab)
 
 		  posTab.setOnClickListener {
 
 				clearScan ()
-				tab = 0
-				layout.removeAllViews ()
-				layout.addView (posTabListeners.get (tab).view ())
-				invTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));
-				editTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));
-				posTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.white));
+				toggle (0)
 		  }
 
 		  invTab.setOnClickListener {
 
 				clearScan ()
-				tab = 1
-				layout.removeAllViews ()
-				layout.addView (posTabListeners.get (tab).view ())
-				invTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.white));				
-				editTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));				
-				posTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));				
+				toggle (1)
 		  }
 
 		  editTab.setOnClickListener {
 
 				clearScan ()
-				tab = 2
-				layout.removeAllViews ()
-				layout.addView (posTabListeners.get (tab).view ())
-				invTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));
-				editTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.white));
-				posTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));
+				toggle (2)
 		  }
 
 		  posTabListeners.add (PosTabDisplay (context, attrs))
 		  posTabListeners.add (InvTabDisplay (context, attrs, this))
 		  posTabListeners.add (ItemTabDisplay (context, attrs))
 		  
-		  // start with inventory
+		  // start with POS
 		  
-		  layout.removeAllViews ()
-		  layout.addView (posTabListeners.get (0).view ())
+		  toggle (0)
 	 }
 
+	 fun toggle (tab: Int) {
+
+		  this.tab = tab
+		  
+		  // layout.removeAllViews ()
+
+		  for (i in 0..(tabs.size - 1)) {
+
+				tabs [i].setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.dk_gray))
+				tabs [i].setTextColor (Color.WHITE)
+
+		  }
+		  
+		  tabs [tab].setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.white))
+		  tabs [tab].setTextColor (Color.BLACK)
+		  
+		  layout.removeAllViews ()
+		  layout.addView (posTabListeners.get (tab).view ())
+	 }
+	 
 	 /**
 	  *
 	  * Scan listener
@@ -125,13 +127,11 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 	 
 	 override fun onScan (scan: String) {
 
-		  sku.text = scan
-
 		  var currTime = Date ().getTime ()
 
 		  if (((currTime / 1000) - (lastScan / 1000)) < 2) {
 
-				return;
+				return
 		  }
 		  
 		  lastScan = Date ().getTime ()
@@ -140,7 +140,7 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 		  
 		  if (im.exists ()) {
 		  		
-				itemDesc.text = im.item.getString ("item_desc")
+				// itemDesc.text = im.item.getString ("item_desc")
 		  }
 		  else {
 
@@ -151,9 +151,9 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 				// tab = 1
 				// layout.removeAllViews ()
 				// layout.addView (posTabListeners.get (tab).view ())
-				// invTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));
-				// editTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.white));
-				// posTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.lt_gray));
+				// invTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.dk_gray))
+				// editTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.white))
+				// posTab.setBackgroundTintList (ContextCompat.getColorStateList (Pos.app.activity, R.color.dk_gray))
 		  }
 		  
 		  posTabListeners.get (tab).onScan (scan)
@@ -162,8 +162,6 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 
 	 fun clearScan () {
 
-		  sku.text = ""
-		  itemDesc.text = ""
  		  scanner.clear ()
 	 }
 }

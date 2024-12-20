@@ -211,7 +211,7 @@
 	 
 		<cloud.multipos.pos.views.PosIconButton
 			 android:id="@+id/count_up"
- 			 style="@style/KeypadButton"
+ 			 style="@style/PosControlButton"
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight="1"
@@ -223,7 +223,7 @@
 		
 		<cloud.multipos.pos.views.PosIconButton
 			 android:id="@+id/count_down"
- 			 style="@style/KeypadButton"
+ 			 style="@style/PosControlButton"
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight="1"
@@ -235,7 +235,7 @@
 			 
 		<cloud.multipos.pos.views.PosIconButton
 			 android:id="@+id/inv_upload"
- 			 style="@style/KeypadButton"
+ 			 style="@style/PosControlButton"
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight="1"

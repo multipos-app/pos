@@ -26,10 +26,9 @@
   <dimen name="register_margin_top">50dp</dimen>
   <dimen name="register_margin">20dp</dimen>
   <dimen name="register_padding">25dp</dimen>
-  <dimen name="register_text">24sp</dimen>
   <dimen name="register_height">32dp</dimen>
   
-  <dimen name="register_lg_text">48sp</dimen>
+  <dimen name="register_lg_text">42sp</dimen>
   <dimen name="register_md_text">32sp</dimen>
   <dimen name="register_sm_text">12sp</dimen>
   
@@ -70,20 +69,20 @@
   <dimen name="login_body_height">300dp</dimen>
   <dimen name="login_margin_top">50dp</dimen>
   <dimen name="login_margin">25dp</dimen>
-  <dimen name="login_row_height">100dp</dimen>
   <dimen name="login_input_text">32sp</dimen>
   <dimen name="login_button_lg_text">42sp</dimen>
   <dimen name="login_button_xlg_text">62sp</dimen>
   <dimen name="login_button_text">32sp</dimen>
   <dimen name="login_del_text">32sp</dimen>
   <dimen name="login_button_margin">10dp</dimen>
+  <dimen name="login_padding">25dp</dimen>
   <dimen name="login_spinner_padding">250dp</dimen>
   
   <!-- inventory-->
   
-  <dimen name="inventory_lg_text">28sp</dimen>
-  <dimen name="inventory_md_text">20sp</dimen>
-  <dimen name="inventory_sm_text">14sp</dimen>
+  <dimen name="inventory_lg_text">42sp</dimen>
+  <dimen name="inventory_md_text">26sp</dimen>
+  <dimen name="inventory_sm_text">20sp</dimen>
   <dimen name="inventory_button_height">14sp</dimen>
 
   <!-- dialogs -->
@@ -154,6 +153,7 @@
 
   <dimen name="ticket_item_addon_text">18sp</dimen>
   <dimen name="ticket_item_link_margin">10dp</dimen>
+  <dimen name="ticket_item_link_icon_margin">10dp</dimen>
 
   <dimen name="keypad_lg_text">28sp</dimen>
   <dimen name="keypad_md_text">20sp</dimen>
@@ -208,5 +208,13 @@
 
   <dimen name="tables_dialog_width">450dp</dimen>
   <dimen name="tables_button_width">420dp</dimen>
+  
+  <!-- handheld -->
+  
+  <dimen name="handheld_controls_height">200dp</dimen>
+  <dimen name="handheld_tab_margin_top">100dp</dimen>
+  <dimen name="handheld_tab_margin">12dp</dimen>
+  <dimen name="handheld_tab_text">24sp</dimen>
+  <dimen name="handheld_scanner">200dp</dimen>
 
 </resources>

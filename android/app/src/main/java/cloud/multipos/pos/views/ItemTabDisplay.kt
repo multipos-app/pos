@@ -43,7 +43,7 @@ import cloud.multipos.pos.databinding.ItemTabDisplayBinding
 
 data class DropDown (val list: MutableList <Jar>, val spinner: Spinner)
 
-class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context, attrs),  PosTabListener {
+class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context, attrs),  HandheldTab, PosTabListener {
 	 
 	 var departments: MutableList <Jar>
 	 var departmentsSpinner: Spinner
@@ -56,8 +56,8 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 	 
 	 var sku: EditText
 	 var itemDesc: EditText
-	 var price: EditText
-	 var cost: EditText
+	 var price: PosCurrencyText
+	 var cost: PosCurrencyText
 
 	 var item = Jar ()
 	 
@@ -109,30 +109,32 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 		  // 					suppliers,
 		  // 					suppliersSpinner)
 		  		  
-		  price = findViewById (R.id.add_item_price) as EditText
-		  cost = findViewById (R.id.add_item_cost) as EditText
+		  price = findViewById (R.id.add_item_price) as PosCurrencyText
+		  cost = findViewById (R.id.add_item_cost) as PosCurrencyText
 
 		  // packageQuantity = findViewById (R.id.add_item_package_quantity) as EditText
 		  
-		  val reset = findViewById (R.id.add_item_reset) as Button
-		  reset.setOnClickListener {
+		  val clear = findViewById (R.id.add_item_clear) as Button
+		  clear.setOnClickListener {
 
-				reset ()				
+				clear ()				
 		  }
 		  
 		  val complete = findViewById (R.id.add_item_complete) as Button
 		  complete.setOnClickListener {
 
 				val p = Jar ()
-					 .put ("sku", sku.getText ().toString ())
-					 .put ("item_desc", itemDesc.getText ().toString ().toUpperCase ().replace ("'", "`"))
-					 .put ("price", price.getText ().toString ())
-					 .put ("cost", cost.getText ().toString ())
-					 // .put ("package_quantity", packageQuantity.getText ().toString ())
-					 .put ("department_id", departments.get (departmentsSpinner.getSelectedItemPosition ()).getInt ("id"))
-					 .put ("deposit_item_id", deposits.get (depositsSpinner.getSelectedItemPosition ()).getInt ("id"))
-					 .put ("tax_group_id", taxes.get (taxesSpinner.getSelectedItemPosition ()).getInt ("tax_group_id"))
-					 // .put ("supplier_id", suppliers.get (suppliersSpinner.getSelectedItemPosition ()).getInt ("id"))
+					 .put ("item", Jar ()
+								  .put ("sku", sku.getText ().toString ())
+								  .put ("item_desc", itemDesc.getText ().toString ().toUpperCase ().replace ("'", "`"))
+								  .put ("price", price.getText ().toString ())
+								  .put ("cost", cost.getText ().toString ())
+							 // .put ("package_quantity", packageQuantity.getText ().toString ())
+								  .put ("department_id", departments.get (departmentsSpinner.getSelectedItemPosition ()).getInt ("id"))
+								  .put ("deposit_item_id", deposits.get (depositsSpinner.getSelectedItemPosition ()).getInt ("id"))
+								  .put ("tax_group_id", taxes.get (taxesSpinner.getSelectedItemPosition ()).getInt ("tax_group_id"))
+							 // .put ("supplier_id", suppliers.get (suppliersSpinner.getSelectedItemPosition ()).getInt ("id"))
+							 )
 
 				if (item.has ("id")) {
 
@@ -142,17 +144,18 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 						  .put ("inv_item_id", item.get ("inv_items").getInt ("id"))
 				}
 				
-				Post ("pos/pos-item-update")
+				Post ("pos/item-update")
 					 .add (p)
 					 .exec (fun (result: Jar): Unit {
-																		
+
+									Logger.d ("item update status... ${result}")
 									if (result.getInt ("status") == 0) {
 
-										 reset ()
+										 // clear ()
 									}
 									else {
 
-										 reset ()
+										 // clear ()
 									}
 					 })
 				}
@@ -164,48 +167,21 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 
 		  sku.setText (scan)
 		  val item = Item (Jar ().put ("sku", scan))
-		  
-		  itemDesc.setText (item.getString ("item_desc"))
-		  price.setText (item.getDouble ("price").currency ())
-		  cost.setText (item.getDouble ("cost").currency ())
-		  
-		  // packageQuantity.setText (item.get ("inv_items").getInt ("package_quantity").toString ())
-		  
-		  position (taxes, item.getInt ("tax_group_id"), taxesSpinner, "tax_group_id")
-		  position (departments, item.getInt ("department_id"), departmentsSpinner, "id")
 
-		  // position (suppliers, item.get ("item_prices").getInt ("supplier_id"), suppliersSpinner, "id")
+		  if (item.exists ()) {
+
+				itemDesc.setText (item.getString ("item_desc"))
+				price.setText (item.getDouble ("price").currency ())
+				cost.setText (item.getDouble ("cost").currency ())
+		  		  
+				position (taxes, item.getInt ("tax_group_id"), taxesSpinner, "tax_group_id")
+				position (departments, item.getInt ("department_id"), departmentsSpinner, "id")
 		  
-		  // if (item.has ("item_links") && (item.get ("item_links").size > 0)) {
+				if (item.has ("item_links") && (item.get ("item_links").size > 0)) {
 				
-		  // 		position (deposits, item.get ("item_links").getInt ("id"), depositsSpinner, "id")
-		  // }
-
-
-																				 // Cloud ()
-		  // 		.post (listOf ("pos", "edit-item", scan), fun (result: Jar): Unit {
-							  
-		  // 					  if (result.getInt ("status") == 0) {  // poplate fields
-
-		  // 																		 item = result.get ("item")
-
-		  // 																		 Logger.x ("item... " + item)
-																				 
-		  // 																		 itemDesc.setText (item.getString ("item_desc"))
-		  // 																		 price.setText (item.get ("item_prices").getDouble ("price").currency ())
-		  // 																		 cost.setText (item.get ("item_prices").getDouble ("cost").currency ())
-		  // 																		 packageQuantity.setText (item.get ("inv_items").getInt ("package_quantity").toString ())
-																				 
-		  // 																		 position (departments, item.getInt ("department_id"), departmentsSpinner, "id")
-		  // 																		 position (suppliers, item.get ("item_prices").getInt ("supplier_id"), suppliersSpinner, "id")
-		  // 																		 position (taxes, item.get ("item_prices").getInt ("tax_group_id"), taxesSpinner, "tax_group_id")
-																				 
-		  // 																		 if (item.has ("item_links") && (item.get ("item_links").size > 0)) {
-																					  
-		  // 																			  position (deposits, item.get ("item_links").getInt ("id"), depositsSpinner, "id")
-		  // 																		 }
-		  // 					  }
-		  // 		})
+					 position (deposits, item.get ("item_links").getInt ("id"), depositsSpinner, "id")
+				}
+		  }
 	 }
 
 	 fun position (list: MutableList <Jar>, id: Int, spinner: Spinner?, field: String) {
@@ -263,12 +239,12 @@ class ItemTabDisplay (context: Context, attrs: AttributeSet): PosLayout (context
 				}
 	 }
 
-	 fun reset () {
+	 override fun clear () {
 		  
 	 	  sku.setText ("")
 		  itemDesc.setText ("")
-		  price.setText ("")
-		  cost.setText ("")		  
+		  price.clear ()
+		  cost.clear ()
 		  departmentsSpinner.setSelection (0)
 		  depositsSpinner.setSelection (0)
 		  taxesSpinner.setSelection (0)
