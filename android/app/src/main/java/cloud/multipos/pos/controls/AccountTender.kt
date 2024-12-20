@@ -37,5 +37,4 @@ class AccountTender (): Tender (null) {
 	 override fun tenderType (): String { return tenderType }
 	 override fun openDrawer (): Boolean { return true }
 	 override fun printReceipt (): Boolean { return jar ().getBoolean ("print_receipt") }
-
 }
