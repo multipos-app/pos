@@ -93,6 +93,7 @@ class Pos (): AppCompatActivity () {
 	 @JvmField val devices = mutableListOf <Device> ()
 
 	 var receiptBuilder = ReceiptBuilder ()
+	 var authInProgress = false;
 
 	 @JvmField var controls = Stack <Control> ()
 	 @JvmField var serverLog: Boolean = false
@@ -158,19 +159,29 @@ class Pos (): AppCompatActivity () {
 	 }
 	 
     override fun onResume () {
-		  
+
+		  Logger.d ("pos resume... ${authInProgress}");
         super.onResume ()
 
-		  if (!db.ready ()) {
-
-				db.open ()
+		  if (authInProgress) {
+				
+				authInProgress = false
+				return;
 		  }
-		  
-		  // start a download thread
-		  
-		  BackOffice.start ()
 
-		  start ()  // start the app
+		  else {
+				
+				if (!db.ready ()) {
+
+					 db.open ()
+				}
+		  
+				// start a download thread
+		  
+				BackOffice.start ()
+
+				start ()  // start the app
+		  }
 	 }
 	 
     override fun onRestart () {
@@ -443,30 +454,6 @@ class Pos (): AppCompatActivity () {
 		  m.what = command
 		  m.obj = obj
 		  handler.sendMessage (m)
-	 }
-
-	 override fun dispatchKeyEvent (event: KeyEvent): Boolean {
-
-		  if (event.action == KeyEvent.ACTION_UP) {
-
-				// Logger.d ("key event... " + event)
-
-				DeviceManager.scanner?.input (event)
-				
-				for (kl in keyboardListeners) {
-					 
-					 if (event.keyCode == KeyEvent.KEYCODE_DEL) {
-						  
-						  kl.onBackspace ()
-					 }
-					 else {
-						  
-						  kl.onNum (event.getNumber ())
-					 }
-				}
-		  }
-		  
-        return false
 	 }
 	 
 	 fun copyAssets (context: Context) {
