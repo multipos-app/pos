@@ -66,7 +66,9 @@ class Pos (): AppCompatActivity () {
 	 
 	 @JvmField var db: DB
 	 
-	 lateinit var rootView: View
+	 lateinit var rootView: RootView
+	 lateinit var keyboardView: KeyboardView
+	 
 	 lateinit var config: Config
 	 lateinit var bu: Jar
 	 lateinit var local: Local
@@ -89,7 +91,7 @@ class Pos (): AppCompatActivity () {
 
 	 val inventoryList = mutableListOf <Device> ()
 	 val posMenus = mutableListOf <PosMenus> ()
-	 val keyboardListeners = mutableListOf <KeyboardListener> ()
+
 	 @JvmField val devices = mutableListOf <Device> ()
 
 	 var receiptBuilder = ReceiptBuilder ()
@@ -221,6 +223,21 @@ class Pos (): AppCompatActivity () {
 		  return this::controlLayout.isInitialized
 	 }
 	 
+	 fun configInit (): Boolean {
+
+		  return this::config.isInitialized
+	 }
+	 
+	 override fun dispatchKeyEvent (event: KeyEvent): Boolean {
+		  		  
+       if (event.action == KeyEvent.ACTION_UP) {
+
+            DeviceManager.scanner?.input (event)
+        }
+
+        return true
+    }
+
 	 fun start () {
 		  		  		  
 		  if (config.ready ()) {
@@ -267,6 +284,7 @@ class Pos (): AppCompatActivity () {
 				}
 				
 				ticket ()  // get a ticket
+				
 				setContentView (R.layout.login_main)
 
 				BackOffice.download ()
@@ -351,8 +369,13 @@ class Pos (): AppCompatActivity () {
 				}
 		  }
 
-		  Logger.d ("set layout... " + config.getString ("root_layout") + " " + buID ())	  
-        setContentView (resourceID (config.getString ("root_layout"), "layout"))
+		  Logger.d ("set layout... " + config.getString ("root_layout") + " " + buID ())
+		  
+        setContentView (R.layout.root_layout)
+		  
+		  rootView = findViewById (R.id.root_layout_container) as RootView
+		  keyboardView = findViewById (R.id.keyboard_container) as KeyboardView
+
 		  Themed.start ()
 		  PosDisplays.update ()
 		  loggedIn = true
@@ -418,14 +441,7 @@ class Pos (): AppCompatActivity () {
 		  
 		  return resourceID
 	 }
-	 
-	 fun lowerKeyboard (view: View) {
-
-        val imm = this.getSystemService (Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        imm.hideSoftInputFromWindow (view.getWindowToken (), 0)
-    }
-	 
-    fun rootView (): View { return rootView }
+	 	 
 	 fun activity (): Activity { return activity }
 	 fun db (): DB { return db }
 	 
@@ -500,6 +516,7 @@ class Pos (): AppCompatActivity () {
 					 
 					 Logger.w ("Permissions not granted by the user...")
 					 finish ()
+					 System.exit (1)
 				}
 		  }
 	 }
@@ -512,13 +529,14 @@ class Pos (): AppCompatActivity () {
 
 	 private fun allPermissionsGranted (): Boolean {
 		  
-		  for (permission in REQUIRED_PERMISSIONS) {
+		  // for (permission in REQUIRED_PERMISSIONS) {
 				
-				if (ContextCompat.checkSelfPermission (this, permission) != PackageManager.PERMISSION_GRANTED) {
+		  // 		if (ContextCompat.checkSelfPermission (this, permission) != PackageManager.PERMISSION_GRANTED) {
 					 
-					 return false
-				}
-		  }
+		  // 			 return false
+		  // 		}
+		  // }
+
 		  return true
 	 }
 
