@@ -29,7 +29,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
-        android:requestLegacyExternalStorage="true">
+        android:requestLegacyExternalStorage="true"
+		  android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
 
         <activity
             android:name=".Pos"
