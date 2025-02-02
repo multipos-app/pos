@@ -91,6 +91,7 @@ dependencies {
 	 implementation 'com.android.volley:volley:1.2.1'
 	 kapt 'frankiesardo:icepick-processor:3.2.0'
 	 kapt 'com.google.auto.service:auto-service:1.0-rc2'
+	 implementation 'androidx.core:core-ktx:latest_version'
 
 	 // logger for vim
 				  

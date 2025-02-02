@@ -32,7 +32,8 @@ import android.view.KeyEvent
 
 class KeyboardScanner (): Scanner ()  {
 
-	 var chars = mutableListOf <Char> ()
+	 var sb = StringBuffer ()
+	 
 	 override fun deviceName (): String  { return "Keyboard scanner" }
 
 	 init {
@@ -48,15 +49,16 @@ class KeyboardScanner (): Scanner ()  {
 		  
         when (keyCode) {
 
-            KeyEvent.KEYCODE_TAB, KeyEvent.KEYCODE_ENTER -> {
+            KeyEvent.KEYCODE_TAB,
+				KeyEvent.KEYCODE_ENTER -> {
 								  
-		  			 Pos.app.sendMessage (PosConst.SCAN, String (chars.toCharArray ()))
-					 chars.clear ()
+		  			 Pos.app.sendMessage (PosConst.SCAN, sb.toString ())
+					 sb.setLength (0)
 				}
 
 				else -> {
 
-					 chars.add (event.getUnicodeChar ().toChar ());
+					 sb.append (event.getNumber ())
 				}
 		  }
 	 }

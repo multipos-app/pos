@@ -61,7 +61,7 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 		  }
 		  
 		  Pos.app.input.clear ()
-		  Pos.app.controlLayout.swipeRight ()
+		  Pos.app.controlLayout.swipeLeft ()
 	 }
 	 
 	 override fun update () {

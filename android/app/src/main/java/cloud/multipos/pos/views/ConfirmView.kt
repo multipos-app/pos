@@ -27,6 +27,13 @@ import android.graphics.Color
 
 class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl): DialogView (Pos.app.getString ("confirm")) {
 
+	 lateinit var extras: Jar
+	 
+    constructor (confirmText: String, confirmControl: ConfirmControl, extras: Jar) : this (confirmText, confirmControl) {
+
+		  this.extras = extras
+	 }
+
 	 init {
 		  
 		  Pos.app.inflater.inflate (R.layout.confirm_layout, dialogLayout)
@@ -40,8 +47,15 @@ class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl):
 
 	 override fun accept () {
 
+		  var jar = Jar ()
+		  
+		  if (this::extras.isInitialized) {
+
+				jar = extras
+		  }
+		  
 		  confirmControl.confirmed (true)
-		  confirmControl.action (Jar ())
+		  confirmControl.action (jar)
 		  Pos.app.controlLayout.pop (this)
 	 }
 }

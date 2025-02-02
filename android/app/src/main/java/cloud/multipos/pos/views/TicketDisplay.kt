@@ -109,7 +109,8 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 	 }
 	 
 	 override fun clear () {
-		  
+
+		  clearSelect ()
 		  updateList ()
 	 }
 
@@ -130,7 +131,14 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 	 
 	 override fun swipeLeft () {
 
-		  Control.factory ("Suspend").controlAction (Jar ())  // suspend current ticket
+		  if (Pos.app.ticket.hasItems ()) {
+				
+				Control.factory ("Suspend").controlAction (Jar ())  // suspend current ticket
+		  }
+		  else {
+
+				clear ()
+		  }
 	 }
 	 
 	 override fun swipeRight () {

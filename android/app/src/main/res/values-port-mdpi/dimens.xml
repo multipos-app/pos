@@ -30,9 +30,9 @@
   <dimen name="login_margin_top">10dp</dimen>
   <dimen name="login_margin_bottom">100dp</dimen>
   <dimen name="login_margin">15dp</dimen>
-  <dimen name="login_input_text">35sp</dimen>
-  <dimen name="login_button_text">35sp</dimen>
-  <dimen name="login_del_text">45sp</dimen>
+  <dimen name="login_input_text">45sp</dimen>
+  <dimen name="login_button_text">45sp</dimen>
+  <dimen name="login_del_text">55sp</dimen>
   <dimen name="login_button_margin">10dp</dimen>
   <dimen name="login_button_xlg_text">50dp</dimen>
  
@@ -68,9 +68,9 @@
   
   <dimen name="ticket_item_icon_text">32sp</dimen>
   <dimen name="ticket_item_xlg_text">32sp</dimen>
-  <dimen name="ticket_item_lg_text">32sp</dimen>
-  <dimen name="ticket_item_md_text">28sp</dimen>
-  <dimen name="ticket_item_sm_text">18sp</dimen>
+  <dimen name="ticket_item_lg_text">28sp</dimen>
+  <dimen name="ticket_item_md_text">24sp</dimen>
+  <dimen name="ticket_item_sm_text">20sp</dimen>
   <dimen name="ticket_item_margin">15dp</dimen>
   <dimen name="ticket_item_padding">5dp</dimen>
   <dimen name="ticket_item_sm_padding">5dp</dimen>
@@ -79,9 +79,26 @@
   <dimen name="ticket_item_addon_text">18sp</dimen>
   <dimen name="ticket_item_link_margin">10dp</dimen>
 
+ <!-- dialogs -->
+  
+  <dimen name="dialog_header_height">100dp</dimen>
+  <dimen name="dialog_footer_height">200dp</dimen>
+  <dimen name="dialog_margin">50dp</dimen>
+  <dimen name="dialog_sm_margin">5dp</dimen>
+  <dimen name="dialog_padding">15dp</dimen>
+  <dimen name="dialog_sm_padding">5dp</dimen>
+  <dimen name="dialog_sm_text">18sp</dimen>
+  <dimen name="dialog_md_text">32sp</dimen>
+  <dimen name="dialog_lg_text">42sp</dimen>
+  <dimen name="dialog_xlg_text">52sp</dimen>
+  <dimen name="dialog_search_height">75dp</dimen>
+  <dimen name="dialog_select_line_height">80dp</dimen>
+  <dimen name="dialog_report_text">18sp</dimen>
+  <dimen name="dialog_dropdown_height">300dp</dimen>
+
   <!-- menu buttons -->
 
-  <dimen name="menu_button_text">22sp</dimen>
+  <dimen name="menu_button_text">28sp</dimen>
   <dimen name="menu_button_padding_start">7dp</dimen>
   <dimen name="menu_button_padding_top">5dp</dimen>
   

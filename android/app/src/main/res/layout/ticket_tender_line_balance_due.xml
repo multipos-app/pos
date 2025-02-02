@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-	 
 	 xmlns:android="http://schemas.android.com/apk/res/android"
+ 	 android:clickable="false"
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content"
 	 android:background="@color/transparent"
@@ -16,6 +16,7 @@
       android:layout_weight=".5"/>
 
 	 <cloud.multipos.pos.views.PosText
+ 		android:clickable="false"
       android:id="@+id/ticket_tender_line"
       android:layout_width="0dp"
       android:layout_height="wrap_content"

@@ -69,9 +69,7 @@ class PosInit (context: Context, attrs: AttributeSet): PosLayout (context, attrs
 						  
 						  Pos.app.local.put ("business_unit_id", buID)
 						  Pos.app.local.put ("pos_config_id", configID)
- 
-						  Logger.d ("pos init... ${bu} ${buID} ${configID}")
-						  
+ 						  
 						  val init = Jar ()
 								.put ("merchant_id", Pos.app.posInit.getInt ("merchant_id"))
 								.put ("business_unit_id", buID)
@@ -92,9 +90,7 @@ class PosInit (context: Context, attrs: AttributeSet): PosLayout (context, attrs
 						  Post ("pos/init")
 								.add (init)
 								.exec (fun (result: Jar): Unit {
-											  
-											  Logger.x ("pos init... " + result)
-											  
+											  											  
 											  if (result.getInt ("status") == 0) {
 
 													Pos.app.local.put ("id", result.get ("device").getInt ("id"))

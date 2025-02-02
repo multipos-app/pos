@@ -18,12 +18,14 @@ package cloud.multipos.pos.views
 
 import cloud.multipos.pos.*;
 import cloud.multipos.pos.util.*;
+import cloud.multipos.pos.util.extensions.*;
 import cloud.multipos.pos.controls.*;
 import cloud.multipos.pos.db.*;
 import cloud.multipos.pos.models.Customer;
 
 import android.app.Dialog
 import android.content.Context
+import android.util.AttributeSet
 import android.view.ViewGroup
 import android.widget.Filter.FilterResults
 import android.widget.AdapterView.OnItemClickListener
@@ -33,105 +35,74 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.*
 import java.util.ArrayList
 import android.graphics.Color
+import android.widget.ListView
+import android.widget.LinearLayout
+import android.widget.LinearLayout.LayoutParams
+import android.widget.Button
 
-class CustomerSearchView (val listener: InputListener?) : DialogView (Pos.app.getString ("search_customer")) {
+class CustomerSearchView (): EditView () {
 	 
-    private val list: MutableList <Jar> = ArrayList ()
-    private var adapter: ListAdapter? = null
-    private var selected = -1
-    private var searched = false
-    private var customer = Jar ()
-	 
+    val list = mutableListOf <Jar> ()	 
+	 var search: PosEditText?
+	 var listView: ListView
+    var listAdapter: ListAdapter
+	 lateinit var customer: Customer
+
     init {
-		  
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 
-		  when (Themed.theme) {
+		  var layout = Pos.app.inflater.inflate (R.layout.customer_search_layout, editLayout) as LinearLayout
 
-				Themes.Dark -> {
-					 
-					 Pos.app.inflater.inflate (R.layout.customer_search_dark_layout, dialogLayout)
-				}
-				else -> {
-					 
-					 Pos.app.inflater.inflate (R.layout.customer_search_layout, dialogLayout)
-				}
-		  }
+		  search = posEditField (R.id.customer_search, layout, "")
+		  search?.setOnChange (this)
+		  search?.requestFocus ()
 		  
-
-        val text = findViewById (R.id.customer_search_input) as AutoCompleteTextView		  
-        text.setTypeface (Views.displayFont ())
-        adapter = ListAdapter (Pos.app.activity, android.R.layout.simple_dropdown_item_1line, list)
-        text.setAdapter (adapter)
-        text.threshold = 0
+		  listView = ListView (context)
+		  listView.setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
+		  listView.setDivider (null)
+		  listView.setTranscriptMode (ListView.TRANSCRIPT_MODE_ALWAYS_SCROLL)
 		  
-        text.onItemClickListener = OnItemClickListener { _, _, position, _ -> selected = position
-																			
-																			customer = list [selected]
-
-																			val cust = Customer (customer)
-																			text.setText (cust.display ())
-																			// Pos.app.posAppBar.customer (cust.display ())
-																			// addEdit.text = Pos.app.getString ("edit_customer")
-																			// Pos.app.lowerKeyboard (Pos.app.controlLayout)
-		  }
-
-		  text.requestFocus ()
+		  val customerList = editLayout.findViewById (R.id.customer_list_container) as LinearLayout?
 		  
-        if (Pos.app.ticket.has ("customer")) {
-				
-            // addEdit.setText (Pos.app.getString ("edit_customer"))
-        }
+		  customerList?.addView (listView)
+        listAdapter = ListAdapter (Pos.app)
+		  listView.setAdapter (listAdapter)
 		  
- 		  Pos.app.controlLayout.push (this)
+ 		  Pos.app.keyboardView.push (this)
     }
 	 
-	 override fun actions (dialogView: DialogView) {
-		  
-		  Pos.app.inflater.inflate (R.layout.customer_search_actions, dialogActions)	  		  
-		  
-        val select = findViewById (R.id.customer_search_complete) as Button
-        select.setOnClickListener {
-				
-				val cust = Customer (customer)
-				Pos.app.posAppBar.customer (cust.display ())
-				cust.update ()
-				
-				if (listener != null) {
-					 
-					 listener.accept (Jar ()
-												 .put ("dialog", "customer")
-												 .put ("customer_id", customer.getInt ("id")))						  
-				}
-				
- 				Pos.app.controlLayout.swipeRight ()
-		  }
+	 override fun onChange () {
 
-        val addEdit = findViewById (R.id.customer_search_add_edit) as Button
-        addEdit.setOnClickListener {
-				
-				if (Pos.app.ticket.has ("customer")) {
-
-					 customer = Pos.app.ticket.get ("customer")
-					 customer.put ("action", "edit")
-				}
-				else {
-
-					 customer = Jar ()
-						  .put ("fname", "")
-						  .put ("lname", "")
-						  .put ("email", "")
-						  .put ("phone", "")
-						  .put ("action", "add")
-				}
-				
-            CustomerEditView (customer)
-        }
+		  search ()
 	 }
 	 
-    inner class ListAdapter (context: Context?, resource: Int, list: List <Jar?>?): ArrayAdapter <Any?> (context!!, resource, list!!) {
+	 override fun actions () {
+
+		  var layout = Pos.app.inflater.inflate (R.layout.customer_search_actions_layout, actionsLayout) as LinearLayout
+
+		  var complete = layout.findViewById (R.id.customer_search_complete) as Button
+		  complete.setOnClickListener {
+
+				Pos.app.posAppBar.customer (customer.display ())
+				Pos.app.ticket.put ("customer_id", customer.getInt ("id"));
+				Pos.app.keyboardView.swipeLeft ()
+		  }
 		  
-		  private val listFilter: ListFilter = ListFilter ()
+		  var update = layout.findViewById (R.id.customer_search_update) as Button
+		  update.setOnClickListener {
+
+				Pos.app.keyboardView.swipeLeft ()
+
+				if (!this::customer.isInitialized) {
+
+					 customer = Customer (0)
+				}
+				
+				CustomerEditView (customer.getInt ("id"))
+		  }
+	 }
+	 
+	 inner class ListAdapter (context: Context): BaseAdapter () {
+		  
 		  override fun getCount (): Int {
 				
 				return list.size
@@ -139,75 +110,73 @@ class CustomerSearchView (val listener: InputListener?) : DialogView (Pos.app.ge
 
 		  override fun getItem (position: Int): String? {
 				
-				return list [position].getString ("contact")
+				return list [position].toString ()
+		  }
+
+		  override fun getItemId (position: Int): Long {
+				
+				return position.toLong ()
 		  }
 
 		  override fun getView (position: Int, view: View?, parent: ViewGroup): View {
 				
-				return CustomerLayout (list [position])
-		  }
-
-		  override fun getFilter (): Filter {
-				
-				return listFilter
-		  }
-
-		  inner class ListFilter : Filter () {
-				
-				override fun performFiltering (prefix: CharSequence): FilterResults {
-
-					 Logger.d ("list filter... ${prefix}")
-					 
-					 val results = FilterResults ()
-					 
-					 if (prefix.length > 0) {
-						  
-						  list.clear ()
-						  val limit = 10
-						  searched = true
-						  
-						  val select = "select id, fname, lname, email, phone  from customers where " +
-                    " (email like  '" + prefix + "%')" +
-                    " or " +
-                    " (phone like  '%" + prefix + "%')" +
-						  " limit " + limit
-						  
-						  val custResult = DbResult (select, Pos.app.db)
-						  while (custResult.fetchRow ()) {
-								
-								val cust = custResult.row () as Jar
-								list.add (cust)
-						  }
-						  
-						  results.values = list
-						  results.count = list.size
-					 }
-					 else {
-						  
-						  results.values = list
-						  results.count = 0
-					 }
-					 
-					 return results
-				}
-
-				override fun publishResults (constraint: CharSequence?, results: FilterResults) {
-
-					 notifyDataSetChanged ()
-				}
+				return CustomerView (list [position], position)
 		  }
 	 }
+	 
+    private inner class CustomerView (cust: Jar, position: Int) : LinearLayout (Pos.app.activity) {
 
-    private inner class CustomerLayout (cust: Jar?) : LinearLayout (Pos.app.activity) {
-		  
-        init {
+		  init {
 				
-				Pos.app.inflater.inflate (Pos.app.resourceID ("customer_select_layout", "layout"), this)
-            val contact = findViewById <View> (Pos.app.resourceID("customer_select_contact", "id")) as TextView
-            contact.typeface = Views.displayFont ()
-            val customer = Customer (cust)
-            contact.text = customer.display ()
-        }
+				val view = Pos.app.inflater.inflate (R.layout.customer_line_layout, this)
+				view.setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
+				
+				val name  = view.findViewById (R.id.customer_name) as PosText?
+				val email  = view.findViewById (R.id.customer_email) as PosText?
+				val phone  = view.findViewById (R.id.customer_phone) as PosText?
+				
+				name?.setText (cust.getString ("fname") + " " + cust.getString ("lname"))
+				email?.setText (cust.getString ("email"))
+				phone?.setText (cust.getString ("phone").phone ())
+
+				if ((position % 2) == 0) {
+
+					 setBackgroundResource (R.color.light_even_bg)
+				}
+
+				val select  = view.findViewById (R.id.customer_select) as LinearLayout?
+				select?.setOnClickListener {
+
+					 customer = Customer (list [position].getInt ("id"))
+					 search?.setText (customer.display ())
+				}
+		  }
     }
+	 
+	 private fun search () {
+
+		  val limit = 5
+		  
+		  list.clear ()
+		  var search = search?.getText ().toString ()
+		  
+		  val select = "select * from customers where " +
+		  " (fname like  '" + search + "%')" +
+		  " or " +
+		  " (lname like  '" + search + "%')" +
+		  " or " +
+		  " (email like  '" + search + "%')" +
+		  " or " +
+		  " (phone like  '%" + search + "%')" +
+		  " limit " + limit
+		  
+		  val custResult = DbResult (select, Pos.app.db)
+		  while (custResult.fetchRow ()) {
+
+				list.add (custResult.row ())
+		  }
+		  
+		  listAdapter.notifyDataSetChanged ()
+	 }
 
 }

@@ -25,6 +25,6 @@ class PrintLastReceipt (): Control () {
 
 	 override fun controlAction (jar: Jar) {
 
-		  Pos.app.controlLayout.swipeLeft ()
+		  Pos.app.controlLayout.swipeRight ()
 	 }
 }

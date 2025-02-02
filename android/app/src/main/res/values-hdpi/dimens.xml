@@ -6,6 +6,20 @@
 
   <dimen name="login_spinner_padding">20dp</dimen>
 
+  <!-- dialogs -->
+  
+  <dimen name="dialog_header_height">60dp</dimen>
+  <dimen name="dialog_footer_height">150dp</dimen>
+  <dimen name="dialog_margin">10dp</dimen>
+  <dimen name="dialog_button_margin">15dp</dimen>
+  <dimen name="dialog_sm_padding">2dp</dimen>
+  <dimen name="dialog_padding">5dp</dimen>
+  <dimen name="dialog_sm_text">12sp</dimen>
+  <dimen name="dialog_md_text">18sp</dimen>
+  <dimen name="dialog_lg_text">28sp</dimen>
+  <dimen name="dialog_xlg_text">35sp</dimen>
+  <dimen name="dialog_report_text">15sp</dimen>
+
   <!-- ticket header/footer display full -->
 
   <dimen name="ticket_header_height">48dp</dimen>
@@ -27,21 +41,20 @@
 
   <!-- ticket -->
   
-  <dimen name="ticket_item_icon_text">32sp</dimen>
-  <dimen name="ticket_item_xlg_text">32sp</dimen>
-  <dimen name="ticket_item_lg_text">28sp</dimen>
-  <dimen name="ticket_item_md_text">20sp</dimen>
-  <dimen name="ticket_item_sm_text">12sp</dimen>
-  <dimen name="ticket_item_margin">5dp</dimen>
+  <dimen name="ticket_item_icon_text">16sp</dimen>
+  <dimen name="ticket_item_xlg_text">22sp</dimen>
+  <dimen name="ticket_item_lg_text">20sp</dimen>
+  <dimen name="ticket_item_md_text">18sp</dimen>
+  <dimen name="ticket_item_sm_text">14sp</dimen>
+  <dimen name="ticket_item_margin">3dp</dimen>
   <dimen name="ticket_item_padding">3dp</dimen>
   <dimen name="ticket_item_sm_padding">3dp</dimen>
   <dimen name="ticket_margin_bottom">3dp</dimen>
   
   <!-- menu buttons -->
   
-  <dimen name="menu_button_text">12sp</dimen>
-  
-  <dimen name="menu_button_padding_start">7dp</dimen>
-  <dimen name="menu_button_padding_top">5dp</dimen>
+  <dimen name="menu_button_text">11sp</dimen>
+  <dimen name="menu_button_padding_start">4dp</dimen>
+  <dimen name="menu_button_padding_top">4dp</dimen>
 
 </resources>

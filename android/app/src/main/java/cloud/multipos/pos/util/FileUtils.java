@@ -17,6 +17,8 @@
 
 package cloud.multipos.pos.util;
 
+import cloud.multipos.pos.*;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -26,12 +28,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.TimeZone;
 import java.util.Locale;
+import java.net.HttpURLConnection;
+import java.io.*;
+import java.net.URL;
+import java.net.MalformedURLException;
+import java.util.zip.GZIPInputStream;
+import android.util.Base64;
+import java.util.zip.ZipInputStream;
+import java.time.ZonedDateTime;
 
-import cloud.multipos.pos.*;
-import cloud.multipos.pos.db.DB;
 
 public class FileUtils {
-
 
 	 public static void save (String fname, String data) {
 
@@ -62,12 +69,14 @@ public class FileUtils {
 	 public static void uploadLog () {
 		  
 		  try {
+
+				Logger.d ("upload log...");
 				
 				String format = "hh:mm:ss";
 				SimpleDateFormat df = new SimpleDateFormat (format, new Locale (Pos.app.config.getString ("country"), Pos.app.config.getString ("locale")));
 				String time = df.format (new Date ());
 				
-				String fname = "logcat-" + android.os.Build.MODEL + "-" + Pos.app.getString ("app_build") + "-" + time + ".log";
+				String fname = "logcat-" + android.os.Build.MODEL + "-" + Pos.app.getString ("app_version") + "-" + time + ".log";
 				fname = fname.replace (" ", "-");
 				String command = String.format ("logcat -d ");        
 				Process process = Runtime.getRuntime ().exec (command);
@@ -83,8 +92,96 @@ public class FileUtils {
             }
 				
 				FileUtils.save (fname, result.toString ());
+				FileUtils.upload (fname);
+				
         }
 		  catch (IOException e) {
         }
     }
+
+	 public static void upload (String f) {
+
+		  final String fname = f;
+
+		  Thread thread = new Thread () {
+
+		  			 public void run () {
+
+		  				  HttpURLConnection conn = null;
+		  				  DataOutputStream dos = null;
+		  				  String lineEnd = "\r\n";
+		  				  String twoHyphens = "--";
+		  				  String boundary = "*****";
+		  				  int bytesRead, bytesAvailable, bufferSize;
+		  				  byte [] buffer;
+		  				  int maxBufferSize = 1 * 1024 * 1024; 
+		  				  String file = fname;
+		  				  int serverResponseCode = 0;
+
+		  				  try { 
+                    								
+						  		File f = new File (Pos.app.activity.getFilesDir () + "/" + fname);
+								FileInputStream fin = new FileInputStream (f);
+
+		  				  		String uploadURL = "http://upload.multipos.cloud/?fname="+ fname;
+		  				  		URL url = new URL (uploadURL);
+                    
+		  				  		conn = (HttpURLConnection) url.openConnection ();
+		  				  		conn.setRequestMethod ("POST");
+		  				  		conn.setDoInput (true);
+		  				  		conn.setDoOutput (true);
+		  				  		conn.setUseCaches (false);
+		  				  		conn.setRequestProperty ("Connection", "Keep-Alive");
+		  				  		conn.setRequestProperty ("ENCTYPE", "multipart/form-data");
+		  				  		conn.setRequestProperty ("Content-Type", "multipart/form-data;boundary=" + boundary);
+		  				  		conn.setRequestProperty ("uploaded_file", fname); 
+ 
+		  				  		dos = new DataOutputStream (conn.getOutputStream ());
+          
+		  				  		dos.writeBytes (twoHyphens + boundary + lineEnd); 
+		  				  		dos.writeBytes ("Content-Disposition: form-data; name=\"uploaded_file\";filename=\"" + fname +"\"" + lineEnd);
+		  				  		dos.writeBytes (lineEnd);
+
+		  				  		bytesAvailable = fin.available (); 
+		  				  		bufferSize = Math.min (bytesAvailable, maxBufferSize);
+		  				  		buffer = new byte [bufferSize];
+          
+		  				  		bytesRead = fin.read (buffer, 0, bufferSize);  
+		  				  		int total = bytesRead;
+
+		  				  		while (bytesRead > 0) {
+
+		  				  			 dos.write (buffer, 0, bufferSize);
+		  				  			 bytesAvailable = fin.available ();
+		  				  			 bufferSize = Math.min (bytesAvailable, maxBufferSize);
+		  				  			 bytesRead = fin.read (buffer, 0, bufferSize); 
+  
+		  				  			 total += bytesRead;
+                  
+		  				  		}
+          
+		  				  		dos.writeBytes (lineEnd);
+		  				  		dos.writeBytes (twoHyphens + boundary + twoHyphens + lineEnd);
+		  				  		dos.writeBytes (lineEnd);
+
+		  				  		serverResponseCode = conn.getResponseCode ();
+		  				  		String serverResponseMessage = conn.getResponseMessage ();
+
+		  				  		fin.close ();
+		  				  		dos.flush ();
+		  				  		dos.close ();
+                     
+		  				  }
+		  				  catch (MalformedURLException ex) {
+		  				  		Logger.w ("Bad url " + ex.toString ());
+		  				  } 
+		  				  catch (Exception e) {
+		  				  		Logger.w ("Unknown exception " + e.toString ());
+		  				  }
+		  			 }
+		  		};
+		  
+		  thread.start  ();
+	 }
+
 }

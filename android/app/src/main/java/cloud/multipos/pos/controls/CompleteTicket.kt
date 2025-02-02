@@ -87,10 +87,10 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  // create the summary
 		  
 		  Pos.app.ticket.put ("summary", ArrayList <Jar> ())
-		  Pos.app.ticket.getList ("summary").add (Jar ()
-																	 .put ("type", Ticket.TOTAL)
-																	 .put ("total_desc", Pos.app.getString ("sub_total"))
-																	 .put ("amount", Pos.app.ticket.getDouble ("sub_total")))
+		  // Pos.app.ticket.getList ("summary").add (Jar ()
+		  // 															 .put ("type", Ticket.TOTAL)
+		  // 															 .put ("total_desc", Pos.app.getString ("sub_total"))
+		  // 															 .put ("amount", Currency.round (Pos.app.ticket.getDouble ("sub_total"))))
 		  
 		  if (Pos.app.config.has ("tax_included")) {
 
@@ -102,7 +102,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				Pos.app.ticket.getList ("summary").add (Jar ()
 					 													  .put ("type", Ticket.TOTAL)
 					 													  .put ("total_desc", Pos.app.getString ("tax_total_included") + " " + Pos.app.config.getDouble ("tax_included") + "%")
-					 													  .put ("amount", taxIncAmount))
+					 													  .put ("amount", Currency.round (taxIncAmount)))
 		  }
 		  else {
 
@@ -111,32 +111,26 @@ open abstract class CompleteTicket (): ConfirmControl () {
 					 Pos.app.ticket.getList ("summary").add (Jar ()
 																				.put ("type", Ticket.TOTAL)
 																				.put ("total_desc", Pos.app.getString ("tax_total"))
-																				.put ("amount", ticketTax.getDouble ("tax_amount")))
+																				.put ("amount", Currency.round (ticketTax.getDouble ("tax_amount"))))
 				}
 		  }
 
-		  Pos.app.ticket.getList ("summary").add (Jar ()
-																	 .put ("type", Ticket.TOTAL)
-																	 .put ("total_desc", Pos.app.getString ("total"))
-																	 .put ("amount", Pos.app.ticket.getDouble ("total")))
+		  // Pos.app.ticket.getList ("summary").add (Jar ()
+		  // 															 .put ("type", Ticket.TOTAL)
+		  // 															 .put ("total_desc", Pos.app.getString ("total"))
+		  // 															 .put ("amount", Pos.app.ticket.getDouble ("total")))
 						  
-		  var returned = ""
+		  var returned = 0.0
 		  var prompt = Pos.app.getString ("register_open")
 		  if (tenderTotal > Pos.app.ticket.getDouble ("total")) {
 				
 				prompt = Pos.app.getString ("change_due")
-				returned = (tenderTotal - Pos.app.ticket.getDouble ("total")).currency ()
+				returned = tenderTotal - Pos.app.ticket.getDouble ("total")
 		  }
 		  
 		  PosDisplays.message (Jar ()
 											.put ("prompt_text", prompt)
-											.put ("echo_text", returned))
-
-		  var customerID = 0
-		  if (Pos.app.ticket.has ("customer")) {
-				
-				customerID = Pos.app.ticket.get ("customer").getInt ("id")
-		  }
+											.put ("echo_text", returned.currency ()))
 		  
 		  Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
 		  
@@ -151,7 +145,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				Pos.app.ticket.remove ("aux_receipts")
 											
 		  }
-
+		  
 		  Pos.app.ticket
 				.put ("complete_time", Pos.app.db.timestamp (Date ()))
 				.put ("state", state)
@@ -166,7 +160,8 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				.put ("ticket_tenders", Pos.app.ticket.tenders)
 				.put ("totals", Pos.app.ticket.totals)
 				.put ("ticket_addons", Pos.app.ticket.addons)
-				.put ("customer_id", customerID)
+				.put ("other", Pos.app.ticket.other)
+				.put ("updates", Pos.app.ticket.updates)
 
 		  // update ticket as complete
 		  

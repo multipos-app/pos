@@ -151,7 +151,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 
 		  if (balance < 0) {
 				
-				returned = total () - (paid + tendered)
+				returned = Currency.round (total () - (paid + tendered))
 		  }
 	 }
 
@@ -175,8 +175,8 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  													.put ("sub_tender_type", subTenderDesc ())
 		  													.put ("total", total)
 		  													.put ("status", TicketTender.COMPLETE)
-		  													.put ("returned_amount", returned)
-		  													.put ("tendered_amount", tendered)
+		  													.put ("returned_amount", Currency.round (returned))
+		  													.put ("tendered_amount", Currency.round (tendered))
 		  													.put ("complete", 0)
 		  													.put ("round_diff", roundDiff)
 															.put ("data_capture", dataCapture.toString ()))
@@ -189,6 +189,10 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  if (balance > 0.0) {
 				
 				ticketTender.put ("balance_due", Currency.round (balance))
+		  }
+		  else {
+
+				ticketTender.put ("balance_due", 0.0)
 		  }
 		  
 		  Pos.app.ticket.tenders.add (ticketTender)
@@ -242,7 +246,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  
 		  if (Pos.app.config.has ("credit_service_fee")) {
 				
-				fees = Currency.round ( Pos.app.ticket.getDouble ("total") * Pos.app.config.get ("credit_service_fee").getDouble ("fee") / 100.0)
+				fees = Currency.round (Pos.app.ticket.getDouble ("total") * Pos.app.config.get ("credit_service_fee").getDouble ("fee") / 100.0)
 		  }
 
 		  return fees

@@ -22,13 +22,32 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.receipts.*
 
-class Customer (val customer: Jar?): Jar (), Model {
+class Customer (val customerID: Int): Jar (), Model {
 
+	 lateinit var customer: Jar
+	 
 	 init {
 
-		  if (customer != null) {
+		  if (customerID > 0) {
 				
-				copy (customer)
+				val customerResult = DbResult ("select * from customers where id = ${customerID}", Pos.app.db)
+				if (customerResult.fetchRow ()) {
+					 
+					 customer = customerResult.row ()
+					 copy (customer)
+				}
+		  }
+		  else {
+
+				put ("id", 0)
+					 .put ("fname", "DAN")
+					 .put ("lname", "THEMAN")
+					 .put ("email", "dan${(0..1000).random ()}@email.com")
+					 .put ("phone", "9071112222")
+					 .put ("addr_1", "One Main St")
+					 .put ("city", "Topeka")
+					 .put ("state", "KS")
+					 .put ("postal_code", "99999")
 		  }
 	 }
 	 
@@ -37,7 +56,6 @@ class Customer (val customer: Jar?): Jar (), Model {
 		  if (customer != null) {
 
 				copy (customer)
-				Pos.app.customer = this
 				Pos.app.ticket.put ("customer", this)
 				Pos.app.ticket.put ("customer_id", this.getInt ("id"))
 				Pos.app.db ().exec ("update tickets set customer_id = " + customer?.getInt ("id") + " where id = " + Pos.app.ticket.getInt ("id"))
@@ -60,18 +78,13 @@ class Customer (val customer: Jar?): Jar (), Model {
 
 		  if (has ("phone") && (getString ("phone").length > 0)) {
 
-				sb.append (getString ("phone").phone (Pos.app.config.getString ("locale")) + " ")
-		  }
-
-		  if (has ("email") && (getString ("email").length > 0)) {
-
-				sb.append (getString ("email"))
+				sb.append (getString ("phone").phone ())
 		  }
 
 		  return sb.toString ()
 	 }
 
-	override fun receipt (): PrintCommands {
+	 override fun receipt (): PrintCommands {
 
 		  val pc = PrintCommands ()
 
@@ -102,7 +115,7 @@ class Customer (val customer: Jar?): Jar (), Model {
 
 				pc
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.ITALIC_TEXT))
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (getString ("phone").phone (Pos.app.config.getString ("locale"))))
+					 .add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (getString ("phone").phone ()))
 		  }
 
 		  if (has ("email") && (getString ("email").length > 0)) {

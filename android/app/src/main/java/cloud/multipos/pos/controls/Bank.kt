@@ -23,7 +23,6 @@ import cloud.multipos.pos.db.DB
 import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.models.TicketTender
 import cloud.multipos.pos.views.PosDisplays
-import cloud.multipos.pos.views.*
 import cloud.multipos.pos.views.NumberInputView
 
 import java.util.Date

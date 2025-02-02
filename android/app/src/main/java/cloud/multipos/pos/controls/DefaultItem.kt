@@ -166,17 +166,12 @@ open class DefaultItem (): FirstItem (), InputListener {
 					 ticketItem
 						  .put ("data_capture", jar.get ("data_capture").toString ())
 				}
-				
 
-				if (jar ().has ("item_link_id")) {
-					 
-					 // ticketItem
-					 // 	  .put ("ticket_item_id", jar ().getInt ("item_link_id"))
-					 // 	  .put ("apply_addons", jar ().getBoolean ("apply_addons"))
-					 // 	  .put ("link_type", jar ().getInt ("link_type"))
-				}
+				// update ticket total
 				
 				Pos.app.ticket.put ("total", Pos.app.ticket.getDouble ("total") + ticketItem.extAmount ())
+
+				// does item have a pre-set amount?
 				
 				if (jar ().has ("amount")) {
 					 
@@ -185,7 +180,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 					 return
 				}
 
-				// get the amount for this item
+				// apply pricing to get the amount for this item
 				
 				pricing = Pricing.factory (item.getString ("class"))
 				if (pricing.apply (this)) {
@@ -195,8 +190,8 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  }
 		  else {
 
-				Logger.w ("item not found... ${jar}")
-				PosDisplays.alert ("Item not found, ${sku}")
+				PosDisplays.alert ("${Pos.app.getString ("item_not_found")}, ${sku}")
+				Control.factory ("ItemNotFound").action (Jar ().put ("sku", sku))
 		  }
 	 }
 
@@ -279,16 +274,16 @@ open class DefaultItem (): FirstItem (), InputListener {
 
 		  if (!jar ().has ("item_link_id")) {
 
-				// don't link the links
-
-				val itemLinkResult  = DbResult ("select i.sku from items i, item_links il where i.id = il.item_link_id and il.item_id = " +
+				val itemLinkResult  = DbResult ("select i.sku, il.item_link_id from items i, item_links il where i.id = il.item_link_id and il.item_id = " +
 														  item.getInt ("id"), Pos.app.db)
 				
 				while (itemLinkResult.fetchRow ()) {
 					 
 					 val itemLink = itemLinkResult.row () as Jar
-					 val linkedItem = DefaultItem ()
+					 ticketItem.put ("item_link_id", itemLink.getInt ("item_link_id"))
 					 
+					 val linkedItem = DefaultItem ()
+				 
 					 val l = Jar ()
 						  .put ("sku", itemLink.getString ("sku"))
 						  .put ("ticket_item_id", ticketItem.getInt ("id"))
@@ -302,13 +297,19 @@ open class DefaultItem (): FirstItem (), InputListener {
 					 linkedItem.action (l)
 				}
 		  }
+		  
+		  // clean things up
+		  
+		  Pos.app.input.clear ()  // clear input values
+		  jar ().remove ("amount")  // remove the amount from the jar
 
-		  Pos.app.input.clear ()  // clean things up
+		  // save the new ticket info
+		  
 		  Pos.app.ticket.update ()		  		  				
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
 		  
-		  Pos.app.controlLayout.swipeRight ()  // clear input views
+		  Pos.app.controlLayout.swipeLeft ()  // clear input views
 
 		  PosDisplays.update ()
 		  PosDisplays.message (Jar ()

@@ -84,7 +84,7 @@ abstract class Printer (): Device, DeviceCallback {
 
 		  val printer = device as Printer
 
-		  Logger.d ("printer success... " + printer.width () + " " + printer)
+		  Logger.i ("printer success... " + printer.width () + " " + printer)
 		  
 		   width = printer.width ()
 			boldWidth = printer.boldWidth ()

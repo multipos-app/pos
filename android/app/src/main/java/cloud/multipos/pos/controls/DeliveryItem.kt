@@ -40,8 +40,6 @@ class DeliveryItem (): DefaultItem () {
 	 init { }
 	 
 	 override fun controlAction (jar: Jar) {
-
-		  // Logger.d ("delivery item... " + jar)
 		  
 		  // jar (jar)
 

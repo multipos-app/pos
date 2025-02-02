@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dialog_padding"
+    android:background="@color/transparent"
+	 android:orientation="vertical">
+  
+  <!-- input fields -->
+
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"
+		android:orientation="horizontal"
+		android:layout_margin="@dimen/item_edit_margin">
+
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="0dp"
+		  android:layout_weight="1"
+		  android:layout_height="match_parent"
+		  android:text="@string/item_edit_sku"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+
+	 <cloud.multipos.pos.views.PosEditText
+		  android:id="@+id/item_edit_sku"
+		  android:layout_width="0dp"
+		  android:layout_weight="1"
+		  android:layout_height="match_parent"
+		  android:inputType="number"
+		  android:hint="@string/item_edit_sku"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"
+		  android:nextFocusDown="@+id/item_edit_desc"
+		  android:maxLines="1"
+		  android:singleLine="true"
+		  android:padding="@dimen/dialog_sm_padding"/>
+	 
+  </LinearLayout>
+
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"
+		android:orientation="horizontal"
+		android:layout_margin="@dimen/item_edit_margin">
+
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="0dp"
+		  android:layout_weight="1"
+		  android:layout_height="match_parent"
+		  android:text="@string/item_edit_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+	 
+	 <cloud.multipos.pos.views.PosEditText
+		  android:id="@+id/item_edit_desc"
+		  android:layout_width="0dp"
+		  android:layout_weight="1"
+		  android:layout_height="match_parent"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"
+		  android:nextFocusDown="@+id/item_edit_price"
+		  android:maxLines="1"
+		  android:singleLine="true"
+		  android:padding="@dimen/dialog_sm_padding"/>
+	 
+  </LinearLayout>
+
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"
+		android:orientation="horizontal"
+		android:layout_margin="@dimen/item_edit_margin">
+
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:text="@string/item_edit_price_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+	 
+	 <cloud.multipos.pos.views.PosCurrencyEditText
+		  android:id="@+id/item_edit_price"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:layout_weight="2"
+		  android:hint="0.00"
+		  android:digits="0123456789"
+		  android:gravity="end"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"
+		  android:textColorHint="@color/dk_gray"
+		  android:background="@color/transparent"
+		  android:nextFocusDown="@+id/item_edit_cost"
+		  android:maxLines="1"
+		  android:singleLine="true"
+		  android:padding="@dimen/dialog_sm_padding"/>
+	 
+  </LinearLayout>
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"
+		android:orientation="horizontal"
+		android:layout_margin="@dimen/item_edit_margin">
+
+	 <cloud.multipos.pos.views.PosText
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:text="@string/item_edit_cost_desc"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"/>
+	 
+	 <cloud.multipos.pos.views.PosCurrencyEditText
+		  android:id="@+id/item_edit_cost"
+		  android:layout_width="0dp"
+		  android:layout_height="wrap_content"
+		  android:layout_weight="2"
+		  android:hint="0.00"
+		  android:digits="0123456789"
+		  android:gravity="end"
+		  android:textSize="@dimen/dialog_md_text"
+		  android:textColor="@color/black"
+		  android:textColorHint="@color/dk_gray"
+		  android:background="@color/transparent"
+		  android:padding="@dimen/dialog_sm_padding"/>
+	 
+  </LinearLayout>
+  
+  <Spinner
+		android:id="@+id/item_edit_departments"
+		android:layout_width="match_parent"
+      android:layout_height="0dp"
+		android:layout_weight="1"
+		android:spinnerMode="dropdown"
+		android:background="@drawable/spinner_outline"
+		android:textSize="@dimen/dialog_md_text"
+		android:paddingLeft="@dimen/dialog_padding"
+		android:layout_margin="@dimen/item_edit_margin"/>
+  
+  <Spinner
+		android:id="@+id/item_edit_deposits"
+		android:layout_width="match_parent"
+      android:layout_height="0dp"
+		android:layout_weight="1"
+		android:spinnerMode="dropdown"
+		android:background="@drawable/spinner_outline"
+		android:textSize="@dimen/dialog_md_text"
+		android:paddingLeft="@dimen/dialog_padding"
+		android:layout_margin="@dimen/item_edit_margin"/>
+  
+  <Spinner
+		android:id="@+id/item_edit_taxes"
+		android:layout_width="match_parent"
+      android:layout_height="0dp"
+		android:layout_weight="1"
+		android:spinnerMode="dropdown"
+		android:background="@drawable/spinner_outline"
+		android:textSize="@dimen/dialog_md_text"
+		android:paddingLeft="@dimen/dialog_padding"
+		android:layout_margin="@dimen/item_edit_margin"/>
+  
+</LinearLayout>

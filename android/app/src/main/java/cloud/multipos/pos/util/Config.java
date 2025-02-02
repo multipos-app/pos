@@ -146,6 +146,8 @@ public class Config extends Jar {
 		  }
 
 		  getIPs ();
+
+		  put ("device_data", deviceData ());
 	 }
 
 	 public void update () {

@@ -2,6 +2,7 @@
 <LinearLayout
 	 
 	 xmlns:android="http://schemas.android.com/apk/res/android"
+ 	 android:clickable="false"
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content"
 	 android:background="@color/transparent"
@@ -17,6 +18,7 @@
 
 	 <cloud.multipos.pos.views.PosText
       android:id="@+id/ticket_tender_line"
+ 		android:clickable="false"
       android:layout_width="0dp"
       android:layout_height="wrap_content"
 		android:layout_weight="5.5"

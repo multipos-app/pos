@@ -5,8 +5,8 @@
     "locale": "en_US",
     "currency": "USD",
     "update_interval": "20000",
-    "language": "US",
-    "country": "en",
+    "language": "en",
+    "country": "US",
     "variant": "",
     "prompt_open_amount": "false",
     "show_previous_receipt": "true",
@@ -22,6 +22,7 @@
     "customers": "true",
     "cash_management": "false",
     "merge_like_items": "false",
+    "themed": "true",
     "devices": {
         "receipt_printer": {
             "name": "star_micronics",
@@ -99,7 +100,7 @@
                                 "sku": "12342"
                             },
                             "color": "#21512D",
-                            "pos_config_id": "24051",
+                            "pos_config_id": "24053",
                             "container": "main_menu",
                             "menu": "0",
                             "pos": "4"
@@ -779,7 +780,10 @@
                             "color": "empty"
                         },
                         {
-                            "class": "Null"
+                            "class": "UploadLog",
+                            "color": "#026851",
+                            "fixed": "1",
+                            "text": "upload log"
                         },
                         {
                             "class": "Bank",
@@ -840,16 +844,15 @@
                             "color": "empty"
                         },
                         {
-                            "class": "PaxIP",
-                            "text": "PAX\/EPX Setup",
-                            "color": "#5E7981"
+                            "text": "",
+                            "class": "Null"
                         },
                         {
-                            "class": "CameraIP",
-                            "text": "Camera Setup",
-                            "color": "#5E7981"
+                            "text": "",
+                            "class": "Null"
                         }
-                    ]
+                    ],
+                    "size": "20"
                 }
             ]
         },
@@ -945,10 +948,8 @@
                             "color": "#5E7981"
                         },
                         {
-                            "text": "RE-PRINT RECEIPT",
-                            "color": "#5E7981",
-                            "class": "PrintLastReceipt",
-                            "fixed": "1"
+                            "text": "",
+                            "class": "Null"
                         },
                         {
                             "text": "GIFT CARD SALE",

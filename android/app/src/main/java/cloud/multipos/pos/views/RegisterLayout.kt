@@ -66,7 +66,7 @@ class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context
 												}
 												else -> {
 
-													 Logger.d ("bad username in register... ")
+													 Logger.w ("bad username in register... ")
 													 register.setText (Pos.app.getString ("invalid_login"))
 													 username.getText ().clear ()
 													 password.getText ().clear ()

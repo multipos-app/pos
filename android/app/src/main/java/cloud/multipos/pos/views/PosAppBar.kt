@@ -36,16 +36,18 @@ import java.util.TimeZone
 
 import android.os.Handler
 import android.os.Message
+import android.view.KeyEvent
 
 class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosDisplay, ThemeListener {
 
-	 var p: ImageView
+	 // var p: ImageView
 	 var clock: PosText
 	 var customerLayout: LinearLayout? = null
 	 var customerName: PosText? = null
-	 val devices = mutableListOf <DeviceIcon> ()		  
+	 val devices = mutableListOf <DeviceIcon> ()
 	 var themeIcon = ThemeIcon ()
-	 
+	 val sb = StringBuffer () // for keyboard input
+
 	 lateinit var rootLayout: LinearLayout
 	 
 	 init {
@@ -62,13 +64,13 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 
 				customerLayout?.setOnClickListener {
 					 
-					 if (Pos.app.customer != null) {
+					 if (Pos.app.ticket.getInt ("customer_id") > 0) {
 						  
-						  CustomerEditView (Pos.app.ticket.get ("customer"))
+						  CustomerEditView (Pos.app.ticket.getInt ("customer_id"))
 					 }
 					 else {
 						  
-						  CustomerSearchView (null)
+						  CustomerSearchView ()
 					 }
 				}
 		  }
@@ -79,21 +81,6 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  
 		  rootLayout = findViewById (R.id.app_bar_root) as LinearLayout
 		  
-		  // app icon
-		  
-		  p = findViewById (Pos.app.resourceID ("pos_info", "id"))	
-		  p?.setOnClickListener {
-						  
-				if (Pos.app.messages.size > 0) {
-					 
-					 // MessageDialog ()
-				}
-				else {
-					 
-					 PosInfoView ()
-				}
-		  }
-
 		  // time/date
 		  
 		  clock = findViewById (Pos.app.resourceID ("app_bar_clock", "id"))
@@ -104,7 +91,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 
 		  addDevices ()
 		  		  
-		  // handler,  clock and device update thread
+		  // handler, clock and device update thread
 		  
 		  var handler: Handler = object: Handler () {
 
@@ -113,10 +100,10 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 					 if (Pos.app.messages.size > 0) {
 					 
 						  var resource = if (message.what == 0) R.drawable.app_icon else R.drawable.app_icon_transparent
-						  p?.setImageDrawable (Pos.app.getResources ().getDrawable (resource))
+						  // p?.setImageDrawable (Pos.app.getResources ().getDrawable (resource))
 					 }
 					 else {
-						  p?.setImageDrawable (Pos.app.activity.getResources ().getDrawable (R.drawable.app_icon))
+						  // p?.setImageDrawable (Pos.app.activity.getResources ().getDrawable (R.drawable.app_icon))
 					 }
 						  
 					 val df = SimpleDateFormat ("EEE d MMM HH:mm:ss", Pos.app.locale)
@@ -163,6 +150,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 						  
 		  }).start ()
 
+		  PosDisplays.add (this)
 		  Themed.add (this)
 	 }
 
@@ -182,17 +170,15 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 				var deviceIcon = DeviceIcon (device)
 				devices.add (deviceIcon)
 				tray.addView (deviceIcon, 0)
-				
-				Logger.x ("pos app bar init... " + device)
-
 		  }
 	 }
 
 	 override fun update () {
 
-		  if (Pos.app.ticket.has ("customer")) {
+		  if (Pos.app.ticket.getInt ("customer_id") > 0) {
 
-	 			customerName?.setText (Customer (Pos.app.ticket.get ("customer")).display ()) 
+				var customer = Customer (Pos.app.ticket.getInt ("customer_id"))
+	 			customerName?.setText (customer.display ())
 		  }
 		  else {
 
@@ -200,7 +186,11 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  }
 	 }
 	 
-	 override fun clear () { }
+	 override fun clear () {
+
+		  customerName?.setText (Pos.app.getString ("search_customer"))
+	 }
+	 
 	 override fun message (message: String) { }
 	 override fun message (message: Jar) { }
 	 public fun customer (customer: String) {

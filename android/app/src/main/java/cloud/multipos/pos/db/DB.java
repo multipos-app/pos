@@ -152,38 +152,59 @@ public class DB {
 	 /**
 	  *
 	  */
+	 
 	 public int insert (String table, Jar entity) {
 
-		  ContentValues values = new ContentValues ();
-		  Iterator keys = entity.keys ();
-		  
-		  while (keys.hasNext ()) {
-
-				Map.Entry pair = (Map.Entry) keys.next ();
-				String key = (String) pair.getKey ();
-
-				// Object o = keys.next ();
-				// String key = (String) o;
-
-				if ((tmap.get (table) != null) && tmap.get (table).has (key)) {  // valid column?
-
-					 if (entity.getString (key, null) != null) {
-						  values.put (key, entity.getString (key));
-					 }
-				}
-		  }
-		  
 		  int id = 0;
 		  synchronized (activity) {
-				id = (int) database.insert (table, null, values);
-		  }
 
-		  if (id < 0) {
-				Logger.w ("insert error " + table + " " + entity);
+				if ((!entity.has ("id")) || (entity.getInt ("id") == 0)) {
+				
+					 id = nextID (table);
+					 entity.put ("id", id);
+				}
+		  		  
+				ContentValues values = new ContentValues ();
+				Iterator keys = entity.keys ();
+		  
+				while (keys.hasNext ()) {
+
+					 Map.Entry pair = (Map.Entry) keys.next ();
+					 String key = (String) pair.getKey ();
+
+					 if ((tmap.get (table) != null) && tmap.get (table).has (key)) {  // valid column?
+
+						  if (entity.getString (key, null) != null) {
+						  
+								values.put (key, entity.getString (key));
+						  }
+					 }
+				}
+
+				
+				database.insertOrThrow (table, null, values);
 		  }
 		  
 		  entity.put ("id", id);
 		  return id;
+	 }
+	 
+	 /**
+	  *
+	  */
+	 
+	 public int nextID (String table) {
+
+		  DbResult nextResult = new DbResult ("select max(id) from " + table, Pos.app.db ());
+		  if (nextResult.fetchRow ()) {
+
+				int next = nextResult.row ().getInt ("max(id)");
+				return next + 1;
+		  }
+		  else {
+
+				return -1;
+		  }
 	 }
 	 
 	 /**
@@ -209,9 +230,11 @@ public class DB {
 						  update += sep + col + " = " + ((Integer) val).intValue ();
 					 }
 					 else if (val instanceof Double) {
+						  
 						  update += sep + col + " = " + ((Double) val).doubleValue ();
 					 }
 					 else if (val instanceof String) {
+						  
 						  update += sep + col + " = '" + (String) val + "'";
 					 }
 					 sep = ", ";
@@ -220,7 +243,10 @@ public class DB {
 
 		  update += " where id = " + id;
 
+		  // Logger.stack ("update... " + update);
+
 		  synchronized (activity) {
+				
 				database.execSQL (update);										
 		  }
 	 

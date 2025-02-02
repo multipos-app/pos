@@ -156,6 +156,7 @@ class TicketItem (): Jar () {
 		  const val VOID_ITEM   = 1
 		  const val COMP_ITEM   = 2
 		  const val REFUND_ITEM = 3
+		  const val GIFT_CARD   = 4
 
 		  const val DEPOSIT_LINK = 0
 		  const val PACKAGE_LINK = 1

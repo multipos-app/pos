@@ -163,8 +163,6 @@ class InventoryView (jar: Jar): DialogView (""), ScanListener, SwipeListener {
 	 }
 
 	 override fun onSwipe (dir: SwipeDir) {
-
-		  Logger.d ("inv on swipe... ${dir}")
 		  
 		  when (dir) {
 

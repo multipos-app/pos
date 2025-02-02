@@ -21,6 +21,7 @@ import cloud.multipos.pos.Pos
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.*
+import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.models.*
 
@@ -31,7 +32,6 @@ import android.widget.LinearLayout
 import android.widget.AutoCompleteTextView
 import android.widget.ArrayAdapter
 import android.content.Context
-import android.widget.EditText
 import android.widget.TextView
 import android.text.InputFilter
 import android.telephony.PhoneNumberUtils
@@ -39,90 +39,88 @@ import java.util.Locale
 import android.text.TextWatcher
 import android.text.Editable
 import java.util.UUID
+import android.widget.Spinner
+import android.telephony.PhoneNumberFormattingTextWatcher
 
-class CustomerEditView (val customer: Jar) : DialogView (Pos.app.getString ("edit_customer")), KeyboardListener {
+class CustomerEditView (val customerID: Int) : EditView () {
 
-	 var action = "add"
-	 val phoneNum = StringBuffer ()
-	 val formatPhone = PhoneNumberUtils ()
+	 lateinit var customer: Customer
 	 
-	 lateinit var fname: EditText
-	 lateinit var lname: EditText
-	 lateinit var email: EditText
-	 lateinit var phone: EditText
+	 var fname: PosEditText
+	 var lname: PosEditText
+	 var email: PosEditText
+	 var phone: PosEditText
+	 var addr: PosEditText
+	 var city: PosEditText
+	 var state: Spinner?
+	 var postalCode: PosEditText
 	 
 	 init {
+
+		  customer = Customer (customerID)
 		  
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-		  Pos.app.inflater.inflate (R.layout.customer_edit_layout, dialogLayout)
+		  var layout = Pos.app.inflater.inflate (R.layout.customer_edit_layout, editLayout) as LinearLayout
+		  
+		  fname = posEditField (R.id.customer_fname, layout, customer.getString ("fname"))
+		  lname = posEditField (R.id.customer_lname, layout, customer.getString ("lname"))
+		  email = posEditField (R.id.customer_email, layout, customer.getString ("email"))
+		  // phone = posEditField (R.id.customer_phone, layout, customer.getString ("phone").phone ())
+		  phone = posEditField (R.id.customer_phone, layout, "")
+		  addr = posEditField (R.id.customer_addr, layout, customer.getString ("addr_1"))
+		  city = posEditField (R.id.customer_city, layout, customer.getString ("city"))
+		  postalCode = posEditField (R.id.customer_postal_code, layout, customer.getString ("postal_code"))
 
-		  Logger.d ("customer edit... ${customer}")
+		  // phone.addTextChangedListener (PhoneNumberFormattingTextWatcher ())
 
-		  fname = findViewById (R.id.customer_fname) as EditText
-		  lname = findViewById (R.id.customer_lname) as EditText
-		  email = findViewById (R.id.customer_email) as EditText
-		  phone = findViewById (R.id.customer_phone) as EditText
+		  state = editLayout.findViewById (R.id.customer_state) as Spinner?
+		  state?.setFocusable (true)
+		  ArrayAdapter <String> (Pos.app.activity, R.layout.pos_spinner_dropdown_list, States.list ())
+				.also {
+					 
+					 adapter ->
+						  adapter.setDropDownViewResource (R.layout.pos_spinner_dropdown)
+					 
+					 state?.adapter = adapter
+				}
 
-		  if (customer.has ("phone")) {
-				
-				var ph = PhoneNumberUtils.formatNumber (customer.getString ("phone"), Locale.getDefault ().getCountry ())
-				
-				fname.setText (customer.getString ("fname"))
-				lname.setText (customer.getString ("lname"))
-				email.setText (customer.getString ("email"))
-				phone.setText (ph)
-				action = customer.getString ("action")
+		  state?.setSelection (States.indexOf (customer.getString ("state")))
+		  
+		  Pos.app.keyboardView.push (this)
+		  home ()
+	 }
+	 
+	 override fun complete () {
+
+		  if (!this::customer.isInitialized) {
+
+				customer = Customer (0)
 		  }
 		  
-		  Pos.app.controlLayout.push (this)
-		  Pos.app.keyboardListeners.add (this)
-	 }
-
-	 override fun accept () {
-
-		  val cust = Customer (customer)
-
-		  Logger.d ("customer edit done... " + customer)
-		  
-		  cust
-				.put ("contact", fname.getText ().toString () + " " + lname.getText ().toString ())
+		  customer
+				.put ("type", "customers")		  
 				.put ("fname", fname.getText ().toString ())
 				.put ("lname", lname.getText ().toString ())
 				.put ("email", email.getText ().toString ())
 				.put ("phone", phone.getText ().toString ())
+				.put ("addr_1", addr.getText ().toString ())
+				.put ("city", city.getText ().toString ())
+				.put ("postal_code", postalCode.getText ().toString ())
 		  
-		  if (customer.getString ("action")  == "add") {
+		  var index: Int? = 0
+		  index = state?.getSelectedItemPosition ()
+		  val pos: Int = index!!
+		  customer.put ("state", States.abbr (pos))
+		  		  
+		  if (customerID > 0) {
 				
-				cust.put ("uuid", UUID.randomUUID ().toString ())  // add a uuid
+				Pos.app.db.update ("customers", customerID, customer)
 		  }
-		  
-		  Pos.app.ticket.put ("customer", cust)
-		  
-		  Pos.app.customer = cust
-		  Pos.app.ticket.put ("customer", cust)
-		  val customer = Customer (Pos.app.customer)
-		  Pos.app.posAppBar.customer (customer.display ())
-		  Pos.app.keyboardListeners.remove (this)
-		  Pos.app.controlLayout.pop (this)
-	 }
-	 
-	 override fun onNum (num: Char) {
-		  
-		  phone.setText ("")
-		  
-		  if (phoneNum.length < 10) {
+		  else {
 				
-				phoneNum.append (num)
-				phone.setText (phoneNum.toString ().phone ("US"))
+				Pos.app.db.insert ("customers", customer)
 		  }
-	 }
-	 
-	 override fun onBackspace () {
 
-		  if (phoneNum.length > 0) {
-				
-				phoneNum.setLength (phoneNum.length - 1)				
-				phone.setText (phoneNum.toString ().phone ("US"))
-		  }
+		  Pos.app.ticket.updates.add (customer)  // attach it to the current sale
+		  Pos.app.keyboardView.swipeLeft ()
 	 }
 }

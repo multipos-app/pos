@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+
+-->
+
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:orientation="vertical"
+	 android:background="@color/transparent">
+
+  <cloud.multipos.pos.views.PosAppBar
+      android:id="@+id/pos_app_bar"
+      android:layout_width="match_parent"
+      android:layout_height="@dimen/activity_main_app_bar_height"
+      android:background="@color/transparent"
+      android:layout_gravity="fill_horizontal"
+      android:orientation="horizontal"
+      custom:icon_size="@dimen/app_bar_icon_size"
+      custom:icon_padding="@dimen/app_bar_icon_padding"/>
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/lt_gray">
+
+	 <cloud.multipos.pos.views.RootView
+		  android:id="@+id/root_layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"/>
+	 
+	 <cloud.multipos.pos.views.KeyboardView
+		  android:id="@+id/keyboard_container"
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:visibility="gone"/>
+	 
+  </LinearLayout>
+
+</LinearLayout>

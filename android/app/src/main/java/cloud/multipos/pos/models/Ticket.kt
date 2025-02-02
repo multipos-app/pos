@@ -32,7 +32,7 @@ typealias TicketTaxMapper <T> = (TicketTax) -> T
 
 class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 	 
-	 val updates = Jar ()
+	 val ticketUpdates = Jar ()
 	 
 	 @JvmField var currentItem = TicketItem ()
 	 @JvmField val items = mutableListOf <TicketItem> ()
@@ -42,9 +42,10 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 	 @JvmField val addons = mutableListOf <TicketAddon> ()
 	 @JvmField val totals = mutableListOf <Jar> ()
 	 @JvmField val other = mutableListOf <Jar> ()
+	 @JvmField val updates = mutableListOf <Jar> ()
 
 	 init {
-		  
+
 		  // check if the last ticket was not completed, if so load it
 
 		  if (ticketID == 0) {
@@ -90,14 +91,12 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 				put ("ticket_tenders", tenders)
 				put ("ticket_addons", addons)
 				put ("totals", totals)
+				put ("other", other)
+				put ("updates", updates)
 				
 				if (getInt ("customer_id") > 0) {
 					 
-					 val customerResult = DbResult ("select name, fname, lname, phone, email from customers where id = " + getInt ("customer_id"), Pos.app.db ())
-					 if (customerResult.fetchRow ()) {
-						  
-						  put ("customer", Customer (customerResult.row ()))
-					 }
+					 put ("customer", Customer (getInt ("customer_id")))
 				}
 				
 				if (getInt ("clerk_id") > 0) {
@@ -116,15 +115,17 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 
 				// else start a new ticket
 
-				if (has ("id")) {
+				// if (has ("id")) {
 					 
-					 remove ("id")
-				}
+				// 	 remove ("id")
+				// }
+
 				
 				var employeeID = 0
 				employeeID = Pos.app.employee!!.getInt ("id")
 				
-				put ("pos_session_id", Pos.app.config.getInt ("pos_session_id"))
+				put ("id", 0)
+					 .put ("pos_session_id", Pos.app.config.getInt ("pos_session_id"))
 					 .put ("business_unit_id", Pos.app.buID ())
 					 .put ("pos_no", Pos.app.posNo ())
 					 .put ("employee_id", employeeID)
@@ -201,8 +202,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 					 val link = TicketItem ()
 					 link.copy (tiResult.row ())
 					 
-					 Logger.x ("link... " + link)
-
 					 ti.links.add (link)
 				}
 		  }
@@ -249,7 +248,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 		  var totalCost = 0.0
 		  var voidItems = 0
 
-		  updates.clear ()
+		  ticketUpdates.clear ()
 		  
 		  put ("summary",  mutableListOf <Jar> ())
 
@@ -300,7 +299,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 						  totalWithoutTax += item.amountWithoutTax () + addonAmount
 						  totalCost += item.getDouble ("cost")
 						  
-						  if ((Pos.app.config.taxes () != null) && (item.getInt ("tax_group_id") > 0)) {
+						  if ((Pos.app.config.taxes () != null) && (item.getInt ("tax_group_id") > 1)) {
 								
 								var taxGroup = Pos.app.config.taxes ().get (Integer.toString (item.getInt ("tax_group_id"))) as Jar
 								if (taxGroup != null) {
@@ -357,17 +356,22 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 		  if (tenderTotal > total) {
 				
 				var change = tenderTotal - total
-				var e = Jar ()
-					 .put ("type", Ticket.TOTAL)
-					 .put ("total_desc", Pos.app.getString ("change_due"))
-					 .put ("amount", change)
-					 .put ("tendered_amount", tenderTotal)
+				// var e = Jar ()
+				// 	 .put ("type", Ticket.TOTAL)
+				// 	 .put ("total_desc", Pos.app.getString ("change_due"))
+				// 	 .put ("amount", Currency.round (change))
+				// 	 .put ("tendered_amount", Currency.round (tenderTotal))
 				
-				getList ("summary").add (e)
+				// getList ("summary")
+				// 	 .add (Jar ()
+				// 				  .put ("type", Ticket.TOTAL)
+				// 				  .put ("total_desc", Pos.app.getString ("change_due"))
+				// 				  .put ("amount", Currency.round (change))
+				// 				  .put ("tendered_amount", Currency.round (tenderTotal)))
 		  }
 		  
-		  put ("tendered_amount", tenderTotal)
-		  put ("balance_due", total - tenderTotal)
+		  put ("tendered_amount", Currency.round (tenderTotal))
+		  put ("balance_due", Currency.round (total - tenderTotal))
 		  
 		  putUpdate ("state", getInt ("state"))
 				.putUpdate ("item_count", itemCount)
@@ -389,16 +393,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 				.putUpdate ("recall_key", getString ("recall_key"))
 				.putUpdate ("uuid", getString ("uuid"))
 		  
-		  Pos.app.db.update ("tickets", getInt ("id"), updates)  // update the ticket table
-
-		  // dump the items...
-		  
-		  // var sel = "select * from ticket_items where ticket_id = " + getInt ("id")
-		  // val tiResult = DbResult (sel, Pos.app.db ())
-		  // while (tiResult.fetchRow ()) {
-				
-		  // 		Logger.x ("ticket item... " + tiResult.row ())
-		  // }
+		  Pos.app.db.update ("tickets", getInt ("id"), ticketUpdates)  // update the ticket table
 	 }
 
 	 fun hasItems (): Boolean {
@@ -579,14 +574,14 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 		  }
 		  else {
 				
-				return UUID.randomUUID ().toString ()  // standard uuid
+				return UUID.randomUUID ().toString ()
 		  }
 	 }
 
 	 fun putUpdate (key: String, value: Any): Ticket {
 
 		  super.put (key, value)
-		  updates.put (key, value)
+		  ticketUpdates.put (key, value)
 		  return this
 	 }
 	 

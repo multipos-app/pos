@@ -30,8 +30,8 @@
     <color name="pos_primary">#007BFF</color>
     <color name="pos_secondary">#6C757D</color>
     <color name="pos_success">#28A745</color>
-    <color name="pos_danger">#DC3545</color>
-    <color name="pos_warn">#FFC107</color>
+    <color name="pos_danger">#E8003F</color>
+    <color name="pos_warn">#FFCA00</color>
     <color name="pos_dark">#343A40</color>
     <color name="pos_info">#17A2B8</color>
 	 

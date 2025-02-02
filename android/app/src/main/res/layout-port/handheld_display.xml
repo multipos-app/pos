@@ -18,14 +18,16 @@
 	 <LinearLayout
         android:layout_width="0dp"
         android:layout_height="match_parent"
-		  android:layout_weight="1"
+		  android:layout_weight="2"
 		  android:gravity="center"
         android:background="@color/transparent">
 		
 		<cloud.multipos.pos.devices.CameraScanner
   			 android:id="@+id/camera_scanner"
-			 android:layout_width="@dimen/handheld_scanner"
-			 android:layout_height="@dimen/handheld_scanner"/>
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"/>
+			 <!-- android:layout_width="@dimen/handheld_scanner" -->
+			 <!-- android:layout_height="@dimen/handheld_scanner"/> -->
 
 	 </LinearLayout>
 	 	 
@@ -57,19 +59,19 @@
         android:layout_marginStart="@dimen/handheld_tab_margin"
         android:layout_marginEnd="@dimen/handheld_tab_margin"/>
 	 
-	 <com.google.android.material.button.MaterialButton
-		  android:id="@+id/item_edit_tab"
-		  android:text="@string/item_edit_tab"
-  		  android:layout_width="0dp"
-		  android:layout_height="match_parent" 
-        android:layout_weight="1"
-        android:textColor="@color/black" 
-		  app:backgroundTint="@color/white"
-        android:background="@drawable/pos_tab_0"
-		  android:textSize="@dimen/handheld_tab_text"
-        android:layout_marginTop="@dimen/handheld_tab_margin_top"
-        android:layout_marginStart="@dimen/handheld_tab_margin"
-        android:layout_marginEnd="@dimen/handheld_tab_margin"/>
+	 <!-- <com.google.android.material.button.MaterialButton -->
+	 <!-- 	  android:id="@+id/item_edit_tab" -->
+	 <!-- 	  android:text="@string/item_edit_tab" -->
+  	 <!-- 	  android:layout_width="0dp" -->
+	 <!-- 	  android:layout_height="match_parent"  -->
+    <!--     android:layout_weight="1" -->
+    <!--     android:textColor="@color/black"  -->
+	 <!-- 	  app:backgroundTint="@color/white" -->
+    <!--     android:background="@drawable/pos_tab_0" -->
+	 <!-- 	  android:textSize="@dimen/handheld_tab_text" -->
+    <!--     android:layout_marginTop="@dimen/handheld_tab_margin_top" -->
+    <!--     android:layout_marginStart="@dimen/handheld_tab_margin" -->
+    <!--     android:layout_marginEnd="@dimen/handheld_tab_margin"/> -->
 	 
   </LinearLayout>
 	 

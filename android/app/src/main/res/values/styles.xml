@@ -1,7 +1,7 @@
 <resources>
 
   <style name="AppTheme" parent="Theme.MaterialComponents.Light.DarkActionBar">
-    <item name="android:spinnerDropDownItemStyle">@style/SpinnerItemStyle</item>
+    <!-- <item name="android:spinnerDropDownItemStyle">@style/SpinnerItemStyle</item> -->
   </style>
   
   <style name="AppTheme.NoActionBar">
@@ -9,28 +9,29 @@
     <item name="windowNoTitle">true</item>
   	 <item name="android:editTextStyle">@style/editTextStyle</item>
   </style>
+
+  <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+  </style>
+
+  <!-- spinner -->
   
-  <style name="SpinnerItemStyle" parent="@android:style/Widget.Holo.DropDownItem.Spinner">
-    <item name="android:textColor">@color/black</item>
-    <item name="android:textSize">24sp</item>
-	 <item name="background">@drawable/spinner_background</item>
-    <item name="dropDownHorizontalOffset">0dip</item>
-    <item name="dropDownWidth">wrap_content</item>
-	 <item name="popupPromptView">@layout/simple_dropdown_hint</item>
+  <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
   </style>
   
   <style name="editTextStyle" parent="@style/Widget.AppCompat.EditText">
 	 <item name="android:textColor">@color/black</item>
 	 <item name="android:background">@color/white</item>
   </style>
+
+  <!-- buttons -->
   
   <style name="PosButton" parent="Widget.MaterialComponents.Button.TextButton">
-    <item name="android:elevation">5dp</item>
-    <item name="cornerRadius">3dp</item>
+    <item name="android:elevation">10dp</item>
+    <item name="cornerRadius">5dp</item>
 	 <item name="android:insetLeft">7dp</item>
 	 <item name="android:insetTop">7dp</item>
-	 <item name="android:insetRight">7dp</item>
-	 <item name="android:insetBottom">7dp</item>
+	 <item name="android:insetRight">12dp</item>
+	 <item name="android:insetBottom">12dp</item>
   </style>
 
   <style name="LoginButton" parent="Widget.MaterialComponents.Button.TextButton"> 
@@ -38,9 +39,15 @@
     <item name="backgroundTint">@color/light_tint</item>
   </style>
   
+  <style name="KeyboardButton" parent="Widget.MaterialComponents.Button.TextButton"> 
+  	 <item name="android:textColor">@color/white</item>
+    <item name="backgroundTint">@color/light_tint</item>
+    <item name="textAllCaps">false</item>
+  </style>
+  
   <style name="DialogCancel" parent="PosButton">
 	 <item name="android:textColor">@color/white</item>
-    <item name="backgroundTint">@color/warn</item>
+    <item name="backgroundTint">@color/pos_danger</item>
   </style>
 
   <style name="DialogContinue" parent="PosButton">
@@ -55,7 +62,12 @@
   
   <style name="DialogWarn" parent="PosButton">	 
 	 <item name="android:textColor">@color/white</item>
-    <item name="backgroundTint">@color/warn</item>
+    <item name="backgroundTint">@color/pos_warn</item>
+  </style>
+  
+  <style name="DialogDanger" parent="PosButton">	 
+	 <item name="android:textColor">@color/white</item>
+    <item name="backgroundTint">@color/pos_danger</item>
   </style>
   
   <style name="PosControlButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

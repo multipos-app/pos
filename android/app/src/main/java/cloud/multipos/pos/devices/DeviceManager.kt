@@ -71,7 +71,7 @@ abstract class DeviceManager (): Device {
 								
 								var device = devices.get (deviceType);
 
-								Logger.d ("start device... ${device}")
+								Logger.i ("start device... ${deviceType} ${device}")
 						  
 								if (device.getString ("class").length > 0) {
 
@@ -88,7 +88,7 @@ abstract class DeviceManager (): Device {
 					 }
 					 else {
 						  
-						  Logger.d ("no devices...")
+						  Logger.i ("no devices...")
 					 }
 				}
 		  }

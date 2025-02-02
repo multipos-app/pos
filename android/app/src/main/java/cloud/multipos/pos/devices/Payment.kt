@@ -42,13 +42,13 @@ abstract class Payment (): Device, DeviceCallback {
 
 	 override fun success (device: Device) {
 
-		  Logger.d ("pos payment success... " + device)
+		  Logger.i ("pos payment success... " + device)
 		  DeviceManager.payment = device as Payment
 		  // deviceStatus = DeviceStatus.OnLine
 	 }
 
 	 override fun fail () {
 
-		  Logger.d ("pos payment fail...")
+		  Logger.i ("pos payment fail...")
 	 }
 }

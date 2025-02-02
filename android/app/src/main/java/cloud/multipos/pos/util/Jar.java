@@ -312,15 +312,22 @@ public class Jar extends HashMap {
 	 
 	 public double getDouble (String key) {
 
-		  if (containsKey (key)) {
+		  // round all doubles to 2 decimal points
 				
+		  if (containsKey (key)) {
+					 
 				if (super.get (key) instanceof Double) {
-					 return ((Double) super.get (key)).doubleValue ();
+
+					 double d = ((Double) super.get (key)).doubleValue ();
+					 d = Currency.round (d);
+					 return d;
 				}
 				else if (super.get (key) instanceof Integer) {
+					 
 					 return (double) ((Integer) super.get (key)).intValue ();
 				}
 				else if (super.get (key) instanceof String) {
+					 
 					 return Double.valueOf ((String) super.get (key));
 				}
 		  }
@@ -407,6 +414,18 @@ public class Jar extends HashMap {
 	 public Jar remove (String key) {
 
 		  super.remove (key);
+		  return this;
+	 }
+	 
+	 public Jar removeAll () {
+
+		  Iterator it = entrySet ().iterator ();
+		  
+		  while (it.hasNext()) {
+				
+				Map.Entry pair = (Map.Entry) it.next ();
+				it.remove ();
+		  }
 		  return this;
 	 }
 	 

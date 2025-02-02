@@ -40,7 +40,7 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 	 
 	 var scanner: CameraScanner
 	 var invTab: MaterialButton
-	 var editTab: MaterialButton
+	 // var editTab: MaterialButton
 	 var posTab: MaterialButton
 	 var layout: LinearLayout
 	 
@@ -66,11 +66,11 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 
 		  posTab = findViewById (R.id.pos_tab) as MaterialButton
 		  invTab = findViewById (R.id.inv_tab) as MaterialButton
-		  editTab = findViewById (R.id.item_edit_tab) as MaterialButton
+		  // editTab = findViewById (R.id.item_edit_tab) as MaterialButton
 
 		  tabs.add (posTab)
 		  tabs.add (invTab)
-		  tabs.add (editTab)
+		  // tabs.add (editTab)
 
 		  posTab.setOnClickListener {
 
@@ -84,15 +84,15 @@ class HandheldDisplay (context: Context, attrs: AttributeSet): PosLayout (contex
 				toggle (1)
 		  }
 
-		  editTab.setOnClickListener {
+		  // editTab.setOnClickListener {
 
-				clearScan ()
-				toggle (2)
-		  }
+		  // 		clearScan ()
+		  // 		toggle (2)
+		  // }
 
 		  posTabListeners.add (PosTabDisplay (context, attrs))
 		  posTabListeners.add (InvTabDisplay (context, attrs, this))
-		  posTabListeners.add (ItemTabDisplay (context, attrs))
+		  // posTabListeners.add (ItemTabDisplay (context, attrs))
 		  
 		  // start with POS
 		  

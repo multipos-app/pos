@@ -166,16 +166,10 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 
 				else -> { }
 		  }
-
+		  
 		  val end = layouts.get (next)
 		  val scene = Scene (this, end)
-
-		  
-		  // val slide = Slide (dir)
-		  // slide.setMode (Fade.MODE_IN)
-		  
 		  val transition = Fade ()
-
 		  transition.setDuration (250)
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()

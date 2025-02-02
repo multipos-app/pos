@@ -38,7 +38,7 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 	 fun push (dialog: DialogView) {
 		  
 		  dialogs.add (0, dialog)
-		  swipeLeft ()
+		  swipeRight ()
 
 		  if (dialog is SwipeListener) {
 				
@@ -53,7 +53,7 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 	 
 	 fun pop (dialog: DialogView) {
 		  
-		  swipeRight ()
+		  swipeLeft ()
 
 		  if (!dialog.sticky ()) {
 
@@ -66,7 +66,7 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 		  }
 	 }
 	 
-	 override fun swipeLeft () {
+	 override fun swipeRight () {
 		  
 		  if (dialogs.size > 0) {
 				
@@ -80,7 +80,7 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 		  }
 	 }
 
-	 override fun swipeRight () {
+	 override fun swipeLeft () {
 		  
 		  swipe (Pos.app.controlHomeLayout)
 		  notifyListeners (SwipeDir.Right)

@@ -73,8 +73,6 @@ public class Quantity extends TicketModifier {
 				multiplier = jar ().getInt ("value");
 		  }
 		  
-		  Logger.d ("qty... " + ti.getString ("item_desc") + " " + jar () + " " + quantity + " " + multiplier);
-
 		  if (multiplier != 0) {
 				
 				quantity += multiplier;
@@ -98,8 +96,6 @@ public class Quantity extends TicketModifier {
 		  if (ti.hasAddons ()) {
 					 
 		  		for (TicketItemAddon tia: ti.addons) {
-
-					 Logger.x ("qty addon... " + tia);
 
 					 if (ti.has ("addon_id")) {
 

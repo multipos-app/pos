@@ -55,8 +55,6 @@ class Tabs (): Suspend (), InputListener {
 
 				val ticket = result.get ("ticket")
 
-				Logger.d ("ticket... ${ticket.getInt ("id")}")
-
 				var sel = "select id from tickets where id = " + ticket.getInt ("id")
 		  
 				val ticketResult = DbResult (sel, Pos.app.db)

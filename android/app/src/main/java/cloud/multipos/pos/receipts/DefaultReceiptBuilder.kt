@@ -128,7 +128,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 									  .put ("font", "normal")
 									  .put ("size", "normal"))
 					 .append (Jar ()
-									  .put ("text", bu.getString ("phone_1").phone ("en_US"))
+									  .put ("text", bu.getString ("phone_1").phone ())
 									  .put ("justify",  "center")
 									  .put ("feed", 0)
 									  .put ("font", "normal")
@@ -238,8 +238,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  }
 
 		  if (ticket.has ("cash_management")) {
-
-				Logger.d ("cash management... " + ticket.get ("cash_management"))
 				
 				printCommands
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LINE))
@@ -412,10 +410,11 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  }
 		  
 		  if (DeviceManager.printer.qrcode ()) {
-				
+												
 				printCommands
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.QR_CODE).text (ticket.getString ("recall_key")))
+				
 		  }
 		  else {
 				printCommands

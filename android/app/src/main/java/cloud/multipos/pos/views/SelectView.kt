@@ -44,7 +44,6 @@ abstract class SelectView (listener: InputListener, list: ArrayList <Jar>, title
 		  
 		  for (l in list) {
 
-				Logger.d ("select line... " + l)
 				listView.addView (line (context, l, i ++))
 		  }
 		  

@@ -26,10 +26,9 @@ open class LaundryReceiptBuilder (): DefaultReceiptBuilder () {
 
 	 override fun customer (): ReceiptBuilder {
 		  
-		  if (Pos.app.ticket.has ("customer")) {
+		  if (Pos.app.ticket.getInt ("customer_id") > 0) {
 
-				val cust = Pos.app.ticket.get ("customer")
-				val customer =  Customer (cust)
+				val customer = Customer (Pos.app.ticket.getInt ("customer_id"))
 		  
 				separator ()
 				printCommands.addAll (customer.receipt ())

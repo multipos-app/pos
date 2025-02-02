@@ -109,7 +109,6 @@ class Pos (): AppCompatActivity () {
 	 
 	 @JvmField var employee: Employee? = null
 	 @JvmField var clerk: Employee? = null
-	 @JvmField var customer: Customer? = null
 
 	 companion object {
 
@@ -329,7 +328,6 @@ class Pos (): AppCompatActivity () {
 
 		  ticket = Ticket (0, Ticket.OPEN)
 		  clerk = null
-		  customer = null
 		  selectValues.clear ()
 	 }
 	 	 

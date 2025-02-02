@@ -52,8 +52,6 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 	 }
 
 	 override fun accept () {
-
-		  Logger.d ("manager overide ${manager} ${pin}")
 		  
 		  if ((manager.length > 0) && (pin.length > 0)) {
 					 
@@ -66,7 +64,7 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 				if (employeeResult.fetchRow ()) {
 					 
 					 Pos.app.ticket.put ("manager", Employee (employeeResult.row ()))
-					 Pos.app.controlLayout.swipeRight ()
+					 Pos.app.controlLayout.swipeLeft ()
 					 PosDisplays.remove (this)
 				}
 				else {

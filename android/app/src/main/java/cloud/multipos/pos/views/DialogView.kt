@@ -33,7 +33,6 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 	 
 	 init {
 		  
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (layout (), this)
 
 		  dialogLayout = findViewById (R.id.dialog_layout) as LinearLayout

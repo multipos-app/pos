@@ -4,8 +4,8 @@
     "locale": "en_US",
     "currency": "USD",
     "update_interval": "20000",
-    "language": "US",
-    "country": "en",
+    "language": "en",
+    "country": "US",
     "variant": "",
     "print_receipt": "false",
     "prompt_open_amount": "false",
@@ -61,7 +61,7 @@
                             "pos": "1"
                         },
                         {
-                            "class": "PaxTender",
+                            "class": "CreditTender",
                             "text": "CREDIT",
                             "params": {
                                 "open_drawer": "true",
@@ -76,8 +76,8 @@
                             "pos": "2"
                         },
                         {
-                            "class": "PaxTender",
-                            "text": "DEBIT",
+                            "class": "CashTender",
+                            "text": "CASH",
                             "params": {
                                 "open_drawer": "true",
                                 "print_receipt": "false",

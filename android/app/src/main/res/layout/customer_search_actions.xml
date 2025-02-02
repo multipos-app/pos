@@ -16,7 +16,7 @@
       android:layout_height="match_parent"
 		android:layout_weight="1"
       android:text="@string/button_select"
-      android:textSize="@dimen/dialog_md_text"/>
+      android:textSize="@dimen/dialog_lg_text"/>
   
   <cloud.multipos.pos.views.PosButton
       android:id="@+id/customer_search_add_edit"
@@ -25,6 +25,6 @@
       android:layout_height="match_parent"
 		android:layout_weight="1"
       android:text="@string/add_edit_customer"
-      android:textSize="@dimen/dialog_md_text"/>
+      android:textSize="@dimen/dialog_lg_text"/>
   
 </LinearLayout>

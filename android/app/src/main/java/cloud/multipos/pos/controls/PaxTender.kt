@@ -67,6 +67,8 @@ class PaxTender (): Tender (null) {
 				
 				// dialog.auth ()
 
+				authAmount = total
+				
 				if (authAmount < 0) {
 					 
 					 authAmount = authAmount * -1.0
@@ -123,10 +125,12 @@ class PaxTender (): Tender (null) {
 
 		  override fun handleMessage (m: Message) {
 
-				Logger.d ("auth handler... ${m}")
+				Logger.i ("auth handler... ${m}")
 				
 				var result = m.obj as Jar
 				tender.result = result.getInt ("result")
+				
+				Logger.i ("auth handler... ${result}")
 				
 				when (m.what) {
 
@@ -140,6 +144,8 @@ class PaxTender (): Tender (null) {
 										  
 										  applyFees ()
 									 }
+
+									 authAmount = result.getDouble ("approved_amount")
 									 
 									 var tt = TicketTender (Jar ()
 									 									 .put ("ticket_id", Pos.app.ticket.getInt ("id"))
@@ -148,7 +154,7 @@ class PaxTender (): Tender (null) {
 									 									 .put ("tender_type", tenderDesc ())
 									 									 .put ("sub_tender_type", result.getString ("card_brand").toLowerCase ())
 									 									 .put ("amount",  authAmount)
-									 									 .put ("returned_amount", returned)
+									 									 .put ("returned_amount", 0.0)
 									 									 .put ("tendered_amount", authAmount)
 									 									 .put ("locale_language", Pos.app.config.getString ("language"))
 									 									 .put ("locale_country", Pos.app.config.getString ("country"))

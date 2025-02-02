@@ -44,6 +44,7 @@ class Item (jar: Jar) {
 		  "items.sku, " +
 		  "items.department_id, " +
 		  "items.item_desc, " +
+		  "item_prices.id as item_price_id, " +
 		  "item_prices.tax_group_id, " +
 		  "item_prices.tax_inclusive, " +
 		  "item_prices.tax_exempt, " +
@@ -62,15 +63,50 @@ class Item (jar: Jar) {
 		  if (itemResult.fetchRow ()) {
 				
 				item = itemResult.row ()
-		
+
 				exists = true				
 				item.put ("pricing", item.get ("pricing"))
-				item.put ("item_desc", item.getString ("item_desc").trim ().toUpperCase ());
+				item.put ("item_desc", item.getString ("item_desc").trim ().uppercase ());
 		  }
 		  else {
 
 				exists = false
 		  }
+	 }
+
+	 companion object {
+
+		  fun update (update: Jar): Boolean {
+				
+				val item = Item (Jar ().put ("sku", update.getString ("sku")))
+				
+				if (item.exists ()) {
+					 
+					 Pos.app.db.update ("items", item.getInt ("id"), Jar ()
+													.put ("sku", update.getString ("sku"))
+													.put ("item_desc", update.getString ("item_desc"))
+													.put ("department_id", update.getInt ("department_id")))
+
+					 Pos.app.db.update ("item_prices", item.getInt ("item_price_id"), Jar ()
+													.put ("tax_group_id", update.get ("item_price").getInt ("tax_group_id"))
+													.put ("pricing", update.get ("item_price").get ("pricing").toString ())
+													.put ("price", update.get ("item_price").getDouble ("price"))
+													.put ("cost", update.get ("item_price").getDouble ("cost")))
+				}
+				else {
+					 					 
+					 var itemPrice = update.get ("item_price")
+						  .put ("item_id", Pos.app.db ().insert ("items", update))
+
+					 Pos.app.db ().insert ("item_prices", itemPrice)
+				}
+
+				// add the update to the current sale, this will update the back office
+				
+				Pos.app.ticket.updates.add (update)
+
+				return true;
+		  }		  
 	 }
 	 
 	 fun exists (): Boolean { return exists }
@@ -114,8 +150,13 @@ class Item (jar: Jar) {
 		  item.put (key, any)
 	 }
 
+	 // fun jar (): Jar {
+
+	 // 	  return item
+	 // }
+	 
 	 override fun toString (): String {
 
 		  return item.toString ()
-	 }	  
+	 }
 }

@@ -73,15 +73,15 @@ class PosLogin (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  }
 
 		  val buttons = listOf (R.id.login_button_0,
-								  R.id.login_button_1,
-								  R.id.login_button_2,
-								  R.id.login_button_3,
-								  R.id.login_button_4,
-								  R.id.login_button_5,
-								  R.id.login_button_6,
-								  R.id.login_button_7,
-								  R.id.login_button_8,
-								  R.id.login_button_9)
+										R.id.login_button_1,
+										R.id.login_button_2,
+										R.id.login_button_3,
+										R.id.login_button_4,
+										R.id.login_button_5,
+										R.id.login_button_6,
+										R.id.login_button_7,
+										R.id.login_button_8,
+										R.id.login_button_9)
 
 		  var i= 0
 		  for (digit in buttons) {
@@ -126,7 +126,7 @@ class PosLogin (context: Context, attrs: AttributeSet): PosLayout (context, attr
 						  }
 		  				  else {
 
-								Logger.d ("invalid login... ${cashier}");
+								Logger.w ("invalid login... ${cashier}");
 		  						loginInput.setText (Pos.app.getString ("invalid_login"))
 		  						cashier = ""
 		  						pin = ""

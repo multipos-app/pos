@@ -36,7 +36,7 @@ import android.view.GestureDetector.SimpleOnGestureListener
 import android.view.View.OnTouchListener
 import android.view.MotionEvent
 
-abstract class PosSwipeLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs), OnTouchListener {
+abstract class PosSwipeLayout (context: Context, attrs: AttributeSet?): PosLayout (context, attrs), OnTouchListener {
 	 
 	 var dir = Gravity.START
 	 var edge = Gravity.START

@@ -72,7 +72,7 @@ class StarScales (): Scales () {
 	 
 	 override fun start (jar: Jar) {
 		  
-		  Logger.d ("start star scale...")
+		  Logger.i ("start star scale...")
 		  
 		  var deviceManagerCallback: StarDeviceManagerCallback = object: StarDeviceManagerCallback () {
 				
@@ -108,7 +108,7 @@ class StarScales (): Scales () {
 
 	 override fun stop () {
 
-		  Logger.d ("star scale stop")
+		  Logger.i ("star scale stop")
 	 }
 	 	 
 	 /**
@@ -119,7 +119,7 @@ class StarScales (): Scales () {
 
 		  override fun onConnect (scale: com.starmicronics.starmgsio.Scale, status: Int) {
 
-				Logger.d ("scale connect... " + status)
+				Logger.i ("scale connect... " + status)
 				deviceManager.stopScan ()
 				
 				when (status) {
@@ -180,7 +180,7 @@ class StarScales (): Scales () {
 
 		  override fun  onDisconnect (scale: com.starmicronics.starmgsio.Scale, status: Int) {
 
-				Logger.d ("scale disconnect... " + status)
+				Logger.i ("scale disconnect... " + status)
 				deviceStatus = DeviceStatus.OffLine
 		  }
 		  
@@ -188,7 +188,7 @@ class StarScales (): Scales () {
 				
 				if (capture) {
 					 
-					 Logger.d ("scale read... " + scaleData.getWeight ())
+					 Logger.i ("scale read... " + scaleData.getWeight ())
 					 appCallback.scaleData (scaleData.getWeight ())
 				}
 		  }

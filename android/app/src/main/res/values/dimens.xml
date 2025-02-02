@@ -78,6 +78,13 @@
   <dimen name="login_padding">25dp</dimen>
   <dimen name="login_spinner_padding">250dp</dimen>
   
+  <!-- keyboard-->
+
+  <dimen name="keyboard_text">20sp</dimen>
+  <dimen name="keyboard_lg_text">28sp</dimen>
+  <dimen name="keyboard_margin">2dp</dimen>
+  <dimen name="keyboard_padding">5dp</dimen>
+
   <!-- inventory-->
   
   <dimen name="inventory_lg_text">42sp</dimen>
@@ -88,11 +95,14 @@
   <!-- dialogs -->
   
   <dimen name="dialog_header_height">75dp</dimen>
-  <dimen name="dialog_footer_height">125dp</dimen>
-  <dimen name="dialog_margin">15dp</dimen>
+  <dimen name="dialog_footer_height">150dp</dimen>
+  <dimen name="dialog_margin">10dp</dimen>
+  <dimen name="dialog_button_margin">25dp</dimen>
+  <dimen name="dialog_sm_margin">5dp</dimen>
   <dimen name="dialog_padding">15dp</dimen>
-  <dimen name="dialog_sm_text">24sp</dimen>
-  <dimen name="dialog_md_text">32sp</dimen>
+  <dimen name="dialog_sm_padding">5dp</dimen>
+  <dimen name="dialog_sm_text">18sp</dimen>
+  <dimen name="dialog_md_text">24sp</dimen>
   <dimen name="dialog_lg_text">42sp</dimen>
   <dimen name="dialog_xlg_text">52sp</dimen>
   <dimen name="dialog_search_height">75dp</dimen>
@@ -109,11 +119,11 @@
   <dimen name="tabs_button_xlg_text">50sp</dimen>
   <dimen name="tabs_button_margin">10dp</dimen>
 
-  <!-- add item -->
+  <!-- item add/edit-->
 
-  <dimen name="add_item_width">1200dp</dimen>
-  <dimen name="add_item_height">550dp</dimen>
-  <dimen name="add_item_input_width">370dp</dimen>
+  <dimen name="item_edit_margin">3dp</dimen>
+  <dimen name="item_edit_padding">3dp</dimen>
+  <dimen name="item_edit_spinner_padding">7dp</dimen>
 
   <!-- ticket header/footer display full -->
 
@@ -141,11 +151,11 @@
 
   <!-- ticket -->
   
-  <dimen name="ticket_item_icon_text">32sp</dimen>
+  <dimen name="ticket_item_icon_text">20sp</dimen>
   <dimen name="ticket_item_xlg_text">32sp</dimen>
   <dimen name="ticket_item_lg_text">28sp</dimen>
-  <dimen name="ticket_item_md_text">22sp</dimen>
-  <dimen name="ticket_item_sm_text">12sp</dimen>
+  <dimen name="ticket_item_md_text">24sp</dimen>
+  <dimen name="ticket_item_sm_text">18sp</dimen>
   <dimen name="ticket_item_margin">5dp</dimen>
   <dimen name="ticket_item_padding">3dp</dimen>
   <dimen name="ticket_item_sm_padding">3dp</dimen>
@@ -187,6 +197,14 @@
   <dimen name="menu_button_padding_end">1dp</dimen>
   <dimen name="menu_button_padding_bottom">1dp</dimen>
   
+  <!-- customer search -->
+
+  <dimen name="customer_sm_text">14sp</dimen>
+  <dimen name="customer_md_text">20sp</dimen>
+  <dimen name="customer_lg_text">24sp</dimen>
+  <dimen name="customer_line_margin">7dp</dimen>
+  <dimen name="customer_line_padding">7dp</dimen>
+ 
   <!-- customer display -->
   
   <dimen name="customer_message_text">32sp</dimen>

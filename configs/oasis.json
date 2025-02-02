@@ -5,8 +5,8 @@
     "locale": "en_US",
     "currency": "USD",
     "update_interval": "20000",
-    "language": "US",
-    "country": "en",
+    "language": "en",
+    "country": "US",
     "variant": "",
     "prompt_open_amount": "false",
     "show_previous_receipt": "true",
@@ -19,9 +19,10 @@
     "show_previous_receipt_no_print": "false",
     "surveillance": "false",
     "scanner": "keyboard",
-    "customers": "true",
+    "customers": "false",
     "cash_management": "false",
     "merge_like_items": "false",
+    "themed": "true",
     "devices": {
         "receipt_printer": {
             "name": "star_micronics",
@@ -501,7 +502,8 @@
                                 "menu": "main_menu"
                             }
                         }
-                    ]
+                    ],
+                    "size": "56"
                 },
                 {
                     "type": "controls",
@@ -2775,7 +2777,12 @@
                             "color": "#95212c",
                             "params": {
                                 "sku": "283572"
-                            }
+                            },
+                            "pos_config_id": "24022",
+                            "container": "main_menu",
+                            "menu": "6",
+                            "pos": "16",
+                            "exists": "true"
                         },
                         {
                             "text": "NEWPORT",
@@ -2823,7 +2830,12 @@
                             "color": "#95212c",
                             "params": {
                                 "sku": "283632"
-                            }
+                            },
+                            "pos_config_id": "24022",
+                            "container": "main_menu",
+                            "menu": "6",
+                            "pos": "23",
+                            "exists": "true"
                         },
                         {
                             "text": "NEWPORT 100",
@@ -2912,7 +2924,12 @@
                             "color": "#f2b91f",
                             "params": {
                                 "sku": "284652"
-                            }
+                            },
+                            "pos_config_id": "24022",
+                            "container": "main_menu",
+                            "menu": "6",
+                            "pos": "37",
+                            "exists": "true"
                         },
                         {
                             "text": "PARLIAMENT",
@@ -3031,7 +3048,8 @@
                             "color": "#26292c",
                             "fixed": "1"
                         }
-                    ]
+                    ],
+                    "size": "56"
                 },
                 {
                     "type": "controls",
@@ -3734,11 +3752,13 @@
                             "color": "#00000000"
                         },
                         {
-                            "text": "",
-                            "class": "Null",
-                            "color": "#00000000"
+                            "class": "UploadLog",
+                            "color": "#512D55",
+                            "fixed": "1",
+                            "text": "upload logs"
                         }
-                    ]
+                    ],
+                    "size": "56"
                 }
             ]
         },
@@ -3887,11 +3907,12 @@
                             "color": "#5E7981",
                             "fixed": "1"
                         }
-                    ]
+                    ],
+                    "size": "16"
                 }
             ]
         },
-        "function_menu": {
+        "tender_menu": {
             "menu_description": "",
             "tabs": "false",
             "horizontal_menus": [
@@ -4019,7 +4040,8 @@
                             },
                             "fixed": "1"
                         }
-                    ]
+                    ],
+                    "size": "15"
                 }
             ]
         }

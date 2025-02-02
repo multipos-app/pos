@@ -284,16 +284,22 @@
     <string name="previous_total">Previous sale</string>
     <string name="copy">Copy</string>
     <string name="customer_no">Customer No.</string>
+    <string name="customer_save">Save</string>
     <string name="customer_name">Name</string>
-    <string name="customer_phone">(nnn) nnn-nnnn</string>
+    <string name="customer_phone">Phone</string>
     <string name="customer_mobile">Mobile phone</string>
     <string name="customer_email">EMail</string>
+    <string name="customer_addr">Address</string>
+    <string name="customer_city">City</string>
+    <string name="customer_state">State</string>
+    <string name="customer_postal_code">Zip</string>
     <string name="search_tickets_result">Tickets</string>
     <string name="telephone_hint">###-###-####</string>
     <string name="telephone">Telephone</string>
+    <string name="customer_select">Select customer</string>
     <string name="customer_fname">First name</string>
     <string name="customer_lname">Last name</string>
-    <string name="add_customer">Add customer</string>
+    <string name="add_customer">Add/edit customer</string>
     <string name="edit_customer">Edit customer</string>
     <string name="add_edit_customer">Add/Edit</string>
     <string name="gift_card_sale">Gift card sale</string>
@@ -335,10 +341,11 @@
     <string name="cash_diff">Cash difference</string>
     <string name="drawer_totals">Drawer totals</string>
 	 
-	 <string name="inv_tab">Item Counts</string>
+	 <string name="inv_tab">Inven-tory</string>
 	 <string name="item_edit_tab">Item Edit</string>
 	 <string name="pos_tab">POS</string>
 	 <string name="item_not_found">Item not found</string>
+	 <string name="item_not_found_confirm">Item not found, add item?</string>
 	 
 	 <string name="sku">SKU</string>
 	 <string name="item_desc">Item description</string>
@@ -349,20 +356,27 @@
 	 <string name="inv_send">Send Counts</string>
 	 <string name="scan_or_enter_sku">Scan or enter SKU</string>
 
-	 <string name="add_item_title">Add iItem</string>
-	 <string name="add_item_sku">UPC/SKU</string>
-	 <string name="add_item_desc">Item description</string>
-	 <string name="add_item_department_desc">Departments</string>
-	 <string name="add_item_deposits_desc">Deposit</string>
-	 <string name="add_item_price_desc">Price</string>
-	 <string name="add_item_cost_desc">Cost</string>
-	 <string name="add_item_package_size">Supplier package size</string>
-	 <string name="add_item_price">0.00</string>
-	 <string name="add_item_tax_desc">Tax:</string>
-	 <string name="add_item_tax">Taxable</string>
-	 <string name="add_item_non_tax">Tax exempt</string>
-	 <string name="add_item_complete">Save</string>
-	 <string name="add_item_clear">Clear</string>
+	 <!-- edit layouts -->
+	 
+	 <string name="item_edit_title">Add Item</string>
+	 <string name="item_edit_sku">UPC/SKU</string>
+	 <string name="item_edit_desc">Desc.</string>
+	 <string name="item_edit_department_desc">Departments</string>
+	 <string name="item_edit_deposits_desc">DepositS</string>
+	 <string name="item_edit_price_desc">Price</string>
+	 <string name="item_edit_cost_desc">Cost</string>
+	 <string name="item_edit_package_size">Supplier package size</string>
+	 <string name="item_edit_price">0.00</string>
+	 <string name="item_edit_cost">0.00</string>
+	 <string name="item_edit_tax_desc">Tax</string>
+	 <string name="item_edit_tax">Taxable</string>
+	 <string name="item_edit_non_tax">Tax exempt</string>
+	 <string name="edit_complete">Save</string>
+	 <string name="edit_reset">Reset</string>
+	 <string name="edit_cancel">Cancel</string>
+
+	 <!-- misc -->
+	 
 	 <string name="none">None</string>
 	 <string name="camera_ip">Enter camera IP</string>
 	 <string name="pax_ip">Enter PAX IP</string>
@@ -395,6 +409,7 @@
     <string name="tables">Tables</string>
     <string name="tables_init">Select or add table</string>
     <string name="enter_table_number">Enter table number</string>
+    <string name="shift">SHIFT</string>
 
     <string name="fa_del">&#xf55a;</string>
     <string name="fa_trash">&#xf2ed;</string>
@@ -422,13 +437,15 @@
     <string name="fa_video">&#xf03d;</string>
     <string name="fa_arrow_right">&#xf061;</string>
     <string name="fa_arrow_left">&#xf060;</string>
+    <string name="fa_arrow_up">&#xf062;</string>
+    <string name="fa_arrow_down">&#xf063;</string>
     <string name="fa_cloud_download">&#xf0ed;</string>
     <string name="fa_cloud_upload">&#xf0ee;</string>
     <string name="fa_exit">&#xf00d;</string>
-    <string name="fa_plus">&#xf067;</string>
+    <string name="fa_plus">&#x002b;</string>
     <string name="fa_plus_circle">&#xf055;</string>
-    <string name="fa_minus">&#xf056;</string>
-    <string name="fa_minus_circle">&#xf067;</string>
+    <string name="fa_minus">&#xf068;</string>
+    <string name="fa_minus_circle">&#xf056;</string>
     <string name="fa_edit">&#xf044;</string>
     <string name="fa_scale">&#xf496;</string>
     <string name="fa_kitchen_printer">&#xe3d2;</string>

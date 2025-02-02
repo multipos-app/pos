@@ -99,10 +99,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 		  
 		  // when (dir) {
 
-		  // 		SwipeDir.Right -> {
-					 
-		  // 			 Logger.w ("credit tender cancelled...")
-		  
+		  // 		SwipeDir.Right -> {		  
 		  // 			 tender.cancel ()
 		  // 		}
 		  // }
@@ -115,8 +112,6 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 	 }
 	 
 	 fun cancel (text: String) {
-
-		  // Logger.d ("tender view cancel... ${text}")
 		  
 		  // accept.text = Pos.app.getString ("cancel")
 		  // statusText.text = text
@@ -137,7 +132,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 	 fun stop () {
 
 		  tender.cancel ()
-		  Pos.app.controlLayout.swipeRight ()
+		  Pos.app.controlLayout.swipeLeft ()
 	 }
 
 	 inner class TenderLine (desc: String, amount: Double, layout: Int): LinearLayout (Pos.app.activity) {

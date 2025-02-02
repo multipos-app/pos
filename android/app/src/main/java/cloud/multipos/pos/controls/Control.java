@@ -101,7 +101,8 @@ public abstract class Control implements PosControl {
 
 		  if (control == null) {
 
-				control = (Control) LoadClass.get ("cloud.multipos.pos.controls.Clear");
+				Logger.w ("failed to load class... " + controlName);
+				control = (Control) LoadClass.get ("cloud.multipos.pos.controls.Null");
 		  }
 		  
 		  return control;

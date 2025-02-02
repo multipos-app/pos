@@ -63,14 +63,14 @@ class ControlsGridLayout (val menu: Jar,
 		  grid.setLayoutParams (ViewGroup.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 
 		  if (tabs.size > 0) {
-				
+								
 				var index = 0
 				for (tab in tabs) {
-
+					 
 					 val t = Jar ()
 						  .put ("text", tab.getString ("name"))
 						  .put ("color", tab.getString ("color"))
-						  .put ("jar", Jar ()
+						  .put ("params", Jar ()
 										.put ("menu_index", index ++))
 					 
 		  			 grid.addView (NavigateButton (t))
@@ -86,23 +86,26 @@ class ControlsGridLayout (val menu: Jar,
 		  }
 
 	 	  for (b in buttons) {
-				
-				when (b.getString ("class")) {
-					 
-					 "Null" -> {
 
-		  				  grid.addView (EmptyButton ())
-					 }
+				if (b.has ("class")) {
 					 
-					 "Separator" -> {
+					 when (b.getString ("class")) {
+					 
+						  "Null" -> {
 
-		  				  // grid.addView (Separator (b))
-					 }
-					 else -> {
+		  						grid.addView (EmptyButton ())
+						  }
 						  
-		  				  grid.addView (GridControlButton (b))
+						  "Separator" -> {
+								
+		  						// grid.addView (Separator (b))
+						  }
+						  else -> {
+								
+		  						grid.addView (GridControlButton (b))
+						  }
 					 }
-	 			}
+				}
 		  }
 		  
 		  addView (grid)
@@ -145,12 +148,12 @@ class ControlsGridLayout (val menu: Jar,
 	 inner class NavigateButton (jar: Jar): GridButton (jar) {
 
 		  init {
-
+				
 				button.setText (jar.getString ("text"))				
 				button.setTypeface (Views.buttonFont ())
 				button.setOnClickListener {
 					 					 
-					 posMenuControl.menu (jar.get ("jar").getInt ("menu_index"))
+					 posMenuControl.menu (jar.get ("params").getInt ("menu_index"))
 				}
 		  }
 	 }
@@ -161,7 +164,7 @@ class ControlsGridLayout (val menu: Jar,
 		  var button: MaterialButton
 		  
 		  init {
-				
+
 				Pos.app.inflater.inflate (R.layout.pos_control_button, this)  //  
 				
 				button = findViewById (R.id.control_button) as MaterialButton

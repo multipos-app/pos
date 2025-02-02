@@ -33,10 +33,15 @@ class VoidItem (): Control () {
 				PosDisplays.message (Pos.app.getString ("invalid_operation"))
 				return
 		  }
-	  
+		  
 		  for (ti in Pos.app.ticket.selectItems ()) {
 				
 				ti.put ("state", TicketItem.VOID_ITEM)
+				if (jar.has ("data_capture")) {
+
+					 ti.put ("data_capture", jar.getString ("data_capture"))
+				}
+
 				Pos.app.db.exec ("update ticket_items set state = " + TicketItem.VOID_ITEM + " where id = " + ti.getInt ("id"))
 				
 				// void the links/ deposits

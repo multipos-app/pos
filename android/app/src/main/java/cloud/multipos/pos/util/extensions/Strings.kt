@@ -26,6 +26,7 @@ import java.util.Locale
 import java.security.MessageDigest;
 import java.math.BigInteger;
 import android.telephony.PhoneNumberUtils
+import java.util.UUID
 
 fun String.toDate (dateFormat: String = "yyyy-MM-dd HH:mm:ss", timeZone: TimeZone = TimeZone.getTimeZone ("UTC"),): Date {
 
@@ -90,9 +91,16 @@ fun String.center (len: Int, pad: String): String {
 	 return sb.toString ()		  
 }
 
-fun String.phone (locale: String): String {
+fun String.phone (): String {
+	 
+	 if (this.length > 0) {
 		  
-	 return PhoneNumberUtils.formatNumber (this, locale)
+		  return PhoneNumberUtils.formatNumber (this, Pos.app.config.getString ("country"))
+	 }
+	 else {
+
+		  return ""
+	 }
 }
 
 fun String.fill (size: Int): String {
@@ -119,4 +127,9 @@ fun String.trunc (id: Int): String {
 		  
 		  return this;
 	 }
+}
+
+fun String.uuid (): String {
+
+	 return UUID.randomUUID ().toString ()
 }

@@ -25,7 +25,7 @@ class EnterCustomer (): Control (), InputListener {
 
 	 override fun controlAction (jar: Jar) {
 
-		  CustomerSearchView (this)
+		  // CustomerSearchView (this)
 	 }
 
 	 override fun accept (result: Jar) {

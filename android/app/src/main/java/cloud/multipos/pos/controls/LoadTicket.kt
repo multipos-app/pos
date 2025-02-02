@@ -78,11 +78,6 @@ class LoadTicket (): Control () {
 				Pos.app.ticket = Ticket (0, Ticket.OPEN)
 		  }
 
-		  if (Pos.app.ticket.has ("customer")) {
-				
-				Pos.app.posAppBar.customer (Customer (Pos.app.ticket.get ("customer")).display ())
-		  }
-		  
 		  PosDisplays.update ()
 		  PosDisplays.home ()
 	 }

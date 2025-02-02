@@ -61,8 +61,6 @@ class StarPrinter () : Printer () {
 						  
 						  for (i in interfaces.indices) {
 								
-								Logger.d ("printer search... " + i)
-
 								if ((deviceStatus == DeviceStatus.OffLine) || (deviceStatus == DeviceStatus.Unknown)) {
 									 
 									 val interfaceName = interfaces [i]
@@ -77,7 +75,7 @@ class StarPrinter () : Printer () {
 												for (j in ports.indices) {
 													 
 													 val p = ports.get (j)
-													 Logger.d ("star found... " + interfaceName + " " + p.portName + " " + p.modelName)
+													 Logger.i ("star found... " + interfaceName + " " + p.portName + " " + p.modelName)
 													 connect (Jar ()
 																	  .put ("port", p.portName)
 																	  .put ("builder_class", printerClass (p)))
@@ -90,7 +88,7 @@ class StarPrinter () : Printer () {
 									 }
 									 catch (e: Exception) {
 										  
-										  Logger.d ("start search exception... " + interfaceName + " " + e)
+										  Logger.i ("start search exception... " + interfaceName + " " + e)
 									 }
 								}
 						  }
@@ -149,12 +147,10 @@ class StarPrinter () : Printer () {
                 .toString ()
         )
 		  
-        Logger.d ("star connect complete... ")
+        Logger.i ("star connect complete... ")
     }
 	 
 	 override fun drawer () {
-
-		  Logger.d ("star printer drawer... ")
 
 		  	 val printCommands = PrintCommands ()
 			 printCommands
@@ -193,7 +189,7 @@ class StarPrinter () : Printer () {
 		  		  
         if (starIOPort == null) {
 				
-            Logger.d ("star thread, void port...")
+            Logger.i ("star thread, void port...")
             return
         }
 		  
@@ -203,7 +199,7 @@ class StarPrinter () : Printer () {
 				
             Thread (label@ Runnable {
 								
-								Logger.d ("star print start... " + builders!!.size)
+								Logger.i ("star print start... " + builders!!.size)
 								printing (true)
 								var i = 0
 								
@@ -215,7 +211,7 @@ class StarPrinter () : Printer () {
 										  val status = starIOPort!!.retreiveStatus ()
 										  if (status.rawLength == 0) {
 												
-												Logger.d ("printer status error... ")
+												Logger.i ("printer status error... ")
 										  }
 										  
 										  starIOPort!!.writePort (command, 0, command.size)
@@ -243,7 +239,7 @@ class StarPrinter () : Printer () {
 									 i++
 								}
 								
-								Logger.d ("star print complete... " + builders!!.size)
+								Logger.i ("star print complete... " + builders!!.size)
 								printing (false)
 								queueHandler.sendMessage (Message.obtain ())
 								
@@ -259,13 +255,13 @@ class StarPrinter () : Printer () {
 		  
         if (starIOPort == null) {
 				
-            Logger.d ("star close, void port...")
+            Logger.i ("star close, void port...")
             return
         }
         try {
 				
             StarIOPort.releasePort (starIOPort)
-            Logger.d ("star close...")
+            Logger.i ("star close...")
         }
 		  catch (e: StarIOPortException) {
 				
@@ -278,7 +274,7 @@ class StarPrinter () : Printer () {
 		  
         override fun handleMessage (m: Message) {
 				
-            Logger.d ("star queue handler... $m")
+            Logger.i ("star queue handler... $m")
             dequeue ()
         }
     }
@@ -287,13 +283,13 @@ class StarPrinter () : Printer () {
 		  
         override fun onConnected (result: IConnectionCallback.ConnectResult) {
 				
-            Logger.d ("star on connected callback...")
+            Logger.i ("star on connected callback...")
             manager!!.setListener (listener)
         }
 
         override fun onDisconnected () {
 				
-            Logger.d ("star disconnect callback...")
+            Logger.i ("star disconnect callback...")
         }
 
     }
@@ -302,62 +298,62 @@ class StarPrinter () : Printer () {
 		  
         override fun onPrinterImpossible () {
 				
-            Logger.d (deviceName () + ": " + Pos.app.getString ("printer_fail"))
+            Logger.i (deviceName () + ": " + Pos.app.getString ("printer_fail"))
         }
 
         override fun onPrinterOnline () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_on_line"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_on_line"))
         }
 
         override fun onPrinterOffline () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_off_line"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_off_line"))
         }
 
         override fun onPrinterPaperReady () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("paper_ready"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("paper_ready"))
         }
 
         override fun onPrinterPaperNearEmpty () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("paper_low"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("paper_low"))
         }
 
         override fun onPrinterPaperEmpty () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("paper_empty"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("paper_empty"))
         }
 
         override fun onPrinterCoverOpen () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_cover_open"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_cover_open"))
         }
 
         override fun onPrinterCoverClose () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_cover_close"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("printer_cover_close"))
         }
 
         override fun onAccessoryConnectSuccess () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_connect"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_connect"))
         }
 
 		  
         override fun onAccessoryConnectFailure () {
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_fail"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_fail"))
         }
 
         override fun onAccessoryDisconnect () {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_disconnect"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_disconnect"))
         }
 
         override fun onStatusUpdate (status: String) {
 				
-            Logger.d ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_disconnect"))
+            Logger.i ("star listener " + deviceName () + ": " + Pos.app.getString ("cash_drawer_disconnect"))
         }
     }
 
@@ -372,7 +368,6 @@ class StarPrinter () : Printer () {
 		  else if (portInfo.portName.contains ("TSP100")) {
             printerID = portInfo.portName
         }
-        Logger.d ("printer class... $printerID")
 		  
         if (printerID!!.startsWith ("MCP")) {
 				

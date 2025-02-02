@@ -39,9 +39,10 @@ object BackOffice: Device, DeviceCallback {
 	 var downloadCount = 0
 	 var poll = 120000L
 	 var deviceStatus = DeviceStatus.Unknown
-	 var mqttClient: MqttClient
 	 val DOWNLOAD = 1		  
 	 var started = false
+	 
+	 lateinit var mqttClient: MqttClient
 
 	 override fun deviceStatus (): DeviceStatus { return deviceStatus }
 	 override fun deviceClass (): DeviceClass  { return DeviceClass.BackOffice }
@@ -53,16 +54,21 @@ object BackOffice: Device, DeviceCallback {
 	 init {
 
 		  instance = this
-		  mqttClient = MqttClient ()
-		  Pos.app.devices.add (this)
 
-		  if (Pos.app.config.ready () && Pos.app.config.has ("dbname")) {
+		  // mqtt is flakey on older os versions
+		  
+		  if (android.os.Build.VERSION.SDK_INT > 23) {
 				
-				// subscribe to BU broker
-				
-				mqttClient.connect ("multipos/" + Pos.app.local.getInt ("merchant_id", 0))
+				mqttClient = MqttClient ()
+				if (Pos.app.config.ready () && Pos.app.config.has ("dbname")) {
+					 
+					 // subscribe to BU broker
+					 
+					 mqttClient.connect ("multipos/" + Pos.app.local.getInt ("merchant_id", 0))
+				}
 		  }
 
+		  Pos.app.devices.add (this)
 		  Pos.app.db ().exec ("delete from pos_updates")
 	 }
 	 
@@ -85,9 +91,7 @@ object BackOffice: Device, DeviceCallback {
 						  .put ("update_id", Pos.app.local.getInt ("update_id", 0))
 						  .put ("pos_config_id", Pos.app.local.getInt ("pos_config_id", 0))
 						  .put ("download_count", downloadCount)
-					 
-					 Logger.d ("download post... ${downloadTotal} ${download.getInt ("update_id")} ${download.getInt ("download_count")}")
-					 
+					 					 
 					 Post ("pos-download")
 						  .add (download)
 						  .exec (fun (result: Jar): Unit {
@@ -249,7 +253,7 @@ object BackOffice: Device, DeviceCallback {
 								
 								val itemLinks = update.get ("update").getList ("item_links")
 								for (il in itemLinks) {
-									 
+
 									 Pos.app.db ().insert ("item_links", il)
 								}
 						  }

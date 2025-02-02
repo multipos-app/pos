@@ -56,7 +56,6 @@ abstract class CustomerDisplay (): DeviceManager (), DeviceCallback {
 	 
 	 override fun success (device: Device) {
 
-		  Logger.d ("customer display init... ")
 		  DeviceManager.customerDisplay = device as CustomerDisplay
 	 }
 	 

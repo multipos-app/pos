@@ -81,6 +81,7 @@ class StarTSP100 : StarCommandBuilder {
                 PrintCommand.BARCODE -> {
 						  
                     val text = BARCODE_PREFIX + pc.value
+						  
 						  builder.appendBarcodeWithAbsolutePosition (text.toByteArray (),
 																					BarcodeSymbology.Code128,
 																					BarcodeWidth.Mode2,
