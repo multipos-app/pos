@@ -13,30 +13,41 @@
   <ImageView
       android:id="@+id/login_company"
       android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_margin="@dimen/register_margin"
-      android:layout_weight="1"
+      android:layout_height="@dimen/pos_init_header"
+      android:layout_margin="@dimen/pos_init_margin"
       android:gravity="center_horizontal|bottom"
       android:src="@drawable/app_logo" />
 
   <TextView
-      android:layout_height="wrap_content"
-      android:layout_width="wrap_content"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+		android:layout_width="wrap_content"
       android:layout_centerHorizontal="true"
       android:text="@string/initialize_device"
       android:textColor="@android:color/white"
       android:textSize="@dimen/pos_init_md_text" />
   
-  <ProgressBar
-      android:id="@+id/progress_bar"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/register_height"/>
+  <LinearLayout
+ 		android:layout_width="match_parent"
+		android:layout_height="0dp"
+      android:layout_weight="1"
+      android:gravity="center_horizontal"
+		android:background="@color/transparent">
+
+	 <ProgressBar
+        android:id="@+id/progress_bar"
+		  android:layout_width="@dimen/progress_size"
+		  android:layout_height="@dimen/progress_size"
+        android:gravity="center_horizontal"/>
+	 
+  </LinearLayout>
 
   <TextView
       android:id="@+id/progress_text"
-      android:layout_height="@dimen/register_height"
-      android:layout_width="wrap_content"
-      android:layout_centerHorizontal="true"
+      android:layout_height="0dp"
+      android:layout_width="match_parent"
+      android:layout_weight="1"
+      android:gravity="center_horizontal"
       android:text=""
       android:textColor="@android:color/white"
       android:textSize="@dimen/register_md_text" />

@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2023 multiPOS, LLC
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -16,12 +16,12 @@
  
 package cloud.multipos.pos.views
 
-import cloud.multipos.pos.*;
-import cloud.multipos.pos.util.*;
-import cloud.multipos.pos.util.extensions.*;
-import cloud.multipos.pos.controls.*;
-import cloud.multipos.pos.db.*;
-import cloud.multipos.pos.models.Customer;
+import cloud.multipos.pos.*
+import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
+import cloud.multipos.pos.controls.*
+import cloud.multipos.pos.db.*
+import cloud.multipos.pos.models.Customer
 
 import android.app.Dialog
 import android.content.Context
@@ -82,8 +82,14 @@ class CustomerSearchView (): EditView () {
 		  var complete = layout.findViewById (R.id.customer_search_complete) as Button
 		  complete.setOnClickListener {
 
-				Pos.app.posAppBar.customer (customer.display ())
-				Pos.app.ticket.put ("customer_id", customer.getInt ("id"));
+				// check if customer was selected
+				
+				if (this::customer.isInitialized) {
+					 
+					 Pos.app.posAppBar.customer (customer.display ())
+					 Pos.app.ticket.put ("customer_id", customer.getInt ("id"))
+				}
+				
 				Pos.app.keyboardView.swipeLeft ()
 		  }
 		  

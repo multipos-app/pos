@@ -1,5 +1,7 @@
 <resources>
   
+  <dimen name="progress_size">200dp</dimen>
+
   <!-- activity -->
   
   <dimen name="activity_main_padding">5dp</dimen>
@@ -34,7 +36,7 @@
   
   <!-- pos init -->
 
-  <dimen name="pos_init_header">32dp</dimen>
+  <dimen name="pos_init_header">100dp</dimen>
   <dimen name="pos_init_margin">10dp</dimen>
   <dimen name="pos_init_padding">15dp</dimen>
   <dimen name="pos_init_arrow_text">19sp</dimen>

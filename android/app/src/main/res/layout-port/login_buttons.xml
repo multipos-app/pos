@@ -36,6 +36,7 @@
 		android:layout_height="0dp"
 		android:layout_width="match_parent"
 		android:layout_weight="1"
+		android:layout_marginTop="@dimen/login_button_margin"
 		android:orientation="horizontal">
 	 
 	 <cloud.multipos.pos.views.PosButton
@@ -73,6 +74,7 @@
 		android:layout_height="0dp"
 		android:layout_width="match_parent"
 		android:layout_weight="1"
+		android:layout_marginTop="@dimen/login_button_margin"
 		android:orientation="horizontal">
 	 
 	 <cloud.multipos.pos.views.PosButton
@@ -110,6 +112,7 @@
 		android:layout_height="0dp"
 		android:layout_width="match_parent"
 		android:layout_weight="1"
+		android:layout_marginTop="@dimen/login_button_margin"
 		android:orientation="horizontal">
 	 
 	 <cloud.multipos.pos.views.PosButton
@@ -148,6 +151,7 @@
 		android:layout_width="match_parent"
 		android:layout_weight="1"
       android:background="@color/transparent"
+		android:layout_marginTop="@dimen/login_button_margin"
 		android:orientation="horizontal">
 	 
 	 <LinearLayout
@@ -175,7 +179,7 @@
         android:background="@color/transparent"
 		  android:textColor="@color/white"
         android:text="@string/fa_del"
-        android:textSize="@dimen/login_button_text"/>
+        android:textSize="@dimen/login_button_xlg_text"/>
 	 
   </LinearLayout>
   
@@ -187,13 +191,13 @@
 		android:visibility="gone"
 		android:padding="@dimen/login_spinner_padding"
 		android:clickable="false"
-		android:orientation="vertical">
+		android:orientation="vertical"
+ 		android:gravity="center_horizontal|center_vertical">
 	 
 	 <ProgressBar
         android:id="@+id/progress_bar"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
+        android:layout_width="@dimen/progress_size"
+        android:layout_height="@dimen/progress_size"
  		  android:gravity="center_horizontal|center_vertical"/>
 	 
   </LinearLayout>

@@ -10,14 +10,6 @@
 	 android:gravity="center_horizontal"
 	 android:orientation="vertical"
 	 android:layout_margin="@dimen/pos_init_margin">
-
-  <ImageView
-      android:id="@+id/login_company"
-      android:layout_width="match_parent"
-      android:layout_height="@dimen/pos_init_header"
-      android:gravity="left"
-      android:src="@drawable/app_logo"
-		android:layout_margin="@dimen/pos_init_margin"/>
   
   <ScrollView
 		android:layout_width="match_parent"
@@ -40,7 +32,7 @@
 			 android:textColor="@color/white"
  			 android:background="@color/transparent"
 			 android:clickable="true"
-			 android:textSize="@dimen/pos_init_sm_text"/>
+			 android:textSize="@dimen/pos_init_md_text"/>
 
 		<ScrollView
 			 android:layout_width="match_parent"
@@ -65,7 +57,7 @@
 			 android:textColor="@color/white"
 			 android:background="@color/transparent"
 			 android:clickable="true"
-			 android:textSize="@dimen/pos_init_sm_text"/>
+			 android:textSize="@dimen/pos_init_md_text"/>
 
 		<ScrollView
 			 android:layout_width="match_parent"
@@ -89,7 +81,7 @@
 			 android:gravity="center"
 			 android:textColor="@color/white"
 			 android:background="@color/transparent"
-			 android:textSize="@dimen/pos_init_sm_text"/>
+			 android:textSize="@dimen/pos_init_md_text"/>
 
  		<cloud.multipos.pos.views.PosIconButton
 			 android:id="@+id/pos_init_register"

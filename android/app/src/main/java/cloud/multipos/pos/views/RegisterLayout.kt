@@ -36,12 +36,12 @@ class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context
 	 
 	 init {
 		  		  
-		  Pos.app.inflater.inflate (R.layout.pos_register_layout, this)
+		  var layout = Pos.app.inflater.inflate (R.layout.pos_register_layout, this)
 
-		  username = findViewById (R.id.pos_username) as EditText
-        password = findViewById (R.id.pos_password) as EditText
-        register = findViewById (R.id.pos_register) as TextView
-
+		  username = layout.findViewById (R.id.pos_username) as EditText
+        password = layout.findViewById (R.id.pos_password) as EditText
+        register = layout.findViewById (R.id.pos_register) as TextView
+		  
         register.setOnClickListener {
 				
 				Pos.app.overlay.visibility = View.VISIBLE

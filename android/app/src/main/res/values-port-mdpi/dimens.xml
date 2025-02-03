@@ -1,40 +1,43 @@
 <resources>
   
+  <dimen name="progress_size">200dp</dimen>
+  
   <!-- register -->
 
   <dimen name="register_margin_left">20dp</dimen>
-  <dimen name="register_margin_top">10dp</dimen>
-  <dimen name="register_margin">20dp</dimen>
-  <dimen name="register_padding">5dp</dimen>
+  <dimen name="register_margin_top">25dp</dimen>
+  <dimen name="register_margin">32dp</dimen>
+  <dimen name="register_padding">20dp</dimen>
   <dimen name="register_height">32dp</dimen>
-  
-  <dimen name="register_lg_text">28sp</dimen>
-  <dimen name="register_md_text">22sp</dimen>
-  <dimen name="register_sm_text">18sp</dimen>
+  <dimen name="register_lg_text">42sp</dimen>
+  <dimen name="register_md_text">32sp</dimen>
+  <dimen name="register_sm_text">20sp</dimen>
   
   <!-- pos init -->
 
-  <dimen name="pos_init_header">150dp</dimen>
-  <dimen name="pos_init_margin">12dp</dimen>
-  <dimen name="pos_init_padding">12dp</dimen>
-  <dimen name="pos_init_arrow_text">19sp</dimen>
+  <dimen name="pos_init_header">200dp</dimen>
+  <dimen name="pos_init_margin">10dp</dimen>
+  <dimen name="pos_init_padding">5dp</dimen>
+  <dimen name="pos_init_arrow_text">25sp</dimen>
   <dimen name="pos_init_xlg_text">64sp</dimen>
-  <dimen name="pos_init_lg_text">32sp</dimen>
-  <dimen name="pos_init_md_text">18sp</dimen>
-  <dimen name="pos_init_sm_text">12sp</dimen>
+  <dimen name="pos_init_lg_text">42sp</dimen>
+  <dimen name="pos_init_md_text">28sp</dimen>
+  <dimen name="pos_init_sm_text">20sp</dimen>
   
    <!-- login-->
   
-  <dimen name="login_header_height">100dp</dimen>
+  <dimen name="login_header_height">200dp</dimen>
   <dimen name="login_body_height">400dp</dimen>
-  <dimen name="login_margin_top">10dp</dimen>
+  <dimen name="login_margin_top">20dp</dimen>
   <dimen name="login_margin_bottom">100dp</dimen>
   <dimen name="login_margin">15dp</dimen>
   <dimen name="login_input_text">45sp</dimen>
-  <dimen name="login_button_text">45sp</dimen>
+  <dimen name="login_button_text">32sp</dimen>
+  <dimen name="login_sm_text">20sp</dimen>
   <dimen name="login_del_text">55sp</dimen>
-  <dimen name="login_button_margin">10dp</dimen>
-  <dimen name="login_button_xlg_text">50dp</dimen>
+  <dimen name="login_button_margin">20dp</dimen>
+  <dimen name="login_button_margin_top">45dp</dimen>
+  <dimen name="login_button_xlg_text">60dp</dimen>
  
   <!-- handheld -->
   

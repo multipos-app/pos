@@ -37,7 +37,6 @@ class PosDownload (context: Context, attrs: AttributeSet): PosLayout (context, a
 	 
 	 init {
 		  
-		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.pos_download_layout, this)
         progressText = findViewById (R.id.progress_text) as TextView
 		  

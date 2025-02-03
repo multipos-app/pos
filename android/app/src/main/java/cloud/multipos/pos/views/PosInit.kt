@@ -49,11 +49,13 @@ class PosInit (context: Context, attrs: AttributeSet): PosLayout (context, attrs
 	 
 	 init {
 
-				// setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 				Pos.app.inflater.inflate (R.layout.pos_init_layout, this)
 
 				register = findViewById (R.id.pos_init_register) as Button
 				register.setVisibility (View.INVISIBLE);
+				
+				// val version = findViewById (R.id.app_version) as TextView
+				// version.setText (BuildConfig.VERSION_NAME)
 
 				register.setOnClickListener {
 					 

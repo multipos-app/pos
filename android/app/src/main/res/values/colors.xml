@@ -20,12 +20,11 @@
     <color name="tabs_default_color">#007BFF</color>
 
     <color name="black_overlay">#66000000</color>
-    <!-- <color name="pos_app_bg">#0e0e0e</color> -->
 	 
     <!-- <color name="pos_bg">#F3F3F3</color> -->
-    <color name="pos_bg">#0D1117</color>
-    <color name="pos_app_bg">#103D6E</color>
-    <!-- <color name="pos_app_bg">#0D1117</color> -->
+    <!-- <color name="pos_bg">#0D1117</color> -->
+    <color name="pos_app_bg">#0B2A25</color> <!-- dark forest green -->
+    <!-- <color name="pos_app_bg">#103D6E</color> --> <!-- blue -->
 	 
     <color name="pos_primary">#007BFF</color>
     <color name="pos_secondary">#6C757D</color>

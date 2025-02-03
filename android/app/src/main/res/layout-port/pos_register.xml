@@ -6,48 +6,51 @@
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
 	 android:orientation="vertical"
-	 android:padding="@dimen/pos_init_padding"
+	 android:padding="@dimen/register_padding"
     android:background="@color/pos_app_bg">
 
   <ImageView
       android:id="@+id/login_company"
       android:layout_width="match_parent"
-      android:layout_height="@dimen/pos_init_header"
+      android:layout_height="0dp"
       android:layout_weight="1"
       android:gravity="center_horizontal|bottom"
-		android:layout_margin="@dimen/pos_init_margin"
+		android:layout_margin="@dimen/register_margin"
       android:src="@drawable/app_logo"/>
-
-  <cloud.multipos.pos.views.PosInit
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-      android:layout_weight="7"/>
-	 
+  
+  <cloud.multipos.pos.views.RegisterLayout
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+      android:layout_weight="2"
+      android:gravity="center_horizontal|top"
+		android:layout_margin="@dimen/register_margin"
+		android:background="@color/pos_app_bg"/>
+  
   <cloud.multipos.pos.views.PosText
-      android:id="@+id/app_version"
+      android:id="@+id/pos_register_app_version"
       android:layout_width="match_parent"
       android:layout_height="0dp"
-      android:layout_weight=".2"
+      android:layout_weight=".5"
       android:gravity="right|bottom"
       android:text="@string/app_version"
       android:textColor="@color/white"
-		android:layout_margin="@dimen/pos_init_margin"
-      android:textSize="@dimen/pos_init_sm_text"/>
+		android:layout_margin="@dimen/register_margin"
+      android:textSize="@dimen/register_sm_text"/>
   
   <LinearLayout
-      android:id="@+id/pos_init_overlay"
+      android:id="@+id/register_overlay"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
 		android:background="@color/transparent"
 		android:visibility="gone"
  		android:gravity="center_horizontal|center_vertical">
+		
+  		<ProgressBar
+			 android:id="@+id/progress_bar"
+			 android:layout_width="@dimen/progress_size"
+			 android:layout_height="@dimen/progress_size"
+ 			 android:gravity="center_horizontal|center_vertical"/>
+		
+	 </LinearLayout>
 	 
-  	 <ProgressBar
-        android:id="@+id/progress_bar"
-        android:layout_width="@dimen/progress_size"
-        android:layout_height="@dimen/progress_size"
- 		  android:gravity="center_horizontal|center_vertical"/>
-	 
-  </LinearLayout>
-
 </LinearLayout>
