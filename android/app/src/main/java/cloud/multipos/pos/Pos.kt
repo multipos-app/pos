@@ -369,7 +369,7 @@ class Pos (): AppCompatActivity () {
 				}
 		  }
 
-		  Logger.d ("set layout... " + config.getString ("root_layout") + " " + buID ())
+		  Logger.d ("set layout... " + config.getString ("root_layout") + " buID: " + buID ())
 		  
         setContentView (R.layout.root_layout)
 		  
@@ -501,14 +501,14 @@ class Pos (): AppCompatActivity () {
 
 	 /**
 	  *
-	  * result from request permissions
+	  * Add USE_CAMERA to BuildConfig (app/build.gradle) so initil permission request is optional
+	  *
+	  * buildConfigField "Boolean", "USE_CAMERA", "false" 
 	  *
 	  */
 
 	 override fun onRequestPermissionsResult (requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
-		  
-		  Logger.w ("permission results... ${requestCode} ${permissions} ${grantResults}")
-		  
+		  		  
 		  if (requestCode == REQUEST_CODE_PERMISSIONS) {
 				
 				if (!allPermissionsGranted ()) {
