@@ -1,6 +1,10 @@
 # Android POS (point of sale)
 This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark. 
 
+## New 2/3/2025
+
+add USE_CAMERA to BuildConfig (app/build.gradle) so initial android permission request is optional
+add POS based add/edit of items and customers
 
 ## New 12/20/2024
 New sale discount and item markdown functionality
