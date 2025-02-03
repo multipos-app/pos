@@ -89,6 +89,8 @@ class Pos (): AppCompatActivity () {
 	 
 	 var locale = Locale.US
 
+	 var permissions = false
+
 	 val inventoryList = mutableListOf <Device> ()
 	 val posMenus = mutableListOf <PosMenus> ()
 
@@ -239,7 +241,7 @@ class Pos (): AppCompatActivity () {
 
 	 fun start () {
 		  		  		  
-		  if (config.ready ()) {
+		  if (configInit () && config.ready ()) {
 				
 				// config.initialize ()
 
@@ -497,22 +499,21 @@ class Pos (): AppCompatActivity () {
 		  }
 	 }
 
-	 	 /**
+	 /**
 	  *
-	  *
+	  * result from request permissions
 	  *
 	  */
 
 	 override fun onRequestPermissionsResult (requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
 		  
+		  Logger.w ("permission results... ${requestCode} ${permissions} ${grantResults}")
+		  
 		  if (requestCode == REQUEST_CODE_PERMISSIONS) {
 				
-				if (allPermissionsGranted ()) {
+				if (!allPermissionsGranted ()) {
 					 
-				}
-				else {
-					 
-					 Logger.w ("Permissions not granted by the user...")
+					 FileUtils.uploadLog ()
 					 finish ()
 					 System.exit (1)
 				}
@@ -521,21 +522,23 @@ class Pos (): AppCompatActivity () {
 
 	 /**
 	  *
-	  *
+	  * check if all permissions are granted
 	  *
 	  */
 
 	 private fun allPermissionsGranted (): Boolean {
 		  
-		  // for (permission in REQUIRED_PERMISSIONS) {
-				
-		  // 		if (ContextCompat.checkSelfPermission (this, permission) != PackageManager.PERMISSION_GRANTED) {
-					 
-		  // 			 return false
-		  // 		}
-		  // }
+		  if (BuildConfig.USE_CAMERA) {
 
+				for (permission in REQUIRED_PERMISSIONS) {
+					 
+					 if (ContextCompat.checkSelfPermission (this, permission) != PackageManager.PERMISSION_GRANTED) {
+						  
+					 	  return false
+					 }
+				}
+		  }
+		  
 		  return true
 	 }
-
 }
