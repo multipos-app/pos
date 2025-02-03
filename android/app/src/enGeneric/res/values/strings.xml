@@ -236,7 +236,7 @@
     <string name="store_no">Store #</string>
     <string name="confirm_dialog_title">Confirm</string>
     <string name="return_prompt">Return</string>
-    <string name="initialize_device">Loading your store...</string>
+    <string name="initialize_device">Download store...</string>
     <string name="merchant_user">Enter email</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="merchant_password">Password</string>

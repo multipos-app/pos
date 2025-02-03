@@ -137,7 +137,7 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 		  }
 		  else {
 
-				clear ()
+				Control.factory ("Clear").controlAction (Jar ())  // clear displays
 		  }
 	 }
 	 
