@@ -60,7 +60,7 @@ object BackOffice: Device, DeviceCallback {
 		  if (android.os.Build.VERSION.SDK_INT > 23) {
 				
 				mqttClient = MqttClient ()
-				if (Pos.app.config.ready () && Pos.app.config.has ("dbname")) {
+				if (Pos.app.configInit () && Pos.app.config.ready () && Pos.app.config.has ("dbname")) {
 					 
 					 // subscribe to BU broker
 					 

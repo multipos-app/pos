@@ -76,7 +76,7 @@ public class FileUtils {
 				SimpleDateFormat df = new SimpleDateFormat (format, new Locale (Pos.app.config.getString ("country"), Pos.app.config.getString ("locale")));
 				String time = df.format (new Date ());
 				
-				String fname = "logcat-" + android.os.Build.MODEL + "-" + Pos.app.getString ("app_version") + "-" + time + ".log";
+				String fname = "logcat-" + android.os.Build.MODEL + "-" + BuildConfig.VERSION_NAME + "-" + time + ".log";
 				fname = fname.replace (" ", "-");
 				String command = String.format ("logcat -d ");        
 				Process process = Runtime.getRuntime ().exec (command);
