@@ -411,7 +411,7 @@
 			 android:layout_weight="1"
 			 android:text="@string/fa_del"
 			 android:textSize="@dimen/keyboard_lg_text"/>
-				
+		
 	 </LinearLayout>
 	 
 	 <LinearLayout
@@ -459,7 +459,7 @@
 			 android:layout_weight="1"
 			 android:text="+"
 			 android:textSize="@dimen/keyboard_lg_text"/>
-				
+		
 	 </LinearLayout>
 
 	 <LinearLayout
@@ -535,17 +535,28 @@
 			 android:layout_weight="1"
 			 android:text="00"
 			 android:textSize="@dimen/keyboard_text"/>
-				
-		<cloud.multipos.pos.views.PosButton
-			 android:id="@+id/keyboard_enter"
+		
+		<cloud.multipos.pos.views.PosIconButton
+			 android:id="@+id/keyboard_up"
 			 style="@style/KeyboardButton"
 			 android:layout_margin="@dimen/keyboard_margin"
 			 android:layout_height="match_parent"
 			 android:layout_width="0dp"
-			 android:layout_weight="2"
-			 android:text="ENTER"
-			 android:textSize="@dimen/keyboard_text"/>
-				
+			 android:layout_weight="1"
+			 android:text="@string/fa_arrow_up"
+			 android:textSize="@dimen/keyboard_lg_text"/>
+
+		<cloud.multipos.pos.views.PosIconButton
+			 android:id="@+id/keyboard_down"
+			 style="@style/KeyboardButton"
+			 android:layout_margin="@dimen/keyboard_margin"
+			 android:layout_height="match_parent"
+			 android:layout_width="0dp"
+			 android:layout_weight="1"
+			 android:text="@string/fa_arrow_down"
+			 android:textSize="@dimen/keyboard_lg_text"/>
+		
+		
 	 </LinearLayout>
 	 
   </LinearLayout>

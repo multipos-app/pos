@@ -150,11 +150,6 @@ class Item (jar: Jar) {
 		  item.put (key, any)
 	 }
 
-	 // fun jar (): Jar {
-
-	 // 	  return item
-	 // }
-	 
 	 override fun toString (): String {
 
 		  return item.toString ()

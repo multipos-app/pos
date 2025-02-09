@@ -46,6 +46,8 @@ class KeyboardScanner (): Scanner ()  {
 
 		  val event = o as KeyEvent
 		  val keyCode = event.getKeyCode ()
+
+		  val char = Character.toString (event.getUnicodeChar ().toChar ())
 		  
         when (keyCode) {
 
@@ -58,7 +60,7 @@ class KeyboardScanner (): Scanner ()  {
 
 				else -> {
 
-					 sb.append (event.getNumber ())
+					 sb.append (char)
 				}
 		  }
 	 }

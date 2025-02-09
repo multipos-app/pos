@@ -21,6 +21,7 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.views.ReportView
 import cloud.multipos.pos.devices.DeviceManager;
+import cloud.multipos.pos.views.PosDisplays
 
 import java.util.Date
 
@@ -31,14 +32,17 @@ open abstract class FirstItem (): TicketModifier () {
 		  if (!Pos.app.ticket.hasItems ()) {
 									 				
 				DeviceManager.customerDisplay?.clear ()  // clear the previous sale from the customer display
+				PosDisplays.clear ()
+
+				// update ticket start time to first item entered
 				
 				Pos.app.ticket.put ("start_time", Pos.app.db.timestamp (Date ()))
 				Pos.app.db.exec ("update tickets set start_time = '" + Pos.app.db.timestamp (Date ()) + "' " + " where id = " + Pos.app.ticket.getInt ("id"))
 		  
-				// if (Pos.app.config.getBoolean ("enter_clerk")) {
+				if (Pos.app.config.getBoolean ("enter_clerk")) {
 				
-				// 	 Control.factory ("EnterClerk").action (Jar ())
-				// }	
+					 Control.factory ("EnterClerk").action (Jar ())
+				}	
 		  }
 
 		  return super.beforeAction () 

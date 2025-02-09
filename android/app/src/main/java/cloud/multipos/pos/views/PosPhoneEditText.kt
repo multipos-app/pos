@@ -37,6 +37,7 @@ open class PosPhoneEditText (context: Context, attrs: AttributeSet): PosEditText
 		  
 		val PHONE_RAW_LEN = 10
 		val PHONE_LEN = 14
+		val LAST_4 = 4
 	 }
 	 
 	 var ignore = false
@@ -61,7 +62,7 @@ open class PosPhoneEditText (context: Context, attrs: AttributeSet): PosEditText
 	 
 	 override fun isValid (): Boolean {
 
-		  return (text!!.length == PHONE_LEN) || (text!!.length == 0)
+		  return (text!!.length == PHONE_LEN) || (text!!.length == LAST_4) || (text!!.length == 0)
 	 }
 	 
 	 override fun onTextChanged (text: CharSequence?, start: Int, before: Int, count: Int) {
@@ -87,7 +88,7 @@ open class PosPhoneEditText (context: Context, attrs: AttributeSet): PosEditText
 					 
 					 setText (ph)
 					 formatted = true
-					 EditView.instance.next ()
+					 EditView.instance.down ()
 				}
 				
 				setSelection (text!!.length)

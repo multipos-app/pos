@@ -22,46 +22,79 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.receipts.*
 
-class Customer (val customerID: Int): Jar (), Model {
+import java.util.UUID
 
-	 lateinit var customer: Jar
+class Customer (): Jar (), Model {
+
+	 constructor (jar: Jar): this () {
+
+		  copy (jar)
+	 }
 	 
 	 init {
 
-		  if (customerID > 0) {
+		  copy (Jar ()
+						.put ("id", 0)
+				  		.put ("pin", pin ())
+						.put ("uuid", UUID.randomUUID ().toString ())
+						.put ("fname", "")
+						.put ("lname", "")
+						.put ("email", "")
+						.put ("phone", "")
+						.put ("addr_1", "")
+						.put ("city", "")
+						.put ("state", "")
+						.put ("postal_code", "")
+						.put ("total_sales", 0)
+						.put ("total_visits", 0)
+						.put ("loyalty_points", 0))
+	 }
+
+	 fun select (id: Int): Customer {
+		  
+		  val customerResult = DbResult ("select * from customers where id = ${id}", Pos.app.db)
+		  
+		  if (customerResult.fetchRow ()) {
+	 
+				copy (customerResult.row ())
+		  }
+
+		  return this
+	 }
+	 
+	 fun select (field: String, key: String): Customer {
+		  
+		  val customerResult = DbResult ("select * from customers where ${field} = ${key}", Pos.app.db)
+		  
+		  if (customerResult.fetchRow ()) {
+	 
+				copy (customerResult.row ())
+		  }
+		  return this
+	 }
+
+	 fun instant (): Customer {
+
+		  put ("fname", Pos.app.getString ("instant_loyalty"))
+		  // var id = Pos.app.db ().insert ("customers", this)		  
+		  return this
+	 }
+	 
+	 fun pin (): Int {
+
+		  // find a unique pin
+		  
+		  var pin = (1000..9999).random ()
+		  val customerResult = DbResult ("select id, pin from customers where pin = ${pin}", Pos.app.db)
+		  while (customerResult.fetchRow ()) {
 				
-				val customerResult = DbResult ("select * from customers where id = ${customerID}", Pos.app.db)
-				if (customerResult.fetchRow ()) {
-					 
-					 customer = customerResult.row ()
-					 copy (customer)
-				}
+				var customer = customerResult.row ()
+				Logger.d ("pin exists... ${customer}")
+				pin = (1000..9999).random ()
 		  }
-		  else {
 
-				put ("id", 0)
-					 .put ("fname", "DAN")
-					 .put ("lname", "THEMAN")
-					 .put ("email", "dan${(0..1000).random ()}@email.com")
-					 .put ("phone", "9071112222")
-					 .put ("addr_1", "One Main St")
-					 .put ("city", "Topeka")
-					 .put ("state", "KS")
-					 .put ("postal_code", "99999")
-		  }
+		  return pin
 	 }
-	 
-	 override fun update () {
-
-		  if (customer != null) {
-
-				copy (customer)
-				Pos.app.ticket.put ("customer", this)
-				Pos.app.ticket.put ("customer_id", this.getInt ("id"))
-				Pos.app.db ().exec ("update tickets set customer_id = " + customer?.getInt ("id") + " where id = " + Pos.app.ticket.getInt ("id"))
-		  }
-	 }
-	 
 	 override fun display (): String {
 
 		  val sb = StringBuffer ()

@@ -14,26 +14,23 @@
  * limitations under the License.
  */
  
-
-package cloud.multipos.pos.receipts
+package cloud.multipos.pos.controls
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.models.Customer
 
-open class LaundryReceiptBuilder (): DefaultReceiptBuilder () {
+class CustomerLoyalty (): Control () {
 
-	 override fun customer (): ReceiptBuilder {
-		  
-		  if (Pos.app.ticket.getInt ("customer_id") > 0) {
+	 override fun controlAction (jar: Jar) {
 
-				val customer = Customer ().select (Pos.app.ticket.getInt ("customer_id"))
+		  if (jar.has ("uuid")) {
+				
+				val customer = Customer ().select ("uuid", jar.getString ("uuid"))
 		  
-				separator ()
-				printCommands.addAll (customer.receipt ())
+				Pos.app.posAppBar.customer (customer.display ())
+				Pos.app.ticket.put ("customer_id", customer.getInt ("id"))
+				Pos.app.ticket.put ("customer", customer)
 		  }
-		  
-		  return this
 	 }
 }

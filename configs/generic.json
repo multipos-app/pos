@@ -948,8 +948,10 @@
                             "color": "#5E7981"
                         },
                         {
-                            "text": "",
-                            "class": "Null"
+                            "color": "#512D55",
+                            "fixed": "1",
+                            "text": "instant loyalty",
+                            "class": "InstantLoyalty"
                         },
                         {
                             "text": "GIFT CARD SALE",

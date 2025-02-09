@@ -8,284 +8,339 @@
     android:layout_height="match_parent"
     android:padding="@dimen/dialog_padding"
     android:background="@color/transparent"
-	 android:orientation="vertical">
-  
-  <!-- fname -->
+	 android:orientation="horizontal">
   
   <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:background="@color/transparent"
 		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
-
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_fname"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:background="@color/transparent"/>
-
-	 <cloud.multipos.pos.views.PosEditText
-		  android:id="@+id/customer_fname"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight="1"
-		  android:gravity="start|center"
-		  android:text=""
-		  android:textSize="@dimen/dialog_md_text"
-		  android:padding="@dimen/dialog_sm_padding"
-		  android:textColor="@color/dk_gray"
-		  android:background="@drawable/gray_border"/>
+		android:padding="@dimen/customer_padding"
+		android:orientation="vertical">
 	 
+	 <!-- pin -->
+	 
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_pin"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosText
+			 android:id="@+id/customer_pin"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:textSize="@dimen/dialog_md_text"
+			 android:padding="@dimen/dialog_sm_padding"
+			 android:textColor="@color/dk_gray"
+			 android:background="@drawable/gray_border"/>
+		
+	 </LinearLayout>
+	 
+	 <!-- fname -->
+	 
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_fname"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosEditText
+			 android:id="@+id/customer_fname"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:textSize="@dimen/dialog_md_text"
+			 android:padding="@dimen/dialog_sm_padding"
+			 android:textColor="@color/dk_gray"
+			 android:background="@drawable/gray_border"/>
+		
+	 </LinearLayout>
+	 
+	 <!-- lname -->
+
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_lname"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosEditText
+			 android:id="@+id/customer_lname"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:textSize="@dimen/dialog_md_text"
+			 android:padding="@dimen/dialog_sm_padding"
+			 android:textColor="@color/dk_gray"
+			 android:background="@color/transparent"/>
+		
+	 </LinearLayout>
+
+	 <!-- email -->
+
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_email"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosEmailEditText
+			 android:id="@+id/customer_email"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:textSize="@dimen/dialog_md_text"
+			 android:padding="@dimen/dialog_sm_padding"
+			 android:textColor="@color/dk_gray"
+			 android:background="@color/transparent"/>
+		
+	 </LinearLayout>
+
+	 <!-- phone -->
+
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_phone"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosPhoneEditText
+			 android:id="@+id/customer_phone"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:digits="0123456789"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:padding="@dimen/dialog_sm_padding"
+			 android:textColor="@color/dk_gray"
+			 android:background="@color/transparent"/>
+
+	 </LinearLayout>
   </LinearLayout>
   
-  <!-- lname -->
-
   <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
+		android:layout_width="0dp"
+		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:background="@color/transparent"
 		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
+		android:orientation="vertical">
 
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_lname"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:background="@color/transparent"/>
+	 <!-- addr -->
 
-	 <cloud.multipos.pos.views.PosEditText
-		  android:id="@+id/customer_lname"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
 		  android:layout_weight="1"
-		  android:gravity="start|center"
-		  android:text=""
-		  android:textSize="@dimen/dialog_md_text"
-		  android:padding="@dimen/dialog_sm_padding"
-		  android:textColor="@color/dk_gray"
-		  android:background="@color/transparent"/>
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_addr"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:padding="@dimen/dialog_sm_padding"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosEditText
+			 android:id="@+id/customer_addr"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/dk_gray"
+			 android:padding="@dimen/dialog_sm_padding"
+			 android:background="@color/transparent"/>
+
+	 </LinearLayout>
+
+	 <!-- city -->
+
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_city"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosEditText
+			 android:id="@+id/customer_city"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/dk_gray"
+			 android:background="@color/transparent"/>
+
+	 </LinearLayout>
+
+	 <!-- state -->
+
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_state"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<Spinner
+			 android:id="@+id/customer_state"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:spinnerMode="dropdown"
+			 android:background="@drawable/spinner_outline"
+			 android:textColorHint="@color/black"
+			 android:textSize="@dimen/customer_md_text"/>
+		
+	 </LinearLayout>
+
+	 <!-- postal code -->
+
+	 <LinearLayout
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:layout_marginBottom="@dimen/dialog_sm_margin"
+		  android:orientation="horizontal">
+
+		<cloud.multipos.pos.views.PosText
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight=".5"
+			 android:gravity="start|center"
+			 android:text="@string/customer_postal_code"
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/black"
+			 android:background="@color/transparent"/>
+
+		<cloud.multipos.pos.views.PosEditText
+			 android:id="@+id/customer_postal_code"
+			 android:clickable="true"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+			 android:layout_weight="1"
+			 android:gravity="start|center"
+			 android:text=""
+			 android:textSize="@dimen/dialog_md_text"
+			 android:textColor="@color/dk_gray"
+			 android:background="@color/transparent"/>
+
+	 </LinearLayout>
 	 
-  </LinearLayout>
-
-  <!-- email -->
-
-  <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:background="@color/transparent"
-		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
-
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_email"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:background="@color/transparent"/>
-
-	 <cloud.multipos.pos.views.PosEmailEditText
-		  android:id="@+id/customer_email"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight="1"
-		  android:gravity="start|center"
-		  android:text=""
-		  android:textSize="@dimen/dialog_md_text"
-		  android:padding="@dimen/dialog_sm_padding"
-		  android:textColor="@color/dk_gray"
-		  android:background="@color/transparent"/>
-	 
-  </LinearLayout>
-
-  <!-- phone -->
-
-  <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:background="@color/transparent"
-		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
-
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_phone"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:background="@color/transparent"/>
-
-	 <cloud.multipos.pos.views.PosPhoneEditText
-		  android:id="@+id/customer_phone"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight="1"
-		  android:gravity="start|center"
-		  android:text=""
-		  android:digits="0123456789"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:padding="@dimen/dialog_sm_padding"
-		  android:textColor="@color/dk_gray"
-		  android:background="@color/transparent"/>
-
-  </LinearLayout>
-  
-  <!-- addr -->
-
-  <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:background="@color/transparent"
-		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
-
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_addr"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:padding="@dimen/dialog_sm_padding"
-		  android:background="@color/transparent"/>
-
-	 <cloud.multipos.pos.views.PosEditText
-		  android:id="@+id/customer_addr"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight="1"
-		  android:gravity="start|center"
-		  android:text=""
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/dk_gray"
-		  android:padding="@dimen/dialog_sm_padding"
-		  android:background="@color/transparent"/>
-
-  </LinearLayout>
-
-  <!-- city -->
-
-  <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:background="@color/transparent"
-		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
-
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_city"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:background="@color/transparent"/>
-
-	 <cloud.multipos.pos.views.PosEditText
-		  android:id="@+id/customer_city"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight="1"
-		  android:gravity="start|center"
-		  android:text=""
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/dk_gray"
-		  android:background="@color/transparent"/>
-
-  </LinearLayout>
-
-  <!-- state -->
-
-  <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:background="@color/transparent"
-		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
-
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_state"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:background="@color/transparent"/>
-
-	 <Spinner
-		  android:id="@+id/customer_state"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight="1"
-		  android:spinnerMode="dropdown"
-		  android:background="@drawable/spinner_outline"
-		  android:textColorHint="@color/black"
-		  android:textSize="@dimen/customer_md_text"/>
-	 
-  </LinearLayout>
-
-  <!-- postal code -->
-
-  <LinearLayout
-		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:background="@color/transparent"
-		android:layout_marginBottom="@dimen/dialog_sm_margin"
-		android:orientation="horizontal">
-
-	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight=".5"
-		  android:gravity="start|center"
-		  android:text="@string/customer_postal_code"
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/black"
-		  android:background="@color/transparent"/>
-
-	 <cloud.multipos.pos.views.PosEditText
-		  android:id="@+id/customer_postal_code"
-		  android:clickable="true"
-		  android:layout_width="0dp"
-		  android:layout_height="match_parent"
-		  android:layout_weight="1"
-		  android:gravity="start|center"
-		  android:text=""
-		  android:textSize="@dimen/dialog_md_text"
-		  android:textColor="@color/dk_gray"
-		  android:background="@color/transparent"/>
-
   </LinearLayout>
 
 </LinearLayout>

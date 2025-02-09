@@ -27,6 +27,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Button
 import androidx.core.content.ContextCompat
 import android.graphics.Color;
 
@@ -44,6 +45,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 var clock: PosText
 	 var customerLayout: LinearLayout? = null
 	 var customerName: PosText? = null
+	 var customerClear: PosIconText? = null
 	 val devices = mutableListOf <DeviceIcon> ()
 	 var themeIcon = ThemeIcon ()
 	 val sb = StringBuffer () // for keyboard input
@@ -72,6 +74,16 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 						  
 						  CustomerSearchView ()
 					 }
+				}
+
+				customerClear = findViewById (R.id.app_bar_customer_clear) as PosIconText
+				customerClear?.setOnClickListener {
+
+					 Pos.app.posAppBar.customer ("")
+					 Pos.app.ticket.put ("customer_id", 0)
+					 Pos.app.ticket.remove ("customer")
+					 customerName?.setText (Pos.app.getString ("search_customer"))
+					 customerClear?.visibility = View.INVISIBLE
 				}
 		  }
 		  else {
@@ -177,7 +189,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 
 		  if (Pos.app.ticket.getInt ("customer_id") > 0) {
 
-				var customer = Customer (Pos.app.ticket.getInt ("customer_id"))
+				var customer = Customer ().select (Pos.app.ticket.getInt ("customer_id"))
 	 			customerName?.setText (customer.display ())
 		  }
 		  else {
@@ -188,7 +200,11 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 
 	 override fun clear () {
 
-		  customerName?.setText (Pos.app.getString ("search_customer"))
+		  if (!Pos.app.ticket.has ("customer")) {
+				
+				customerName?.setText (Pos.app.getString ("search_customer"))
+				customerClear?.visibility = View.INVISIBLE
+		  }
 	 }
 	 
 	 override fun message (message: String) { }
@@ -196,6 +212,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 public fun customer (customer: String) {
 
 	 	  customerName?.setText (customer)
+		  customerClear?.visibility = View.VISIBLE
 	 }
 
 	 inner class DeviceIcon (val device: Device): LinearLayout (Pos.app) {

@@ -85,8 +85,6 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 					 
 					 display.clear ()
 				}
-		  
-				Pos.app.posAppBar.customer (Pos.app.getString ("search_customer"))
 		  }
 	 
 		  fun put (display: PosDisplay) {

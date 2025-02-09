@@ -88,19 +88,27 @@ class CustomerSearchView (): EditView () {
 					 
 					 Pos.app.posAppBar.customer (customer.display ())
 					 Pos.app.ticket.put ("customer_id", customer.getInt ("id"))
+					 Pos.app.ticket.put ("customer", customer)
 				}
 				
 				Pos.app.keyboardView.swipeLeft ()
 		  }
 		  
-		  var update = layout.findViewById (R.id.customer_search_update) as Button
+		  var update = layout.findViewById (R.id.customer_search_add_edit) as Button
 		  update.setOnClickListener {
 
 				Pos.app.keyboardView.swipeLeft ()
+				if (this::customer.isInitialized) {
+					 
+					 Pos.app.posAppBar.customer (customer.display ())
+					 Pos.app.ticket.put ("customer_id", customer.getInt ("id"))
+					 Pos.app.ticket.put ("customer", customer)
+				}
+				else {
+					 
+					 // new customer
 
-				if (!this::customer.isInitialized) {
-
-					 customer = Customer (0)
+					 customer = Customer ()
 				}
 				
 				CustomerEditView (customer.getInt ("id"))
@@ -153,7 +161,7 @@ class CustomerSearchView (): EditView () {
 				val select  = view.findViewById (R.id.customer_select) as LinearLayout?
 				select?.setOnClickListener {
 
-					 customer = Customer (list [position].getInt ("id"))
+					 customer = Customer (list [position])
 					 search?.setText (customer.display ())
 				}
 		  }
@@ -167,13 +175,15 @@ class CustomerSearchView (): EditView () {
 		  var search = search?.getText ().toString ()
 		  
 		  val select = "select * from customers where " +
-		  " (fname like  '" + search + "%')" +
+		  " (pin =  '${search}')" +
 		  " or " +
-		  " (lname like  '" + search + "%')" +
+		  " (fname like  '${search}%')" +
 		  " or " +
-		  " (email like  '" + search + "%')" +
+		  " (lname like  '${search}%')" +
 		  " or " +
-		  " (phone like  '%" + search + "%')" +
+		  " (email like  '${search}%')" +
+		  " or " +
+		  " (phone like  '%${search}%')" +
 		  " limit " + limit
 		  
 		  val custResult = DbResult (select, Pos.app.db)
@@ -184,5 +194,4 @@ class CustomerSearchView (): EditView () {
 		  
 		  listAdapter.notifyDataSetChanged ()
 	 }
-
 }

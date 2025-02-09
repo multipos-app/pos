@@ -47,7 +47,8 @@
 		android:padding="@dimen/app_bar_padding">
 
 	 <cloud.multipos.pos.views.PosIconText
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
+		  android:layout_weight="1"
 		  android:layout_height="match_parent"
         android:gravity="center_vertical|start"
 		  android:text="@string/fa_customer"
@@ -59,7 +60,8 @@
 	 
 	 <cloud.multipos.pos.views.PosText
         android:id="@+id/app_bar_customer_name"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
+		  android:layout_weight="7"
         android:layout_height="match_parent"
         android:text=""
         android:gravity="center_vertical|start"
@@ -70,6 +72,19 @@
         android:background="@color/transparent"
 		  android:clickable="false"/>
 	 
+	 <cloud.multipos.pos.views.PosIconText
+        android:id="@+id/app_bar_customer_clear"
+        android:layout_width="0dp"
+		  android:layout_weight="1"
+		  android:layout_height="match_parent"
+        android:gravity="center_vertical|end"
+		  android:text="@string/fa_x_circle"
+        android:textColor="@color/white"
+        android:textSize="@dimen/app_bar_text"
+		  android:layout_marginRight="10dp"
+        android:background="@color/transparent"
+		  android:visibility="gone"/>
+
   </LinearLayout>
 
   <LinearLayout

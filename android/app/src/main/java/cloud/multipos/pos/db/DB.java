@@ -243,7 +243,7 @@ public class DB {
 
 		  update += " where id = " + id;
 
-		  // Logger.stack ("update... " + update);
+		  // Logger.x ("update... " + update);
 
 		  synchronized (activity) {
 				
@@ -498,10 +498,13 @@ public class DB {
 			 "tax_exempt tinyint(1) DEFAULT '0'," + 
 			 "blocked tinyint(1) DEFAULT '0'," + 
 			 "reason_code integer DEFAULT '0'," + 
-			 "loyalty_points integer DEFAULT '0'," + 
 			 "balance decimal(10,2) DEFAULT 0," + 
 			 "over_due_amount decimal(10,2) DEFAULT 0," + 
+			 "pin varchar(10) DEFAULT NULL," +
+			 "last_visit timestamp DEFAULT NULL ," + 
+			 "total_visits integer DEFAULT '0'," + 
 			 "total_sales decimal(10,2) DEFAULT 0," + 
+			 "loyalty_points integer DEFAULT '0'," + 
 			 "last_update timestamp NOT NULL default current_timestamp)"},
 	 
 		  { "departments",

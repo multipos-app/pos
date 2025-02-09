@@ -30,7 +30,7 @@ typealias TicketItemMapper <T> = (TicketItem) -> T
 typealias TicketTenderMapper <T> = (TicketTender) -> T
 typealias TicketTaxMapper <T> = (TicketTax) -> T
 
-class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
+class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 
 	 val ticketUpdates = Jar ()
 	 
@@ -96,7 +96,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model  {
 				
 				if (getInt ("customer_id") > 0) {
 					 
-					 put ("customer", Customer (getInt ("customer_id")))
+					 put ("customer", Customer ().select (getInt ("customer_id")))
 				}
 				
 				if (getInt ("clerk_id") > 0) {

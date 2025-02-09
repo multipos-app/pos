@@ -59,7 +59,7 @@ class PosHandler (): Handler () {
 						  
 						  val scan = m.obj as String
 
-						  Logger.d ("scan... ${scan.length} ${scan} ${Pos.app.controls.size}")
+						  Logger.d ("scan... ${scan} ${scan.length}")
 						  
 						  if (Pos.app.controls.size > 0) {
 
@@ -73,15 +73,24 @@ class PosHandler (): Handler () {
 						  when (scan.length)  {
 
 								5, 6, 7, 8, 12, 13 -> {
+
+									 // custom SKUs, UPC and EAN
 									 
 									 val item = DefaultItem ()
 									 item.action (Jar ().put ("sku", scan).put ("entry_mode", "scanned"))
 								}
 								
-								11, 36, 108 -> {
+								36 -> {
+
+									 // uuid
 									 
-									 val recall = RecallByUUID ()
-									 recall.action (Jar ().put ("recall_key", scan).put ("entry_mode", "scanned"))
+									 Control.factory ("CustomerLoyalty").action (Jar ()
+																									 .put ("key", "uuid")
+																									 .put ("uuid", scan))
+								}
+								else -> {
+									 
+									 Logger.w ("invalid scan length...  ${scan.length} ${scan}")
 								}
 						  }	  
 					 }

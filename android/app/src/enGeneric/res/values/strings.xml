@@ -297,6 +297,7 @@
     <string name="telephone_hint">###-###-####</string>
     <string name="telephone">Telephone</string>
     <string name="customer_select">Select customer</string>
+    <string name="customer_pin">PIN</string>
     <string name="customer_fname">First name</string>
     <string name="customer_lname">Last name</string>
     <string name="add_customer">Add/edit customer</string>
@@ -346,6 +347,8 @@
 	 <string name="pos_tab">POS</string>
 	 <string name="item_not_found">Item not found</string>
 	 <string name="item_not_found_confirm">Item not found, add item?</string>
+	 <string name="instant_loyalty">Instant Loyalty</string>
+	 <string name="pin">PIN</string>
 	 
 	 <string name="sku">SKU</string>
 	 <string name="item_desc">Item description</string>
@@ -446,6 +449,7 @@
     <string name="fa_plus_circle">&#xf055;</string>
     <string name="fa_minus">&#xf068;</string>
     <string name="fa_minus_circle">&#xf056;</string>
+    <string name="fa_x_circle">&#xe12e;</string>
     <string name="fa_edit">&#xf044;</string>
     <string name="fa_scale">&#xf496;</string>
     <string name="fa_kitchen_printer">&#xe3d2;</string>

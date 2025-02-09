@@ -24,7 +24,6 @@ import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.util.Currency
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ReportView
-import cloud.multipos.pos.views.PosAppBar
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.net.Upload
 
@@ -132,6 +131,8 @@ open abstract class CompleteTicket (): ConfirmControl () {
 											.put ("prompt_text", prompt)
 											.put ("echo_text", returned.currency ()))
 		  
+		  // generate a receitpt...
+
 		  Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
 		  
 		  var ticketText = Pos.app.receiptBuilder.text ()
@@ -141,9 +142,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				ticketText =
 					 ticketText +
 				Pos.app.ticket.getString ("aux_receipts").replace ('\'', '`') 
-				
 				Pos.app.ticket.remove ("aux_receipts")
-											
 		  }
 		  
 		  Pos.app.ticket
@@ -169,7 +168,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  
 		  updateDisplays ()
 
-
 		  // display receipt?
 
 		  if (state == Ticket.COMPLETE) {
@@ -178,8 +176,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 					 
 					 Ticket.SALE,
 					 Ticket.BANK -> {
-
-						  // generate a receitpt...
 		  
 						  if (printReceipt ()) {
 								

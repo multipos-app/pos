@@ -46,6 +46,7 @@ class CustomerEditView (val customerID: Int) : EditView () {
 
 	 lateinit var customer: Customer
 	 
+	 var pin: PosText
 	 var fname: PosEditText
 	 var lname: PosEditText
 	 var email: PosEditText
@@ -57,20 +58,20 @@ class CustomerEditView (val customerID: Int) : EditView () {
 	 
 	 init {
 
-		  customer = Customer (customerID)
+		  customer = Customer ().select (customerID)
 		  
 		  var layout = Pos.app.inflater.inflate (R.layout.customer_edit_layout, editLayout) as LinearLayout
+		  
+		  pin = layout.findViewById (R.id.customer_pin) as PosText
+		  pin.setText (customer.getString ("pin"))
 		  
 		  fname = posEditField (R.id.customer_fname, layout, customer.getString ("fname"))
 		  lname = posEditField (R.id.customer_lname, layout, customer.getString ("lname"))
 		  email = posEditField (R.id.customer_email, layout, customer.getString ("email"))
-		  // phone = posEditField (R.id.customer_phone, layout, customer.getString ("phone").phone ())
 		  phone = posEditField (R.id.customer_phone, layout, "")
 		  addr = posEditField (R.id.customer_addr, layout, customer.getString ("addr_1"))
 		  city = posEditField (R.id.customer_city, layout, customer.getString ("city"))
 		  postalCode = posEditField (R.id.customer_postal_code, layout, customer.getString ("postal_code"))
-
-		  // phone.addTextChangedListener (PhoneNumberFormattingTextWatcher ())
 
 		  state = editLayout.findViewById (R.id.customer_state) as Spinner?
 		  state?.setFocusable (true)
@@ -93,10 +94,11 @@ class CustomerEditView (val customerID: Int) : EditView () {
 
 		  if (!this::customer.isInitialized) {
 
-				customer = Customer (0)
+				customer = Customer ()
 		  }
 		  
 		  customer
+				.put ("is_dirty", true)
 				.put ("type", "customers")		  
 				.put ("fname", fname.getText ().toString ())
 				.put ("lname", lname.getText ().toString ())

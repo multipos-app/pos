@@ -21,7 +21,7 @@
 		android:layout_margin="@dimen/dialog_margin"/>
   
   <cloud.multipos.pos.views.PosButton
-      android:id="@+id/customer_search_update"
+      android:id="@+id/customer_search_add_edit"
    	style="@style/DialogSuccess"
 		android:layout_width="match_parent"
       android:layout_height="0dp"

@@ -121,7 +121,39 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 		  fields [curr]?.getText ()?.insert (fields [curr]?.getSelectionStart ()!!, " ")
 	 }
 	 
-	 fun next () {
+	 fun up () {
+
+		  val valid = fields [curr]!!.isValid ()
+
+		  if (!valid) {
+
+				fields [curr]?.setTextColor (Color.RED)
+				return
+		  }
+		  
+		  if (fields.size > 0) {
+				
+				for (f in fields) {
+
+					 f?.setBackgroundResource (R.drawable.gray_border)
+					 f?.setTextColor (Color.BLACK)
+				}
+		  }
+
+		  if (curr > 0) {
+				
+				curr --
+		  }
+		  else {
+
+				curr = fields.size - 1
+		  }
+		  
+		  fields [curr]?.setBackgroundResource (R.drawable.black_border)
+		  fields [curr]?.requestFocus ()
+	 }
+
+	 fun down () {
 
 		  val valid = fields [curr]!!.isValid ()
 

@@ -230,10 +230,12 @@ class Pos (): AppCompatActivity () {
 	 }
 	 
 	 override fun dispatchKeyEvent (event: KeyEvent): Boolean {
-		  		  
-       if (event.action == KeyEvent.ACTION_UP) {
-
-            DeviceManager.scanner?.input (event)
+						
+        if (event.action == KeyEvent.ACTION_UP) {
+				
+				// Logger.d ("pos key... ${event}")
+				
+				DeviceManager.scanner?.input (event)
         }
 
         return true

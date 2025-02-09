@@ -105,7 +105,7 @@ class StarTSP100 : StarCommandBuilder {
 					 
 					 PrintCommand.QR_CODE -> builder.appendQrCodeWithAbsolutePosition (pc.text.toByteArray (),
 																											 QrCodeModel.No2,
-																											 QrCodeLevel.L,
+																											 QrCodeLevel.M,
 																											 5,
 																											 200)
 					 

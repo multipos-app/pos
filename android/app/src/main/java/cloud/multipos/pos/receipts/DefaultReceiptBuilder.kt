@@ -387,12 +387,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 	 override fun footer (): ReceiptBuilder {
 
 		  var dateFormat = SimpleDateFormat (dateTimeFormat, locale ())
-
-		  
-		  if (params.has ("receipt_footer")) {
-				
-				add (params.getList ("receipt_footer"))
-		  }
 		  
 		  printCommands
 				.add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (receiptUtils.tag (ticket)))
@@ -410,11 +404,23 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  }
 		  
 		  if (DeviceManager.printer.qrcode ()) {
-												
-				printCommands
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.QR_CODE).text (ticket.getString ("recall_key")))
-				
+
+				if (ticket.has ("customer") && (ticket.get ("customer").getString ("uuid").length > 0)) {
+
+					 var loyalty = ticket.get ("customer").getString ("uuid")
+
+					 Logger.d ("print loyalty... ${loyalty}")
+					 
+					 printCommands
+						  .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
+						  .add (PrintCommand.getInstance ().directive (PrintCommand.QR_CODE).text (loyalty))
+				}
+				else {
+					 
+					 printCommands
+						  .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
+						  .add (PrintCommand.getInstance ().directive (PrintCommand.QR_CODE).text (ticket.getString ("recall_key")))
+				}
 		  }
 		  else {
 				printCommands
@@ -422,6 +428,12 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (Pos.app.getString ("ticket_no") + " " + ticket.getString ("recall_key")))
 		  }
 		  
+		  if (params.has ("receipt_footer")) {
+				
+				feed (1)
+				add (params.getList ("receipt_footer"))
+		  }
+
 		  feed (4)
 		  printCommands
 				.add (PrintCommand.getInstance ().directive (PrintCommand.CUT))

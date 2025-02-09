@@ -234,7 +234,7 @@ public class Jar extends HashMap {
 				}
 				else {
 					 
-					 Logger.w ("Jar get failed... " + key + " " + super.get (key) + " " + super.get (key).getClass ().getName ());
+					 Logger.stack ("Jar get failed... " + key + " " + super.get (key) + " " + super.get (key).getClass ().getName ());
 				}
 		  }
 		  

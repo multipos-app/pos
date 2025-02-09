@@ -175,10 +175,16 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 				EditView.instance.del ()
 		  }
 		  
-		  var next = findViewById (R.id.keyboard_enter) as PosButton
-		  next.setOnClickListener {
+		  var up = findViewById (R.id.keyboard_up) as PosButton
+		  up.setOnClickListener {
 
-				EditView.instance.next ()
+				EditView.instance.up ()
+		  }
+		  
+		  var down = findViewById (R.id.keyboard_down) as PosButton
+		  down.setOnClickListener {
+
+				EditView.instance.down ()
 		  }
 	 }
 

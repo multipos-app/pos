@@ -42,10 +42,6 @@ abstract class TicketModifier (): Control () {
 	override fun afterAction (): Boolean {
 		 
 		 Pos.app.ticket.update ()
-		 
-		 // Pos.app.input.clear ()
-		 // PosDisplays.update ()
-		 
 		 return super.afterAction ()
 	}
 }
