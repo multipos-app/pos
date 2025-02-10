@@ -169,21 +169,22 @@ class CustomerSearchView (): EditView () {
 	 
 	 private fun search () {
 
-		  val limit = 5
+		  val limit = 10
 		  
 		  list.clear ()
 		  var search = search?.getText ().toString ()
 		  
 		  val select = "select * from customers where " +
-		  " (pin =  '${search}')" +
+
+		  "pin = '${search}'" +
 		  " or " +
-		  " (fname like  '${search}%')" +
+		  "fname like '${search}%'" +
 		  " or " +
-		  " (lname like  '${search}%')" +
+		  "lname like '${search}%'" +
 		  " or " +
-		  " (email like  '${search}%')" +
+		  "email like '${search}%'" +
 		  " or " +
-		  " (phone like  '%${search}%')" +
+		  "phone like '%${search}%'" +
 		  " limit " + limit
 		  
 		  val custResult = DbResult (select, Pos.app.db)

@@ -290,8 +290,6 @@ object BackOffice: Device, DeviceCallback {
 								message (update)
 						  }
 						  "customers" -> {
-
-								Logger.x ("bo customer update... ${update}")
 								
 								Pos.app.db ().insert (update.getString ("update_table"), row)
 						  }

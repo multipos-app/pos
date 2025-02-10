@@ -113,14 +113,14 @@ class CustomerEditView (val customerID: Int) : EditView () {
 		  val pos: Int = index!!
 		  customer.put ("state", States.abbr (pos))
 		  		  
-		  if (customerID > 0) {
+		  // if (customerID > 0) {
 				
-				Pos.app.db.update ("customers", customerID, customer)
-		  }
-		  else {
+		  // 		Pos.app.db.update ("customers", customerID, customer)
+		  // }
+		  // else {
 				
-				Pos.app.db.insert ("customers", customer)
-		  }
+		  // 		Pos.app.db.insert ("customers", customer)
+		  // }
 
 		  Pos.app.ticket.updates.add (customer)  // attach it to the current sale
 		  Pos.app.keyboardView.swipeLeft ()

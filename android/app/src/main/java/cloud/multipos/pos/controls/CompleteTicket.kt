@@ -86,10 +86,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  // create the summary
 		  
 		  Pos.app.ticket.put ("summary", ArrayList <Jar> ())
-		  // Pos.app.ticket.getList ("summary").add (Jar ()
-		  // 															 .put ("type", Ticket.TOTAL)
-		  // 															 .put ("total_desc", Pos.app.getString ("sub_total"))
-		  // 															 .put ("amount", Currency.round (Pos.app.ticket.getDouble ("sub_total"))))
 		  
 		  if (Pos.app.config.has ("tax_included")) {
 
@@ -113,11 +109,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 																				.put ("amount", Currency.round (ticketTax.getDouble ("tax_amount"))))
 				}
 		  }
-
-		  // Pos.app.ticket.getList ("summary").add (Jar ()
-		  // 															 .put ("type", Ticket.TOTAL)
-		  // 															 .put ("total_desc", Pos.app.getString ("total"))
-		  // 															 .put ("amount", Pos.app.ticket.getDouble ("total")))
 						  
 		  var returned = 0.0
 		  var prompt = Pos.app.getString ("register_open")
@@ -166,8 +157,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  
 		  Pos.app.ticket.update ()
 		  
-		  updateDisplays ()
-
 		  // display receipt?
 
 		  if (state == Ticket.COMPLETE) {
@@ -190,14 +179,19 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  }
 
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)
+
+		  // post the ticket to the server
 		  
 		  Upload ()
 				.add (Pos.app.ticket)
 				.exec ()
 		  
-		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)			 
-		  Pos.app.ticket ()
-		  		  
+		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)  // queue the ticket to totals
+		  
+		  updateDisplays ()  // one final update leaves the previous ticket on the displays
+		  
+		  Pos.app.ticket ()  // start a new ticket
+		  
 		  itemCount = 0
 		  voidItems = 0
 		  discounts = 0.0

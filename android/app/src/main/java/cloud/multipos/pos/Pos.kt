@@ -163,7 +163,7 @@ class Pos (): AppCompatActivity () {
 	 
     override fun onResume () {
 
-		  Logger.d ("pos resume... ${authInProgress}");
+		  Logger.i ("pos resume... ${authInProgress}");
         super.onResume ()
 
 		  if (authInProgress) {
@@ -232,9 +232,7 @@ class Pos (): AppCompatActivity () {
 	 override fun dispatchKeyEvent (event: KeyEvent): Boolean {
 						
         if (event.action == KeyEvent.ACTION_UP) {
-				
-				// Logger.d ("pos key... ${event}")
-				
+								
 				DeviceManager.scanner?.input (event)
         }
 
@@ -371,7 +369,7 @@ class Pos (): AppCompatActivity () {
 				}
 		  }
 
-		  Logger.d ("set layout... " + config.getString ("root_layout") + " buID: " + buID ())
+		  Logger.i ("set layout... " + config.getString ("root_layout") + " buID: " + buID ())
 		  
         setContentView (R.layout.root_layout)
 		  

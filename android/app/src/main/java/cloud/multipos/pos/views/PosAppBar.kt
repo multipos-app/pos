@@ -186,7 +186,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 }
 
 	 override fun update () {
-
+		  
 		  if (Pos.app.ticket.getInt ("customer_id") > 0) {
 
 				var customer = Customer ().select (Pos.app.ticket.getInt ("customer_id"))
@@ -194,7 +194,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  }
 		  else {
 
-	 			customerName?.setText (Pos.app.getString ("search_customer"))
+	 			clear ()
 		  }
 	 }
 	 

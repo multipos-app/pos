@@ -104,8 +104,11 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 	 override fun update () {
 		  
 		  // update the ticket items
-		  
-		  updateList ()
+
+		  if (Pos.app.ticket.hasItems ()) {
+					 
+				updateList ()
+		  }
 	 }
 	 
 	 override fun clear () {

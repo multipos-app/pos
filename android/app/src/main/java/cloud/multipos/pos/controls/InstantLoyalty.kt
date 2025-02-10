@@ -20,6 +20,7 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.models.Customer
 import cloud.multipos.pos.views.LoyaltyPromptView
+import cloud.multipos.pos.views.CustomerEditView
 import cloud.multipos.pos.views.CustomerSearchView
 import cloud.multipos.pos.receipts.LoytaltyReceiptBuilder
 
@@ -34,6 +35,10 @@ class InstantLoyalty (): ConfirmControl () {
 				confirmed (false)
 				var receiptBuilder = LoytaltyReceiptBuilder ().ticket (Pos.app.ticket,  PosConst.PRINTER_RECEIPT)				
 				receiptBuilder.print ()
+
+				// launch customer edit in case they want to add some details
+				
+				CustomerEditView (Pos.app.ticket.get ("customer").getInt ("customer_id"))
 				return
 		  }
 		  
@@ -46,6 +51,8 @@ class InstantLoyalty (): ConfirmControl () {
 
 						  val customer = Customer ().instant ()
 
+						  Logger.x ("new customer... ${customer}")
+						  
 						  customer.put ("type", "customers")
 						  Pos.app.ticket.put ("customer", customer)
 						  Pos.app.ticket.updates.add (customer)

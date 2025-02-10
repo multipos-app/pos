@@ -64,7 +64,7 @@ class Customer (): Jar (), Model {
 	 
 	 fun select (field: String, key: String): Customer {
 		  
-		  val customerResult = DbResult ("select * from customers where ${field} = ${key}", Pos.app.db)
+		  val customerResult = DbResult ("select * from customers where ${field} = '${key}'", Pos.app.db)
 		  
 		  if (customerResult.fetchRow ()) {
 	 
@@ -76,7 +76,6 @@ class Customer (): Jar (), Model {
 	 fun instant (): Customer {
 
 		  put ("fname", Pos.app.getString ("instant_loyalty"))
-		  // var id = Pos.app.db ().insert ("customers", this)		  
 		  return this
 	 }
 	 

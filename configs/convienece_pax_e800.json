@@ -1,6 +1,6 @@
 {
     "id": "convience_deli",
-    "desc": "Convience\/Deli PAX E800",
+    "desc": "Convience\/Deli",
     "timezone": "America\/New_York",
     "locale": "en_US",
     "currency": "USD",
@@ -22,7 +22,8 @@
     "customers": "true",
     "cash_management": "false",
     "merge_like_items": "false",
-    "devices": {
+    "themed": "true",
+     "devices": {
         "payment": {
             "name": "pax_s300",
             "class": "cloud.multipos.pos.devices.PaxPayment",
@@ -36,7 +37,7 @@
             "name": "keyboard",
             "class": "cloud.multipos.pos.devices.KeyboardScanner"
         }
-    },
+     },
     "pos_menus": {
         "main_menu": {
             "menu_description": "Main Menu",
@@ -55,8 +56,8 @@
                             "params": {
                                 "sku": "12345"
                             },
-                            "color": "#004A93",
-                            "pos_config_id": "24052",
+                            "color": "#21512D",
+                            "pos_config_id": "24051",
                             "container": "main_menu",
                             "menu": "0",
                             "pos": "0"
@@ -64,11 +65,11 @@
                         {
                             "text": "SAUSAGE EGG CHEESE",
                             "class": "Item",
-                            "color": "#004A93",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12344"
                             },
-                            "pos_config_id": "24052",
+                            "pos_config_id": "24051",
                             "container": "main_menu",
                             "menu": "0",
                             "pos": "1"
@@ -76,10 +77,14 @@
                         {
                             "text": "HAM EGG CHEESE",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12343"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "2"
                         },
                         {
                             "class": "Item",
@@ -87,7 +92,11 @@
                             "params": {
                                 "sku": "102030102"
                             },
-                            "color": "#1B454C"
+                            "color": "#21512D",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "3"
                         },
                         {
                             "class": "Item",
@@ -95,69 +104,59 @@
                             "params": {
                                 "sku": "12342"
                             },
-                            "color": "#1B454C"
-                        },
-                        {
-                            "text": "PANCAKES",
-                            "class": "Item",
-                            "color": "#1B454C",
-                            "params": {
-                                "sku": "12233"
-                            }
-                        },
-                        {
-                            "text": "FRENCH TOAST",
-                            "class": "Item",
-                            "color": "#1B454C",
-                            "params": {
-                                "sku": "12234"
-                            }
-                        },
-                        {
-                            "text": "HASHBROWNS",
-                            "class": "Item",
-                            "color": "#1B454C",
-                            "params": {
-                                "sku": "12235"
-                            }
-                        },
-                        {
-                            "class": "Null"
-                        },
-                        {
-                            "class": "Null"
+                            "color": "#21512D",
+                            "pos_config_id": "24053",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "4"
                         },
                         {
                             "text": "BAGEL W CREAM CHEESE",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12335"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "10"
                         },
                         {
                             "text": "BAGEL W BUTTER",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12334"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "11"
                         },
                         {
                             "text": "MUFFIN",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12333"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "12"
                         },
                         {
                             "text": "MUFFIN W BUTTER",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12332"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "13"
                         },
                         {
                             "class": "Item",
@@ -165,7 +164,11 @@
                             "params": {
                                 "sku": "12341"
                             },
-                            "color": "#1B454C"
+                            "color": "#21512D",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "14"
                         },
                         {
                             "class": "Item",
@@ -173,81 +176,119 @@
                             "params": {
                                 "sku": "444401"
                             },
-                            "color": "#1B454C"
+                            "color": "#21512D",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "15"
                         },
                         {
                             "text": "SMALL COFFEE",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "33333"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "16"
                         },
                         {
                             "text": "MEDIUM COFFEE",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "33332"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "17"
                         },
                         {
                             "text": "LARGE COFFEE",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "33331"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "18"
                         },
                         {
                             "text": "DONUT",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12339"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "19"
+                        },
+                        {
+                            "color": "#8C0306",
+                            "fixed": "1",
+                            "text": "10% OFF",
+                            "class": "SaleDiscount",
+                            "params": {
+                                "receipt_text": "10% off",
+                                "percent": "10"
                             }
                         },
                         {
-                            "text": "ADD SUB",
-                            "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#2A0001",
+                            "fixed": "1",
+                            "text": "MARKDOWN ITEM",
+                            "class": "ItemMarkdown",
                             "params": {
-                                "sku": "11222"
-                            }
-                        },
-                        {
-                            "text": "ADD BREAKFAST MEAT",
-                            "class": "Item",
-                            "color": "#1B454C",
-                            "params": {
-                                "sku": "12211"
+                                "receipt_text": "",
+                                "currency_value": "",
+                                "percent_value": ""
                             }
                         },
                         {
                             "text": "ADD CHEESE",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#21512D",
                             "params": {
                                 "sku": "12212"
-                            }
-                        },
-                        {
-                            "text": "ADD EGG",
-                            "class": "Item",
-                            "color": "#1B454C",
-                            "params": {
-                                "sku": "12213"
-                            }
-                        },
-                        {
-                            "class": "Item",
-                            "text": "ADD AVOCADO",
-                            "params": {
-                                "sku": "6857774"
                             },
-                            "color": "#1B454C"
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "22"
+                        },
+                        {
+                            "text": "BULK CANDY",
+                            "class": "Item",
+                            "color": "#21512D",
+                            "params": {
+                                "sku": "77780"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "23"
+                        },
+                        {
+                            "class": "Item",
+                            "text": "FOUNTAIN SM-MED-LG",
+                            "params": {
+                                "sku": "77778"
+                            },
+                            "color": "#21512D",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "0",
+                            "pos": "19"
                         }
-                    ]
+                    ],
+                    "size": "20"
                 },
                 {
                     "type": "controls",
@@ -337,7 +378,13 @@
                             }
                         },
                         {
-                            "class": "Null"
+                            "color": "#003000",
+                            "fixed": "1",
+                            "text": "BUSCH SINGLE CAN 12OZ N\/A",
+                            "class": "Item",
+                            "button": {
+                                "sku": ""
+                            }
                         },
                         {
                             "class": "Item",
@@ -411,71 +458,63 @@
                                 "sku": "789987"
                             }
                         }
-                    ]
+                    ],
+                    "size": "20"
                 },
                 {
                     "type": "controls",
                     "style": "outline",
-                    "color": "#1B454C",
+                    "color": "#004A93",
                     "name": "SIGNATURE MELTS",
                     "width": "5",
                     "buttons": [
                         {
                             "text": "THE GODFATHER",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#004A93",
                             "params": {
                                 "sku": "12666"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "0"
                         },
                         {
                             "text": "THREES COMPANY",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#004A93",
                             "params": {
                                 "sku": "12667"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "1"
                         },
                         {
                             "text": "THE MAYFLOWER",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#004A93",
                             "params": {
                                 "sku": "12668"
-                            }
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "2"
                         },
                         {
                             "text": "CHICKEN LITTLE",
                             "class": "Item",
-                            "color": "#1B454C",
+                            "color": "#004A93",
                             "params": {
                                 "sku": "12669"
-                            }
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
+                            },
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "2",
+                            "pos": "3"
                         },
                         {
                             "text": "",
@@ -629,29 +668,6 @@
                             }
                         },
                         {
-                            "class": "Null"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
-                            "text": "",
-                            "class": "Null",
-                            "color": "transparent"
-                        },
-                        {
                             "text": "",
                             "class": "Null",
                             "color": "transparent"
@@ -747,7 +763,13 @@
                             "color": "#5E7981"
                         },
                         {
-                            "class": "Null"
+                            "class": "Inventory",
+                            "text": "INVENTORY",
+                            "color": "#1B454C",
+                            "pos_config_id": "24051",
+                            "container": "main_menu",
+                            "menu": "4",
+                            "pos": "5"
                         },
                         {
                             "class": "Null"
@@ -763,7 +785,10 @@
                             "color": "empty"
                         },
                         {
-                            "class": "Null"
+                            "class": "UploadLog",
+                            "color": "#026851",
+                            "fixed": "1",
+                            "text": "upload log"
                         },
                         {
                             "class": "Bank",
@@ -800,31 +825,6 @@
                             "color": "empty"
                         },
                         {
-                            "class": "Suspend",
-                            "text": "Suspend Transaction",
-                            "color": "#5E7981"
-                        },
-                        {
-                            "class": "Null",
-                            "text": "",
-                            "color": "empty"
-                        },
-                        {
-                            "class": "Null",
-                            "text": "",
-                            "color": "empty"
-                        },
-                        {
-                            "class": "Null",
-                            "text": "",
-                            "color": "empty"
-                        },
-                        {
-                            "class": "Null",
-                            "text": "",
-                            "color": "#5E7981"
-                        },
-                        {
                             "class": "SaleDiscountPercent",
                             "text": "10% Employee Discount",
                             "color": "#5E7981",
@@ -849,16 +849,15 @@
                             "color": "empty"
                         },
                         {
-                            "class": "PaxIP",
-                            "text": "PAX\/EPX Setup",
-                            "color": "#5E7981"
+                            "text": "",
+                            "class": "Null"
                         },
                         {
-                            "class": "CameraIP",
-                            "text": "Camera Setup",
-                            "color": "#5E7981"
+                            "text": "",
+                            "class": "Null"
                         }
-                    ]
+                    ],
+                    "size": "20"
                 }
             ]
         },
@@ -869,8 +868,8 @@
                 {
                     "type": "controls",
                     "style": "outline",
-                    "color": "#21512D",
-                    "name": "Tender",
+                    "color": "#5E7981",
+                    "name": "tender 1",
                     "width": "5",
                     "buttons": [
                         {
@@ -954,10 +953,10 @@
                             "color": "#5E7981"
                         },
                         {
-                            "text": "RE-PRINT RECEIPT",
-                            "color": "#5E7981",
-                            "class": "PrintLastReceipt",
-                            "fixed": "1"
+                            "color": "#512D55",
+                            "fixed": "1",
+                            "text": "instant loyalty",
+                            "class": "InstantLoyalty"
                         },
                         {
                             "text": "GIFT CARD SALE",
@@ -1042,7 +1041,8 @@
                             },
                             "fixed": "1"
                         }
-                    ]
+                    ],
+                    "size": "20"
                 }
             ]
         },
@@ -1053,11 +1053,10 @@
                 {
                     "type": "controls",
                     "style": "outline",
-                    "color": "#5E7981",
                     "name": "keypad",
                     "width": "4",
                     "buttons": [
-								{
+                        {
                             "text": "7",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1066,7 +1065,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "8",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1075,7 +1074,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "9",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1084,15 +1083,13 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Quantity",
                             "class": "Quantity",
                             "color": "#5E7981",
-                            "params": {
-                            },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "4",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1101,7 +1098,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "5",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1110,7 +1107,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "6",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1119,7 +1116,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Qty+",
                             "class": "Quantity",
                             "color": "#5E7981",
@@ -1128,7 +1125,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "1",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1137,7 +1134,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "2",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1146,7 +1143,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "3",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1155,7 +1152,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Qty-",
                             "class": "Quantity",
                             "color": "#5E7981",
@@ -1164,15 +1161,13 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Clear",
                             "class": "Clear",
                             "color": "#5E7981",
-                            "params": {
-                            },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "0",
                             "class": "NumKey",
                             "color": "#5E7981",
@@ -1181,7 +1176,7 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "00",
                             "class": "MultKey",
                             "color": "#5E7981",
@@ -1190,18 +1185,17 @@
                             },
                             "fixed": "1"
                         },
-								{
+                        {
                             "text": "Enter",
                             "class": "Enter",
                             "color": "#5E7981",
-                            "params": {
-                            },
                             "fixed": "1"
                         }
-						  ]
-					 }
-				]
-		  }
+                    ],
+                    "size": "16"
+                }
+            ]
+        }
     },
     "pos_displays": [
         {
