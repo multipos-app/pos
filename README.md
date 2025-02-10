@@ -1,7 +1,7 @@
 # Android POS (point of sale)
 This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark. 
 
-## New 2/nn/2025
+## New 2/10/2025
 
 - Instant loyalty, print customer loyalty token on request (no customer data required), scan token on subsequent visits to accumulate loyalty points/awards
 
