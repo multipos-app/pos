@@ -15,15 +15,13 @@ android {
 
     compileSdkVersion 31
     defaultConfig {
-
-		  buildConfigField "string", "USE_CAMERA", "false" 
 	  
         applicationId "cloud.multipos.pos"
         minSdkVersion 22   // for the e800 23, need level 24 to get camera/fmpeg to work on some tablets
         targetSdkVersion 33
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         versionCode 92
-		  buildConfigField "Boolean", "USE_CAMERA", "true" 
+		  buildConfigField "Boolean", "USE_CAMERA", "false" 
 		  buildConfigField "String", "VERSION_NAME", "\"2.1.92\"" 
     }
 
