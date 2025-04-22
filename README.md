@@ -4,7 +4,7 @@ This project is an Andoid POS application integrated with a cloud based back for
 ## New 4/22/2025
 
 - Rewrite dialog views, dialogs roll out from the side, swipe to clear, see DialogView.kt, DialogControl.kt
-- Added item modifiers, (i.e. cheese burger, no onions), create a subdepartment for a department (burgers), all items in the modfier department will be displayed in a dialog
+- Added item modifiers, (i.e. cheese burger, no onions), create a subdepartment for a department (burgers), all items in the modfier department will be displayed in a dialog. Long press on the item in the sale display to add a modifier.
 
 ## New 2/10/2025
 
