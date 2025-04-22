@@ -1,6 +1,11 @@
 # Android POS (point of sale)
 This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark. 
 
+## New 4/22/2025
+
+- Rewrite dialog views, dialogs roll out from the side, swipe to clear, see DialogView.kt, DialogControl.kt
+- Added item modifiers, (i.e. cheese burger, no onions), create a subdepartment for a department (burgers), all items in the modfier department will be displayed in a dialog
+
 ## New 2/10/2025
 
 - Instant loyalty, print customer loyalty token on request (no customer data required), scan token on subsequent visits to accumulate loyalty points/awards
