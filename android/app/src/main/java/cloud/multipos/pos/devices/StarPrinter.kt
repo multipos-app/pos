@@ -128,6 +128,7 @@ class StarPrinter () : Printer () {
                 manager.connect (ConnectCallback (manager))
                 deviceStatus = DeviceStatus.OnLine
 					 success (this)
+
             }
         }
 		  catch (e: Exception) {
@@ -148,6 +149,17 @@ class StarPrinter () : Printer () {
         )
 		  
         Logger.i ("star connect complete... ")
+
+		  val printCommands = PrintCommands ()
+		  printCommands
+		  		.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
+				.add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (Pos.app.getString ("printer_on_line")))
+		  		.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
+			  	.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
+		  		.add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
+				.add (PrintCommand.getInstance ().directive (PrintCommand.CUT))
+
+		  DeviceManager.printer.queue (printCommands)
     }
 	 
 	 override fun drawer () {
@@ -192,9 +204,7 @@ class StarPrinter () : Printer () {
             Logger.i ("star thread, void port...")
             return
         }
-		  
-        // printLock.lock ()
-		  
+		  		  
         try {
 				
             Thread (label@ Runnable {
@@ -245,10 +255,7 @@ class StarPrinter () : Printer () {
 								
             }).start ()
         }
-		  finally {
-				
-            // printLock.unlock ()
-        }
+		  finally { }
     }
 	 
     fun close () {

@@ -14,45 +14,45 @@
  * limitations under the License.
  */
  
-package cloud.multipos.pos.views;
+package cloud.multipos.pos.views
 
-import cloud.multipos.pos.*;
-import cloud.multipos.pos.controls.*;
-import cloud.multipos.pos.util.*;
-import cloud.multipos.pos.models.Ticket;
-import cloud.multipos.pos.devices.*;
+import cloud.multipos.pos.*
+import cloud.multipos.pos.controls.*
+import cloud.multipos.pos.util.*
+import cloud.multipos.pos.models.Ticket
+import cloud.multipos.pos.devices.*
 
-import android.view.Gravity;
-import android.widget.Button;
-import android.view.View;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.view.Gravity
+import android.widget.Button
+import android.view.View
+import android.widget.ScrollView
+import android.widget.TextView
 import android.widget.LinearLayout
 
 class ReportView (val title: String, jar: Jar): DialogView (title) {
 	 
 	 init {
-	 
+		  
 		  Pos.app.inflater.inflate (R.layout.report_layout, dialogLayout)
 		  
 		  val text = findViewById (R.id.report_text) as PosText
-		  text.setTypeface (Views.receiptFont ());
-		  
+		  text.setTypeface (Views.receiptFont ())
+		  text.setTextColor (fg)
+
 		  if (jar.has ("ticket")) {
 				
-				var t = jar.get ("ticket").getString ("ticket_text");
+				var t = jar.get ("ticket").getString ("ticket_text")
 				
 				if (jar.get ("ticket").has ("aux_receipts")) {
 
-					 t += "\n\n" + jar.get ("ticket").getString ("aux_receipts");
+					 t += "\n\n" + jar.get ("ticket").getString ("aux_receipts")
 				}
 				
-				text.setText (t);
-				text.setTextColor (fg)
+				text.setText (t)
 		  }
 		  else if (jar.has ("report_text")) {
 
-				text.setText (jar.getString ("report_text"));
+				text.setText (jar.getString ("report_text"))
 		  }
 
 		  // scroll to bottom
@@ -61,11 +61,11 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 		  scroller.post (Runnable () {
 									fun run () {
 										 
-										 scroller.fullScroll (View.FOCUS_UP);              
+										 scroller.fullScroll (View.FOCUS_UP)              
 									}
 		  })
 
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 	 
 	 override fun actions (dialogView: DialogView) {
@@ -81,8 +81,8 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 	 override fun accept () {
 
 		  Pos.app.receiptBuilder ().print ();
-		  Pos.app.controlLayout.pop (this)
+		  DialogControl.close ()
 	 }
 	 
-	 override fun sticky (): Boolean { return true; }
+	 override fun sticky (): Boolean { return true }
 }

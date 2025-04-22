@@ -35,6 +35,8 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 	 
 	 init {
 		  
+		  Logger.x ("tender view..... ${tender}")
+	  
 		  Pos.app.inflater.inflate (R.layout.tender_layout, dialogLayout)
 
 		  val grid = findViewById (R.id.tender_detail) as GridLayout
@@ -47,37 +49,27 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 		  }
 		  
 		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_detail_lg))
-
-		  if (tender.returned > 0) {
-				
-				grid.addView (TenderLine (Pos.app.getString ("change_due"), tender.returned, R.layout.tender_detail))
-		  }
 		  
 		  if (tender.balance > 0) {
 				
 				grid.addView (TenderLine (Pos.app.getString ("balance_due"), tender.balance, R.layout.tender_detail_lg))
 		  } 
-		  else if (tender.returned > 0) {
+		  else if (tender.returned < 0) {
 				
 				grid.addView (TenderLine (Pos.app.getString ("change"), tender.returned, R.layout.tender_detail_lg))
 		  }
 
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
-
 	 
 	 override fun accept () {
 		  
-		  // if (tender.balance <= 0) {
-
-		  // 		Pos.app.controlLayout.pop (this)
-		  // }
-
-		  Pos.app.controlLayout.pop (this)
+		  DialogControl.close ()
 		  
 		  tender
 				.confirmed (true)
 				.action (tender.jar ())
+		  
 	 }
 
 	 class TenderLine (desc: String, amount: Double, layout: Int): LinearLayout (Pos.app) {

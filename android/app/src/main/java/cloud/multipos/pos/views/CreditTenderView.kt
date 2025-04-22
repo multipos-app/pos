@@ -76,7 +76,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 				
 		  grid.addView (TenderLine (Pos.app.getString ("auth_amount"), tender.tendered + tender.fees (), R.layout.tender_dialog_detail_lg))
 		  
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 
 	 override fun accept () {
@@ -132,7 +132,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 	 fun stop () {
 
 		  tender.cancel ()
-		  Pos.app.controlLayout.swipeLeft ()
+		  // Pos.app.controlLayout.swipeLeft ()
 	 }
 
 	 inner class TenderLine (desc: String, amount: Double, layout: Int): LinearLayout (Pos.app.activity) {

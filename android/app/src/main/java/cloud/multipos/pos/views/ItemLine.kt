@@ -95,15 +95,19 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 
 				layout.setOnLongClickListener {
 
-					 val editItem = Item (Jar ()
-													  .put ("sku", ti.getString ("sku")))
+					 
+					 val editItem = Item (Jar ().put ("sku", ti.getString ("sku")))
 					 
 					 val item =
 						  editItem.item
 						  .put ("ticket_item_index", position)
 					 					 
-					 ItemEditView (ItemUpdate (), item)
+					 // ItemEditView (ItemUpdate (), item)
 					 
+					 ItemModifiersView (item)
+					 
+					 Logger.d ("item line long press... ${position} ${item}")
+
 					 return@setOnLongClickListener true
 				}
 

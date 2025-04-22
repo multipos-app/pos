@@ -1,3 +1,4 @@
+
 /**
  * Copyright (C) 2023 multiPOS, LLC
  *
@@ -61,7 +62,7 @@ class TabsView (val listener: InputListener, val title: String, val openTabs: Ar
 		  grid.setAdapter (ListAdapter (Pos.app.activity))
 		  
 		  PosDisplays.add (this)
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 	 
 	 override fun accept () {
@@ -70,7 +71,7 @@ class TabsView (val listener: InputListener, val title: String, val openTabs: Ar
 				.put ("tab_no", Pos.app.input.getString ())
 		  
 		  listener.accept (result)
-		  Pos.app.controlLayout.pop (this)
+		  DialogControl.close ()
 	 }
 	 
 	 override fun enter () {
@@ -108,7 +109,7 @@ class TabsView (val listener: InputListener, val title: String, val openTabs: Ar
 						  .put ("ticket", jar)
 		  
 					 listener.accept (result)
-					 Pos.app.controlLayout.pop (tabsView)
+					 DialogControl.close ()
 				}
 		  }
 	 }

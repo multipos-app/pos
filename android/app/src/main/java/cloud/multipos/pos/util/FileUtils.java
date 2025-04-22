@@ -36,7 +36,8 @@ import java.util.zip.GZIPInputStream;
 import android.util.Base64;
 import java.util.zip.ZipInputStream;
 import java.time.ZonedDateTime;
-
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 public class FileUtils {
 
@@ -183,5 +184,45 @@ public class FileUtils {
 		  
 		  thread.start  ();
 	 }
+	 
+	 public static void downloadImage (String fname) {
+		  
+		  Logger.d ("download image ... " + fname);
+		  
+		  
+		  Thread thread = new Thread () {
 
+					 Bitmap image = null;
+		  			 public void run () {
+						  
+						  try {
+								
+								URL url = new URL ("https://img.multipos.cloud/" + Pos.app.local.getInt ("merchant_id", 0) + "/" + fname);
+								image = BitmapFactory.decodeStream (url.openConnection ().getInputStream ());
+								
+						  }
+						  catch(IOException e) {
+								
+								Logger.w ("download image error... " + e);
+						  }
+					 
+						  if (image != null) {
+						  
+								try {
+									 
+									 FileOutputStream out = new FileOutputStream (new File ("/sdcard/img/" + fname));
+									 image.compress (Bitmap.CompressFormat.PNG, 100, out);
+									 out.flush ();
+									 out.close ();       
+								}
+								catch (Exception e) {
+									 
+									 Logger.w ("error saving image... " + fname + " " + e);
+								}
+						  }
+					 }
+				};
+				
+				thread.start ();
+    }
 }

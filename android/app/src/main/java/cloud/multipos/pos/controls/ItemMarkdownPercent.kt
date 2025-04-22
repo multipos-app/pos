@@ -24,8 +24,7 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.NumberInputView
 
-class ItemMarkdown (): TicketModifier (), InputListener {
-
+class ItemMarkdownPercent (): TicketModifier (), InputListener {
 
 	 override fun controlAction (jar: Jar) {
 

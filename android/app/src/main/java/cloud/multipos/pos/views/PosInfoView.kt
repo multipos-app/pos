@@ -74,7 +74,7 @@ class PosInfoView (): DialogView ("POS Info") {
 		  merchant.text = Pos.app.dbname ()
 		  posNo.text = "POS No ${Pos.app.posNo ()}" 
 				
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 
 

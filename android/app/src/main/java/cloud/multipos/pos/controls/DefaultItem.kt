@@ -37,7 +37,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 	 override fun controlAction (jar: Jar) {
 		  
 		  var sku = ""
-		  
+		  		  
 		  jar (jar)
 		  
 		  if (!jar.has ("update_displays")) {
@@ -309,7 +309,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
 		  
-		  Pos.app.controlLayout.swipeLeft ()  // clear input views
+		  // Pos.app.controlLayout.swipeUp ()  // clear input views
 
 		  PosDisplays.update ()
 		  PosDisplays.message (Jar ()

@@ -90,5 +90,17 @@
 	 <item name="android:insetRight">0dp</item>
 	 <item name="android:insetBottom">0dp</item>
   </style>
+  
+  <style name="AppTheme.DatePickerDialog" parent="Theme.MaterialComponents.Light.Dialog">
+    <item name="android:calendarViewStyle">@style/date_picker_style</item>
+  </style>
+
+  <style name="date_picker_style">
+    <item name="android:textSize">32sp</item>
+  </style>
+
+  <style name="time_picker_style">
+    <item name="android:textSize">32sp</item>
+  </style>
 
 </resources>

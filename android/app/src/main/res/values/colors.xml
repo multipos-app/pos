@@ -11,7 +11,7 @@
     <color name="light_odd_bg">#CFE2F3</color>
     <color name="light_select_bg">#BCBDBF</color>
 
-	 <color name="dark_bg">#3F4A5C</color>
+	 <color name="dark_bg">#0B2A25</color>
     <color name="dark_fg">#efefef</color>
     <color name="dark_even_bg">#3F4A5C</color>
     <color name="dark_odd_bg">#363D47</color>

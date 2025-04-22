@@ -28,10 +28,6 @@ import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ReportView
 import cloud.multipos.pos.net.Upload
-
-import android.app.Dialog
-import android.os.Handler
-import android.os.Message
 import java.util.Date
 
 open class SessionManager (): CompleteTicket () {
@@ -48,8 +44,6 @@ open class SessionManager (): CompleteTicket () {
 	 val departments = mutableListOf <Jar> ()
 	 val exceptions = mutableListOf <Jar> ()
 	 
-	 val handler = ReportHandler ()
-
 	 var cashSales = 0.0
 	 var total = 0.0
 	 var drawerCount = 0.0
@@ -67,7 +61,7 @@ open class SessionManager (): CompleteTicket () {
 	 override fun printReceipt ():Boolean { return false }
 
 	 override fun controlAction (jar: Jar) {
-		  		  
+
 		  var sessionID = Pos.app.config.getInt ("pos_session_id")
 		  
 		  cashSales = 0.0
@@ -436,42 +430,13 @@ open class SessionManager (): CompleteTicket () {
 				.put ("total", total)
 				.put ("ticket_text", text)
 		  
-		  Pos.app.db.exec ("update tickets set state = " + Ticket.COMPLETE + ", " +
-								 "total = " + total + ", " + 
-								 "complete_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
-								 "ticket_text = '" + text + "', " +
-								 "ticket_type = " + ticketType + " where id = " + Pos.app.ticket.getInt ("id"))
-		  
-		  // display report
-
-		  ReportView (Pos.app.getString ("ticket"),
-						  Jar ()
-		  						.put ("ticket", Pos.app.ticket))
+		  Pos.app.ticket.update ()
 		  
 		  // queue ticket for upload
 		  
 		  Upload ()
 				.add (Pos.app.ticket)
-				.exec ()
-
-		  // start a new ticket
-		  
-		  Pos.app.ticket ()
-	 }
-
-	 inner class ReportHandler (): Handler () {
-
-		  override fun handleMessage (msg: Message) {
-				
-				var report = msg.obj as String
-
-				// DeviceManager.printer.print (Pos.app.getString ("z_report"), report, Pos.app.ticket)
-
-				try { Thread.sleep (3000) } catch (ie: InterruptedException) { } 
-				var control = LogOut ()
-				control.action (Jar ())
-
-		  }
+				.exec ()		  
 	 }
 
 	 fun cashInDrawer (): Double {
@@ -492,10 +457,14 @@ open class SessionManager (): CompleteTicket () {
 	 }
 	 
 	 override fun beforeAction (): Boolean {
+		  
+		  Logger.d ("session manager...")
 
 		  if (Pos.app.ticket.hasItems ()) {
 				
-				PosDisplays.message (Pos.app.getString ("invalid_operation"))
+				PosDisplays.message (Jar ()
+												 .put ("prompt_text", Pos.app.getString ("invalid_operation"))
+												 .put ("echo_text", ""))
 				return false
 		  }
 		  

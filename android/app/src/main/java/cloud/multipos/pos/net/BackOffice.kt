@@ -95,7 +95,7 @@ object BackOffice: Device, DeviceCallback {
 					 Post ("pos-download")
 						  .add (download)
 						  .exec (fun (result: Jar): Unit {
-
+										 
 										 if (result.getInt ("status") == 0) {
 										 	  
 											  if (downloadTotal == 0) {
@@ -255,6 +255,11 @@ object BackOffice: Device, DeviceCallback {
 								for (il in itemLinks) {
 
 									 Pos.app.db ().insert ("item_links", il)
+								}
+
+								if (Pos.app.config.has ("image_buttons")) {
+
+									 FileUtils.downloadImage (row.getString ("sku") + ".png");
 								}
 						  }
 						  

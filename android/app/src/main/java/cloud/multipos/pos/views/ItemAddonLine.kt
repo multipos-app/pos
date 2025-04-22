@@ -37,9 +37,23 @@ class ItemAddonLine (context: Context, tia: Jar): LinearLayout (context) {
 
 		  Pos.app.inflater.inflate (R.layout.ticket_item_addon_line, this);
 
+		  var icon = this.findViewById (R.id.ticket_item_addon_line_icon) as PosIconText
 		  var desc = this.findViewById (R.id.ticket_item_addon_line_desc) as PosText
 		  var amount = this.findViewById (R.id.ticket_item_addon_line_amount) as PosText
-		  
+
+		  when (tia.getInt ("addon_type")) {
+
+				TicketItemAddon.DISCOUNT, TicketItemAddon.MARKDOWN -> {
+
+					 icon.setText (Pos.app.getString ("fa_tag"))
+					 icon.setTextColor (R.color.pos_success)
+				}
+				
+				TicketItemAddon.MODIFIER_PLUS -> icon.setText (Pos.app.getString ("fa_plus"))
+				
+				TicketItemAddon.MODIFIER_MINUS -> icon.setText (Pos.app.getString ("fa_minus"))
+		  }
+
 		  desc.setText (tia.getString ("addon_description"))
 		  amount.setText (tia.getDouble ("addon_amount").currency ())
 

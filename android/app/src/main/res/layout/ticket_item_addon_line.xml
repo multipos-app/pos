@@ -4,7 +4,8 @@
 	 android:layout_width="match_parent"
 	 android:layout_height="wrap_content"
 	 android:background="@color/transparent"
-	 android:orientation="horizontal">
+	 android:orientation="horizontal"
+	 android:layout_marginLeft="@dimen/ticket_item_margin">
   
   <cloud.multipos.pos.views.PosText
       android:id="@+id/ticket_item_addon_line_extra"
@@ -14,16 +15,17 @@
       android:gravity="end"
       android:text=""
       android:textColor="@color/black"
-      android:textSize="@dimen/ticket_item_md_text" />
+      android:textSize="@dimen/ticket_item_sm_text" />
 
   <cloud.multipos.pos.views.PosIconText
+      android:id="@+id/ticket_item_addon_line_icon"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
       android:gravity="end"
       android:layout_marginRight="@dimen/ticket_item_link_icon_margin"
       android:text="@string/fa_tag"
-		android:textColor="@color/red"
-      android:textSize="@dimen/ticket_item_md_text"/>
+		android:textColor="@color/black"
+      android:textSize="@dimen/ticket_item_sm_text"/>
 
   <cloud.multipos.pos.views.PosText
       android:id="@+id/ticket_item_addon_line_desc"
@@ -33,7 +35,7 @@
       android:gravity="start"
       android:text=""
       android:textColor="@color/warn"
-      android:textSize="@dimen/ticket_item_md_text" />
+      android:textSize="@dimen/ticket_item_sm_text" />
 
   <cloud.multipos.pos.views.PosText
       android:id="@+id/ticket_item_addon_line_amount"

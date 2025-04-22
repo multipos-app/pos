@@ -80,7 +80,7 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 
 		  @JvmStatic
 		  fun clear () {
-
+				
 				for (display in displays) {
 					 
 					 display.clear ()

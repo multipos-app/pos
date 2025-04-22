@@ -13,10 +13,10 @@
 	 android:elevation="2dp">
 
   <com.google.android.material.button.MaterialButton
-	 android:id="@+id/control_button"
+	 android:id="@+id/text_control_button"
  	 style="@style/PosControlButton"
     android:layout_width="match_parent"
-    android:layout_height="0dp"
+    android:layout_height="match_parent"
     android:layout_weight="1"
 	 android:clickable="true"
 	 android:enabled="true"

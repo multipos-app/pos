@@ -4,7 +4,7 @@
 
 -->
 
-<androidx.constraintlayout.widget.ConstraintLayout
+<android.widget.FrameLayout
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
 	 xmlns:tools="http://schemas.android.com/tools"
@@ -24,21 +24,29 @@
       custom:icon_size="@dimen/app_bar_icon_size"
       custom:icon_padding="@dimen/app_bar_icon_padding"/>
   
-	 <cloud.multipos.pos.views.RootView
-		  android:id="@+id/root_layout_container"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:background="@color/transparent"
-		  app:layout_constraintTop_toBottomOf="@+id/pos_app_bar"
-		  app:layout_constraintBottom_toBottomOf="parent"/>
-	 
-	 <cloud.multipos.pos.views.KeyboardView
-		  android:id="@+id/keyboard_container"
-		  android:layout_width="match_parent"
-		  android:layout_height="0dp"
-		  android:background="@color/transparent"
-		  android:visibility="gone"
-		  app:layout_constraintTop_toBottomOf="@+id/pos_app_bar"
-		  app:layout_constraintBottom_toBottomOf="parent"/>
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+  <cloud.multipos.pos.views.RootView
+		android:id="@+id/root_layout_container"
+		android:layout_marginTop="@dimen/activity_main_app_bar_height"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/transparent"/>
+  
+  <cloud.multipos.pos.views.KeyboardView
+		android:id="@+id/keyboard_container"
+		android:layout_marginTop="@dimen/activity_main_app_bar_height"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/transparent"
+		android:visibility="gone"/>
+  
+  <cloud.multipos.pos.views.DialogContainer
+      android:id="@+id/dialog_container"
+		android:layout_marginTop="@dimen/activity_main_app_bar_height"
+		android:layout_marginBottom="@dimen/app_sm_margin"
+      android:layout_width="640dp"
+      android:layout_height="match_parent"
+      android:layout_gravity="right"
+		android:background="@drawable/dialog_container"
+		android:visibility="gone"/>
+  
+</android.widget.FrameLayout>

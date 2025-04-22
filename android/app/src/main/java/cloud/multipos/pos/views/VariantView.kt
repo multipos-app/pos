@@ -72,7 +72,7 @@ class VariantView (val listener: InputListener, list: ArrayList <Jar>, title: St
 												 .put ("amount", line.getDouble ("amount"))
 												 .put ("position", position))
 
-					 Pos.app.controlLayout.swipeLeft ()
+					 // Pos.app.controlLayout.swipeUp ()
 				}
 		  }
 	 }

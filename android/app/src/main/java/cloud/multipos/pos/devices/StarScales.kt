@@ -162,7 +162,6 @@ class StarScales (): Scales () {
 						  
                     Logger.w ("Failed to connect. (Not granted permission)...")
                 }
-
 						  
                 Scale.CONNECT_UNEXPECTED_ERROR -> {
 						  

@@ -20,8 +20,11 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.devices.DeviceManager
+import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ConfirmView
 import cloud.multipos.pos.views.ReportView
+import cloud.multipos.pos.views.DialogControl
 
 class ZSession (): SessionManager () {
 
@@ -31,23 +34,32 @@ class ZSession (): SessionManager () {
 	 }
 
 	 override fun controlAction (jar: Jar) {
+		  
+		  Logger.d ("z... ${confirmed ()} ${Pos.app.config.getBoolean ("session_logout")}")
 
 		  if (confirmed ()) {
 
 		  		confirmed (false)
 				setJar (Jar ().put ("print_report", true))
-				super.controlAction (jar ())
+				
+				super.controlAction (jar ())  // build the report
 
 				Pos.app.ticket.put ("ticket_type", Ticket.Z_SESSION)
 				Pos.app.receiptBuilder ().ticket (Pos.app.ticket, PosConst.PRINTER_REPORT)
-				ReportView (Pos.app.getString ("ticket"),
-								Jar ()
-		  							 .put ("report_title", Pos.app.getString ("z_report"))
-		  							 .put ("report_text", Pos.app.receiptBuilder ().text ())
-		  							 .put ("print_opt", true)
-		  							 .put ("print_type", "report"))		
 
 				complete (Ticket.Z_SESSION)
+				
+				Pos.app.receiptBuilder ().print ();
+
+				if (Pos.app.config.getBoolean ("session_logout")) {
+					 
+					 // log cashier off
+
+					 Logger.d ("session logout...")
+					 
+					 Pos.app.ticket ()
+					 Pos.app.logout ()
+				}
 		  }
 		  else {
 				

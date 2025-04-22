@@ -28,6 +28,8 @@ class LogOut (): CompleteTicket () {
 
 	 override fun controlAction (jar: Jar?) {
 
+		  Logger.d ("logout... ${Pos.app.ticket.hasItems ()}")
+		  
 		  if (Pos.app.ticket.hasItems ()) {
 				
 				PosDisplays.message (Pos.app.getString ("complete_ticket"))
@@ -39,6 +41,7 @@ class LogOut (): CompleteTicket () {
 				.put ("state", Ticket.COMPLETE)
 				.put ("star_time", Pos.app.db.timestamp (Date ()))
 				.put ("complete_time", Pos.app.db.timestamp (Date ()))
+				.put ("data_capture", jar.toString ())
 		  
 		  Pos.app.db.exec ("update tickets set start_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
 		  						 "complete_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
@@ -50,7 +53,6 @@ class LogOut (): CompleteTicket () {
 		  
 		  Pos.app.employee = Employee (Jar ())
 		  Pos.app.logout ();
-		  Pos.app.activity ().setContentView (R.layout.login_main);
 	 }
 	 
 	 override fun openDrawer (): Boolean { return false; }

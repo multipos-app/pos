@@ -38,13 +38,18 @@ import android.graphics.Color
 import android.os.Build
 import android.graphics.Typeface
 import android.content.res.ColorStateList
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.widget.ImageView
+import android.widget.ImageView.ScaleType
+import java.io.File
+import android.view.View.OnLongClickListener
 
 /**
  *
  * See PosButton style for setup and padding
  *
  */
-
 
 class ControlsGridLayout (val menu: Jar,
 								  val posMenuControl: PosMenuControl,
@@ -115,9 +120,6 @@ class ControlsGridLayout (val menu: Jar,
 		  
 		  init {
 				
-				button.setText (jar.getString ("text"))
-				button.setTypeface (Views.buttonFont ())
-
 				var control: Control?  = controls.get (jar.getString ("class"))
 				
 				if (control == null) {
@@ -133,14 +135,21 @@ class ControlsGridLayout (val menu: Jar,
 					 controls.put (jar.getString ("class"), Control.factory (controlClass))
 				}
 					 
-				button.setOnClickListener {
+				view.setOnClickListener {
 						  
 					 var c = controls.get (jar.getString ("class"))
 
 					 if (c != null) {
-
+						  
 						  c.action (jar.get ("params").put ("entry_mode", "control"))						  
 					 }
+				}
+
+				view.setOnLongClickListener {
+
+					 Logger.d ("long click... ${jar}")
+					 
+					 return@setOnLongClickListener true
 				}
 		  }
 	 }
@@ -149,9 +158,9 @@ class ControlsGridLayout (val menu: Jar,
 
 		  init {
 				
-				button.setText (jar.getString ("text"))				
-				button.setTypeface (Views.buttonFont ())
-				button.setOnClickListener {
+				button?.setText (jar.getString ("text"))				
+				button?.setTypeface (Views.buttonFont ())
+				button?.setOnClickListener {
 					 					 
 					 posMenuControl.menu (jar.get ("params").getInt ("menu_index"))
 				}
@@ -161,70 +170,105 @@ class ControlsGridLayout (val menu: Jar,
 	 inner open class GridButton (jar: Jar): LinearLayout (Pos.app.activity) {
 
 		  var layoutParams: GridLayout.LayoutParams
-		  var button: MaterialButton
-		  
+		  lateinit var view: View
+		  lateinit var button: MaterialButton
+	  
 		  init {
 
-				Pos.app.inflater.inflate (R.layout.pos_control_button, this)  //  
-				
-				button = findViewById (R.id.control_button) as MaterialButton
+				var isImageButton = (Pos.app.config.getBoolean ("image_buttons") && (jar.getString ("class") == "Item"))
+
+				if (isImageButton) {
+					 
+					 Pos.app.inflater.inflate (R.layout.pos_control_image_button, this)
+				}
+				else {
+					 
+					 Pos.app.inflater.inflate (R.layout.pos_control_button, this)
+				}
 				
 				layoutParams = GridLayout.LayoutParams (GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f),
 																	 GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f))
 				layoutParams.height = 0
 				layoutParams.width = 0
-
 				setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 				setLayoutParams (layoutParams)
 				setPadding (0, 0, 0, 0)
+
+				if (isImageButton) {
+
+					 var imageButton = findViewById (R.id.image_control_button) as ImageView
+					 imageButton.setScaleType (ScaleType.FIT_XY)
+					 var sku = jar.get ("params").getString ("sku")
+					 var imageFile = File ("/sdcard/img/${sku}.png");
+
+					 if (imageFile.exists ()) {
+						  
+						  var bitmap = BitmapFactory.decodeFile (imageFile.getAbsolutePath ())
+						  imageButton.setImageBitmap (bitmap);
+					 }
+					 else {
+
+						  Logger.d ("missing image file for button... ${sku}")
+					 }
+					 
+					 view = imageButton
+				}
+				else {
+				
+					 button = findViewById (R.id.text_control_button) as MaterialButton
+
+					 var color = "#eeeeee"
+					 if (jar.has ("color")) {
+						  
+						  color = jar.getString ("color")
+						  if (color.length == 0) {
 								
-				var color = "#eeeeee"
-				if (jar.has ("color")) {
-
-					 color = jar.getString ("color")
-					 if (color.length == 0) {
-
-						  Logger.w ("invalid button color... ${jar}")
+								Logger.w ("invalid button color... ${jar}")
+								color = "#eeeeee"
+						  }
+					 }
+					 
+					 if (Themed.theme == Themes.Light) {
+						  
+						  // lighten the color
+						  
+						  color = color.replace ("#", "#30")
+					 }
+					 
+					 var tmp = Color.WHITE
+					 
+					 try {
+						  
+						  tmp = Color.parseColor (color)
+					 }
+					 catch (e: Exception) {
+						  
+						  Logger.w ("error parsing color... ${jar}")
 						  color = "#eeeeee"
 					 }
-				}
-				
-				if (Themed.theme == Themes.Light) {
-
-					 // lighten the color
 					 
-					 color = color.replace ("#", "#30")
-				}
-
-				var tmp = Color.WHITE
-				
-				try {
+					 button.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
 					 
-					 tmp = Color.parseColor (color)
-				}
-				catch (e: Exception) {
-
-					 Logger.w ("error parsing color... ${jar}")
-					 color = "#eeeeee"
+					 val colorList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
+																			intArrayOf(android.R.attr.state_enabled)),
+																intArrayOf (Color.DKGRAY,
+																				Color.parseColor (color)))
+		 			 button.setBackgroundTintList (colorList)
+					 
+					 // add the stroke
+					 
+					 val strokeList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
+																			 intArrayOf(android.R.attr.state_enabled)),
+																 intArrayOf (Color.BLACK,
+																				 Color.parseColor (Pos.app.getString (R.color.dk_gray))))
+					 
+					 button.strokeWidth = 3
+					 button.strokeColor = strokeList
+					 button.setText (jar.getString ("text"))
+					 button.setTypeface (Views.buttonFont ())
+					 view = button;
 				}
 				
-				button.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
-					  						  
-				val colorList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
-																	  intArrayOf(android.R.attr.state_enabled)),
-														  intArrayOf (Color.DKGRAY,
-																		  Color.parseColor (color)))
-		 		button.setBackgroundTintList (colorList)
-
-				// add the stroke
-						  
-				val strokeList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
-																		intArrayOf(android.R.attr.state_enabled)),
-															intArrayOf (Color.BLACK,
-																			Color.parseColor (Pos.app.getString (R.color.dk_gray))))
-
-				button.strokeWidth = 3
-				button.strokeColor = strokeList
 				setClickable (true)
 		  }
 	 }

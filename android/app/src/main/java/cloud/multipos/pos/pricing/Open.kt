@@ -35,11 +35,11 @@ class Open (): Pricing (), InputListener {
  	 override fun apply (i: DefaultItem): Boolean {
 
 		  item = i
-		  Pos.app.dialogView = NumberInputView (this,
-															 Pos.app.getString (R.string.enter_price),
-															 item.item.getString ("item_desc"),
-															 InputListener.CURRENCY,
-															 0)		  
+		  // Pos.app.dialogView = NumberInputView (this,
+		  // 													 Pos.app.getString (R.string.enter_price),
+		  // 													 item.item.getString ("item_desc"),
+		  // 													 InputListener.CURRENCY,
+		  // 													 0)		  
 		  return true
 	 }
 	 

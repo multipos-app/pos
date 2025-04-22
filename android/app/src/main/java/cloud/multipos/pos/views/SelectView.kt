@@ -47,6 +47,6 @@ abstract class SelectView (listener: InputListener, list: ArrayList <Jar>, title
 				listView.addView (line (context, l, i ++))
 		  }
 		  
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 }

@@ -19,13 +19,15 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 
+import android.content.Context
+import android.util.AttributeSet
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Button
 import android.graphics.Color
 
-abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay, SwipeListener {
+abstract class DialogView (title: String): PosSwipeLayout (Pos.app, null), PosDisplay, SwipeListener {
 
 	 protected var dialogLayout: LinearLayout
 	 lateinit var dialogActions: LinearLayout
@@ -34,7 +36,7 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 	 init {
 		  
 		  Pos.app.inflater.inflate (layout (), this)
-
+		  
 		  dialogLayout = findViewById (R.id.dialog_layout) as LinearLayout
 		  if (Themed.theme == Themes.Light) {
 
@@ -76,10 +78,30 @@ abstract class DialogView (title: String): PosLayout (Pos.app, null), PosDisplay
 	 open fun cancel () {
 
 		  Pos.app.input.clear ()
+		  DialogControl.close ()
 	 }
 	 
 	 open fun sticky (): Boolean { return false }
-	 	 
+
+	 // Swipe
+
+	 override fun swipeRight () {
+
+		  cancel ()
+	 }
+
+	 override fun swipeLeft () {
+		  
+	 }
+	 
+	 override fun swipeUp () {
+		  
+	 }
+
+	 override fun swipeDown () {
+		  
+	 }
+	 
 	 // PosDisplay
 
 	 override fun enter () {

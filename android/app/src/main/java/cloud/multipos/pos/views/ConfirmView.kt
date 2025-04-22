@@ -42,7 +42,7 @@ class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl):
 		  text.setText (confirmText)
 		  text.setTextColor (fg)
 		  
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 
 	 override fun accept () {
@@ -54,8 +54,9 @@ class ConfirmView (val confirmText: String, val confirmControl: ConfirmControl):
 				jar = extras
 		  }
 		  
+		  DialogControl.close ()
+		  
 		  confirmControl.confirmed (true)
 		  confirmControl.action (jar)
-		  Pos.app.controlLayout.pop (this)
 	 }
 }

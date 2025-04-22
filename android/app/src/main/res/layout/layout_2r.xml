@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+single menu layout, main_menu and controls_menu 
+-->
+
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:id="@+id/root_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+  
+  <LinearLayout
+      android:id="@+id/pos_display"
+      android:layout_width="match_parent"
+      android:layout_height="0dp"
+      android:layout_weight="1"
+      android:background="@color/transparent"
+      android:orientation="horizontal">
+	 
+	 <LinearLayout
+		  android:layout_height="match_parent"
+		  android:layout_width="0dp"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:orientation="vertical">
+		
+		<cloud.multipos.pos.views.PosControlSwipeLayout
+			 android:layout_height="match_parent"
+			 android:layout_width="match_parent"
+			 android:background="@color/transparent">
+		  
+		  <cloud.multipos.pos.views.PosControlHomeLayout
+				
+				android:layout_width="match_parent"
+				android:layout_height="match_parent">
+
+			 <cloud.multipos.pos.views.PosDisplays
+				  android:id="@+id/displays"
+				  android:layout_width="match_parent"	
+				  android:layout_height="match_parent"
+				  android:background="@color/transparent"/>
+			 
+		  </cloud.multipos.pos.views.PosControlHomeLayout>
+		  
+		</cloud.multipos.pos.views.PosControlSwipeLayout>
+		
+	 </LinearLayout>
+
+	 <cloud.multipos.pos.views.PosMenus
+		  custom:menus="controls_menu"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"/>
+	 	 
+  </LinearLayout>
+  
+  <cloud.multipos.pos.views.PosMenus
+		custom:menus="main_menu"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"/>
+  
+</LinearLayout>

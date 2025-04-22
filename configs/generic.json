@@ -29,8 +29,12 @@
         "scanner": {
             "name": "keyboard",
             "class": "cloud.multipos.pos.devices.KeyboardScanner"
+        },
+		  "scales": {
+            "name": "scales",
+            "class": "cloud.multipos.pos.devices.StarScales"
         }
-    },
+	 },
     "pos_menus": {
         "main_menu": {
             "menu_description": "Main Menu",
@@ -229,19 +233,19 @@
                             "text": "10% OFF",
                             "class": "SaleDiscount",
                             "params": {
-                                "receipt_text": "10% off",
-                                "percent": "10"
+                                "print_text": "10% OFF",
+                                "discount_percent": "10"
                             }
                         },
                         {
                             "color": "#2A0001",
                             "fixed": "1",
-                            "text": "MARKDOWN ITEM",
-                            "class": "ItemMarkdown",
+                            "text": "10% ITEM MARKDOWN",
+                            "class": "ItemMarkdownPercent",
                             "params": {
-                                "receipt_text": "",
-                                "currency_value": "",
-                                "percent_value": ""
+                                "receipt_text": "10% Off",
+                                "markdown_type": "fixed",
+                                "markdown_percent": "10"
                             }
                         },
                         {
@@ -822,7 +826,7 @@
                             "color": "empty"
                         },
                         {
-                            "class": "SaleDiscountPercent",
+                            "class": "SaleDiscount",
                             "text": "10% Employee Discount",
                             "color": "#5E7981",
                             "params": {
@@ -866,7 +870,7 @@
                     "type": "controls",
                     "style": "outline",
                     "color": "#5E7981",
-                    "name": "tender 1",
+                    "name": "TENDER MAIN",
                     "width": "5",
                     "buttons": [
                         {

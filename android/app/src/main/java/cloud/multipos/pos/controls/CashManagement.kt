@@ -86,8 +86,6 @@ class CashManagement (): Control () {
 		  }
 
 		  sessionManager.action (Jar ().put ("report_only", true))
-		  // sessionManager.complete (Ticket.X_SESSION)
-
 		  CashManagementView (sessionManager)
 	 }
 }

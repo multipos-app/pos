@@ -121,18 +121,28 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 									  .put ("feed", 0)
 									  .put ("font", "bold")
 									  .put ("size", "big"))
-					 .append (Jar ()
-									  .put ("text", bu.getString ("city") + ", " + bu.getString ("state") + " " + bu.getString ("postal_code"))
-									  .put ("justify",  "center")
-									  .put ("feed", 0)
-									  .put ("font", "normal")
-									  .put ("size", "normal"))
-					 .append (Jar ()
-									  .put ("text", bu.getString ("phone_1").phone ())
-									  .put ("justify",  "center")
-									  .put ("feed", 0)
-									  .put ("font", "normal")
-									  .put ("size", "normal"))
+
+				if (bu.has ("city")) {
+
+					 header
+						  .append (Jar ()
+											.put ("text", bu.getString ("city") + ", " + bu.getString ("state") + " " + bu.getString ("postal_code"))
+											.put ("justify",  "center")
+											.put ("feed", 0)
+											.put ("font", "normal")
+											.put ("size", "normal"))
+				}
+
+				if (bu.has ("phone_1")) {
+
+					 header
+						  .append (Jar ()
+											.put ("text", bu.getString ("phone_1").phone ())
+											.put ("justify",  "center")
+											.put ("feed", 0)
+											.put ("font", "normal")
+											.put ("size", "normal"))
+				}
 			  	
 		  }
 		  
@@ -503,6 +513,8 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 	 }
 
 	 override fun print () {
+
+		  Logger.i ("receipt print...")
 		  
 		  if (printCommands.list.size > 0) {
 				

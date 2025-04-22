@@ -43,7 +43,8 @@ class Department (val department: Jar?): Jar (), Model {
  		  const val MENU        = 2
  		  const val BANK        = 3
  		  const val DEPOSIT     = 4
- 		  const val COMMENT     = 5
+ 		  const val MODIFIERS   = 5
  		  const val LABOR       = 6
+ 		  const val OTHER       = 7
 		 }
 }

@@ -32,13 +32,13 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 	 
 	 init {
 
-		  Pos.app.controlLayout = this
+		  // Pos.app.controlLayout = this
 	 }
 
 	 fun push (dialog: DialogView) {
 		  
 		  dialogs.add (0, dialog)
-		  swipeRight ()
+		  swipeDown ()
 
 		  if (dialog is SwipeListener) {
 				
@@ -53,7 +53,7 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 	 
 	 fun pop (dialog: DialogView) {
 		  
-		  swipeLeft ()
+		  swipeUp ()
 
 		  if (!dialog.sticky ()) {
 
@@ -68,37 +68,37 @@ open class PosControlSwipeLayout (context: Context, attrs: AttributeSet): PosSwi
 	 
 	 override fun swipeRight () {
 		  
-		  if (dialogs.size > 0) {
-				
-				swiper = this
- 				swipe (dialogs [0])
-				notifyListeners (SwipeDir.Left)
-		  }
-		  else {
-
-				Logger.w ("wha... no dialogs...")
-		  }
+		  notifyListeners (SwipeDir.Right)
 	 }
 
 	 override fun swipeLeft () {
 		  
-		  swipe (Pos.app.controlHomeLayout)
-		  notifyListeners (SwipeDir.Right)
-
-		  if ((dialogs.size > 0) && !dialogs [0].sticky ()) {
-
-				dialogs.removeAt (0);
-		  }
+		  notifyListeners (SwipeDir.Left)
 	 }
 	 
 	 override fun swipeUp () {
-
+		  
+		  // swipe (Pos.app.controlHomeLayout)
 		  notifyListeners (SwipeDir.Up)
+		  
+		  if ((dialogs.size > 0) && !dialogs [0].sticky ()) {
+				
+				dialogs.removeAt (0);
+		  }
 	 }
 
 	 override fun swipeDown () {
-
-		  notifyListeners (SwipeDir.Down)
+		  
+		  if (dialogs.size > 0) {
+				
+				swiper = this
+ 				swipe (dialogs [0])
+				notifyListeners (SwipeDir.Down)
+		  }
+		  else {
+				
+				Logger.w ("wha... no dialogs...")
+		  }
 	 }
 
 	 fun notifyListeners (dir: SwipeDir) {

@@ -32,6 +32,8 @@ class Bank (): CompleteTicket (), InputListener {
 	 override fun controlAction (jar: Jar) {
 
 		  if (Pos.app.ticket.hasItems ()) {
+
+				// bank not allowed in the middle of a sale
 				
 				PosDisplays.message (Pos.app.getString ("invalid_operation"))
 				PosDisplays.message (Jar ()
@@ -45,13 +47,15 @@ class Bank (): CompleteTicket (), InputListener {
 		  val floatVal: Double = if (jar.has ("float_total")) jar.get ("float_total").getDouble ("amount") else 0.0
 		  
 		  NumberInputView (this,
-								 Pos.app.getString (R.string.drop),
-								 Pos.app.getString (R.string.enter_drop_amount),
+								 Pos.app.getString (R.string.open_amount),
+								 Pos.app.getString (R.string.enter_open_amount),
 								 InputListener.CURRENCY,
 								 0)
 	 }
 	 
 	 override fun accept (result: Jar) {
+
+		  Logger.d ("bank accept... ${jar ()}")
 		  
 		  var amount = result.getDouble ("value") / 100.0
 		  
@@ -100,11 +104,8 @@ class Bank (): CompleteTicket (), InputListener {
 		  									  .put ("locale_country", Pos.app.config.getString ("country"))
 		  									  .put ("locale_variant", "")
 		  									  .put ("data_capture", "{}"))
-		  
+
 		  var id = Pos.app.db.insert ("ticket_tenders", tt)
-		  tt.put ("id", id)
-		  tt.put ("type", Ticket.TENDER)
-		  
 		  Pos.app.ticket.tenders.add (tt)
 		  
 		  completeTicket (Ticket.COMPLETE)

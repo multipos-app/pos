@@ -37,7 +37,7 @@ public abstract class Control implements PosControl {
 	 public abstract void controlAction (Jar jar);
 	 
 	 public void action (Jar jar) {
-
+				
 		  if (!permission ()) {
 
 				new ManagerOverrideView (this);
@@ -45,7 +45,7 @@ public abstract class Control implements PosControl {
 		  }
 		  		  
 		  if (beforeAction ()) {
-				
+
 				controlAction (jar);						  
 				afterAction ();
 		  }

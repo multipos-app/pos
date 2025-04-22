@@ -44,7 +44,7 @@ class CashManagementView (sessionManager: SessionManager): DialogView (Pos.app.g
 		  
 		  replaceView (CashManagementCount (sessionManager, this))
 		  
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
   
 	 }
 

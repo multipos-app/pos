@@ -25,8 +25,5 @@ import android.view.View
 
 class PosControlLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs) {
 	 
-	 init {
-
-		  // Pos.app.controlLayout = this
-	 }
+	 init { }
 }

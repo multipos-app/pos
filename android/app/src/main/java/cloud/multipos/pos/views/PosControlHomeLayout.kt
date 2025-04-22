@@ -27,6 +27,6 @@ open class PosControlHomeLayout (context: Context, attrs: AttributeSet): PosLayo
 
 	 init {
 
-		  Pos.app.controlHomeLayout = this
+		  // Pos.app.controlHomeLayout = this
 	 }
 }

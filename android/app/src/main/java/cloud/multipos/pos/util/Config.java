@@ -228,7 +228,17 @@ public class Config extends Jar {
 				.put ("density", Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi);
 
 		  Logger.d ("device data... " + deviceData);
-				
+		  
+		  DisplayMetrics displayMetrics = new DisplayMetrics();
+		  Pos.app.getWindowManager ().getDefaultDisplay ().getMetrics (displayMetrics);
+		  int height = displayMetrics.heightPixels;
+		  int width = displayMetrics.widthPixels;
+		  
+ 		  Logger.d ("window dimesions... " + height + "/" + width);
+		  
+		  put ("height", height);
+		  put ("width", width);
+
 		  return deviceData;
 	 }
 

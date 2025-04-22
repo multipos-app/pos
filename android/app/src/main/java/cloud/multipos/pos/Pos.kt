@@ -55,9 +55,13 @@ import java.util.Locale;
 import android.content.res.Configuration
 import java.util.Stack
 import java.io.*
+import android.os.Environment
+import android.animation.ObjectAnimator
 
 private const val REQUEST_CODE_PERMISSIONS = 10
-private val REQUIRED_PERMISSIONS = arrayOf (Manifest.permission.CAMERA)
+private val REQUIRED_PERMISSIONS = arrayOf (Manifest.permission.CAMERA,
+														  Manifest.permission.WRITE_EXTERNAL_STORAGE,
+														  Manifest.permission.READ_EXTERNAL_STORAGE)
 
 class Pos (): AppCompatActivity () {
 
@@ -79,9 +83,6 @@ class Pos (): AppCompatActivity () {
 	 lateinit var inflater: LayoutInflater
 	 lateinit var handler: Handler
     lateinit var posAppBar: PosAppBar
-    lateinit var controlLayout: PosControlSwipeLayout
-    lateinit var controlHomeLayout: PosControlHomeLayout
-    lateinit var dialogView: DialogView
 	 lateinit var posInit: Jar
 	 lateinit var overlay: LinearLayout
 
@@ -218,12 +219,7 @@ class Pos (): AppCompatActivity () {
 		  
         super.onBackPressed ()
 	 }
-	 
-	 fun controlLayoutInit (): Boolean {
-
-		  return this::controlLayout.isInitialized
-	 }
-	 
+	 	 
 	 fun configInit (): Boolean {
 
 		  return this::config.isInitialized
@@ -243,8 +239,6 @@ class Pos (): AppCompatActivity () {
 		  		  		  
 		  if (configInit () && config.ready ()) {
 				
-				// config.initialize ()
-
 				// set the screen orientation
 				
 				if (config.has ("orientation")) {
@@ -283,12 +277,33 @@ class Pos (): AppCompatActivity () {
 					 "laundry_receipt" -> 
 						  receiptBuilder = LaundryReceiptBuilder ()
 				}
-				
+
+				if (config.has ("image_buttons")) {
+
+					 // create the image button dir if it does not exist
+					 
+					 val path = "/sdcard/img"
+
+					 Logger.d ("path... ${path}")
+					 
+					 val file = File (path);
+
+					 if (!file.exists ()) {
+
+						  file.mkdir ();
+					 }
+					 else {
+
+						  Logger.d ("image dir exists...");
+					 }
+				}
+
 				ticket ()  // get a ticket
 				
 				setContentView (R.layout.login_main)
 
-				BackOffice.download ()
+				BackOffice.download ()  // start downloads
+
 		  }
 		  else {
 
@@ -337,6 +352,21 @@ class Pos (): AppCompatActivity () {
 		  
 		  Themed () // init theme
 
+		  Logger.i ("set layout... " + config.getString ("root_layout") + " buID: " + buID ())
+		  
+        setContentView (R.layout.root_layout)
+		  
+		  rootView = findViewById (R.id.root_layout_container) as RootView
+		  keyboardView = findViewById (R.id.keyboard_container) as KeyboardView
+
+		  Themed.start ()
+		  PosDisplays.update ()
+		  loggedIn = true
+		  
+		  // initialize dialogs
+		  
+		  DialogControl ()
+		  
 		  /**
 			* Check if this config needs an open cash amount
 			*/
@@ -369,16 +399,7 @@ class Pos (): AppCompatActivity () {
 				}
 		  }
 
-		  Logger.i ("set layout... " + config.getString ("root_layout") + " buID: " + buID ())
-		  
-        setContentView (R.layout.root_layout)
-		  
-		  rootView = findViewById (R.id.root_layout_container) as RootView
-		  keyboardView = findViewById (R.id.keyboard_container) as KeyboardView
-
-		  Themed.start ()
-		  PosDisplays.update ()
-		  loggedIn = true
+		 
 	 }
 
 	 /**
@@ -388,6 +409,8 @@ class Pos (): AppCompatActivity () {
 	 fun logout () {
 		  
 		  loggedIn = false
+		  DialogControl.clear ()
+		  setContentView (R.layout.login_main);
 	 }
 
 	 /*

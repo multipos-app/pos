@@ -65,7 +65,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				}
 		  }
 		  else {
-
+				
 				TenderView (this)
 		  }
 	 }
@@ -104,7 +104,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  tendered = 0.0
 		  
 		  balance = Currency.round (total - paid)
-
+		  
 		  if (Pos.app.input.hasInput ()) {
 
 				// operator input?
@@ -113,20 +113,18 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 					 .put ("entry_mode", "keyed")
 					 .put ("value", Pos.app.input.getInt ())
 
-				paid = Pos.app.input.getDouble () / 100.0
+				tendered = Pos.app.input.getDouble () / 100.0
 				Pos.app.input.clear ()
 		  }
 	 	  else if (jar ().has ("value")) {
 							
 				// fixed amount in the jar?
 				
-				if (jar ().getDouble ("value") > 0) {
+				if (jar ().getDouble ("value") > 0) {  // tendered amount is under the key
 					 
 					 tendered = jar ().getDouble ("value") / 100.0
 				}
-				else if (jar ().getDouble ("value") == 0.0) {
-					 
-					 // round up to the next ($) amount
+				else if (jar ().getDouble ("value") == 0.0) { // round up to the next ($) amount
 					 
 					 val round = total - total.toInt ().toDouble ()
 					 
@@ -139,6 +137,10 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 						  tendered = balance
 					 }
 				}
+				else {  // exact change
+					 
+					 tendered = total () - paid
+				}
 		  }
 		  else {
 
@@ -146,7 +148,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				
 				tendered = Currency.round (total - paid)
 		  }
-
+		  
 		  balance = total () - paid - tendered
 
 		  if (balance < 0) {
@@ -284,10 +286,13 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  
 		  if (Pos.app.ticket.items.size == 0) {
 				
+				Logger.d ("no items...")
 				return false
 		  }
+		  
 		  else if (!Pos.app.config.getBoolean ("confirm_tender")) {
 				
+				Logger.d ("tender not confirmed...")
 		  		confirmed (true)
 		  }
 

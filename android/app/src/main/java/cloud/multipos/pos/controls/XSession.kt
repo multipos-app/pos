@@ -43,5 +43,6 @@ class XSession(): SessionManager () {
 		  						.put ("print_type", "report"))
 
 		  complete (Ticket.X_SESSION)
+		  Pos.app.ticket ()
 	 }
 }

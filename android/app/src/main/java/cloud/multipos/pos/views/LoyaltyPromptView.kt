@@ -42,17 +42,17 @@ class LoyaltyPromptView (val confirmText: String, val confirmControl: ConfirmCon
 
 				confirmControl.confirmed (true)
 				confirmControl.action (Jar ().put ("action", "search"))
-				Pos.app.controlLayout.pop (this)
+				DialogControl.close ()
 		  }
 		  
 		  instant?.setOnClickListener {
 
 				confirmControl.confirmed (true)
 				confirmControl.action (Jar ().put ("action", "loyalty"))
-				Pos.app.controlLayout.pop (this)
+				DialogControl.close ()
 		  }
 
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 	 								 
 	 override fun layout (): Int { return (R.layout.dialog_container_layout) }

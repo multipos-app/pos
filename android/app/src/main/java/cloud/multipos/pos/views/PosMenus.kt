@@ -32,7 +32,7 @@ import android.transition.Slide
 import android.transition.Transition
 import android.transition.TransitionManager
 
-class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosMenuControl, SwipeListener, ThemeListener  {
+class PosMenus (context: Context, attrs: AttributeSet): PosSwipeLayout (context, attrs), PosMenuControl, SwipeListener, ThemeListener  {
 
 	 var layouts = mutableListOf <PosLayout> ()
 	 var tabs = mutableListOf <Jar> ()
@@ -69,10 +69,10 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 
 		  // control layout not used for all menus
 
-		  if (Pos.app.controlLayoutInit ()) {
+		  // if (Pos.app.controlLayoutInit ()) {
 
-				Pos.app.controlLayout.listeners.add (this)
-		  }
+		  // 		Pos.app.controlLayout.listeners.add (this)
+		  // }
 		  		  
 		  Themed.add (this)
 	 }
@@ -143,39 +143,53 @@ class PosMenus (context: Context, attrs: AttributeSet): PosLayout (context, attr
 		  }
 	 }
 	 
-	 override fun onSwipe (swipeDir: SwipeDir) {
-		  
+	  // Swipe
+
+	 override fun swipeRight () {
+
 		  var next = 0
-		  var dir = Gravity.BOTTOM
-		  var edge = Gravity.BOTTOM
-
-		  when (swipeDir) {
-
-				SwipeDir.Up -> {
-
-					 if (curr > 0) next = curr - 1
-					 else next = layouts.size - 1
-				}
-				
-				SwipeDir.Down -> {
-
-					 next = (curr + 1) % layouts.size
-					 dir = Gravity.TOP
-					 edge = Gravity.TOP
-				}
-
-				else -> { }
-		  }
+		  var dir = Gravity.RIGHT
+		  
+		  next = (curr + 1) % layouts.size
 		  
 		  val end = layouts.get (next)
 		  val scene = Scene (this, end)
-		  val transition = Fade ()
+		  
+		  val transition = Slide (dir)
+		  
+		  transition.setDuration (250)
+		  TransitionManager.go (scene, transition)
+		  clearAnimation ()
+		  curr = next
+	 }
+
+	 override fun swipeLeft () {
+		  
+		  var next = 0
+		  var dir = Gravity.LEFT
+		  
+		  if (curr > 0) next = curr - 1
+		  else next = layouts.size - 1
+		  
+		  val end = layouts.get (next)
+		  val scene = Scene (this, end)
+		  
+		  val transition = Slide (dir)
+		  
 		  transition.setDuration (250)
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()
 		  curr = next
 	 }
 	 
+	 override fun swipeUp () {
+		  
+	 }
+
+	 override fun swipeDown () {
+		  
+	 }
+
 	 override fun update (theme: Themes) {
 
 		  update ()

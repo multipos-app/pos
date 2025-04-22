@@ -46,7 +46,7 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 		  inputEcho.setTextColor (fg)
 		  
 		  PosDisplays.add (this)
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 		  update ()
 	 }
 	 
@@ -61,7 +61,7 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 		  }
 		  
 		  Pos.app.input.clear ()
-		  Pos.app.controlLayout.swipeLeft ()
+		  // Pos.app.controlLayout.swipeLeft ()
 	 }
 	 
 	 override fun update () {

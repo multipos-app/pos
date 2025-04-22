@@ -48,7 +48,7 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 		  // accept.setText (Pos.app.getString ("enter_manager_number"));
 		  
 		  PosDisplays.add (this)
-		  Pos.app.controlLayout.push (this)
+		  DialogControl.addView (this)
 	 }
 
 	 override fun accept () {
@@ -64,7 +64,7 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 				if (employeeResult.fetchRow ()) {
 					 
 					 Pos.app.ticket.put ("manager", Employee (employeeResult.row ()))
-					 Pos.app.controlLayout.swipeLeft ()
+					 // Pos.app.controlLayout.swipeLeft ()
 					 PosDisplays.remove (this)
 				}
 				else {

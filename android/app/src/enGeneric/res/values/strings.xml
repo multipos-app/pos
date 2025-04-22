@@ -72,6 +72,8 @@
     <string name="enter_manager_number">Enter manager number</string>
     <string name="enter_manager_pin">Enter manager pin</string>
     <string name="enter_clerk_number">Enter washing attendant</string>
+    <string name="open_amount">Open amount</string>
+    <string name="enter_open_amount">Enter open amount</string>
     <string name="drop">Drop</string>
     <string name="enter_drop_amount">Enter drop amount</string>
     <string name="clerk_desc">Washing attendant</string>
@@ -138,6 +140,7 @@
     <string name="button_continue">Continue</string>
     <string name="button_previous">Previous</string>
     <string name="button_clear">Clear</string>
+    <string name="button_reset">Reset</string>
     <string name="no_reader">No card reader</string>
     <string name="card_reader_error">Card reader Error</string>
     <string name="card_reader_offline">Card reader off-line</string>
@@ -334,7 +337,6 @@
 	 <string name="echo_dot">\u2022</string>
 
     <string name="cash_start">Open amount</string>
-    <string name="open_amount">Open amount</string>
     <string name="cash_sales">Cash sales</string>
     <string name="tender_received">Cash sales</string>
     <string name="cash_total">Total sales</string>
@@ -389,7 +391,7 @@
 	 <string name="weight">Weight</string>
 	 <string name="accept_date_time">Accept</string>
 	 <string name="pounds">lbs</string>
-	 <string name="enter_date_time">Enter date time</string>
+	 <string name="enter_date_time">Enter date/time</string>
 	 <string name="date">Date</string>
 	 <string name="status">Status</string>
 	 <string name="no_results">No results</string>

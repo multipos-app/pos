@@ -102,7 +102,8 @@ class InventoryView (jar: Jar): DialogView (""), ScanListener, SwipeListener {
 						  })
 				}
 		  }
-		  Pos.app.controlLayout.push (this)
+		  
+		  DialogControl.addView (this)
 	 }
 
 	 	 /**

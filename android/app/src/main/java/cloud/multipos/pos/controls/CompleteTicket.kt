@@ -177,7 +177,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 					 }
 				}
 		  }
-
+				
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)
 
 		  // post the ticket to the server
