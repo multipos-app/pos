@@ -1,6 +1,11 @@
 # Android POS (point of sale)
 This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark. 
 
+
+## Update 4/30/2025
+
+- Add laundermat wash and fold functions
+
 ## New 4/22/2025
 
 - Rewrite dialog views, dialogs roll out from the side, swipe to clear, see DialogView.kt, DialogControl.kt
