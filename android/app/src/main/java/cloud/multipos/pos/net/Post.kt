@@ -28,7 +28,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.DefaultRetryPolicy
 
-public class Post (val url: String) {
+class Post (val url: String) {
 
 	 var jar = Jar ()
 	 companion object {
@@ -95,5 +95,6 @@ public class Post (val url: String) {
 		  
 		  return this
 	 }
-	 
+
+
 }

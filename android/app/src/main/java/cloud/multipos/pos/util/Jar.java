@@ -307,6 +307,7 @@ public class Jar extends HashMap {
 	 }
 	 
 	 public String getString (String key) {
+		  
 		  return getString (key, "");
 	 }
 	 

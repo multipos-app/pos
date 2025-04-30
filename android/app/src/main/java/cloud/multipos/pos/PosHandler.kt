@@ -80,14 +80,10 @@ class PosHandler (): Handler () {
 									 item.action (Jar ().put ("sku", scan).put ("entry_mode", "scanned"))
 								}
 								
-								36 -> {
+								11, 36 -> {
 
-									 // uuid
-									 
-									 Control.factory ("CustomerLoyalty").action (Jar ()
-																									 .put ("key", "uuid")
-																									 .put ("uuid", scan))
-								}
+									 Control.factory ("RecallByUUID").action (Jar ()
+																								 .put ("recall_key", scan))								}
 								else -> {
 									 
 									 Logger.w ("invalid scan length...  ${scan.length} ${scan}")

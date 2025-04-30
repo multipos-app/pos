@@ -31,13 +31,14 @@ open class DefaultItem (): FirstItem (), InputListener {
 	 var firstItem: Boolean = false
 	 var quantity = 1
 	 lateinit var item: Item
-	 lateinit var pricing: Pricing
 	 var ticketItem = TicketItem ()
 	 	 
 	 override fun controlAction (jar: Jar) {
 		  
 		  var sku = ""
 		  		  
+		  Logger.x ("default item action... ${jar}")
+		  
 		  jar (jar)
 		  
 		  if (!jar.has ("update_displays")) {
@@ -82,9 +83,19 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  }
 		  
 		  item = Item (jar ())
+
+		  Logger.x ("item... ${item}")
 		  
 		  if (item.exists ()) {
-								
+
+				if (!item.getBoolean ("enabled")) {
+					 
+					 PosDisplays.message (Jar ()
+											.put ("prompt_text", Pos.app.getString ("item_disabled"))
+											.put ("echo_text", ""))
+					 return;
+				}
+				
 				firstItem = false
 
 				if (Pos.app.ticket.has ("items")) {
@@ -182,11 +193,8 @@ open class DefaultItem (): FirstItem (), InputListener {
 
 				// apply pricing to get the amount for this item
 				
-				pricing = Pricing.factory (item.getString ("class"))
-				if (pricing.apply (this)) {
-
-					 Pos.app.controls.push (this)
-				}
+				Pricing.factory (item.getString ("class"))
+					 .apply (this)
 		  }
 		  else {
 
@@ -198,7 +206,8 @@ open class DefaultItem (): FirstItem (), InputListener {
 	 fun complete () {
 		  		  
 		  var negative = 1.0
-
+		  val update = Jar ()
+		  
 		  if (jar ().has ("add_item")) {
 
 				ticketItem.put ("add_item", jar ().get ("add_item"))
@@ -216,6 +225,18 @@ open class DefaultItem (): FirstItem (), InputListener {
 				}
 		  }
 
+		  // some items require receipts
+		  
+		  if (item.has ("print_receipt")) {
+
+				if (!Pos.app.ticket.has ("print_receipts")) {
+
+					 Pos.app.ticket.put ("print_receipts", 0)
+				}
+				
+				Pos.app.ticket.put ("print_receipts", Pos.app.ticket.getInt ("print_receipts") + 1)
+		  }
+
 		  if (jar ().has ("amount")) {
 
 				ticketItem.put ("amount", jar ().getDouble ("amount") * negative)
@@ -225,6 +246,8 @@ open class DefaultItem (): FirstItem (), InputListener {
 				ticketItem.put ("amount", ticketItem.getDouble ("amount") * negative)
 		  }
 
+		  update.put ("amount", ticketItem.getDouble ("amount"))
+		  
 		  if (jar ().has ("parent")) {
 
 				// attach it to the parent item
@@ -237,8 +260,16 @@ open class DefaultItem (): FirstItem (), InputListener {
 				
 				Pos.app.ticket.items.add (ticketItem)
 		  }
-		  
-		  val id = Pos.app.db.insert ("ticket_items", ticketItem)
+
+		  if (ticketItem.getInt ("id") > 0) {
+				
+				Logger.w ("def item complete... " + ticketItem.getInt ("id") + " " + update)
+				// Pos.app.db.update ("ticket_items", ticketItem.getInt ("id"), update)
+		  }
+		  else {
+
+				Pos.app.db.insert ("ticket_items", ticketItem)
+		  }
 
 		  /**
 

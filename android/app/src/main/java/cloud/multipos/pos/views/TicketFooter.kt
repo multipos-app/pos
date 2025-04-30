@@ -40,12 +40,20 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 	 var footerTax: PosText
 	 var footerTotalDesc: PosText
 	 var footerTotal: PosText
+
+	 var next: PosIconText
+	 var prev: PosIconText
+	 var home: PosIconText
+	 var print: PosIconText
 	 
 	 val textViews = mutableListOf <PosText> ()
 
+	 val navControl = Control.factory ("LoadTicket")
+	 val printControl = Control.factory ("PrintReceipt")
+	 
 	 init {
 		  
-		  Pos.app.inflater.inflate (R.layout.ticket_footer_layout, this)
+		  Pos.app.inflater.inflate (R.layout.ticket_footer_nav_layout, this)
 	  
 		  footerSubtotalDesc = findViewById (R.id.footer_subtotal_desc) as PosText
 		  footerSubtotalDesc.italic ()
@@ -65,18 +73,42 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 		  textViews.add (footerTotalDesc)
 		  footerTotal = findViewById (R.id.footer_total) as PosText
 		  textViews.add (footerTotal)
+		  
+		  home = findViewById (R.id.ticket_nav_home) as PosIconText
+		  textViews.add (home)
+		  home?.setOnClickListener {
 
+				navControl.action (Jar ().put ("dir", 0))
+		  }
+		  
+		  prev = findViewById (R.id.ticket_nav_prev) as PosIconText
+		  textViews.add (prev)
+		  prev?.setOnClickListener {
+	
+				navControl.action (Jar ().put ("dir", -1))
+		  }
+		  
+		  next = findViewById (R.id.ticket_nav_next) as PosIconText
+		  textViews.add (next)
+		  next?.setOnClickListener {
+
+				navControl.action (Jar ().put ("dir", 1))
+		  }
+		  
+		  print = findViewById (R.id.ticket_nav_print) as PosIconText
+		  textViews.add (print)
+		  print?.setOnClickListener {
+				
+				printControl.action (Jar ())
+		  }
+		  
 		  Themed.add (this)
 		  PosDisplays.add (this)
 		  update ()
 	 }
-
-	 /**
-	  *
-	  * PosDisplay impl
-	  *
-	  */
 	 
+	 // PosDisplay impl
+
 	 override fun update () {
 		  
 		  if (getVisibility () == View.INVISIBLE) {

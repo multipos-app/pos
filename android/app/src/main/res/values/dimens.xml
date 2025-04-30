@@ -82,8 +82,8 @@
   
   <!-- keyboard-->
 
-  <dimen name="keyboard_text">20sp</dimen>
-  <dimen name="keyboard_lg_text">28sp</dimen>
+  <dimen name="keyboard_text">25sp</dimen>
+  <dimen name="keyboard_lg_text">37sp</dimen>
   <dimen name="keyboard_margin">2dp</dimen>
   <dimen name="keyboard_padding">5dp</dimen>
 
@@ -97,12 +97,12 @@
   <!-- dialogs -->
   
   <dimen name="dialog_header_height">75dp</dimen>
-  <dimen name="dialog_footer_height">150dp</dimen>
+  <dimen name="dialog_footer_height">100dp</dimen>
   <dimen name="dialog_margin">10dp</dimen>
   <dimen name="dialog_button_margin">25dp</dimen>
   <dimen name="dialog_sm_margin">5dp</dimen>
   <dimen name="dialog_padding">15dp</dimen>
-  <dimen name="dialog_sm_padding">5dp</dimen>
+  <dimen name="dialog_sm_padding">10dp</dimen>
   <dimen name="dialog_sm_text">18sp</dimen>
   <dimen name="dialog_md_text">24sp</dimen>
   <dimen name="dialog_lg_text">42sp</dimen>
@@ -130,7 +130,7 @@
   <!-- ticket header/footer display full -->
 
   <dimen name="ticket_header_height">50dp</dimen>
-  <dimen name="ticket_footer_height">50dp</dimen>
+  <dimen name="ticket_footer_height">120dp</dimen>
 
   <dimen name="ticket_keypad_prompt_text">30sp</dimen>
   <dimen name="ticket_keypad_prompt_height">48dp</dimen>
@@ -145,7 +145,7 @@
   <dimen name="ticket_header_sm_text">20sp</dimen>
 
   <dimen name="ticket_footer_xlg_text">42sp</dimen>
-  <dimen name="ticket_footer_lg_text">28sp</dimen>
+  <dimen name="ticket_footer_lg_text">30sp</dimen>
   <dimen name="ticket_footer_md_text">24sp</dimen>
   <dimen name="ticket_footer_sm_text">14sp</dimen>
   

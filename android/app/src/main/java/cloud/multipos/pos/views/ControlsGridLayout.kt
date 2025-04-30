@@ -146,8 +146,6 @@ class ControlsGridLayout (val menu: Jar,
 				}
 
 				view.setOnLongClickListener {
-
-					 Logger.d ("long click... ${jar}")
 					 
 					 return@setOnLongClickListener true
 				}
@@ -175,8 +173,17 @@ class ControlsGridLayout (val menu: Jar,
 	  
 		  init {
 
-				var isImageButton = (Pos.app.config.getBoolean ("image_buttons") && (jar.getString ("class") == "Item"))
-
+				var isImageButton = false
+				var sku = ""
+		
+				if (Pos.app.config.getBoolean ("image_buttons")) {
+					 
+					 var imageFile = File ("/sdcard/img/${sku}.png");
+					 isImageButton = (Pos.app.config.getBoolean ("image_buttons") &&
+											(jar.getString ("class") == "Item") &&
+											imageFile.exists ())
+				}
+				
 				if (isImageButton) {
 					 
 					 Pos.app.inflater.inflate (R.layout.pos_control_image_button, this)
@@ -198,7 +205,7 @@ class ControlsGridLayout (val menu: Jar,
 
 					 var imageButton = findViewById (R.id.image_control_button) as ImageView
 					 imageButton.setScaleType (ScaleType.FIT_XY)
-					 var sku = jar.get ("params").getString ("sku")
+					 sku = jar.get ("params").getString ("sku")
 					 var imageFile = File ("/sdcard/img/${sku}.png");
 
 					 if (imageFile.exists ()) {
@@ -208,7 +215,7 @@ class ControlsGridLayout (val menu: Jar,
 					 }
 					 else {
 
-						  Logger.d ("missing image file for button... ${sku}")
+						  Logger.w ("missing image file for button... ${sku}")
 					 }
 					 
 					 view = imageButton

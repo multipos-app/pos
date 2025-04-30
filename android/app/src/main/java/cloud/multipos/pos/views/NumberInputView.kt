@@ -60,8 +60,7 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 				control.accept (result)
 		  }
 		  
-		  Pos.app.input.clear ()
-		  // Pos.app.controlLayout.swipeLeft ()
+		  DialogControl.close ()
 	 }
 	 
 	 override fun update () {

@@ -11,7 +11,7 @@
       android:id="@+id/tender_detail_desc"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
+        android:layout_weight="2"
         android:gravity="start"
 		  android:paddingLeft="@dimen/dialog_padding"
         android:textColor="@color/black"

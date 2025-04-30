@@ -1,21 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<cloud.multipos.pos.views.PosButton
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
-	 xmlns:tools="http://schemas.android.com/tools"
-	 xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:id="@+id/scales_accept_weight"
+	 style="@style/DialogContinue"
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
-	 android:background="@color/transparent">
-
-  <cloud.multipos.pos.views.PosButton
-		android:id="@+id/scales_accept_weight"
-		style="@style/DialogContinue"
-		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:text="@string/accept_weight"
-		android:textColor="@color/white"
-		android:textSize="@dimen/dialog_lg_text"
-		android:layout_margin="@dimen/dialog_margin"/>
-
-</LinearLayout>
+	 android:text="@string/accept_weight"
+	 android:textColor="@color/white"
+	 android:textSize="@dimen/dialog_lg_text" />

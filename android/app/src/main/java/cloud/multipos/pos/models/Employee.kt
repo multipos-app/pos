@@ -43,7 +43,7 @@ class Employee (val employee: Jar?): Jar (), Model {
 				}
 		  }
 	 }
-
+	 
 	 fun deny (): MutableList <String> { return deny }
 	 
 	 override fun display (): String {

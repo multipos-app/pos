@@ -42,7 +42,9 @@ public class DbResult {
 
 				cursor = db.database ().rawQuery (query, null);
 				cols = new String [cursor.getColumnCount ()];
+				
 				for (int col = 0; col < cursor.getColumnCount (); col ++) {
+					 
 					 cols [col] = cursor.getColumnName (col);
 				}
 

@@ -13,14 +13,10 @@ class DateTimeItem (): DefaultItem (), InputListener {
 	 }
 	 
 	 override fun accept (result: Jar) {
-
-		  Logger.x ("date time... ${result}")
 		  
 		  jar ()
             .put ("item_desc", (Pos.app.getString ("due_date") + " " + result.getString ("date_time")).toUpperCase ())
 
         super.controlAction (jar ())
-
-
 	 }	 
 }

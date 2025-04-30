@@ -7,7 +7,6 @@
  	 style="@style/DialogSuccess"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="@dimen/dialog_button_margin"
  	 android:text="@string/button_continue"
-	 android:background="@color/dk_gray"
+	 android:textColor="@color/white"
     android:textSize="@dimen/dialog_lg_text"/>

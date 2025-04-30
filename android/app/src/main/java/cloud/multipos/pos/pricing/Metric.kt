@@ -22,7 +22,8 @@ import cloud.multipos.pos.Pos
 import cloud.multipos.pos.R
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.controls.*
-import cloud.multipos.pos.views.NumberInputView
+import cloud.multipos.pos.devices.*
+import cloud.multipos.pos.views.ScalesView
 
 class Metric (): Pricing (), InputListener {
 
@@ -33,30 +34,50 @@ class Metric (): Pricing (), InputListener {
 
 		  item = i
 
-		  NumberInputView (this,
-								 Pos.app.getString (R.string.enter_volume) + " in " + Pos.app.getString (item.item.get ("pricing").getString ("metric")),
-								 item.item.getString ("item_desc"),
-								 InputListener.DECIMAL,
-								 item.item.get ("pricing").getInt ("decimal_places"))
+		  ScalesView (this,
+						 item.item.getString ("item_desc"),
+						 InputListener.DECIMAL,
+						 item.item.get ("pricing").getInt ("decimal_places"))
+		  
 		  return true
 	 }
 	 
 	 override fun accept (metric: Jar) {
-		  
-		  if (Pos.app.input.getString ().length == 0) {
-				
-				return
-		  }
-		  
-		  val item = Pos.app.controls.pop () as DefaultItem
 
+		  var weight = 0.0
+		  var amount = 0.0
+		  var price = item.item.get ("pricing").getDouble ("price")
+
+		  if (DeviceManager.scales != null) {
+
+				val scales = DeviceManager.scales as Scales
+				weight = scales.weight ()
+		  }
+		  else {
+								
+				var decimalPlaces = item.item.get ("pricing").getInt ("decimal_places")
+				
+				// get the weight from the operator
+				
+				weight = Pos.app.input.getDouble ()
+				
+				for (i in 0..<decimalPlaces) {
+					 
+					 weight /= 10
+				}
+		  }
+
+		  amount = item.item.get ("pricing").getDouble ("price") * weight
+		  
 		  item.jar ().put ("merge_like_items", false)
 
-		  val amount = metric.getDouble ("value") * item.item.getDouble ("price")
-		  
-		  item.ticketItem ()
-				.put ("amount", amount)
-
-		  item.complete ()
+		  if (weight > 0.0) {
+				
+				item.ticketItem ()
+					 .put ("amount", amount)
+					 .put ("metric", metric.getDouble ("value"))
+				
+				item.complete ()
+		  }
 	 }
 }

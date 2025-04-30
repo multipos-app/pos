@@ -7,7 +7,7 @@
  *
  *     https://www.apache.org/licenses/LICENSE-2.0
  *
- * Unless required by applicable law or agreed to in writing, software
+ * Unless required by applicable law or agreed to in writing, softwar
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  * See the License for the specific language governing permissions and
@@ -16,52 +16,52 @@
  
 package cloud.multipos.pos.controls
 
-import cloud.multipos.pos.R
-import cloud.multipos.pos.Pos
 import cloud.multipos.pos.*
-import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.models.*
+import cloud.multipos.pos.net.*
+import cloud.multipos.pos.models.Ticket
+import cloud.multipos.pos.views.EnterClerkView
 
 class EnterClerk (): TicketModifier (), InputListener {
 	 
 	 override fun controlAction (jar: Jar?) {
 
 		  jar (jar)
-		  // numberDialog = NumberDialog (this, R.string.enter_clerk_number, NumberDialog.INTEGER, true)
+		  
+		  EnterClerkView (this,
+								Pos.app.getString (R.string.clerk_desc),
+								Pos.app.getString (R.string.enter_clerk_number))
 	 }
 
-	 override fun accept (result: Jar) {
-
-		  var clerkNo = result.getInt ("value")													 
+	 override fun accept (clerk: Jar) {
 		  
-		  if (clerkNo > 0) {
-				
-				val employeeResult  = DbResult ("select * from employees where username = '" +  clerkNo + "'", Pos.app.db)
-				if (employeeResult.fetchRow ()) {
-				
-					 var clerk = Employee (employeeResult.row ())
+		  Logger.d ("control accept... ${clerk} ${Pos.app.ticket.getInt ("state")}")
 					 					 
-		  			 Pos.app.ticket.put ("clerk_id", clerk.getInt ("id"))
-		  			 Pos.app.ticket.put ("clerk", clerk)
-					 Pos.app.db.update ("tickets", Pos.app.ticket.getInt ("id"), Jar ().put ("clerk_id", clerk.getInt ("id")))
-					 Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
-					 Pos.app.ticket.put ("ticket_text", Pos.app.receiptBuilder.text ())
+		  Pos.app.ticket.put ("clerk_id", clerk.getInt ("id"))
+		  Pos.app.ticket.put ("clerk", clerk)
+		  
+		  
+		  // Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
+		  // Pos.app.ticket.put ("ticket_text", Pos.app.receiptBuilder.text ())
+		  // Pos.app.receiptBuilder ().print ();
+		  
+		  // update the server too
 
-					 for (p in 1..jar ().getInt ("print_receipt")) {
-						  
-						  Pos.app.receiptBuilder ().print ();
-					 }
-
-					 Control.factory ("Suspend").action (Jar ())
-					 return
-				}
-				else {
-					 
-		  			 // numberDialog.prompt (Pos.app.getString ("invalid_clerk_number"))
-				}
-
-				updateDisplays ()
-		  }
+		  val update = Jar ()
+				.put ("clerk_id", clerk.getInt ("id"));
+		  
+		  Pos.app.db.update ("tickets", Pos.app.ticket.getInt ("id"), update);
+		  
+		  update
+				.put ("action", "clerk_update")
+				.put ("uuid", Pos.app.ticket.getString ("uuid"))
+		  
+		  Logger.d ("enter clerk... ${update}")
+		  
+		  Post ("pos/update-ticket")
+				.add (update)
+				.exec (fun (result: Jar): Unit { })
+		  
+		  return
 	 }
 }

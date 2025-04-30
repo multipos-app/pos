@@ -38,6 +38,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.content.pm.PackageManager
 import androidx.core.content.ContextCompat
 import android.content.Intent
+import android.content.ComponentName
 import android.content.BroadcastReceiver
 import android.view.View
 import android.view.LayoutInflater
@@ -91,7 +92,9 @@ class Pos (): AppCompatActivity () {
 	 var locale = Locale.US
 
 	 var permissions = false
-
+	 
+	 var serverLog = "quite" // send logs to server?
+	 
 	 val inventoryList = mutableListOf <Device> ()
 	 val posMenus = mutableListOf <PosMenus> ()
 
@@ -101,7 +104,6 @@ class Pos (): AppCompatActivity () {
 	 var authInProgress = false;
 
 	 @JvmField var controls = Stack <Control> ()
-	 @JvmField var serverLog: Boolean = false
 	 @JvmField var businessUnits: ArrayList <Jar> = ArrayList <Jar> ()
 	 @JvmField var configs: ArrayList <Jar> = ArrayList <Jar> ()
 	 @JvmField var drawerCounts: ArrayList <Jar> = ArrayList <Jar> ()
@@ -563,5 +565,17 @@ class Pos (): AppCompatActivity () {
 		  }
 		  
 		  return true
+	 }
+
+	 fun restart () {
+		  
+		  val packageManager = this.getPackageManager ()
+		  val intent = packageManager.getLaunchIntentForPackage (this.getPackageName ()) as Intent
+		  val componentName = intent.getComponent() as ComponentName
+		  val mainIntent = Intent.makeRestartActivityTask (componentName) as Intent
+		  
+		  mainIntent.setPackage (this.getPackageName ())
+		  this.startActivity (mainIntent)
+		  Runtime.getRuntime().exit (0)
 	 }
 }

@@ -34,9 +34,7 @@ import android.graphics.Color
 class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + " " + tender.tenderType) {
 	 
 	 init {
-		  
-		  Logger.x ("tender view..... ${tender}")
-	  
+		  	  
 		  Pos.app.inflater.inflate (R.layout.tender_layout, dialogLayout)
 
 		  val grid = findViewById (R.id.tender_detail) as GridLayout

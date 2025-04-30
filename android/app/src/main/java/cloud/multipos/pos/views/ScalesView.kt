@@ -25,12 +25,14 @@ import cloud.multipos.pos.devices.*
 import android.widget.LinearLayout
 import android.widget.Button
 import android.widget.TextView
+import android.graphics.Color
 
 import java.util.Random 
 
 class ScalesView (val control: InputListener, title: String, val type: Int, val decimalPlaces: Int): DialogView (title) {
 
 	 var scaleEcho: TextView
+	 var decimalVal = 0.0
 
 	 companion object {
 		  
@@ -40,10 +42,26 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 	 
 	 init {
 		  
+		  Logger.d ("scales init... ${control}")
+
 		  Pos.app.inflater.inflate (R.layout.scale_layout, dialogLayout)
 
 		  scaleEcho = findViewById (R.id.scale_echo) as PosText
-
+		  
+		  when (Themed.theme) {
+				
+				Themes.Light -> {
+					 
+					 scaleEcho.setTextColor (Color.BLACK)
+				}
+				
+				Themes.Dark -> {
+					 
+					 scaleEcho.setTextColor (Color.WHITE)
+					 
+				}
+		  }
+		  
 		  callback = object: ScalesCallback {
 				
 				override fun scaleData (w: Double) {
@@ -53,29 +71,11 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 				}
 		  }
 		  		  		  
-		  if (DeviceManager.scales?.deviceStatus () == DeviceStatus.OnLine) {
-				
-				DeviceManager.scales?.startCapture (callback)
-		  }
+		  DeviceManager.scales?.startCapture (callback)
 		  
+		  PosDisplays.add (this)
 		  DialogControl.addView (this)
-
-		  Thread (Runnable {
-
-						  weight = 0.0
-						  var count = 0;
-						  var complete = (100..200).random ();
-
-						  while (count < complete) {
-
-								count ++
-								weight = count.toDouble ()
-								
-								ScalesView.callback.scaleData (count.toDouble () / 10)
-								Thread.sleep (10L)
-						  }  
-		  }).start ()
-		  
+		  update ()
 	 }
 	 
 	 override fun actions (dialogView: DialogView) {
@@ -86,12 +86,33 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 		  var acceptWeight = layout.findViewById (R.id.scales_accept_weight) as Button
 		  acceptWeight?.setOnClickListener {
 
-				Logger.d ("accept weight...")
-				
-				control.accept (Jar ()
-										  .put ("weight", weight.toDouble ()))
-				
-				DialogControl.close ()
+				accept ()
 		  }
+	 }
+	 
+	 override fun accept () {
+
+		  control.accept (Jar ())
+		  DialogControl.close ()
+	 }
+	 
+	 override fun update () {
+
+		  decimalVal = Pos.app.input.getDouble ()
+		  for (i in 1..decimalPlaces) decimalVal = decimalVal / 10.0			 
+		  scaleEcho.text = String.format ("%.${decimalPlaces}f", decimalVal)
+	 }
+	 
+	 override fun enter () {
+
+		  accept ()
+	 }
+	 
+	 override fun clear () {
+
+		  if (Pos.app.input.length () == 0) {
+		  
+				scaleEcho.setHint (Pos.app.getString ("register_open"));
+		  }		  
 	 }
 }

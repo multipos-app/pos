@@ -71,7 +71,9 @@
     <string name="manager_number">Manager number</string>
     <string name="enter_manager_number">Enter manager number</string>
     <string name="enter_manager_pin">Enter manager pin</string>
-    <string name="enter_clerk_number">Enter washing attendant</string>
+    <string name="enter_clerk_number">Enter clerk number</string>
+    <string name="clerk_not_found">Clerk not found</string>
+    <string name="enter_washing_attendant">Enter washing attendant</string>
     <string name="open_amount">Open amount</string>
     <string name="enter_open_amount">Enter open amount</string>
     <string name="drop">Drop</string>
@@ -198,6 +200,7 @@
     <string name="suspend_sale">Suspend sale</string>
     <string name="exchange_receipt">Exchange receipt</string>
     <string name="lookup_item">Look up item</string>
+    <string name="item_disabled">Item is disabled</string>
     <string name="customer">Customer</string>
     <string name="mobilepay">Mobile Qwik Pay</string>
     <string name="currency">Currency</string>
@@ -462,5 +465,6 @@
     <string name="fa_unlock">&#xf3c1;</string>
     <string name="fa_clock">&#xf017;</string>
     <string name="fa_chain">&#xf0c1;</string>
+    <string name="fa_home">&#xf015;</string>
 
 </resources>

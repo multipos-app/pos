@@ -21,38 +21,38 @@
 	 
 	 <!-- pin -->
 	 
-	 <LinearLayout
-		  android:layout_width="match_parent"
-		  android:layout_height="0dp"
-		  android:layout_weight="1"
-		  android:background="@color/transparent"
-		  android:layout_marginBottom="@dimen/dialog_sm_margin"
-		  android:orientation="horizontal">
+	 <!-- <LinearLayout -->
+	 <!-- 	  android:layout_width="match_parent" -->
+	 <!-- 	  android:layout_height="0dp" -->
+	 <!-- 	  android:layout_weight="1" -->
+	 <!-- 	  android:background="@color/transparent" -->
+	 <!-- 	  android:layout_marginBottom="@dimen/dialog_sm_margin" -->
+	 <!-- 	  android:orientation="horizontal"> -->
 
-		<cloud.multipos.pos.views.PosText
-			 android:layout_width="0dp"
-			 android:layout_height="match_parent"
-			 android:layout_weight=".5"
-			 android:gravity="start|center"
-			 android:text="@string/customer_pin"
-			 android:textSize="@dimen/dialog_md_text"
-			 android:textColor="@color/black"
-			 android:background="@color/transparent"/>
+	 <!-- 	<cloud.multipos.pos.views.PosText -->
+	 <!-- 		 android:layout_width="0dp" -->
+	 <!-- 		 android:layout_height="match_parent" -->
+	 <!-- 		 android:layout_weight=".5" -->
+	 <!-- 		 android:gravity="start|center" -->
+	 <!-- 		 android:text="@string/customer_pin" -->
+	 <!-- 		 android:textSize="@dimen/dialog_md_text" -->
+	 <!-- 		 android:textColor="@color/black" -->
+	 <!-- 		 android:background="@color/transparent"/> -->
 
-		<cloud.multipos.pos.views.PosText
-			 android:id="@+id/customer_pin"
-			 android:clickable="true"
-			 android:layout_width="0dp"
-			 android:layout_height="match_parent"
-			 android:layout_weight="1"
-			 android:gravity="start|center"
-			 android:text=""
-			 android:textSize="@dimen/dialog_md_text"
-			 android:padding="@dimen/dialog_sm_padding"
-			 android:textColor="@color/dk_gray"
-			 android:background="@drawable/gray_border"/>
+	 <!-- 	<cloud.multipos.pos.views.PosText -->
+	 <!-- 		 android:id="@+id/customer_pin" -->
+	 <!-- 		 android:clickable="true" -->
+	 <!-- 		 android:layout_width="0dp" -->
+	 <!-- 		 android:layout_height="match_parent" -->
+	 <!-- 		 android:layout_weight="1" -->
+	 <!-- 		 android:gravity="start|center" -->
+	 <!-- 		 android:text="" -->
+	 <!-- 		 android:textSize="@dimen/dialog_md_text" -->
+	 <!-- 		 android:padding="@dimen/dialog_sm_padding" -->
+	 <!-- 		 android:textColor="@color/dk_gray" -->
+	 <!-- 		 android:background="@drawable/gray_border"/> -->
 		
-	 </LinearLayout>
+	 <!-- </LinearLayout> -->
 	 
 	 <!-- fname -->
 	 
@@ -268,6 +268,7 @@
 			 android:layout_weight="1"
 			 android:gravity="start|center"
 			 android:text=""
+			 android:padding="@dimen/dialog_sm_padding"
 			 android:textSize="@dimen/dialog_md_text"
 			 android:textColor="@color/dk_gray"
 			 android:background="@color/transparent"/>
@@ -335,6 +336,7 @@
 			 android:layout_weight="1"
 			 android:gravity="start|center"
 			 android:text=""
+			 android:padding="@dimen/dialog_sm_padding"
 			 android:textSize="@dimen/dialog_md_text"
 			 android:textColor="@color/dk_gray"
 			 android:background="@color/transparent"/>

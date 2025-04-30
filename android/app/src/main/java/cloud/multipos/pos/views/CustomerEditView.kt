@@ -46,7 +46,7 @@ class CustomerEditView (val customerID: Int) : EditView () {
 
 	 lateinit var customer: Customer
 	 
-	 var pin: PosText
+	 // var pin: PosText
 	 var fname: PosEditText
 	 var lname: PosEditText
 	 var email: PosEditText
@@ -62,13 +62,13 @@ class CustomerEditView (val customerID: Int) : EditView () {
 		  
 		  var layout = Pos.app.inflater.inflate (R.layout.customer_edit_layout, editLayout) as LinearLayout
 		  
-		  pin = layout.findViewById (R.id.customer_pin) as PosText
-		  pin.setText (customer.getString ("pin"))
+		  // pin = layout.findViewById (R.id.customer_pin) as PosText
+		  // pin.setText (customer.getString ("pin"))
 		  
 		  fname = posEditField (R.id.customer_fname, layout, customer.getString ("fname"))
 		  lname = posEditField (R.id.customer_lname, layout, customer.getString ("lname"))
 		  email = posEditField (R.id.customer_email, layout, customer.getString ("email"))
-		  phone = posEditField (R.id.customer_phone, layout, "")
+		  phone = posEditField (R.id.customer_phone, layout, customer.getString ("phone"))
 		  addr = posEditField (R.id.customer_addr, layout, customer.getString ("addr_1"))
 		  city = posEditField (R.id.customer_city, layout, customer.getString ("city"))
 		  postalCode = posEditField (R.id.customer_postal_code, layout, customer.getString ("postal_code"))
@@ -113,14 +113,14 @@ class CustomerEditView (val customerID: Int) : EditView () {
 		  val pos: Int = index!!
 		  customer.put ("state", States.abbr (pos))
 		  		  
-		  // if (customerID > 0) {
+		  if (customerID > 0) {
 				
-		  // 		Pos.app.db.update ("customers", customerID, customer)
-		  // }
-		  // else {
+				Pos.app.db.update ("customers", customerID, customer)
+		  }
+		  else {
 				
-		  // 		Pos.app.db.insert ("customers", customer)
-		  // }
+				Pos.app.db.insert ("customers", customer)
+		  }
 
 		  Pos.app.ticket.updates.add (customer)  // attach it to the current sale
 		  Pos.app.keyboardView.swipeLeft ()

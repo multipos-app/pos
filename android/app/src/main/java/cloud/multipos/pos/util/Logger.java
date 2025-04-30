@@ -17,7 +17,9 @@
 package cloud.multipos.pos.util;
 
 import cloud.multipos.pos.Pos;
+import cloud.multipos.pos.net.Post;
 import cloud.multipos.pos.BuildConfig;
+
 import android.util.Log;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -42,13 +44,13 @@ public class Logger  {
 						  Log.d (TAG, "[DEBUG]: " + tmp.substring (pos, pos + len));
 						  pos += len;
 					 }
-					 
-					 
 				}
 				return;
 		  }
 		  
 		  Log.d (TAG, "[DEBUG]: " + tmp);
+		  
+		  ServerLog.post ("[DEBUG]: " + tmp);
 	 }
 
 	 public static void d (Jar e) {
@@ -86,6 +88,7 @@ public class Logger  {
 	 public static void s (String text) {
 
 		  Log.d (TAG, "[DEBUG]: " + text);
+		  ServerLog.post ("[DEBUG]: " + text);
 	 }
 	 
 	 public static void i (String text) { 
@@ -96,7 +99,10 @@ public class Logger  {
 		  }
 		
 		  put (APP, INFO, tmp);
-		  Log.i (TAG, "[INFO?]: " + tmp); 
+		  Log.i (TAG, "[INFO?]: " + tmp);
+
+		  ServerLog.post ("[INFO?]: " + tmp);
+
 	 }
 
 	 public static void i (int category, String text) { 
@@ -107,7 +113,8 @@ public class Logger  {
 		  }
 		
 		  put (category, INFO, tmp);
-		  Log.i (TAG, "[INFO?]: " + tmp); 
+		  Log.i (TAG, "[INFO?]: " + tmp);
+		  
 	 }
 	 
 	 public static void w (String text) { 
@@ -115,7 +122,8 @@ public class Logger  {
 		  Log.i (TAG, "[WARN!]: " + text);
 		  // stack ("WARN");
 		  // put (APP, WARN, "[WARN!]: " + text);
-
+		  
+		  ServerLog.post ("[WARN?]: " + text);
 	 }
 
 	 public static void w (int category, String text) { 

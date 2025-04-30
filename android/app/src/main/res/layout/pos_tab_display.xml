@@ -4,7 +4,7 @@
 POS layout for a small tabbed config
 -->
 
-<cloud.multipos.pos.views.PosControlSwipeLayout
+<LinearLayout
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
 	 xmlns:tools="http://schemas.android.com/tools"
@@ -14,28 +14,20 @@ POS layout for a small tabbed config
 	 android:orientation="vertical"
     android:background="@color/transparent">
   
-  <cloud.multipos.pos.views.PosControlHomeLayout
+  <cloud.multipos.pos.views.PosDisplays
+		android:id="@+id/displays"
 		android:layout_width="match_parent"
-		android:layout_height="match_parent"
-		android:orientation="vertical">
-
-	 <cloud.multipos.pos.views.PosDisplays
-		  android:id="@+id/displays"
-		  android:layout_width="match_parent"
-		  android:layout_height="0dp"
-		  android:layout_weight="1"
-		  android:background="@color/transparent"/>
-	 
-	 <cloud.multipos.pos.views.PosMenus
-		  custom:menus="handheld_pos_menu"
-		  android:layout_width="match_parent"
-		  android:layout_height="0dp"
-		  android:layout_weight="1"
-		  android:layout_margin="@dimen/app_sm_margin"
-		  android:background="@color/transparent"
-		  custom:button_style="solid"/>
-
-  </cloud.multipos.pos.views.PosControlHomeLayout>
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"/>
   
-</cloud.multipos.pos.views.PosControlSwipeLayout>
-
+  <cloud.multipos.pos.views.PosMenus
+		custom:menus="handheld_pos_menu"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:layout_margin="@dimen/app_sm_margin"
+		android:background="@color/transparent"
+		custom:button_style="solid"/>
+  
+</LinearLayout>

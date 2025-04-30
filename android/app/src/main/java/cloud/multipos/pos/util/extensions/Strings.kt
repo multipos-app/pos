@@ -92,6 +92,11 @@ fun String.center (len: Int, pad: String): String {
 }
 
 fun String.phone (): String {
+
+	 if (this == null) {
+
+		  return ""
+	 }
 	 
 	 if (this.length > 0) {
 		  

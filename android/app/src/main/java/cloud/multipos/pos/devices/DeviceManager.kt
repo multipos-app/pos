@@ -76,12 +76,18 @@ abstract class DeviceManager (): Device {
 								if (device.getString ("class").length > 0) {
 
 									 var deviceClass = device.getString ("class")
-									 var jar = device.get ("jar") as Jar
 									 var dev = LoadClass.get (deviceClass) as Device?
+									 
+									 var params = Jar ()
+
+									 if (device.has ("params")) {
+
+										  params = device.get ("params") as Jar
+									 }
 									 
 									 if (dev != null) {
 										  
-										  dev.start (jar)
+										  dev.start (params)
 									 }
 								}
 						  }

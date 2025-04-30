@@ -19,17 +19,23 @@ package cloud.multipos.pos.controls
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.devices.*
+import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.views.ReportView
 
 class PrintReceipt (): Control () {
 
 	 override fun controlAction (jar: Jar) {
-		  
-		  Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
-		  Pos.app.ticket.put ("ticket_text", Pos.app.receiptBuilder.text ())
-		  ReportView (Pos.app.getString ("ticket"),
-						  Jar ()
-								.put ("ticket", Pos.app.ticket)
-								.put ("print_opt", true))
+
+		  if (Pos.app.ticket.hasItems () ||
+				(Pos.app.ticket.getInt ("ticket_type") == Ticket.X_SESSION) ||
+				(Pos.app.ticket.getInt ("ticket_type") == Ticket.Z_SESSION)) {
+				
+				Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
+				Pos.app.ticket.put ("ticket_text", Pos.app.receiptBuilder.text ())
+				ReportView (Pos.app.getString ("ticket"),
+								Jar ()
+									 .put ("ticket", Pos.app.ticket)
+									 .put ("print_opt", true))
+		  }
 	 }
 }

@@ -22,9 +22,11 @@ import cloud.multipos.pos.util.*
 abstract class Scales (): Device, DeviceCallback {
 		  
 	 var deviceStatus = DeviceStatus.Unknown
-
+	 
 	 init { }
 
+	 open fun weight (): Double { return 0.0 }
+	 
 	 abstract fun startCapture (callback: ScalesCallback)
 	 abstract fun stopCapture ()
 	 

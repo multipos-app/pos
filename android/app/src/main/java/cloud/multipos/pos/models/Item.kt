@@ -44,6 +44,7 @@ class Item (jar: Jar) {
 		  "items.sku, " +
 		  "items.department_id, " +
 		  "items.item_desc, " +
+		  "items.enabled, " +
 		  "item_prices.id as item_price_id, " +
 		  "item_prices.tax_group_id, " +
 		  "item_prices.tax_inclusive, " +
@@ -54,6 +55,7 @@ class Item (jar: Jar) {
 		  "item_prices.pricing, " +
 		  "departments.is_negative, " +
 		  "departments.department_type, " +
+		  "departments.params, " +
 		  "addon_links.addon_id " +
 		  "from departments, item_prices, items left join addon_links on items.id = addon_links.addon_link_id " +
 		  "where items.department_id = departments.id and items.id = item_prices.item_id and " +
@@ -63,10 +65,12 @@ class Item (jar: Jar) {
 		  if (itemResult.fetchRow ()) {
 				
 				item = itemResult.row ()
-
-				exists = true				
-				item.put ("pricing", item.get ("pricing"))
-				item.put ("item_desc", item.getString ("item_desc").trim ().uppercase ());
+				exists = true
+				
+				item
+					 .put ("pricing", item.get ("pricing"))
+					 .put ("item_desc", item.getString ("item_desc").trim ().uppercase ())
+					 .put ("params", item.get ("params"))
 		  }
 		  else {
 

@@ -85,6 +85,7 @@ class PosDisplays (context: Context, attrs: AttributeSet): PosLayout (context, a
 					 
 					 display.clear ()
 				}
+				DialogControl.close ()
 		  }
 	 
 		  fun put (display: PosDisplay) {

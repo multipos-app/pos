@@ -89,8 +89,6 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet?): PosLayou
         }
 
         override fun onFling (e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
-
-				Logger.d ("pos swipe... ${e1.getX ()} ${e1.getY ()}");
 				
 				var distanceX = e2.getX () - e1.getX ()
 				var distanceY = e2.getY () - e1.getY ()

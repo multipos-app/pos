@@ -81,8 +81,6 @@ abstract class DialogView (title: String): PosSwipeLayout (Pos.app, null), PosDi
 		  DialogControl.close ()
 	 }
 	 
-	 open fun sticky (): Boolean { return false }
-
 	 // Swipe
 
 	 override fun swipeRight () {

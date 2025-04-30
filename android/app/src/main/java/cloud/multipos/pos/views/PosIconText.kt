@@ -27,7 +27,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import android.view.KeyEvent
 
-open class PosIconText (context: Context, attrs: AttributeSet): TextView (context, attrs) {
+open class PosIconText (context: Context, attrs: AttributeSet): PosText (context, attrs) {
 
 	 init {
 		  

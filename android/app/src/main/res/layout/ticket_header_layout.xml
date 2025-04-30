@@ -3,14 +3,14 @@
 	 xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/ticket_header_height"
-	 android:padding="@dimen/ticket_padding"
-	 android:background="@color/transparent">
+	 android:background="@color/transparent"
+    android:orientation="vertical">
 
   <LinearLayout
 		android:id="@+id/ticket_header_layout"
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
+      android:layout_height="wrap_content"
       android:background="@color/transparent"
       android:orientation="horizontal"/>
-  
+ 
 </LinearLayout>

@@ -33,6 +33,7 @@ import android.text.Editable
 open class PosEditText (context: Context, attrs: AttributeSet): EditText (context, attrs), TextWatcher, PosTextValidator {
 
 	 lateinit var changeListener: EditView
+	 var pos = 0
 	 
 	 init {
 

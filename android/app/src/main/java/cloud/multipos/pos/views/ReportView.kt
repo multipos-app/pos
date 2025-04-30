@@ -71,18 +71,16 @@ class ReportView (val title: String, jar: Jar): DialogView (title) {
 	 override fun actions (dialogView: DialogView) {
 		  
 		  Pos.app.inflater.inflate (R.layout.dialog_print_action, dialogActions)	  		  
-		  val accept = findViewById (R.id.dialog_accept) as Button
+		  val accept = findViewById (R.id.print_accept) as Button
 		  accept.setOnClickListener () {
 				
-				accept ()
+				Pos.app.receiptBuilder ().print ();
+		  }
+		  
+		  val cancel = findViewById (R.id.print_continue) as Button
+		  cancel.setOnClickListener () {
+				
+				DialogControl.close ()
 		  }
 	 }
-	 
-	 override fun accept () {
-
-		  Pos.app.receiptBuilder ().print ();
-		  DialogControl.close ()
-	 }
-	 
-	 override fun sticky (): Boolean { return true }
 }

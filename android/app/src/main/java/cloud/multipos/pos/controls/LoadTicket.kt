@@ -32,34 +32,24 @@ class LoadTicket (): Control () {
 		  
 		  if (jar.has ("dir")) {
 
-				ticketID = ticketID + jar.getInt ("dir")
+				ticketID = Pos.app.ticket.getInt ("id")
+				var sel = ""
 				
-				val ticketTypes =
-					 "(" +
-					 Ticket.SALE + "," +
-					 Ticket.VOID + "," +
-					 Ticket.NO_SALE + "," +
-					 Ticket.COMP_SALE + "," +
-					 Ticket.RETURN_SALE + "," +
-					 Ticket.SALE_NONTAX + "," +
-					 Ticket.BANK + "," +
-					 Ticket.CREDIT_REFUND + "," +
-					 Ticket.CREDIT_REVERSE +
-					 ")"
-					 
-				val ticketStates =
-					 "(" +
-					 Ticket.OPEN + "," +
-					 Ticket.SUSPEND +
-					 ")"
+				when (jar.getInt ("dir")) {
+
+					 0 -> { sel = "select id from tickets where id = (select max(id) from tickets)" }
+					 -1 -> { sel = "select id from tickets where ticket_type = ${Ticket.SALE} and id < ${ticketID} order by id desc" }
+					 1 -> { sel = "select id from tickets where ticket_type = ${Ticket.SALE} and id > ${ticketID} order by id desc" }
+				}
 				
-				var ticketResult: DbResult? = null
-				val sel = "select * from tickets where ticket_type in " + ticketTypes + " and id = " + ticketID + " order by id desc"
-				
-				ticketResult = DbResult (sel, Pos.app.db)
+				val ticketResult = DbResult (sel, Pos.app.db)
 				if (ticketResult.fetchRow ()) {
 
 					 val t = ticketResult.row ()
+					 ticketID = t.getInt ("id")
+					 
+					 Logger.d ("load ticket... ${ticketID} ${jar.getInt ("dir")} ${sel}");
+					 
 				}
 				else {
 
@@ -69,15 +59,8 @@ class LoadTicket (): Control () {
 				
 				Pos.app.ticket = Ticket (ticketID, Ticket.RECALLED)
 		  }
-		  else if (jar.has ("id")) {
 
-				Pos.app.ticket = Ticket (jar.getInt ("id"), Ticket.RECALLED)
-		  }
-		  else {
-
-				Pos.app.ticket = Ticket (0, Ticket.OPEN)
-		  }
-
+		  PosDisplays.clear ()
 		  PosDisplays.update ()
 		  PosDisplays.home ()
 	 }

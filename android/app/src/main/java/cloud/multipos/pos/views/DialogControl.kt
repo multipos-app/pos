@@ -33,7 +33,7 @@ import android.view.animation.Animation.AnimationListener
 import java.util.Stack
 
 class DialogControl (): PosDisplay {
-	 	 
+	 
 	 init {
 
 		  dialog = Pos.app.findViewById (R.id.dialog_container)
@@ -45,12 +45,11 @@ class DialogControl (): PosDisplay {
 		  val duration = 500L
 		  val views = Stack <View> ()
 		  var inProgress = false
-		  
+		  var showing = false
+
 		  lateinit var dialog: LinearLayout
 		  
 	 	  fun addView (view: View) {
-
-				Logger.d ("dialog control, add view... ${inProgress}")
 				
 				if (inProgress) {
 					 
@@ -63,11 +62,7 @@ class DialogControl (): PosDisplay {
 					 dialog.removeAllViews ();
 				}
 
-				dialog.addView (view);
-				open ()
-		  }
-
-		  fun open () {
+				dialog.addView (view)
 				
 				val animate = TranslateAnimation ((Pos.app.config.getInt ("width") / 2).toFloat (),   // half screen
 															 0f,
@@ -78,9 +73,15 @@ class DialogControl (): PosDisplay {
 				
 				dialog.startAnimation (animate)
 				dialog.setVisibility (View.VISIBLE)
+				showing = true
 		  }
 		  
 		  fun close () {
+				
+				if (!showing) {
+
+					 return
+				}
 
 				inProgress = true
 								
@@ -94,16 +95,21 @@ class DialogControl (): PosDisplay {
 				
 				dialog.startAnimation (animate)
 				dialog.setVisibility (View.INVISIBLE)
+				dialog.removeAllViews ();
+				showing = false
 		  }
 	 
 		  fun clear () {
-		  
-				dialog.removeAllViews ();
-				inProgress = false
-		  
-				while (views.size > 0) {
+								
+				if (showing) {
 					 
-					 views.pop ()
+					 dialog.removeAllViews ();
+					 inProgress = false
+
+					 while (views.size > 0) {
+					 
+						  views.pop ()
+					 }
 				}
 		  }
 	 }

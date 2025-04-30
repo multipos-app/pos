@@ -148,7 +148,7 @@ class CustomerSearchView (): EditView () {
 				val name  = view.findViewById (R.id.customer_name) as PosText?
 				val email  = view.findViewById (R.id.customer_email) as PosText?
 				val phone  = view.findViewById (R.id.customer_phone) as PosText?
-				
+
 				name?.setText (cust.getString ("fname") + " " + cust.getString ("lname"))
 				email?.setText (cust.getString ("email"))
 				phone?.setText (cust.getString ("phone").phone ())

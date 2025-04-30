@@ -158,7 +158,9 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  Pos.app.ticket.update ()
 		  
 		  // display receipt?
-
+		  
+		  Logger.d ("print receipts... ${Pos.app.ticket.getInt ("print_receipts")}")
+						
 		  if (state == Ticket.COMPLETE) {
 				
 				when (Pos.app.ticket.getInt ("ticket_type")) {

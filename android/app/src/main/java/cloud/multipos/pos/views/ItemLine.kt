@@ -105,9 +105,7 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 					 // ItemEditView (ItemUpdate (), item)
 					 
 					 ItemModifiersView (item)
-					 
-					 Logger.d ("item line long press... ${position} ${item}")
-
+		
 					 return@setOnLongClickListener true
 				}
 

@@ -61,8 +61,12 @@ class MqttClient () {
 												override fun connectionLost (cause: Throwable?) {
 
 													 Logger.i ("mqtt connection lost...")
-													 Thread.sleep (1000)
-													 connect (topic)
+													 
+													 Thread (Runnable {
+																	 
+																	 Thread.sleep (20000)  // sleep for 20 sec and try again
+																	 connect (topic)
+													 }).start ()
 												}
 												
 												@Throws (Exception::class)

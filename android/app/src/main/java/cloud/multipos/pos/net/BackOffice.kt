@@ -202,6 +202,11 @@ object BackOffice: Device, DeviceCallback {
 								Pos.app.db ().exec ("delete from item_links where item_id = " + update.getInt ("update_id"))
 						  }
 					 }
+
+					 if (update.getString ("update_table") == "departments") {
+
+						  Logger.x ("update... ${update}")
+					 }
 					 
 					 when (update.getString ("update_table")) {
 
@@ -321,6 +326,8 @@ object BackOffice: Device, DeviceCallback {
 		  		  
         val m = message.get (message.getString ("method"))
 
+		  Logger.d ("pos message... ${message}")
+
 		  when (message.getString ("method")) {
 				
 				"control" -> {
@@ -333,6 +340,12 @@ object BackOffice: Device, DeviceCallback {
 					 Pos.app.stop ()
 				}
 				
+				"server_log" -> {
+					 
+					 Pos.app.serverLog = message.getString ("value")
+					 Logger.i ("server log... ${Pos.app.serverLog}")
+				}
+								
 				"message" -> {
 					 
 					 Pos.app.sendMessage (PosConst.MESSAGE, m)

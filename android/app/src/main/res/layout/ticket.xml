@@ -14,9 +14,20 @@
       android:layout_width="match_parent"
       android:layout_height="0dp"
 		android:layout_weight="1"
+		android:layout_marginLeft="@dimen/ticket_item_margin"
+		android:layout_marginRight="@dimen/ticket_item_margin"
 		android:background="@color/transparent"
 		app:layout_constraintTop_toTopOf="parent"/>
-
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="3dp"
+		android:layout_marginTop="3dp"
+		android:layout_marginBottom="3dp"
+		android:layout_marginLeft="@dimen/ticket_item_margin"
+		android:layout_marginRight="@dimen/ticket_item_margin"
+		android:background="@color/lt_gray"/>
+  
   <LinearLayout
 		android:id="@+id/list_display"
 		android:layout_width="match_parent"
@@ -27,8 +38,9 @@
   <cloud.multipos.pos.views.TicketFooter
 		android:id="@+id/ticket_footer"
 		android:layout_width="match_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
+		android:layout_height="@dimen/ticket_footer_height"
+		android:layout_marginLeft="@dimen/ticket_item_margin"
+		android:layout_marginRight="@dimen/ticket_item_margin"
 		android:background="@color/transparent"
   		app:layout_constraintBottom_toBottomOf="parent"/>
 

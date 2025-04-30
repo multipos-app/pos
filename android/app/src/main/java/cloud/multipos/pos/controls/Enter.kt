@@ -29,11 +29,18 @@ public class Enter (): Control () {
 
 		  jar (jar)
 		  
+		  Logger.x ("enter init... ${Pos.app.controls.size}")
+
 		  if (Pos.app.controls.size > 0) {
 
 				val control = Pos.app.controls.removeFirst ()
 
-				if (control is DefaultItem) {
+				if (control is InputListener) {
+
+					 Logger.x ("enter action... ${control}")
+					 control.accept (Jar ())
+				}
+				else if (control is DefaultItem) {
 					 
 					 control.jar ()
 						  .put ("merge_like_items", false)
@@ -62,6 +69,8 @@ public class Enter (): Control () {
 		  else if (Pos.app.input.length () > 0) {
 					 
 					 // operator input sku?
+
+					 Logger.d ("enter control... ${Pos.app.input.getString ()} ${Pos.app.input.length ()}")
 					 
 					 when (Pos.app.input.length ()) {  
 													

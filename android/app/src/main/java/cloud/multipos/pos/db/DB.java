@@ -519,7 +519,8 @@ public class DB {
 			 "is_negative tinyint(1) DEFAULT '0'," + 
 			 "department_order integer DEFAULT '0'," +
 			 "business_unit_id integer DEFAULT '0'," +
-			 "tax_group_id integer DEFAULT NULL)"},
+			 "tax_group_id integer DEFAULT NULL," +
+			 "params text)"},
 
 		  { "department_sizes",
 			 "(id integer not null, " +

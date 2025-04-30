@@ -39,14 +39,18 @@ class StarScales (): Scales () {
 
 	 lateinit var deviceManager: StarDeviceManager
 	 lateinit var appCallback: ScalesCallback
+
+	 var weight = 0.0
 	 var starScales: StarScales
 	 var capture = false
-	 
+	 var params: Jar
+
 	 init {
 		  
 		  starScales = this
 		  deviceStatus = DeviceStatus.OffLine
 		  Pos.app.devices.add (this)
+		  params = Jar ()
 	 }
 	 
 	 override fun deviceName (): String  { return "Star Scale" }
@@ -72,7 +76,9 @@ class StarScales (): Scales () {
 	 
 	 override fun start (jar: Jar) {
 		  
-		  Logger.i ("start star scale...")
+		  Logger.d ("start star scale... ${jar}")
+
+		  params = jar
 		  
 		  var deviceManagerCallback: StarDeviceManagerCallback = object: StarDeviceManagerCallback () {
 				
@@ -108,9 +114,21 @@ class StarScales (): Scales () {
 
 	 override fun stop () {
 
-		  Logger.i ("star scale stop")
+		  Logger.d ("star scale stop")
 	 }
-	 	 
+
+	 override fun weight (): Double {
+
+
+		  if (deviceStatus == DeviceStatus.OnLine) {
+
+				// get it from the device
+
+				return weight
+		  }
+		  return 0.0
+	 }
+	 
 	 /**
 	  * Star scale callback
 	  */
@@ -119,14 +137,14 @@ class StarScales (): Scales () {
 
 		  override fun onConnect (scale: com.starmicronics.starmgsio.Scale, status: Int) {
 
-				Logger.i ("scale connect... " + status)
+				Logger.d ("scale connect... " + status)
 				deviceManager.stopScan ()
 				
 				when (status) {
 					 
                 Scale.CONNECT_SUCCESS -> {
 						  
-                    Logger.i ("Connect success....")
+                    Logger.i ("star scales connect success....")
 						  
 						  scale.updateOutputConditionSetting (ScaleOutputConditionSetting.ContinuousOutputAtStableTimes)  // send single weight when stable
 						  starScales.success (starScales)
@@ -135,42 +153,43 @@ class StarScales (): Scales () {
 
                 Scale.CONNECT_NOT_AVAILABLE -> {
 						  
-                    Logger.w ("Failed to connect. (Not available)...")
+                    Logger.w ("star scales failed to connect. (Not available)...")
                 }
 
                 Scale.CONNECT_ALREADY_CONNECTED -> {
 						  
-                    Logger.w ("Failed to connect. (Already connected)...")
+                    Logger.w ("star scales failed to connect. (Already connected)...")
                 }
 					 
                 Scale.CONNECT_TIMEOUT -> {
 						  
-                    Logger.w ("Failed to connect. (Timeout)...")
+                    Logger.w ("star scales failed to connect. (Timeout)...")
                 }
 
                 Scale.CONNECT_READ_WRITE_ERROR -> {
 						  
-                    Logger.w ("Failed to connect. (Read Write error)...")
+                    Logger.w ("star scales failed to connect. (Read Write error)...")
                 }
 
                 Scale.CONNECT_NOT_SUPPORTED -> {
 						  
-                    Logger.w ("Failed to connect. (Not supported device)...")
+                    Logger.w ("star scales failed to connect. (Not supported device)...")
                 }
 
                 Scale.CONNECT_NOT_GRANTED_PERMISSION -> {
 						  
-                    Logger.w ("Failed to connect. (Not granted permission)...")
+                    Logger.w ("star scales failed to connect. (Not granted permission)...")
                 }
+
 						  
                 Scale.CONNECT_UNEXPECTED_ERROR -> {
 						  
-                    Logger.w ("Failed to connect. (Unexpected error)...")
+                    Logger.w ("star scales failed to connect. (Unexpected error)...")
                 }
 
 					 else -> {
 						  
-                    Logger.w ("Failed to connect. (unknown error)...")
+                    Logger.w ("star scales failed to connect. (unknown error)...")
 					 }
 				}
 				
@@ -179,17 +198,16 @@ class StarScales (): Scales () {
 
 		  override fun  onDisconnect (scale: com.starmicronics.starmgsio.Scale, status: Int) {
 
-				Logger.i ("scale disconnect... " + status)
+				Logger.d ("star scale disconnect... " + status)
 				deviceStatus = DeviceStatus.OffLine
 		  }
 		  
 		  override fun  onReadScaleData (scale: com.starmicronics.starmgsio.Scale, scaleData: ScaleData) {
+									 
+				Logger.d ("star scale read... " + scaleData.getWeight ())
 				
-				if (capture) {
-					 
-					 Logger.i ("scale read... " + scaleData.getWeight ())
-					 appCallback.scaleData (scaleData.getWeight ())
-				}
+				weight = scaleData.getWeight ()
+				appCallback.scaleData (weight)
 		  }
 	 }
 }

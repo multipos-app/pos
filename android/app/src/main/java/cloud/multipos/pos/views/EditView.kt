@@ -44,6 +44,7 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 	 var actionsLayout: LinearLayout
 	 var fields = mutableListOf <PosEditText> ()
 	 var curr = 0
+	 var pos = 0
 
 	 init {
 
@@ -86,18 +87,31 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 		  var field = layout.findViewById (id) as PosEditText
 		  field.setText (text)
 		  fields.add (field)
+		  field.pos = pos ++
+		  
+		  field?.setOnClickListener {
+
+				curr = field.pos
+				for (f in fields) {
+					 
+					 f?.setBackgroundResource (R.drawable.gray_border)
+				}
+				fields [curr]?.setBackgroundResource (R.drawable.black_border)
+				fields [curr]?.requestFocus ()
+		  }
+		  
 		  return field
 	 }
 
 	 fun home () {
 		  
+		  curr = 0
 		  if (fields.size > 0) {
 				
 				for (f in fields) {
 					 
 					 f?.setBackgroundResource (R.drawable.gray_border)
 				}
-				curr = 0
 				fields [curr]?.setBackgroundResource (R.drawable.black_border)
 				fields [curr]?.requestFocus ()
 		  }

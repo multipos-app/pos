@@ -246,13 +246,12 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 				
 				icon = findViewById (R.id.app_bar_icon)
 				icon.setText (if (Themed.theme == Themes.Light) R.string.fa_night else  R.string.fa_day)
-				if (Themed.theme == Themes.Light) icon.setTextColor (Color.BLACK) else icon.setTextColor (Color.YELLOW)
+				icon.setTextColor (Color.WHITE)
 				
 				icon.setOnClickListener {
 
 					 Themed.toggle ()
 					 icon.setText (if (Themed.theme == Themes.Light) R.string.fa_night else  R.string.fa_day)
-					 if (Themed.theme == Themes.Light) icon.setTextColor (Color.BLACK) else icon.setTextColor (Color.YELLOW)
 				}
 		  }
 	 }
