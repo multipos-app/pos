@@ -90,11 +90,10 @@ class Pos (): AppCompatActivity () {
 	 // default locale
 	 
 	 var locale = Locale.US
-
 	 var permissions = false
-	 
-	 var serverLog = "quite" // send logs to server?
-	 
+	 var serverLog = "quiet" // send logs to server?
+	 var imageDir = ""
+
 	 val inventoryList = mutableListOf <Device> ()
 	 val posMenus = mutableListOf <PosMenus> ()
 
@@ -185,8 +184,16 @@ class Pos (): AppCompatActivity () {
 				// start a download thread
 		  
 				BackOffice.start ()
+				DeviceManager.start ("devices")
 
 				start ()  // start the app
+
+				if (this::posAppBar.isInitialized) {
+					 
+					 posAppBar.onResume ()
+				}
+				
+				// BackOffice.download ()  // start downloads
 		  }
 	 }
 	 
@@ -196,7 +203,12 @@ class Pos (): AppCompatActivity () {
 	 }
 	 
 	 override fun onPause () {
-		  		  
+
+		  Logger.d ("pos on pause...")
+		  
+		  posAppBar.onPause ()
+		  DeviceManager.onPause ()
+		  BackOffice.onPause ()
         super.onPause ()
 	 }
 
@@ -228,7 +240,15 @@ class Pos (): AppCompatActivity () {
 	 }
 	 
 	 override fun dispatchKeyEvent (event: KeyEvent): Boolean {
-						
+
+		  if (this::keyboardView.isInitialized) {
+				
+				if (keyboardView.showing) {
+
+					 keyboardView.swipeLeft ()
+				}
+		  }
+		  
         if (event.action == KeyEvent.ACTION_UP) {
 								
 				DeviceManager.scanner?.input (event)
@@ -271,8 +291,6 @@ class Pos (): AppCompatActivity () {
 		  
 				// attach/start devices
 		  
-				DeviceManager.start ("devices")
-
 				receiptBuilder = DefaultReceiptBuilder ()
 				when (config.getString ("receipt_class")) {
 
@@ -284,19 +302,13 @@ class Pos (): AppCompatActivity () {
 
 					 // create the image button dir if it does not exist
 					 
-					 val path = "/sdcard/img"
-
-					 Logger.d ("path... ${path}")
+					 imageDir = "${getFilesDir ().toString ()}/img"
 					 
-					 val file = File (path);
+					 val file = File (imageDir);
 
 					 if (!file.exists ()) {
 
 						  file.mkdir ();
-					 }
-					 else {
-
-						  Logger.d ("image dir exists...");
 					 }
 				}
 
@@ -400,8 +412,6 @@ class Pos (): AppCompatActivity () {
 																	  .put ("type", "open_amount"))
 				}
 		  }
-
-		 
 	 }
 
 	 /**

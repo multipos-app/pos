@@ -22,8 +22,6 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.receipts.*
 
-import java.util.UUID
-
 class Customer (): Jar (), Model {
 
 	 constructor (jar: Jar): this () {
@@ -36,7 +34,7 @@ class Customer (): Jar (), Model {
 		  copy (Jar ()
 						.put ("id", 0)
 				  		.put ("pin", pin ())
-						.put ("uuid", UUID.randomUUID ().toString ())
+						.put ("uuid", "".uuid ())
 						.put ("fname", "")
 						.put ("lname", "")
 						.put ("email", "")
@@ -94,24 +92,41 @@ class Customer (): Jar (), Model {
 
 		  return pin
 	 }
+	 
 	 override fun display (): String {
+
+		  val MAX_LEN = 32
 
 		  val sb = StringBuffer ()
 		  
 		  if (has ("fname") && (getString ("fname").length > 0)) {
 
-				sb.append (getString ("fname") + " ")
+				sb.append (getString ("fname"))
 		  }
 		  
 		  if (has ("lname") && (getString ("lname").length > 0)) {
 
-				sb.append (getString ("lname") + " ")
+				if (sb.length > 0) sb.append (" ")
+				sb.append (getString ("lname"))
 		  }
 
 		  if (has ("phone") && (getString ("phone").length > 0)) {
-
+				
+				if (sb.length > 0) sb.append (" \u2022 ")
 				sb.append (getString ("phone").phone ())
 		  }
+		  
+		  if (has ("email") && (getString ("email").length > 0)) {
+				
+				if (sb.length > 0) sb.append (" \u2022 ")
+				sb.append (getString ("email"))
+		  }
+
+		  // if (sb.length > MAX_LEN) {
+
+		  // 		sb.setLength (MAX_LEN)
+		  // 		sb.append ("...")
+		  // }
 
 		  return sb.toString ()
 	 }

@@ -24,6 +24,7 @@ import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.models.*
+import cloud.multipos.pos.net.Post
 
 import android.widget.Button
 import android.view.View
@@ -38,7 +39,6 @@ import android.telephony.PhoneNumberUtils
 import java.util.Locale
 import android.text.TextWatcher
 import android.text.Editable
-import java.util.UUID
 import android.widget.Spinner
 import android.telephony.PhoneNumberFormattingTextWatcher
 
@@ -119,9 +119,20 @@ class CustomerEditView (val customerID: Int) : EditView () {
 		  }
 		  else {
 				
+				customer.put ("uuid", "".uuid ())
 				Pos.app.db.insert ("customers", customer)
+				
+				customer.put ("add_customer", true)  // this will force an insert at the server
 		  }
 
+		  Post ("pos/update-customer")
+				.add (Jar ().put ("customer", customer))
+				.exec (fun (result: Jar): Unit {
+				})
+		  
+		  Pos.app.posAppBar.customer (customer.display ())
+		  Pos.app.ticket.put ("customer_id", customer.getInt ("id"))
+		  Pos.app.ticket.put ("customer", customer)
 		  Pos.app.ticket.updates.add (customer)  // attach it to the current sale
 		  Pos.app.keyboardView.swipeLeft ()
 	 }

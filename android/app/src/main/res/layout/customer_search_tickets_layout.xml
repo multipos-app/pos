@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/dialog_padding"
+    android:background="@color/transparent">
+
+  <ScrollView
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+		android:layout_marginTop="@dimen/dialog_padding">
+	 
+	 <LinearLayout
+        android:id="@+id/customer_tickets_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+		  android:orientation="vertical"/>
+	 
+  </ScrollView>
+  
+</androidx.constraintlayout.widget.ConstraintLayout>
+

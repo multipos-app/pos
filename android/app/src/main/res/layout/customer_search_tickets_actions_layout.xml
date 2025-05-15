@@ -10,7 +10,7 @@
 	 android:orientation="vertical">
 
   <cloud.multipos.pos.views.PosButton
-      android:id="@+id/customer_search_complete"
+      android:id="@+id/customer_search_tickets_complete"
   		style="@style/DialogContinue"
       android:layout_width="match_parent"
       android:layout_height="0dp"
@@ -18,29 +18,9 @@
       android:text="@string/button_select"
 		android:textColor="@color/white"
       android:textSize="@dimen/dialog_md_text"/>
-  
-  <cloud.multipos.pos.views.PosButton
-      android:id="@+id/customer_search_tickets"
-  		style="@style/DialogInfo"
-      android:layout_width="match_parent"
-      android:layout_height="0dp"
-		android:layout_weight="1"
-      android:text="@string/search_tickets"
-		android:textColor="@color/white"
-      android:textSize="@dimen/dialog_md_text"/>
-  
-  <cloud.multipos.pos.views.PosButton
-      android:id="@+id/customer_search_add_edit"
-   	style="@style/DialogSuccess"
-		android:layout_width="match_parent"
-      android:layout_height="0dp"
-		android:layout_weight="1"
-      android:text="@string/add_customer"
-		android:textColor="@color/white"
-      android:textSize="@dimen/dialog_md_text"/>
 
   <cloud.multipos.pos.views.PosButton
-		android:id="@+id/customer_search_cancel"
+		android:id="@+id/customer_search_tickets_cancel"
 		style="@style/DialogWarn"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"

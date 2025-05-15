@@ -33,6 +33,8 @@ class RecallByUUID (): Control () {
 		  val date = Date ()
 		  val since: Long = date.getTime () - (120 * 24 * 60 * 60 * 1000).toLong () // last 60 days
 		  var sel = "select id from tickets where recall_key = '" + jar.getString ("recall_key") + "' and start_time > '" + Pos.app.db.timestamp (Date (since)) + "'"
+
+		  Logger.x ("recall... <$sel>")
 		  
 		  val ticketResult = DbResult (sel, Pos.app.db)
 		  if (ticketResult.fetchRow ()) {

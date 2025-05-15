@@ -120,7 +120,7 @@
 			 android:textSize="@dimen/dialog_md_text"
 			 android:padding="@dimen/dialog_sm_padding"
 			 android:textColor="@color/dk_gray"
-			 android:background="@color/transparent"/>
+			 android:background="@drawable/gray_border"/>
 		
 	 </LinearLayout>
 
@@ -155,7 +155,7 @@
 			 android:textSize="@dimen/dialog_md_text"
 			 android:padding="@dimen/dialog_sm_padding"
 			 android:textColor="@color/dk_gray"
-			 android:background="@color/transparent"/>
+			 android:background="@drawable/gray_border"/>
 		
 	 </LinearLayout>
 
@@ -191,7 +191,7 @@
 			 android:textSize="@dimen/dialog_md_text"
 			 android:padding="@dimen/dialog_sm_padding"
 			 android:textColor="@color/dk_gray"
-			 android:background="@color/transparent"/>
+			 android:background="@drawable/gray_border"/>
 
 	 </LinearLayout>
   </LinearLayout>
@@ -236,7 +236,7 @@
 			 android:textSize="@dimen/dialog_md_text"
 			 android:textColor="@color/dk_gray"
 			 android:padding="@dimen/dialog_sm_padding"
-			 android:background="@color/transparent"/>
+			 android:background="@drawable/gray_border"/>
 
 	 </LinearLayout>
 
@@ -271,7 +271,7 @@
 			 android:padding="@dimen/dialog_sm_padding"
 			 android:textSize="@dimen/dialog_md_text"
 			 android:textColor="@color/dk_gray"
-			 android:background="@color/transparent"/>
+			 android:background="@drawable/gray_border"/>
 
 	 </LinearLayout>
 
@@ -339,7 +339,7 @@
 			 android:padding="@dimen/dialog_sm_padding"
 			 android:textSize="@dimen/dialog_md_text"
 			 android:textColor="@color/dk_gray"
-			 android:background="@color/transparent"/>
+			 android:background="@drawable/gray_border"/>
 
 	 </LinearLayout>
 	 

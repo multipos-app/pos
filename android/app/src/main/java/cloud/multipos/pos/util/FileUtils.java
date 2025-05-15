@@ -189,7 +189,6 @@ public class FileUtils {
 		  
 		  Logger.d ("download image ... " + fname);
 		  
-		  
 		  Thread thread = new Thread () {
 
 					 Bitmap image = null;
@@ -210,7 +209,7 @@ public class FileUtils {
 						  
 								try {
 									 
-									 FileOutputStream out = new FileOutputStream (new File ("/sdcard/img/" + fname));
+									 FileOutputStream out = new FileOutputStream (new File (Pos.app.getImageDir () + "/" + fname));
 									 image.compress (Bitmap.CompressFormat.PNG, 100, out);
 									 out.flush ();
 									 out.close ();       

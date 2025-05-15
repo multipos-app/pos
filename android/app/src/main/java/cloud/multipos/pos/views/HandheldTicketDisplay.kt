@@ -96,7 +96,7 @@ class HandheldTicketDisplay (context: Context, attrs: AttributeSet): ListDisplay
 						  
 						  is TicketTender -> {
 								
-								return TenderLine (context, p)
+								return TenderLine (context, p, Pos.app.ticket)
 						  }
 						  
 						  else -> { }

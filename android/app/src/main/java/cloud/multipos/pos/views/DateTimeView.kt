@@ -41,9 +41,7 @@ class DateTimeView (val listener: InputListener, title: String): DialogView (tit
 		  datePicker.setMinDate (Date ().getTime ())  // only future dates
 		  setInterval (timePicker)  // no minutes
 		  val confirm = findViewById (R.id.date_time_accept) as Button
-		  
-		  Logger.d ("build version... " + Build.VERSION.SDK_INT)
-		  
+		  		  
 		  if (Build.VERSION.SDK_INT > 23) { // marshmellow
 				
 				datePicker.setOnDateChangedListener (object: OnDateChangedListener {

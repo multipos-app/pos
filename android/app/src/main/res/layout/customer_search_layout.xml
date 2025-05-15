@@ -7,33 +7,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="@dimen/dialog_padding"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:background="@color/transparent">
 
   <LinearLayout
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_weight="1"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+      android:layout_weight="1.5"
 		android:background="@color/transparent"
-		android:useDefaultMargins="true"
-		android:orientation="vertical">
-
+		android:orientation="horizontal">
+		
 	 <cloud.multipos.pos.views.PosText
-		  android:layout_width="match_parent"
-        android:layout_height="0dp"
-		  android:layout_weight="1"
-		  android:gravity="center"
+		  android:id="@+id/customer_search_prompt"
+		  android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+		  android:gravity="start|center"
 		  android:text="@string/search_customer_hint"
         android:textSize="@dimen/dialog_md_text"
         android:textColor="@color/black"
 		  android:background="@color/transparent"
 		  android:layout_margin="@dimen/dialog_margin"/>
 	 
-	 <cloud.multipos.pos.views.PosEditText
+	 <cloud.multipos.pos.views.PosText
 		  android:id="@+id/customer_search"
-		  android:layout_width="match_parent"
-        android:layout_height="0dp"
-		  android:layout_weight="1"
+		  android:layout_width="0dp"
+        android:layout_height="match_parent"
+		  android:layout_weight="2"
 		  android:gravity="start|center"
         android:textSize="@dimen/dialog_md_text"
         android:textColor="@color/black"
@@ -41,13 +41,13 @@
 		  android:layout_margin="@dimen/dialog_margin"
 		  android:padding="@dimen/keyboard_padding"/>
 
-	 <LinearLayout
-		  android:id="@+id/customer_list_container"
-		  android:layout_width="match_parent"
-		  android:layout_height="0dp"
-		  android:layout_weight="6"
-		  android:background="@color/transparent"/>
-		
   </LinearLayout>
   
+  <LinearLayout
+		android:id="@+id/customer_list_container"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="6"
+		android:background="@color/transparent"/>
+
 </LinearLayout>

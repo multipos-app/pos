@@ -457,8 +457,6 @@ open class SessionManager (): CompleteTicket () {
 	 }
 	 
 	 override fun beforeAction (): Boolean {
-		  
-		  Logger.d ("session manager...")
 
 		  if (Pos.app.ticket.hasItems ()) {
 				

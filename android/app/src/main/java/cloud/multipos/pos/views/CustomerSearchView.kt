@@ -42,20 +42,24 @@ import android.widget.Button
 
 class CustomerSearchView (): EditView () {
 	 
-    val list = mutableListOf <Jar> ()	 
-	 var search: PosEditText?
+    val list = mutableListOf <Jar> ()
+	 val sb = StringBuffer ()
+	 var search: TextView?
 	 var listView: ListView
     var listAdapter: ListAdapter
 	 lateinit var customer: Customer
 
     init {
 
-		  var layout = Pos.app.inflater.inflate (R.layout.customer_search_layout, editLayout) as LinearLayout
-
-		  search = posEditField (R.id.customer_search, layout, "")
-		  search?.setOnChange (this)
-		  search?.requestFocus ()
+		  Logger.d ("cust search view init...")
 		  
+		  var layout = Pos.app.inflater.inflate (R.layout.customer_search_layout, editLayout) as LinearLayout
+		  
+		  search = editLayout.findViewById (R.id.customer_search) as TextView
+		  val searchPrompt = editLayout.findViewById (R.id.customer_search_prompt) as TextView
+
+		  search?.setTextColor (fg)
+
 		  listView = ListView (context)
 		  listView.setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  listView.setDivider (null)
@@ -70,8 +74,28 @@ class CustomerSearchView (): EditView () {
  		  Pos.app.keyboardView.push (this)
     }
 	 
-	 override fun onChange () {
+	 // EditView impl
+	 
+	 override fun keyEvent ():Boolean { return false }
+	 override fun home () { }
+	 override fun del () {
 
+		  if (sb.length > 0) {
+				
+				sb.setLength (sb.length - 1)
+				search?.setText (sb.toString ())
+				search ()
+		  }
+	 }
+
+	 override fun space () { }
+	 override fun up () { }
+	 override fun down () { }
+
+	 override fun onChange (ch: String) {
+
+		  sb.append (ch)
+		  search?.setText (sb.toString ())
 		  search ()
 	 }
 	 
@@ -94,10 +118,19 @@ class CustomerSearchView (): EditView () {
 				Pos.app.keyboardView.swipeLeft ()
 		  }
 		  
+		  var tickets = layout.findViewById (R.id.customer_search_tickets) as Button
+		  tickets.setOnClickListener {
+				
+				if (this::customer.isInitialized) {
+					 
+ 					 Pos.app.keyboardView.swipeLeft ()
+					 CustomerSearchTicketsView (customer)
+				}
+		  }
+
 		  var update = layout.findViewById (R.id.customer_search_add_edit) as Button
 		  update.setOnClickListener {
 
-				Pos.app.keyboardView.swipeLeft ()
 				if (this::customer.isInitialized) {
 					 
 					 Pos.app.posAppBar.customer (customer.display ())
@@ -107,14 +140,23 @@ class CustomerSearchView (): EditView () {
 				else {
 					 
 					 // new customer
-
+					 
 					 customer = Customer ()
 				}
 				
+			  	Pos.app.keyboardView.swipeLeft ()
 				CustomerEditView (customer.getInt ("id"))
 		  }
+		  
+		  var cancel = layout.findViewById (R.id.customer_search_cancel) as Button
+		  cancel.setOnClickListener {
+
+		  		Pos.app.keyboardView.swipeLeft ()
+				Pos.app.input.clear ()
+				PosDisplays.clear ()
+		  }
 	 }
-	 
+
 	 inner class ListAdapter (context: Context): BaseAdapter () {
 		  
 		  override fun getCount (): Int {
@@ -145,14 +187,18 @@ class CustomerSearchView (): EditView () {
 				val view = Pos.app.inflater.inflate (R.layout.customer_line_layout, this)
 				view.setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
 				
-				val name  = view.findViewById (R.id.customer_name) as PosText?
-				val email  = view.findViewById (R.id.customer_email) as PosText?
-				val phone  = view.findViewById (R.id.customer_phone) as PosText?
+				val name = view.findViewById (R.id.customer_name) as PosText?
+				val email = view.findViewById (R.id.customer_email) as PosText?
+				val phone = view.findViewById (R.id.customer_phone) as PosText?
 
 				name?.setText (cust.getString ("fname") + " " + cust.getString ("lname"))
 				email?.setText (cust.getString ("email"))
 				phone?.setText (cust.getString ("phone").phone ())
 
+				name?.setTextColor (fg)
+				email?.setTextColor (fg)
+				phone?.setTextColor (fg)
+				
 				if ((position % 2) == 0) {
 
 					 setBackgroundResource (R.color.light_even_bg)
@@ -176,8 +222,6 @@ class CustomerSearchView (): EditView () {
 		  
 		  val select = "select * from customers where " +
 
-		  "pin = '${search}'" +
-		  " or " +
 		  "fname like '${search}%'" +
 		  " or " +
 		  "lname like '${search}%'" +
@@ -189,7 +233,7 @@ class CustomerSearchView (): EditView () {
 		  
 		  val custResult = DbResult (select, Pos.app.db)
 		  while (custResult.fetchRow ()) {
-
+				
 				list.add (custResult.row ())
 		  }
 		  

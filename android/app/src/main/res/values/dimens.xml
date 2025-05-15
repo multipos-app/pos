@@ -5,8 +5,8 @@
   <!-- activity -->
   
   <dimen name="activity_main_padding">5dp</dimen>
-  <dimen name="activity_main_margin_top">60dp</dimen>
-  <dimen name="activity_main_app_bar_height">60dp</dimen>
+  <dimen name="activity_main_margin_top">100dp</dimen>
+  <dimen name="activity_main_app_bar_height">100dp</dimen>
   <dimen name="app_version_text">18sp</dimen>
   
   <dimen name="app_xlg_text">42sp</dimen>
@@ -47,12 +47,12 @@
   
   <!-- app bar-->
 
-  <dimen name="app_bar_icon_size">32sp</dimen>
+  <dimen name="app_bar_icon_size">36sp</dimen>
   <dimen name="app_bar_text">28sp</dimen>
   <dimen name="app_bar_icon_margin">15dp</dimen>
   <dimen name="app_bar_icon_padding">15dp</dimen>
   <dimen name="app_bar_padding">5dp</dimen>
-  <dimen name="app_bar_customer_text">18sp</dimen>
+  <dimen name="app_bar_customer_text">24sp</dimen>
   <dimen name="app_bar_clock_width">500dp</dimen>
 
   <!-- cash management -->
@@ -154,7 +154,6 @@
   <!-- ticket -->
   
   <dimen name="ticket_item_icon_text">20sp</dimen>
-  <dimen name="ticket_item_xlg_text">40sp</dimen>
   <dimen name="ticket_item_lg_text">32sp</dimen>
   <dimen name="ticket_item_md_text">30sp</dimen>
   <dimen name="ticket_item_sm_text">20sp</dimen>
@@ -187,7 +186,7 @@
 
   <!-- menu buttons -->
 
-  <dimen name="menu_button_text">14sp</dimen>
+  <dimen name="menu_button_text">16sp</dimen>
   
   <dimen name="menu_button_margin_start">3dp</dimen>
   <dimen name="menu_button_margin_top">3dp</dimen>
@@ -201,9 +200,9 @@
   
   <!-- customer search -->
 
-  <dimen name="customer_sm_text">14sp</dimen>
-  <dimen name="customer_md_text">20sp</dimen>
-  <dimen name="customer_lg_text">24sp</dimen>
+  <dimen name="customer_sm_text">18sp</dimen>
+  <dimen name="customer_md_text">24sp</dimen>
+  <dimen name="customer_lg_text">32sp</dimen>
   <dimen name="customer_line_margin">7dp</dimen>
   <dimen name="customer_line_padding">7dp</dimen>
  

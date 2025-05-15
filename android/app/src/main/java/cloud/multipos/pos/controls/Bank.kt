@@ -54,8 +54,6 @@ class Bank (): CompleteTicket (), InputListener {
 	 }
 	 
 	 override fun accept (result: Jar) {
-
-		  Logger.d ("bank accept... ${jar ()}")
 		  
 		  var amount = result.getDouble ("value") / 100.0
 		  

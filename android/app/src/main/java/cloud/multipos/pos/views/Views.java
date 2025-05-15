@@ -20,7 +20,6 @@ import cloud.multipos.pos.*;
 import cloud.multipos.pos.util.*;
 
 import android.graphics.Typeface;
-import android.widget.Toast;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.view.View;

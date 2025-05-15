@@ -78,7 +78,7 @@ class ControlsGridLayout (val menu: Jar,
 						  .put ("params", Jar ()
 										.put ("menu_index", index ++))
 					 
-		  			 grid.addView (NavigateButton (t))
+		  			 grid.addView (ControlNavButton (t, posMenuControl))
 				}
 
 				while (index < menu.getInt ("width")) {
@@ -90,24 +90,23 @@ class ControlsGridLayout (val menu: Jar,
 				}
 		  }
 
-	 	  for (b in buttons) {
-
-				if (b.has ("class")) {
+	 	  for (button in buttons) {
+				
+				if (button.has ("class")) {
 					 
-					 when (b.getString ("class")) {
+					 when (button.getString ("class")) {
 					 
 						  "Null" -> {
 
 		  						grid.addView (EmptyButton ())
 						  }
 						  
-						  "Separator" -> {
-								
-		  						// grid.addView (Separator (b))
-						  }
 						  else -> {
 								
-		  						grid.addView (GridControlButton (b))
+		  						grid.addView (if (button.getBoolean ("image"))
+												  ControlImageButton (button, controls)
+												  else
+												  ControlTextButton (button, controls))
 						  }
 					 }
 				}
@@ -116,170 +115,20 @@ class ControlsGridLayout (val menu: Jar,
 		  addView (grid)
 	 }
 	 
-	 inner class GridControlButton (jar: Jar): GridButton (jar) {
-		  
-		  init {
+
+	 // inner class NavigateButton (jar: Jar): LinearLayout (Pos.app) {
+
+	 // 	  init {
 				
-				var control: Control?  = controls.get (jar.getString ("class"))
-				
-				if (control == null) {
-
-					 var controlClass = jar.getString ("class")
-
-					 if (controlClass == "Item") {
-
-						  controlClass = "DefaultItem"
-					 }
-					 
-					 control = Control.factory (controlClass)
-					 controls.put (jar.getString ("class"), Control.factory (controlClass))
-				}
-					 
-				view.setOnClickListener {
-						  
-					 var c = controls.get (jar.getString ("class"))
-
-					 if (c != null) {
-						  
-						  c.action (jar.get ("params").put ("entry_mode", "control"))						  
-					 }
-				}
-
-				view.setOnLongClickListener {
-					 
-					 return@setOnLongClickListener true
-				}
-		  }
-	 }
-	 
-	 inner class NavigateButton (jar: Jar): GridButton (jar) {
-
-		  init {
-				
-				button?.setText (jar.getString ("text"))				
-				button?.setTypeface (Views.buttonFont ())
-				button?.setOnClickListener {
+	 // 			button?.setText (jar.getString ("text"))				
+	 // 			button?.setTypeface (Views.buttonFont ())
+	 // 			button?.setOnClickListener {
 					 					 
-					 posMenuControl.menu (jar.get ("params").getInt ("menu_index"))
-				}
-		  }
-	 }
+	 // 				 posMenuControl.menu (jar.get ("params").getInt ("menu_index"))
+	 // 			}
+	 // 	  }
+	 // }
 	 	 
-	 inner open class GridButton (jar: Jar): LinearLayout (Pos.app.activity) {
-
-		  var layoutParams: GridLayout.LayoutParams
-		  lateinit var view: View
-		  lateinit var button: MaterialButton
-	  
-		  init {
-
-				var isImageButton = false
-				var sku = ""
-		
-				if (Pos.app.config.getBoolean ("image_buttons")) {
-					 
-					 var imageFile = File ("/sdcard/img/${sku}.png");
-					 isImageButton = (Pos.app.config.getBoolean ("image_buttons") &&
-											(jar.getString ("class") == "Item") &&
-											imageFile.exists ())
-				}
-				
-				if (isImageButton) {
-					 
-					 Pos.app.inflater.inflate (R.layout.pos_control_image_button, this)
-				}
-				else {
-					 
-					 Pos.app.inflater.inflate (R.layout.pos_control_button, this)
-				}
-				
-				layoutParams = GridLayout.LayoutParams (GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f),
-																	 GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f))
-				layoutParams.height = 0
-				layoutParams.width = 0
-				setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
-				setLayoutParams (layoutParams)
-				setPadding (0, 0, 0, 0)
-
-				if (isImageButton) {
-
-					 var imageButton = findViewById (R.id.image_control_button) as ImageView
-					 imageButton.setScaleType (ScaleType.FIT_XY)
-					 sku = jar.get ("params").getString ("sku")
-					 var imageFile = File ("/sdcard/img/${sku}.png");
-
-					 if (imageFile.exists ()) {
-						  
-						  var bitmap = BitmapFactory.decodeFile (imageFile.getAbsolutePath ())
-						  imageButton.setImageBitmap (bitmap);
-					 }
-					 else {
-
-						  Logger.w ("missing image file for button... ${sku}")
-					 }
-					 
-					 view = imageButton
-				}
-				else {
-				
-					 button = findViewById (R.id.text_control_button) as MaterialButton
-
-					 var color = "#eeeeee"
-					 if (jar.has ("color")) {
-						  
-						  color = jar.getString ("color")
-						  if (color.length == 0) {
-								
-								Logger.w ("invalid button color... ${jar}")
-								color = "#eeeeee"
-						  }
-					 }
-					 
-					 if (Themed.theme == Themes.Light) {
-						  
-						  // lighten the color
-						  
-						  color = color.replace ("#", "#30")
-					 }
-					 
-					 var tmp = Color.WHITE
-					 
-					 try {
-						  
-						  tmp = Color.parseColor (color)
-					 }
-					 catch (e: Exception) {
-						  
-						  Logger.w ("error parsing color... ${jar}")
-						  color = "#eeeeee"
-					 }
-					 
-					 button.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
-					 
-					 val colorList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
-																			intArrayOf(android.R.attr.state_enabled)),
-																intArrayOf (Color.DKGRAY,
-																				Color.parseColor (color)))
-		 			 button.setBackgroundTintList (colorList)
-					 
-					 // add the stroke
-					 
-					 val strokeList = ColorStateList (arrayOf (intArrayOf(-android.R.attr.state_enabled),
-																			 intArrayOf(android.R.attr.state_enabled)),
-																 intArrayOf (Color.BLACK,
-																				 Color.parseColor (Pos.app.getString (R.color.dk_gray))))
-					 
-					 button.strokeWidth = 3
-					 button.strokeColor = strokeList
-					 button.setText (jar.getString ("text"))
-					 button.setTypeface (Views.buttonFont ())
-					 view = button;
-				}
-				
-				setClickable (true)
-		  }
-	 }
-
 	 inner class EmptyButton (): LinearLayout (Pos.app.activity) {
 		  
 		  init {
@@ -290,21 +139,6 @@ class ControlsGridLayout (val menu: Jar,
 				layoutParams.height = 0
 				layoutParams.width = 0
 				setLayoutParams (layoutParams)
-		  }
-	 }
-	 
-	 inner open class Separator (jar: Jar): PosText (Pos.app.activity, attrs) {
-
-		  init {
-				
-				var layoutParams = GridLayout.LayoutParams (GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, menu.getInt ("width").toFloat ()),
-																		  GridLayout.spec (GridLayout.UNDEFINED, GridLayout.FILL, 1f))
-				layoutParams.height = 0
-				layoutParams.width = 0
-				setText (jar.getString ("text"))
-				setTextColor (R.color.black)
-				setLayoutParams (layoutParams)
-
 		  }
 	 }
 }

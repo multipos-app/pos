@@ -68,8 +68,6 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 
 	 override fun listEntry (pos: Int, view: View): View {
 		  				
-		  if (list.get (pos) is Jar) {
-
 					 var p = list.get (pos)
 					 
 					 when (p) {
@@ -86,12 +84,12 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 						  
 						  is TicketTender -> {
 								
-								return TenderLine (context, p)
+								return TenderLine (context, p, Pos.app.ticket)
 						  }
 						  
 						  else -> { }
 					 }
-		  }
+					 
 		  return view
 	 }
 

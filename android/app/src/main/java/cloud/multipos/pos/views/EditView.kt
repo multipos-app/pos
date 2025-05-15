@@ -45,17 +45,33 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 	 var fields = mutableListOf <PosEditText> ()
 	 var curr = 0
 	 var pos = 0
+	 var fg = Color.BLACK
 
 	 init {
 
 		  instance = this
-		  layout = Pos.app.inflater.inflate (R.layout.edit_layout, Pos.app.keyboardView.inputView ()) as LinearLayout
+		  fg = if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE
+		  layout = Pos.app.inflater.inflate (R.layout.edit_layout, Pos.app.keyboardView.editLayout) as LinearLayout
 		  editLayout = layout.findViewById (R.id.edit_fields) as LinearLayout
 		  actionsLayout = layout.findViewById (R.id.edit_actions_layout) as LinearLayout
 		  actions ()
 	 }
+
+	 /**
+	  *
+	  * behave like a keyboard, generate key events in edit view
+	  *
+	  */
 	 
-	 open fun onChange () { }
+	 open fun keyEvent ():Boolean { return true }  
+	 
+	 /**
+	  *
+	  * send event to client
+	  *
+	  */
+	 
+	 open fun onChange (ch: String) { }
 
 	 open fun actionsLayoutID (): Int { return R.layout.edit_actions_layout }
 
@@ -88,54 +104,33 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 		  field.setText (text)
 		  fields.add (field)
 		  field.pos = pos ++
-		  
+
 		  field?.setOnClickListener {
 
 				curr = field.pos
-				for (f in fields) {
-					 
-					 f?.setBackgroundResource (R.drawable.gray_border)
-				}
-				fields [curr]?.setBackgroundResource (R.drawable.black_border)
 				fields [curr]?.requestFocus ()
 		  }
 		  
 		  return field
 	 }
 
-	 fun home () {
+	 open fun home () {
 		  
 		  curr = 0
-		  if (fields.size > 0) {
-				
-				for (f in fields) {
-					 
-					 f?.setBackgroundResource (R.drawable.gray_border)
-				}
-				fields [curr]?.setBackgroundResource (R.drawable.black_border)
-				fields [curr]?.requestFocus ()
-		  }
+		  fields [curr]?.requestFocus ()
 	 }
 	 
-	 fun del () {
+	 open fun del () {
 
 		  fields [curr]?.del ()
-		  
-		  // var pos = fields [curr]?.getSelectionStart ()!!
-		  // if (pos > 0) {
-				
-		  // 		var text = fields [curr]?.getText ()?.delete (pos - 1, pos)?.toString ()
-		  // 		fields [curr]?.setText (text)
-		  //  	fields [curr]?.setSelection (pos - 1)
-		  // }
 	 }
 
-	 fun space () {
+	 open fun space () {
 		  
 		  fields [curr]?.getText ()?.insert (fields [curr]?.getSelectionStart ()!!, " ")
 	 }
 	 
-	 fun up () {
+	 open fun up () {
 
 		  val valid = fields [curr]!!.isValid ()
 
@@ -143,15 +138,6 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 
 				fields [curr]?.setTextColor (Color.RED)
 				return
-		  }
-		  
-		  if (fields.size > 0) {
-				
-				for (f in fields) {
-
-					 f?.setBackgroundResource (R.drawable.gray_border)
-					 f?.setTextColor (Color.BLACK)
-				}
 		  }
 
 		  if (curr > 0) {
@@ -163,11 +149,10 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 				curr = fields.size - 1
 		  }
 		  
-		  fields [curr]?.setBackgroundResource (R.drawable.black_border)
 		  fields [curr]?.requestFocus ()
 	 }
 
-	 fun down () {
+	 open fun down () {
 
 		  val valid = fields [curr]!!.isValid ()
 
@@ -175,15 +160,6 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 
 				fields [curr]?.setTextColor (Color.RED)
 				return
-		  }
-		  
-		  if (fields.size > 0) {
-				
-				for (f in fields) {
-
-					 f?.setBackgroundResource (R.drawable.gray_border)
-					 f?.setTextColor (Color.BLACK)
-				}
 		  }
 
 		  if (curr == fields.size - 1) {
@@ -195,7 +171,6 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 				curr ++
 		  }
 		  
-		  fields [curr]?.setBackgroundResource (R.drawable.black_border)
 		  fields [curr]?.requestFocus ()
 	 }
 	 
@@ -216,7 +191,13 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 
 	 open fun reset () {
 
-		  reset ()
+		  for (field in fields) {
+
+				field.clear ()
+		  }
+		  
+		  curr = 0
+		  fields [curr]?.requestFocus ()
 	 }
 
 	 open fun cancel () {

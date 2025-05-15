@@ -29,15 +29,12 @@ public class Enter (): Control () {
 
 		  jar (jar)
 		  
-		  Logger.x ("enter init... ${Pos.app.controls.size}")
-
 		  if (Pos.app.controls.size > 0) {
 
 				val control = Pos.app.controls.removeFirst ()
 
 				if (control is InputListener) {
 
-					 Logger.x ("enter action... ${control}")
 					 control.accept (Jar ())
 				}
 				else if (control is DefaultItem) {
@@ -48,7 +45,6 @@ public class Enter (): Control () {
 					 
 					 Pos.app.input.clear ()
 					 control.complete ()
-					 
 					 return;
 				}
 				else {
@@ -70,7 +66,6 @@ public class Enter (): Control () {
 					 
 					 // operator input sku?
 
-					 Logger.d ("enter control... ${Pos.app.input.getString ()} ${Pos.app.input.length ()}")
 					 
 					 when (Pos.app.input.length ()) {  
 													
@@ -90,7 +85,6 @@ public class Enter (): Control () {
 					 }
 				}
 		  
-		  PosDisplays.enter ()
-		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // wake up the customer display
+		  // PosDisplays.enter ()
 	 }
 }

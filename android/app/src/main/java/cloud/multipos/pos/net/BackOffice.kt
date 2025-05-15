@@ -68,7 +68,6 @@ object BackOffice: Device, DeviceCallback {
 				}
 		  }
 
-		  Pos.app.devices.add (this)
 		  Pos.app.db ().exec ("delete from pos_updates")
 	 }
 	 
@@ -86,15 +85,17 @@ object BackOffice: Device, DeviceCallback {
 		  handler = object: Handler () {
 
 				override fun handleMessage (message: Message) {
-					 
+
 					 val download = Jar ()
 						  .put ("update_id", Pos.app.local.getInt ("update_id", 0))
 						  .put ("pos_config_id", Pos.app.local.getInt ("pos_config_id", 0))
 						  .put ("download_count", downloadCount)
-					 					 
+
 					 Post ("pos-download")
 						  .add (download)
 						  .exec (fun (result: Jar): Unit {
+										 
+										 Logger.i ("back office... ${result.getInt ("status")} ${result.getInt ("total")}")
 										 
 										 if (result.getInt ("status") == 0) {
 										 	  
@@ -156,12 +157,20 @@ object BackOffice: Device, DeviceCallback {
 						  })
 				}
 		  }
+		  
+		  Pos.app.devices.add (this)
+		  download ()
 	 }
 	 
     fun start (handler: Handler) {
 
 		  progress = handler
 		  start ()
+	 }
+
+	 fun onPause () {
+
+		  started = false
 	 }
 	 
 	 override fun start (jar: Jar) {
@@ -203,11 +212,6 @@ object BackOffice: Device, DeviceCallback {
 						  }
 					 }
 
-					 if (update.getString ("update_table") == "departments") {
-
-						  Logger.x ("update... ${update}")
-					 }
-					 
 					 when (update.getString ("update_table")) {
 
 						  "pos_configs" -> {
@@ -300,7 +304,7 @@ object BackOffice: Device, DeviceCallback {
 								message (update)
 						  }
 						  "customers" -> {
-								
+
 								Pos.app.db ().insert (update.getString ("update_table"), row)
 						  }
 
@@ -326,8 +330,6 @@ object BackOffice: Device, DeviceCallback {
 		  		  
         val m = message.get (message.getString ("method"))
 
-		  Logger.d ("pos message... ${message}")
-
 		  when (message.getString ("method")) {
 				
 				"control" -> {
@@ -343,7 +345,6 @@ object BackOffice: Device, DeviceCallback {
 				"server_log" -> {
 					 
 					 Pos.app.serverLog = message.getString ("value")
-					 Logger.i ("server log... ${Pos.app.serverLog}")
 				}
 								
 				"message" -> {
@@ -366,10 +367,7 @@ object BackOffice: Device, DeviceCallback {
 					 Post ("pos-download/pos-message")
 						  .add (Jar ()
 										.put ("results", jars))
-						  .exec (fun (result: Jar): Unit {
-										 
-										 Logger.d ("message post... ${result}")
-									}
+						  .exec (fun (result: Jar): Unit { }
 						  )
 				}
 		  }

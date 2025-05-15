@@ -35,8 +35,6 @@ class ZSession (): SessionManager () {
 
 	 override fun controlAction (jar: Jar) {
 		  
-		  Logger.d ("z... ${confirmed ()} ${Pos.app.config.getBoolean ("session_logout")}")
-
 		  if (confirmed ()) {
 
 		  		confirmed (false)
@@ -54,8 +52,6 @@ class ZSession (): SessionManager () {
 				if (Pos.app.config.getBoolean ("session_logout")) {
 					 
 					 // log cashier off
-
-					 Logger.d ("session logout...")
 					 
 					 Pos.app.ticket ()
 					 Pos.app.logout ()

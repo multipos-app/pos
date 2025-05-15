@@ -20,6 +20,7 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.models.*
+import cloud.multipos.pos.net.Post
 
 import android.content.Context
 import android.util.AttributeSet
@@ -48,9 +49,12 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 var customerClear: PosIconText? = null
 	 val devices = mutableListOf <DeviceIcon> ()
 	 var themeIcon = ThemeIcon ()
+	 var handler = AppHandler ()
 	 val sb = StringBuffer () // for keyboard input
 
 	 lateinit var rootLayout: LinearLayout
+	 lateinit var updateThread: Thread
+	 var running = true
 	 
 	 init {
 
@@ -100,76 +104,77 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  clock?.setTextColor (ContextCompat.getColorStateList (Pos.app.activity, R.color.white))
 		  
 		  // devices
-
-		  addDevices ()
-		  		  
-		  // handler, clock and device update thread
 		  
-		  var handler: Handler = object: Handler () {
+		  addDevices ()
 
-				override fun handleMessage (message: Message) {
+		  // press the mp icon to send pos info to server
+		  
+		  val posInfo = findViewById (R.id.pos_info) as View?
+		  posInfo?.setOnClickListener {
 
-					 if (Pos.app.messages.size > 0) {
-					 
-						  var resource = if (message.what == 0) R.drawable.app_icon else R.drawable.app_icon_transparent
-						  // p?.setImageDrawable (Pos.app.getResources ().getDrawable (resource))
-					 }
-					 else {
-						  // p?.setImageDrawable (Pos.app.activity.getResources ().getDrawable (R.drawable.app_icon))
-					 }
-						  
-					 val df = SimpleDateFormat ("EEE d MMM HH:mm:ss", Pos.app.locale)
-					 clock.setText (df.format (Date ()))
-
-					 for (icon in devices) {
-						  
-						  when (icon.device.deviceStatus ()) {
-								
-								DeviceStatus.Unknown -> {
-									 
-									 icon.text ().setTextColor (Color.parseColor (Pos.app.getString (R.color.pos_secondary)))
-								}
-								DeviceStatus.OnLine -> {
-									 
-									 icon.text ().setTextColor (Color.parseColor (Pos.app.getString (R.color.white)))
-								}
-								DeviceStatus.OffLine -> {
-									 									 
-									 icon.text ().setTextColor (Color.parseColor (Pos.app.getString (R.color.pos_danger)))
-								}
-								DeviceStatus.Invisible -> {
-									 									 
-									 icon.text ().setTextColor (Color.parseColor ("#00000000"))
-								}
-								else -> { }
-						  }
-					 }
-				}
+				Logger.d ("pos info...")
+				
+				Post ("pos/pos-config")
+					 .add (Jar ()
+								  .put ("results", Pos.app.config))
+					 .exec (fun (result: Jar): Unit { }
+					 )
 		  }
-					 
-		  Thread (Runnable {
-						  
-						  var toggle = 0
-						  while (true) {
-								
-								Thread.sleep (500)
-								
-								val message = Message.obtain ()
-								message.what = toggle % 2
-								handler.sendMessage (message)
-								toggle ++
-						  }
-						  
-		  }).start ()
 
 		  PosDisplays.add (this)
 		  Themed.add (this)
+		  onResume ()
 	 }
 
+	 /**
+	  *
+	  * handler, clock and device update thread
+	  *
+	  */
+	 
+	 inner class AppHandler (): Handler () {
+				
+		  override fun handleMessage (message: Message) {
+				
+				if (Pos.app.messages.size > 0) {
+					 
+					 var resource = if (message.what == 0) R.drawable.app_icon else R.drawable.app_icon_transparent
+				}
+						
+				val df = SimpleDateFormat ("EEE d MMM HH:mm:ss", Pos.app.locale)
+				clock.setText (df.format (Date ()))
+
+				for (icon in devices) {
+					 
+					 when (icon.device.deviceStatus ()) {
+						  
+						  DeviceStatus.Unknown -> {
+								
+								icon.text ().setTextColor (Color.parseColor (Pos.app.getString (R.color.pos_secondary)))
+						  }
+						  DeviceStatus.OnLine -> {
+								
+								icon.text ().setTextColor (Color.parseColor (Pos.app.getString (R.color.white)))
+						  }
+						  DeviceStatus.OffLine -> {
+								
+								icon.text ().setTextColor (Color.parseColor (Pos.app.getString (R.color.pos_danger)))
+						  }
+						  DeviceStatus.Invisible -> {
+								
+								icon.text ().setTextColor (Color.parseColor ("#00000000"))
+						  }
+						  else -> { }
+					 }
+				}
+		  }
+	 }
+	 
 	 fun addDevices () {
 		  
-		  val tray = findViewById (Pos.app.resourceID ("app_bar_tray", "id")) as LinearLayout
+		  devices.clear ()
 		  
+		  val tray = findViewById (Pos.app.resourceID ("app_bar_tray", "id")) as LinearLayout
 		  tray.removeAllViews ();
 
 		  if (Pos.app.config.getBoolean ("themed")) {
@@ -185,6 +190,36 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  }
 	 }
 
+	 fun onPause () {
+
+		  devices.clear ()
+		  running = false
+	 }
+
+	 fun onResume () {
+		  		  
+		  running = true			 
+		  Thread (Runnable {
+						  
+						  var toggle = 0
+						  while (running) {
+																								
+								val message = Message.obtain ()
+								message.what = toggle % 2
+								handler.sendMessage (message)
+								toggle ++
+								
+								Thread.sleep (1000)
+						  }
+		  }).start ()
+	 }
+
+	 /**
+	  *
+	  * PosDisplay impl
+	  *
+	  */
+	 
 	 override fun update () {
 		  
 		  if (Pos.app.ticket.getInt ("customer_id") > 0) {
@@ -258,17 +293,7 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 
 	 override fun update (theme: Themes) {
 		  
-		  when (theme) {
-					 
-				Themes.Light -> {
-						  
-					 rootLayout.setBackgroundResource (R.color.pos_app_bg)
-				}
-					 
-				Themes.Dark -> {
-						  
-					 rootLayout.setBackgroundResource (R.color.dark_bg)
-				}
-		  }
+		  customerName?.setTextColor (Color.WHITE)
+		  customerClear?.setTextColor (Color.RED)
 	 }
 }

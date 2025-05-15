@@ -21,6 +21,7 @@ import java.util.ArrayList
 import cloud.multipos.pos.Pos
 import cloud.multipos.pos.R
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.views.ScalesView
@@ -72,10 +73,14 @@ class Metric (): Pricing (), InputListener {
 		  item.jar ().put ("merge_like_items", false)
 
 		  if (weight > 0.0) {
+
+				var itemDesc = item.ticketItem ().getString ("item_desc") +
+				" ${weight}${item.item.get ("pricing").getString ("metric")}@${item.item.get ("pricing").getDouble ("price").currency (false)}"
 				
 				item.ticketItem ()
 					 .put ("amount", amount)
 					 .put ("metric", metric.getDouble ("value"))
+					 .put ("item_desc", itemDesc)
 				
 				item.complete ()
 		  }

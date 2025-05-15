@@ -36,8 +36,6 @@ open class DefaultItem (): FirstItem (), InputListener {
 	 override fun controlAction (jar: Jar) {
 		  
 		  var sku = ""
-		  		  
-		  Logger.x ("default item action... ${jar}")
 		  
 		  jar (jar)
 		  
@@ -83,8 +81,6 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  }
 		  
 		  item = Item (jar ())
-
-		  Logger.x ("item... ${item}")
 		  
 		  if (item.exists ()) {
 
@@ -286,15 +282,8 @@ open class DefaultItem (): FirstItem (), InputListener {
 					 while (addonResult.fetchRow ()) {
 						  
 						  var addon = addonResult.row () as Jar
-
-						  if (addon != null) {
-
-								val a = LoadClass.get ("cloud.multipos.pos.addons." + addon.getString ("class")) as Addon
-								if (a != null) {
-									 
-									 a.apply (ticketItem, addon)
-								}
-						  }
+						  val a = LoadClass.get ("cloud.multipos.pos.addons." + addon.getString ("class")) as Addon
+						  a.apply (ticketItem, addon)
 					 }
 				}
 		  }

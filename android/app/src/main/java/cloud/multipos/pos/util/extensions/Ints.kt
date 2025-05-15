@@ -13,20 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
- 
-package cloud.multipos.pos.controls;
 
-import cloud.multipos.pos.*;
-import cloud.multipos.pos.util.*;
+package cloud.multipos.pos.util.extensions
 
-import android.content.Intent;
+import cloud.multipos.pos.util.*
 
-public class Restart extends Control {
+fun Int.odd (): Boolean {
 
-	 public Restart () { super (); }
-
-	 public void controlAction (Jar e) {
-		  
-		  Pos.app.restart ();
-	 }
+	 return (this % 2) == 1
 }
+
+fun Int.even (): Boolean {
+
+	 return (this % 2) == 0
+}
+

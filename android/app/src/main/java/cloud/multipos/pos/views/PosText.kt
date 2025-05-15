@@ -26,12 +26,14 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import android.graphics.Typeface
+import android.graphics.Color
 
 open class PosText (context: Context, attrs: AttributeSet): TextView (context, attrs) {
 
 	 init {
 		  
 		  setTypeface (Views.displayFont ())
+		  // setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
 	 }
 
 	 fun normal () {

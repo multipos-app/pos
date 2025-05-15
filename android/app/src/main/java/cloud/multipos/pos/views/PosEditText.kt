@@ -29,6 +29,8 @@ import android.text.InputType
 import android.view.inputmethod.EditorInfo
 import android.text.TextWatcher
 import android.text.Editable
+import android.view.KeyEvent
+import android.graphics.Color
 
 open class PosEditText (context: Context, attrs: AttributeSet): EditText (context, attrs), TextWatcher, PosTextValidator {
 
@@ -38,7 +40,6 @@ open class PosEditText (context: Context, attrs: AttributeSet): EditText (contex
 	 init {
 
 		  setShowSoftInputOnFocus (false)
-		  		  
 		  setOnFocusChangeListener { _, hasFocus -> if (hasFocus) {
 													
 													val ic = onCreateInputConnection (EditorInfo ())
@@ -47,6 +48,8 @@ open class PosEditText (context: Context, attrs: AttributeSet): EditText (contex
 											  }
 											  else { }
 		  }
+		  
+		  setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
 	 }
 	 
 	 open fun del () {
@@ -59,6 +62,11 @@ open class PosEditText (context: Context, attrs: AttributeSet): EditText (contex
 		   	setSelection (pos - 1)
 		  }
 	 }
+
+	 open fun clear () {
+
+		  setText ("")
+	 }
 	 
 	 override fun isValid (): Boolean { return true }
 	 
@@ -68,7 +76,7 @@ open class PosEditText (context: Context, attrs: AttributeSet): EditText (contex
 
 		  if (this::changeListener.isInitialized) {
 
-				changeListener.onChange ()
+				changeListener.onChange (text.toString ())
 		  }
 	 }
 	 

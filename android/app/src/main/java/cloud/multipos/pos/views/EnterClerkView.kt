@@ -34,14 +34,16 @@ class EnterClerkView (val control: InputListener, title: String, prompt: String)
 
 	 var enterClerkEcho: TextView
 	 var enterClerkStatus: TextView
+	 var clerkSelected = false
+	 
 	 lateinit var clerk: Employee
+	 
 	 
 	 init {
 		  
 		  if (Pos.app.controls.size > 0) {
 				
 				val control = Pos.app.controls.removeFirst ()
-				Logger.x ("enter clerk view... ${control}")
 		  }
 	  
 		  Pos.app.inflater.inflate (R.layout.enter_clerk_layout, dialogLayout)
@@ -72,15 +74,14 @@ class EnterClerkView (val control: InputListener, title: String, prompt: String)
 	 }
 
 	 override fun accept () {
-		  
-		  Logger.d ("accept... " + enterClerkEcho.text + " " + this::clerk.isInitialized)
-		  
-		  if (this::clerk.isInitialized) {
+		  		  
+		  if (clerkSelected) {
 
 				Pos.app.input.clear ()
 				PosDisplays.clear ()
 				DialogControl.close ()
 				control.accept (clerk)
+				clerkSelected = false
 		  }
 		  else {
 				
@@ -89,6 +90,7 @@ class EnterClerkView (val control: InputListener, title: String, prompt: String)
 					 
 					 clerk = Employee (employeeResult.row ())
 					 enterClerkStatus.text = clerk.display () + '?'
+					 clerkSelected = true
 				}
 				else {
 

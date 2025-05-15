@@ -189,6 +189,17 @@
  		  android:clickable="true"
         android:textSize="@dimen/ticket_footer_xlg_text"/>
 	 
+	 	 <cloud.multipos.pos.views.PosIconText
+  		  android:id="@+id/ticket_nav_suspend"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+		  android:layout_height="match_parent"
+        android:gravity="center"
+		  android:text="@string/fa_suspend"
+        android:textColor="@color/black"
+ 		  android:clickable="true"
+        android:textSize="@dimen/ticket_footer_xlg_text"/>
+	 
 	 <cloud.multipos.pos.views.PosIconText
    	  android:id="@+id/ticket_nav_print"
         android:layout_width="0dp"
@@ -196,6 +207,17 @@
 		  android:layout_height="match_parent"
         android:gravity="center"
 		  android:text="@string/fa_receipt_printer"
+        android:textColor="@color/black"
+ 		  android:clickable="true"
+        android:textSize="@dimen/ticket_footer_xlg_text"/>
+	 
+	 <cloud.multipos.pos.views.PosIconText
+   	  android:id="@+id/ticket_nav_customer"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+		  android:layout_height="match_parent"
+        android:gravity="center"
+		  android:text="@string/fa_customer"
         android:textColor="@color/black"
  		  android:clickable="true"
         android:textSize="@dimen/ticket_footer_xlg_text"/>

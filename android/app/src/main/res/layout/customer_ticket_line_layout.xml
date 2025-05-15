@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    android:id="@+id/customer_ticket_select"
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+	 android:clickable="true"
+	 android:enabled="true"
+    android:paddingTop="@dimen/customer_line_padding"
+    android:paddingBottom="@dimen/customer_line_padding"
+	 android:background="@color/transparent"
+	 android:elevation="5dp">
+
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:background="@color/transparent"
+      android:orientation="horizontal"
+		android:enabled="true"
+		android:clickable="false">
+
+	 <cloud.multipos.pos.views.PosText
+ 		  android:clickable="false"
+ 		  android:enabled="false"
+        android:id="@+id/customer_ticket_date"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="start"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/customer_md_text"
+		  android:padding="@dimen/customer_line_padding"
+		  android:background="@color/transparent"/>
+
+	 <cloud.multipos.pos.views.PosText
+ 		  android:clickable="false"
+ 		  android:enabled="false"
+        android:id="@+id/customer_ticket_items"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="2"
+        android:gravity="end"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/customer_md_text"
+		  android:padding="@dimen/customer_line_padding"
+		  android:background="@color/transparent"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+ 		  android:clickable="false"
+ 		  android:enabled="false"
+        android:id="@+id/customer_ticket_total"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/customer_md_text"
+		  android:padding="@dimen/customer_line_padding"
+		  android:background="@color/transparent"/>
+	 
+	 <cloud.multipos.pos.views.PosText
+ 		  android:clickable="false"
+  		  android:enabled="false"
+        android:id="@+id/customer_ticket_state"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="end"
+        android:text=""
+		  android:textColor="@color/black"
+        android:textSize="@dimen/customer_md_text"
+		  android:padding="@dimen/customer_line_padding"
+		  android:background="@color/transparent"/>
+
+  </LinearLayout>
+  
+</LinearLayout>

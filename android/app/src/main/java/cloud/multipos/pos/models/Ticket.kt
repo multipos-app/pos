@@ -19,9 +19,9 @@ package cloud.multipos.pos.models
 import cloud.multipos.pos.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
+import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.addons.*
 
-import java.util.UUID
 import java.util.Random
 import java.util.Date
 import android.os.Build
@@ -64,9 +64,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  
 		  if (ticketID > 0) {
 				
-				var ticketTotal = 0;
-				val select = "select * from tickets where id = " + ticketID
-				
 				val ticketResult  = DbResult ("select * from tickets where id = " + ticketID, Pos.app.db ())
 				if (ticketResult.fetchRow ()) {
 
@@ -84,6 +81,10 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 addItems (ticketID)
 					 addTaxes (ticketID)
 					 addTenders (ticketID)
+				}
+				else {
+
+					 Logger.w ("no ticket found for ${ticketID}")
 				}
 
 				put ("ticket_items", items)
@@ -108,7 +109,8 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 }
 				}
 
-				put ("state", state)
+				// put ("state", state)
+				
 				update ()  // set totals, tax, etc...
 		  }
 		  else {
@@ -135,7 +137,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 .put ("state", OPEN)
 					 .put ("flags", 0)
 					 .put ("recall_key", recallID ())
-					 .put ("uuid", UUID.randomUUID ().toString ())  // add a uuid
+					 .put ("uuid", "".uuid ())  // add a uuid
 				
 				var id = Pos.app.db ().insert ("tickets", this)
 				var ticketNo = String.format ("%d", id)
@@ -302,8 +304,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 						  if ((Pos.app.config.taxes () != null) && (item.getInt ("tax_group_id") > 1)) {
 								
 								var taxGroup = Pos.app.config.taxes ().get (Integer.toString (item.getInt ("tax_group_id"))) as Jar
-								if (taxGroup != null) {
-
+								
 									 var tax = item.tax (taxGroup)
 									 if (item.getInt ("tax_incl") == 1) {
 
@@ -313,7 +314,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 										  taxTotal += tax
 									 }
 									 item.put ("tax_amount", tax)
-								}
 						  }
 						  else {
 						  }
@@ -536,6 +536,8 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 }
 
 	 private fun recallID (): String {
+
+		  // this device cannot print a qrcode, create a random string of digits
 		  
 		  if (Build.MODEL == "Elo-PP3-13") {
 				
@@ -574,7 +576,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  }
 		  else {
 				
-				return UUID.randomUUID ().toString ()
+				return "".uuid ()
 		  }
 	 }
 
@@ -648,5 +650,23 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
  		  const val DELIVERY_ITEMS        = 0x2
 		  
 		  private val ALLOWED_CHARACTERS = "0123456789"
+
+		  fun getState (state: Int): String {
+				
+				when (state) {
+					 
+		 			 OPEN -> { return Pos.app.getString ("ticket_open") }
+					 COMPLETE -> { return Pos.app.getString ("ticket_complete") }
+					 ERROR -> { return Pos.app.getString ("ticket_error") }
+					 SUSPEND -> { return Pos.app.getString ("ticket_suspend") }
+					 CREDIT_PENDING -> { return Pos.app.getString ("ticket_credit_pending") }
+					 KITCHEN_PENDING -> { return Pos.app.getString ("ticket_kitchen_pending") }
+					 VOIDED -> { return Pos.app.getString ("ticket_voided") }
+					 REFUNDED -> { return Pos.app.getString ("ticket_refunded") }
+					 REVERSED -> { return Pos.app.getString ("ticket_reversed") }
+					 RECALLED -> { return Pos.app.getString ("ticket_recalled") }
+				}
+				return ""
+		  }
 	 }
 }

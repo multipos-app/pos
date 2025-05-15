@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:requestLegacyExternalStorage="true"
-		  android:windowSoftInputMode="stateAlwaysHidden|adjustNothing">
+		  android:windowSoftInputMode="stateHidden|adjustNothing">
 
         <activity
             android:name=".Pos"

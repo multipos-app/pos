@@ -38,7 +38,7 @@ open abstract class FirstItem (): TicketModifier () {
 				
 				Pos.app.ticket.put ("start_time", Pos.app.db.timestamp (Date ()))
 				Pos.app.db.exec ("update tickets set start_time = '" + Pos.app.db.timestamp (Date ()) + "' " + " where id = " + Pos.app.ticket.getInt ("id"))
-		  
+				
 				if (Pos.app.config.getBoolean ("enter_clerk")) {
 				
 					 Control.factory ("EnterClerk").action (Jar ())

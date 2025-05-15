@@ -75,8 +75,11 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 					 
 					 desc.setText (ti.getString ("item_desc"))
 				}
-				
-				amount.setText (ti.extAmount ().currency ())
+
+				if (ti.extAmount () != 0.0) {
+
+					 amount.setText (ti.extAmount ().currency ())
+				}
 					 
 				val layout = this.findViewById (R.id.ticket_item_layout) as LinearLayout
 				layout.setOnClickListener {

@@ -73,7 +73,7 @@ public class Config extends Jar {
 		  }
 		  else {
 
-				Logger.d ("no config...");
+				Logger.stack ("no config...");
 		  }
 
 		  deviceData ();
@@ -240,6 +240,10 @@ public class Config extends Jar {
 		  put ("width", width);
 
 		  return deviceData;
+	 }
+
+	 public void Destroy () {
+
 	 }
 
 	 private Map menus = null;

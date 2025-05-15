@@ -44,7 +44,9 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 	 var next: PosIconText
 	 var prev: PosIconText
 	 var home: PosIconText
+	 var suspend: PosIconText
 	 var print: PosIconText
+	 var customer: PosIconText
 	 
 	 val textViews = mutableListOf <PosText> ()
 
@@ -95,6 +97,13 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 				navControl.action (Jar ().put ("dir", 1))
 		  }
 		  
+		  suspend = findViewById (R.id.ticket_nav_suspend) as PosIconText
+		  textViews.add (suspend)
+		  suspend?.setOnClickListener {
+
+				Control.factory ("Suspend").action (Jar ())
+		  }
+		  
 		  print = findViewById (R.id.ticket_nav_print) as PosIconText
 		  textViews.add (print)
 		  print?.setOnClickListener {
@@ -102,6 +111,13 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 				printControl.action (Jar ())
 		  }
 		  
+		  customer = findViewById (R.id.ticket_nav_customer) as PosIconText
+		  textViews.add (customer)
+		  customer?.setOnClickListener {
+				
+		  		CustomerSearchView ()
+		  }
+
 		  Themed.add (this)
 		  PosDisplays.add (this)
 		  update ()

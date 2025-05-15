@@ -24,6 +24,7 @@ import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.util.Currency
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ReportView
+import cloud.multipos.pos.views.CustomerSearchView
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.net.Upload
 
@@ -158,9 +159,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  Pos.app.ticket.update ()
 		  
 		  // display receipt?
-		  
-		  Logger.d ("print receipts... ${Pos.app.ticket.getInt ("print_receipts")}")
-						
+		  						
 		  if (state == Ticket.COMPLETE) {
 				
 				when (Pos.app.ticket.getInt ("ticket_type")) {
@@ -183,16 +182,29 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)
 
 		  // post the ticket to the server
-		  
-		  Upload ()
-				.add (Pos.app.ticket)
-				.exec ()
-		  
-		  Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)  // queue the ticket to totals
-		  
-		  updateDisplays ()  // one final update leaves the previous ticket on the displays
-		  
-		  Pos.app.ticket ()  // start a new ticket
+
+		  when (state) {
+
+				Ticket.SUSPEND -> {
+
+					 // don't upload or total
+
+					 Pos.app.ticket ()  // start a new ticket
+				}
+
+				else -> {
+					 
+					 Upload ()
+						  .add (Pos.app.ticket)
+						  .exec ()
+					 
+					 Pos.app.totalsService.q (PosConst.TICKET, Pos.app.ticket, Pos.app.handler)  // queue the ticket to totals
+
+					 PosDisplays.clear ()
+					 updateDisplays ()  // update leaves the previous ticket on the displays
+					 Pos.app.ticket ()  // start a new ticket
+				}
+		  }
 		  
 		  itemCount = 0
 		  voidItems = 0
@@ -200,6 +212,12 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  tenderTotal = 0.0
 		  tenderDesc = ""
 		  taxes.clear ()
+		  
+		  if (Pos.app.config.getBoolean ("prompt_customer")) {
+				
+				PosDisplays.clear ()
+				CustomerSearchView ()
+		  }
 	 }
 
 	 open fun taxes (): TicketTax? {

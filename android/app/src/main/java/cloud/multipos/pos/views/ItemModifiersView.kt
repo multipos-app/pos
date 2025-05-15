@@ -54,9 +54,7 @@ class ItemModifiersView (val item: Jar): DialogView (item.getString ("item_desc"
 		  val sel = "select i.id, i.sku, i.item_desc, ip.price, ip.cost " +
 		  "from departments d, items i, item_prices ip " +
 		  "where d.department_id = ${item.getInt ("department_id")} and department_type = 5 and i.department_id = d.id and i.id = ip.item_id"
-		  
-		  Logger.x ("item mod... ${item}");
-		  
+		  		  
 		  val modsResult = DbResult (sel, Pos.app.db)
 		  var pos = 0;
 		  

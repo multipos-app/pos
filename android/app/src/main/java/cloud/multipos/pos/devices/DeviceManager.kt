@@ -60,6 +60,8 @@ abstract class DeviceManager (): Device {
 		  
 		  fun start (devices: String) {
 
+				Logger.i ("start devices... ${started}")
+				
 				if (!started) {
 
 					 started = true
@@ -97,6 +99,11 @@ abstract class DeviceManager (): Device {
 						  Logger.i ("no devices...")
 					 }
 				}
+		  }
+
+		  fun onPause () {
+
+				started = false
 		  }
 	 }
 }

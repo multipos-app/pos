@@ -20,6 +20,7 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 
 import android.widget.LinearLayout
+import android.graphics.Color
 
 class Themed () {
 
@@ -73,7 +74,7 @@ class Themed () {
 		  
 		  val listeners = mutableListOf <ThemeListener> ()
 		  fun add (listener: ThemeListener) { listeners.add (listener) }
-		  
+
 		  fun toggle () {
 								
 				theme = if (theme == Themes.Light) Themes.Dark else Themes.Light

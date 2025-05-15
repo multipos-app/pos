@@ -42,10 +42,10 @@ class VoidSale (): CompleteTicket () {
 		  			 .put ("complete_time", timeStamp)
 				
 				Pos.app.db.exec ("update tickets set start_time = '" + timeStamp + "', " +
-											  "complete_time = '" + timeStamp + "', " +
-											  "ticket_type = " + Ticket.VOID + ", " +
-											  "state = " + Ticket.COMPLETE + " " +
-											  "where id = " + Pos.app.ticket.getInt ("id"))
+									  "complete_time = '" + timeStamp + "', " +
+									  "ticket_type = " + Ticket.VOID + ", " +
+									  "state = " + Ticket.COMPLETE + " " +
+									  "where id = " + Pos.app.ticket.getInt ("id"))
 
 		  		confirmed (false)
 		  		completeTicket (Ticket.COMPLETE)

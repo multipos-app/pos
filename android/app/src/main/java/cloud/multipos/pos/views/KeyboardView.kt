@@ -29,15 +29,21 @@ import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.util.SparseArray
 import android.view.inputmethod.InputConnection
+import android.view.animation.Animation
+import android.view.animation.TranslateAnimation
+import android.view.animation.Animation.AnimationListener
 
-class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (context, attrs), OnClickListener {
+class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (context, attrs), OnClickListener, ThemeListener {
 
-	 lateinit var inputView: LinearLayout
 	 lateinit var inputConnection: InputConnection
+	 lateinit var editLayout: LinearLayout 
+	 lateinit var editView: EditView 
+	 
+	 val keyValues = SparseArray <String> ()
 	 
 	 var keycase = KeyCase.Lower
-	 val  keyValues = SparseArray <String> ()
-
+	 var showing = false
+	 
 	 companion object {
 		  
 		  lateinit var instance: KeyboardView
@@ -45,26 +51,69 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 
 	 init {
 
+		  duration = 500L
 		  instance = this
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.keyboard_layout, this)
-		  inputView = findViewById (R.id.keyboard_view) as LinearLayout
+		  editLayout = findViewById (R.id.keyboard_view) as LinearLayout
 		  loadKeys ()
+		  Themed.add (this)
 	 }
 	 
-	 fun inputView (): LinearLayout { return inputView }
+	 fun editLayout (): LinearLayout { return editLayout }
 	 
-	 fun push (layout: LinearLayout) {
+	 fun push (editView: EditView) {
+
+		  this.editView = editView
 		  
-		  Pos.app.keyboardView.setVisibility (View.VISIBLE)
+		  // Pos.app.keyboardView.setVisibility (View.VISIBLE)
 		  Pos.app.rootView.setVisibility (View.INVISIBLE)
+
+		  // val animate = TranslateAnimation ((Pos.app.config.getInt ("width") / 2).toFloat (),   // half screen
+		  val animate = TranslateAnimation ((Pos.app.config.getInt ("width")).toFloat (),   // half screen
+														 0f,
+														 0f,
+														 0f)
+		  
+		  animate.setDuration (duration)
+		  
+		  this.startAnimation (animate)
+		  this.setVisibility (View.VISIBLE)
+		  showing = true
 	 }
 
 	 override fun swipeLeft () {
 
 		  Pos.app.keyboardView.setVisibility (View.INVISIBLE)
-		  Pos.app.keyboardView.inputView ().removeAllViews ()
+		  Pos.app.keyboardView.editLayout.removeAllViews ()
+
+		  val animate = TranslateAnimation ((Pos.app.config.getInt ("width")).toFloat (), 
+														 0f,
+														 0f,
+														 0f)
+		  
+		  animate.setDuration (duration)
+		  
+		  Pos.app.rootView.startAnimation (animate)
 		  Pos.app.rootView.setVisibility (View.VISIBLE)
+		  showing = false
+	 }
+	 
+	 override fun swipeRight () {
+
+		  Pos.app.keyboardView.setVisibility (View.INVISIBLE)
+		  Pos.app.keyboardView.editLayout.removeAllViews ()
+		  
+		  val animate = TranslateAnimation (0f,
+														(Pos.app.config.getInt ("width")).toFloat (), 
+														0f,
+														0f)
+		  
+		  animate.setDuration (duration)
+		  
+		  Pos.app.rootView.startAnimation (animate)
+		  Pos.app.rootView.setVisibility (View.VISIBLE)
+		  showing = false
 	 }
 	 
 	 fun loadKeys () {
@@ -122,7 +171,7 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 		  var space = findViewById (R.id.keyboard_space) as PosButton?
 		  space?.setOnClickListener {
 				
-				EditView.instance.space ()
+				editView.space ()
 		  }
 		  
 		  var shift = findViewById (R.id.keyboard_shift) as PosButton
@@ -172,26 +221,36 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 		  var del = findViewById (R.id.keyboard_del) as PosButton
 		  del.setOnClickListener {
 					 
-				EditView.instance.del ()
+				editView.del ()
 		  }
 		  
 		  var up = findViewById (R.id.keyboard_up) as PosButton
 		  up.setOnClickListener {
 
-				EditView.instance.up ()
+				editView.up ()
 		  }
 		  
 		  var down = findViewById (R.id.keyboard_down) as PosButton
 		  down.setOnClickListener {
 
-				EditView.instance.down ()
+				editView.down ()
 		  }
 	 }
 
 	 override fun onClick (view: View) {
 	 				
-				var value = keyValues.get (view.getId ())
+		  var value = keyValues.get (view.getId ())
+		  
+		  if (editView.keyEvent ()) {
+
+				// handle edit text fields as key events
+				
 				inputConnection.commitText (value, 1)
+		  }
+		  else {
+
+				editView.onChange (value)
+		  }
 	 }
 	 
 	 fun toggleAlpha (s: String): String {
@@ -203,6 +262,24 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 		  else {
 
 				return s.lowercase ()
+		  }
+	 }
+
+	 // theme listener
+	 
+	 override fun update (theme: Themes) {
+		  
+		  when (theme) {
+					 
+				Themes.Light -> {
+						  
+					 setBackgroundResource (R.color.white)
+				}
+					 
+				Themes.Dark -> {
+						  
+					 setBackgroundResource (R.color.dark_bg)
+				}
 		  }
 	 }
 	 

@@ -18,7 +18,7 @@ package cloud.multipos.pos.views
 
 import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
-import cloud.multipos.pos.models.TicketTender
+import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
 
@@ -32,7 +32,7 @@ import android.view.View
 import android.graphics.Color
 import android.graphics.Typeface;
 
-class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
+class TenderLine (context: Context, tt: TicketTender, ticket: Ticket): LinearLayout (context) {
 
 	 init {
 
@@ -55,7 +55,7 @@ class TenderLine (context: Context, tt: TicketTender): LinearLayout (context) {
 				
 				Pos.app.inflater.inflate (R.layout.ticket_tender_line, this);
 				
-				t = "\n" + Pos.app.getString ("total").uppercase () + " " + tt.getDouble ("total").currency ()
+				t = Pos.app.getString ("total").uppercase () + " " + ticket.getDouble ("total").currency ()
 
 				when (tt.getString ("sub_tender_type")) {
 

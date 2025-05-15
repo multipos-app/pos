@@ -47,6 +47,8 @@ class StarScales (): Scales () {
 
 	 init {
 		  
+		  Logger.d ("star scales init... ")
+		  
 		  starScales = this
 		  deviceStatus = DeviceStatus.OffLine
 		  Pos.app.devices.add (this)
@@ -60,9 +62,25 @@ class StarScales (): Scales () {
 	  */
 	 
 	 override fun startCapture (appCallback: ScalesCallback) {
-		  
+
+		  Logger.d ("scales start capture... ")
+
 		  this.appCallback = appCallback
 		  capture = true
+
+		  if (Pos.app.config.getBoolean ("hardware_debug")) {
+				
+				Thread (Runnable {
+						  
+								while (capture) {
+									 
+									 weight = ((500..999).random ()).toDouble () / 100.0
+									 Logger.d ("scales weight... ${weight}")
+									 appCallback.scaleData (weight)
+									 Thread.sleep (500)
+								}
+				}).start ()
+		  }
 	 }
 	 
 	 override fun stopCapture () {
@@ -106,6 +124,15 @@ class StarScales (): Scales () {
 		  
         deviceManager = StarDeviceManager (Pos.app, StarDeviceManager.InterfaceType.All)
 		  deviceManager.scanForScales (deviceManagerCallback);
+
+		  Logger.d ("hardware debug is on, start scales... ${Pos.app.config.getBoolean ("hardware_debug")}")
+		  
+		  if (Pos.app.config.getBoolean ("hardware_debug")) {
+				
+				// added this for debugging without a scales
+		  
+				starScales.success (starScales)
+		  }
 	 }
 	 	 
 	 /**
@@ -198,16 +225,16 @@ class StarScales (): Scales () {
 
 		  override fun  onDisconnect (scale: com.starmicronics.starmgsio.Scale, status: Int) {
 
-				Logger.d ("star scale disconnect... " + status)
+				Logger.w ("star scale disconnect... " + status)
 				deviceStatus = DeviceStatus.OffLine
 		  }
 		  
 		  override fun  onReadScaleData (scale: com.starmicronics.starmgsio.Scale, scaleData: ScaleData) {
-									 
-				Logger.d ("star scale read... " + scaleData.getWeight ())
-				
+									 				
 				weight = scaleData.getWeight ()
 				appCallback.scaleData (weight)
+				
+				Logger.w ("star scale read data... " + weight)
 		  }
 	 }
 }

@@ -415,7 +415,9 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 		  
 		  if (DeviceManager.printer.qrcode ()) {
 
-				if (ticket.has ("customer") && (ticket.get ("customer").getString ("uuid").length > 0)) {
+				if (Pos.app.config.getBoolean ("customer_loyalty") &&
+					 ticket.has ("customer") &&
+					 (ticket.get ("customer").getString ("uuid").length > 0)) {
 
 					 var loyalty = ticket.get ("customer").getString ("uuid")
 
@@ -427,6 +429,8 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 				}
 				else {
 					 
+					 Logger.d ("print qr... ${ticket.getString ("recall_key")}")
+
 					 printCommands
 						  .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
 						  .add (PrintCommand.getInstance ().directive (PrintCommand.QR_CODE).text (ticket.getString ("recall_key")))

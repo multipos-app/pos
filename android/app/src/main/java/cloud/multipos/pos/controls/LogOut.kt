@@ -27,8 +27,6 @@ import java.util.Date
 class LogOut (): CompleteTicket () {
 
 	 override fun controlAction (jar: Jar?) {
-
-		  Logger.d ("logout... ${Pos.app.ticket.hasItems ()}")
 		  
 		  if (Pos.app.ticket.hasItems ()) {
 				

@@ -168,6 +168,7 @@
     <string name="no_suspended_tickets">No suspended tickets</string>
 	 <string name="price_override">Price override</string>
 	 <string name="price_override_amount">Enter amount</string>
+	 <string name="reload_config">Reload POS Configuration?</string>
 
     <string name="banner_font">fonts/banner.ttf</string>
     <string name="button_font">fonts/ubuntu_reg.ttf</string>
@@ -242,7 +243,7 @@
     <string name="store_no">Store #</string>
     <string name="confirm_dialog_title">Confirm</string>
     <string name="return_prompt">Return</string>
-    <string name="initialize_device">Download store...</string>
+    <string name="initialize_device">Your store is downloaing...</string>
     <string name="merchant_user">Enter email</string>
     <string name="action_sign_in_short">Sign in</string>
     <string name="merchant_password">Password</string>
@@ -299,7 +300,7 @@
     <string name="customer_city">City</string>
     <string name="customer_state">State</string>
     <string name="customer_postal_code">Zip</string>
-    <string name="search_tickets_result">Tickets</string>
+    <string name="search_tickets">Search tickets</string>
     <string name="telephone_hint">###-###-####</string>
     <string name="telephone">Telephone</string>
     <string name="customer_select">Select customer</string>
@@ -330,15 +331,25 @@
     <string name="city">City</string>
     <string name="postal_code">Zip code</string>
     <string name="customer_ean"></string>
-	 <string name="search_customer">Search customer</string>
-	 <string name="search_customer_hint">Search customer, enter phone or email</string>
+	 <string name="search_customer"></string>
+	 <string name="search_customer_hint">Enter name, phone or email:</string>
 	 <string name="search_department">Search departments</string>
 	 <string name="search_item">Search items</string>
 	 <string name="items">Items</string>
 	 <string name="invalid_username_or_password">Invalid user name or password</string>
 	 <string name="suppliers">Suppliers</string>
 	 <string name="echo_dot">\u2022</string>
-
+	 <string name="ticket_open">Open</string>
+	 <string name="ticket_complete">Complete</string>
+	 <string name="ticket_error">Error</string>
+	 <string name="ticket_suspend">Suspended</string>
+	 <string name="ticket_credit_pending">Credit pending</string>
+	 <string name="ticket_kitchen_pending">Kitchen pending</string>
+	 <string name="ticket_voided">Voided</string>
+	 <string name="ticket_refunded">Refunded</string>
+	 <string name="ticket_reversed">Revesed</string>
+	 <string name="ticket_recalled">Recalled</string>
+					 
     <string name="cash_start">Open amount</string>
     <string name="cash_sales">Cash sales</string>
     <string name="tender_received">Cash sales</string>
@@ -396,6 +407,7 @@
 	 <string name="pounds">lbs</string>
 	 <string name="enter_date_time">Enter date/time</string>
 	 <string name="date">Date</string>
+	 <string name="date_time">Date/Time</string>
 	 <string name="status">Status</string>
 	 <string name="no_results">No results</string>
 	 <string name="currency_zero">$0.00</string>
@@ -466,5 +478,6 @@
     <string name="fa_clock">&#xf017;</string>
     <string name="fa_chain">&#xf0c1;</string>
     <string name="fa_home">&#xf015;</string>
+    <string name="fa_suspend">&#xe38d;</string>
 
 </resources>

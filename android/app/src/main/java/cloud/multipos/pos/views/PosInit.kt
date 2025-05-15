@@ -65,7 +65,6 @@ class PosInit (context: Context, attrs: AttributeSet): PosLayout (context, attrs
 						  
 						  val display = Pos.app.getWindowManager ().getDefaultDisplay ();
 
-
 						  val buID = Pos.app.posInit.getList ("business_units").get (bu).getInt ("business_unit_id")
 						  val configID = Pos.app.posInit.getList ("pos_configs").get (config).getInt ("pos_config_id")
 						  

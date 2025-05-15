@@ -42,8 +42,6 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 	 
 	 init {
 		  
-		  Logger.d ("scales init... ${control}")
-
 		  Pos.app.inflater.inflate (R.layout.scale_layout, dialogLayout)
 
 		  scaleEcho = findViewById (R.id.scale_echo) as PosText
@@ -70,7 +68,7 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 					 scaleEcho.setText (String.format ("%.${decimalPlaces}f " + Pos.app.getString ("pounds"), weight))
 				}
 		  }
-		  		  		  
+
 		  DeviceManager.scales?.startCapture (callback)
 		  
 		  PosDisplays.add (this)
@@ -79,8 +77,6 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 	 }
 	 
 	 override fun actions (dialogView: DialogView) {
-
-		  Logger.d ("scales action... ")
 		  
 		  val layout = Pos.app.inflater.inflate (R.layout.scales_action_layout, dialogActions)
 		  var acceptWeight = layout.findViewById (R.id.scales_accept_weight) as Button
@@ -91,8 +87,16 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 	 }
 	 
 	 override fun accept () {
-
-		  control.accept (Jar ())
+		  
+		  if (Pos.app.input.hasInput ()) {
+				
+				weight = Pos.app.input.getDouble ()
+				for (i in 1..decimalPlaces) weight = weight / 10.0
+		  }
+		  
+		  DeviceManager.scales?.stopCapture ()
+		  
+		  control.accept (Jar ().put ("value", weight))
 		  DialogControl.close ()
 	 }
 	 

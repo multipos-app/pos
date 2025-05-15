@@ -206,12 +206,15 @@ class EloRefreshPrinter (): Printer () {
 								
 						  // 		printer.printImage (bmp, 100, 0, QRCODE_WIDTH, QRCODE_HEIGHT)
 						  // }
-								
+
+						  Logger.d ("refresh qr ... ${pc.text}")
+						  printer.setAlignment (Alignment.LEFT)
 						  printer.printBarcode (pc.text, true, BARCODE_WIDTH, BARCODE_HEIGHT)
 					 }
 					 
 					 PrintCommand.BARCODE -> {
 
+						  Logger.d ("refresh barcode ... ${pc.text}")
 						  printer.setAlignment (Alignment.CENTER)
 						  printer.printBarcode (pc.text, true, BARCODE_WIDTH, BARCODE_HEIGHT)
 					 }

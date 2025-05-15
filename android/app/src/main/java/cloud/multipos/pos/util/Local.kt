@@ -79,6 +79,11 @@ class Local () {
 		  return prefs.getInt (key, defValue)
 	 }
 
+	 fun getBoolean (key: String): Boolean {
+
+		  return prefs.getBoolean (key, false)
+	 }
+	 
 	 fun has (key: String): Boolean {
 
 		  return prefs.contains (key)
@@ -102,7 +107,7 @@ class Local () {
 		  val regex = "^" + digit + "\\." + digit + "\\." + digit + "\\." + digit + "$"
 		  val pattern = Pattern.compile (regex)
 
-		  var macAddr = ""
+		  var macAddr = "unknown"
 		  var ipAddr = ""
 		  var baseIPAddr = ""
 		  var broadcastIPAddr = ""
@@ -110,10 +115,10 @@ class Local () {
 		  for (inf in NetworkInterface.getNetworkInterfaces ()) {
 				
 
-            if (inf.getName ().equals ("wlan0")) {
+            // if (inf.getName ().equals ("wlan0")) {
 
-					 macAddr = inf.getHardwareAddress ().toMacString ()
-            }
+				// 	 macAddr = inf.getHardwareAddress ().toMacString ()
+            // }
 								
 				if (!inf.isLoopback ()) {
 					 

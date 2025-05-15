@@ -44,6 +44,8 @@
     <item name="backgroundTint">@color/light_tint</item>
     <item name="textAllCaps">false</item>
   </style>
+
+  <!-- control buttons -->
   
   <style name="DialogCancel" parent="PosButton">
 	 <item name="android:textColor">@color/white</item>
@@ -68,6 +70,11 @@
   <style name="DialogDanger" parent="PosButton">	 
 	 <item name="android:textColor">@color/white</item>
     <item name="backgroundTint">@color/pos_danger</item>
+  </style>
+  
+  <style name="DialogInfo" parent="PosButton">	 
+	 <item name="android:textColor">@color/white</item>
+    <item name="backgroundTint">@color/pos_info</item>
   </style>
   
   <style name="PosControlButton" parent="Widget.MaterialComponents.Button.OutlinedButton">

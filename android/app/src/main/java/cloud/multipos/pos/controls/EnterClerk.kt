@@ -22,10 +22,10 @@ import cloud.multipos.pos.net.*
 import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.views.EnterClerkView
 
-class EnterClerk (): TicketModifier (), InputListener {
+class EnterClerk (): Control (), InputListener {
 	 
 	 override fun controlAction (jar: Jar?) {
-
+		  
 		  jar (jar)
 		  
 		  EnterClerkView (this,
@@ -34,18 +34,11 @@ class EnterClerk (): TicketModifier (), InputListener {
 	 }
 
 	 override fun accept (clerk: Jar) {
-		  
-		  Logger.d ("control accept... ${clerk} ${Pos.app.ticket.getInt ("state")}")
-					 					 
+		  					 					 
 		  Pos.app.ticket.put ("clerk_id", clerk.getInt ("id"))
 		  Pos.app.ticket.put ("clerk", clerk)
 		  
-		  
-		  // Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
-		  // Pos.app.ticket.put ("ticket_text", Pos.app.receiptBuilder.text ())
-		  // Pos.app.receiptBuilder ().print ();
-		  
-		  // update the server too
+		  // update the server
 
 		  val update = Jar ()
 				.put ("clerk_id", clerk.getInt ("id"));
@@ -55,9 +48,7 @@ class EnterClerk (): TicketModifier (), InputListener {
 		  update
 				.put ("action", "clerk_update")
 				.put ("uuid", Pos.app.ticket.getString ("uuid"))
-		  
-		  Logger.d ("enter clerk... ${update}")
-		  
+		  		  
 		  Post ("pos/update-ticket")
 				.add (update)
 				.exec (fun (result: Jar): Unit { })

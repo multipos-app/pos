@@ -18,22 +18,12 @@ package cloud.multipos.pos.controls
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.views.ConfirmView
 
-public class ReloadConfig (): ConfirmControl () {
+public class Restart (): Control () {
 
 
 	 override fun controlAction (jar: Jar?) {
-		  
-		  if (confirmed ()) {
-				
-				Pos.app.db ().exec ("delete from pos_configs")
-				Pos.app.local.put ("update_id", 0)
-				Pos.app.restart ()
-		  }
-		  else {
-				
-				ConfirmView (Pos.app.getString ("reload_config"), this)
-		  }
+
+		  Pos.app.restart ()
 	 }
 }

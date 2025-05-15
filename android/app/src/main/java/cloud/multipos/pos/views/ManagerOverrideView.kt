@@ -55,8 +55,10 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 		  
 		  if ((manager.length > 0) && (pin.length > 0)) {
 					 
-				val select = "select username, password, fname, lname, profile_id, id from employees " +
-				"where username = '" +  manager + "'" + " and password = '" + pin.md5Hash () + "'"
+				val select = """
+				select username, password, fname, lname, profile_id, id from employees 
+				where username = '${manager}' and password = '${pin.md5Hash ()}'
+				"""
 					 
 				val employeeResult  = DbResult (select, Pos.app.db)
 
@@ -64,8 +66,7 @@ class ManagerOverrideView (control: Control): DialogView (Pos.app.getString ("ma
 				if (employeeResult.fetchRow ()) {
 					 
 					 Pos.app.ticket.put ("manager", Employee (employeeResult.row ()))
-					 // Pos.app.controlLayout.swipeLeft ()
-					 PosDisplays.remove (this)
+					 DialogControl.close ()
 				}
 				else {
 						  

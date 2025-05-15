@@ -33,16 +33,8 @@ open class Suspend (): CompleteTicket () {
 		  }
 		  
 		  completeTicket (Ticket.SUSPEND)  // suspend and clear the displays
-		  var clear = Clear ()
-		  clear.controlAction (Jar ())
 	 }
 
-	 override fun taxes (): TicketTax? {
-
-		  return null
-	 }
-	 
-	 override fun beforeAction (): Boolean { return true }
-	 override fun printReceipt (): Boolean { return false }
 	 override fun openDrawer (): Boolean { return false }
+	 override fun printReceipt (): Boolean { return false }
 }

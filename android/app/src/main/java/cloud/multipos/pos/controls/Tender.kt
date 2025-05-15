@@ -286,13 +286,11 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  
 		  if (Pos.app.ticket.items.size == 0) {
 				
-				Logger.d ("no items...")
 				return false
 		  }
 		  
 		  else if (!Pos.app.config.getBoolean ("confirm_tender")) {
 				
-				Logger.d ("tender not confirmed...")
 		  		confirmed (true)
 		  }
 
@@ -303,7 +301,14 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 
 	 override fun toString (): String {
 		  
-		  return String.format ("\n{\n   tender: %5.2f, \n   sub_total: %5.2f, \n   returned: %5.2f, \n   balance: %5.2f, \n   total: %5.2f, \n   paid: %5.2f, \n   ticket_total: %5.2f\n}",
+		  return String.format ("""\n{\n
+												tender: %5.2f, \n
+												sub_total: %5.2f, \n
+												returned: %5.2f, \n
+												balance: %5.2f, \n
+												total: %5.2f, \n
+												paid: %5.2f, \n
+												ticket_total: %5.2f\n}""",
 										tendered,
 										Pos.app.ticket.getDouble ("sub_total"),
 										returned,
