@@ -15,7 +15,7 @@ class DateTimeItem (): DefaultItem (), InputListener {
 	 override fun accept (result: Jar) {
 		  
 		  jar ()
-            .put ("item_desc", (Pos.app.getString ("due_date") + " " + result.getString ("date_time")).toUpperCase ())
+            .put ("item_desc", (Pos.app.getString ("due_date") + " " + result.getString ("date_time")).uppercase ())
 
         super.controlAction (jar ())
 	 }	 

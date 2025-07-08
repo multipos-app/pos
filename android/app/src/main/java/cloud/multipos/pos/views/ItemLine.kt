@@ -22,7 +22,7 @@ import cloud.multipos.pos.models.TicketItem
 import cloud.multipos.pos.models.Item
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
-import cloud.multipos.pos.controls.ItemUpdate
+import cloud.multipos.pos.controls.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -100,14 +100,10 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 
 					 
 					 val editItem = Item (Jar ().put ("sku", ti.getString ("sku")))
-					 
-					 val item =
-						  editItem.item
-						  .put ("ticket_item_index", position)
 					 					 
 					 // ItemEditView (ItemUpdate (), item)
 					 
-					 ItemModifiersView (item)
+					 Control.factory ("ItemModifiers").action (Jar ().put ("ticket_item", ti))
 		
 					 return@setOnLongClickListener true
 				}

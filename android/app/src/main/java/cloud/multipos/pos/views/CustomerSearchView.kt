@@ -39,6 +39,7 @@ import android.widget.ListView
 import android.widget.LinearLayout
 import android.widget.LinearLayout.LayoutParams
 import android.widget.Button
+import androidx.core.content.ContextCompat
 
 class CustomerSearchView (): EditView () {
 	 
@@ -50,15 +51,14 @@ class CustomerSearchView (): EditView () {
 	 lateinit var customer: Customer
 
     init {
-
-		  Logger.d ("cust search view init...")
 		  
 		  var layout = Pos.app.inflater.inflate (R.layout.customer_search_layout, editLayout) as LinearLayout
 		  
 		  search = editLayout.findViewById (R.id.customer_search) as TextView
 		  val searchPrompt = editLayout.findViewById (R.id.customer_search_prompt) as TextView
 
-		  search?.setTextColor (fg)
+		  search?.setTextColor (ContextCompat.getColor (Pos.app, Themed.fg))
+		  searchPrompt?.setTextColor (ContextCompat.getColor (Pos.app, Themed.fg))
 
 		  listView = ListView (context)
 		  listView.setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
@@ -71,7 +71,7 @@ class CustomerSearchView (): EditView () {
         listAdapter = ListAdapter (Pos.app)
 		  listView.setAdapter (listAdapter)
 		  
- 		  Pos.app.keyboardView.push (this)
+ 		  Pos.app.keyboardView.show (this)
     }
 	 
 	 // EditView impl
@@ -180,24 +180,17 @@ class CustomerSearchView (): EditView () {
 		  }
 	 }
 	 
-    private inner class CustomerView (cust: Jar, position: Int) : LinearLayout (Pos.app.activity) {
+    private inner class CustomerView (cust: Jar, position: Int) : LinearLayout (Pos.app) {
 
 		  init {
 				
 				val view = Pos.app.inflater.inflate (R.layout.customer_line_layout, this)
 				view.setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
 				
-				val name = view.findViewById (R.id.customer_name) as PosText?
-				val email = view.findViewById (R.id.customer_email) as PosText?
-				val phone = view.findViewById (R.id.customer_phone) as PosText?
-
-				name?.setText (cust.getString ("fname") + " " + cust.getString ("lname"))
-				email?.setText (cust.getString ("email"))
-				phone?.setText (cust.getString ("phone").phone ())
-
-				name?.setTextColor (fg)
-				email?.setTextColor (fg)
-				phone?.setTextColor (fg)
+				val customerLayout = view.findViewById (R.id.customer_layout) as PosText?
+		
+				customerLayout?.setText (Customer (cust).display ())
+				customerLayout?.setTextColor (fg)
 				
 				if ((position % 2) == 0) {
 

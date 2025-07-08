@@ -38,21 +38,20 @@ class Metric (): Pricing (), InputListener {
 		  ScalesView (this,
 						 item.item.getString ("item_desc"),
 						 InputListener.DECIMAL,
-						 item.item.get ("pricing").getInt ("decimal_places"))
+						 item.item.get ("pricing"))
 		  
 		  return true
 	 }
 	 
-	 override fun accept (metric: Jar) {
-
+	 override fun accept (result: Jar) {
+		  
 		  var weight = 0.0
 		  var amount = 0.0
 		  var price = item.item.get ("pricing").getDouble ("price")
 
-		  if (DeviceManager.scales != null) {
+		  if (result.has ("value")) {
 
-				val scales = DeviceManager.scales as Scales
-				weight = scales.weight ()
+				weight = result.getDouble ("value")
 		  }
 		  else {
 								
@@ -79,7 +78,7 @@ class Metric (): Pricing (), InputListener {
 				
 				item.ticketItem ()
 					 .put ("amount", amount)
-					 .put ("metric", metric.getDouble ("value"))
+					 .put ("metric", result.getDouble ("value"))
 					 .put ("item_desc", itemDesc)
 				
 				item.complete ()

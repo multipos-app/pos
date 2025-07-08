@@ -20,17 +20,22 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.models.Ticket
-import cloud.multipos.pos.views.TabsView
+import cloud.multipos.pos.views.OpenTabsView
 import cloud.multipos.pos.views.PosDisplays
 
-class Tabs (): Suspend (), InputListener {
+class OpenTabs (): Suspend (), InputListener {
 
 	 override fun controlAction (jar: Jar) {
 
 		  val tabs = ArrayList <Jar> ()
 
 		  var count = 0
-		  val tabsResult = DbResult ("select * from tickets where state = ${Ticket.SUSPEND} order by id asc", Pos.app.db)
+		  val select = """
+		  select id, start_time, item_count, total 
+		  from tickets where state = ${Ticket.SUSPEND} order by id asc
+		  """
+		  
+		  val tabsResult = DbResult (select, Pos.app.db)
 		  while (tabsResult.fetchRow ()) {
 				
 				tabs.add (tabsResult.row ())
@@ -39,7 +44,7 @@ class Tabs (): Suspend (), InputListener {
 
 		  if (count > 0) {
 				
-				TabsView (this, Pos.app.getString ("open_tabs"), tabs)
+				OpenTabsView (this, Pos.app.getString ("open_tabs"), tabs)
 		  }
 		  else {
 
@@ -51,9 +56,9 @@ class Tabs (): Suspend (), InputListener {
 	 
 	 override fun accept (result: Jar) {
 
-		  if (result.has ("ticket")) {
+		  if (result.has ("open_tab")) {
 
-				val ticket = result.get ("ticket")
+				val ticket = result.get ("open_tab")
 
 				var sel = "select id from tickets where id = " + ticket.getInt ("id")
 		  

@@ -27,7 +27,7 @@ public class Navigate (): Control () {
 															  
 	 override fun controlAction (jar: Jar) {
 
-		  if ((jar != null) && jar.has ("menu")) {
+		  if (jar.has ("menu")) {
 				
 				PosMenus.set (jar.getString ("menu"), jar.getInt ("menu_index"))
 		  }

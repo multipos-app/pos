@@ -1,7 +1,7 @@
 /**
  * Copyright (C) 2023 multiPOS, LLC
  *
- * Licensed under the Apache License, Version 2.0 (the "License");
+ * Licensed under the Apache License, Version 2.0 (the "License")
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
@@ -72,18 +72,15 @@ class MqttClient () {
 												@Throws (Exception::class)
 												override fun messageArrived (topic: String?, message: MqttMessage?) {
 													 
-													 Logger.i ("mqtt message arrived... " + message)
 													 BackOffice.download ()
 												}
 
 												override fun deliveryComplete (token: IMqttDeliveryToken?) {
 													 
-													 Logger.i ("mqtt delivery complete...")
 												}
 
 												override fun connectComplete (reconnect: Boolean, serverURI: String?) {
 													 
-													 Logger.i ("mqtt connect complete...")
 													 subscribe (topic, 0)
 												}
 
@@ -93,7 +90,6 @@ class MqttClient () {
 	 public fun connect (t: String) {
 
 		  topic = t
-        Logger.i ("mqtt connect: Trying to call connect function")
         val mqttConnectOptions = MqttConnectOptions ()
         mqttConnectOptions.isAutomaticReconnect = MULTIPOS_CONNECTION_RECONNECT
         mqttConnectOptions.isCleanSession = MULTIPOS_CONNECTION_CLEAN_SESSION
@@ -101,14 +97,12 @@ class MqttClient () {
         mqttConnectOptions.keepAliveInterval = MULTIPOS_CONNECTION_KEEP_ALIVE_INTERVAL
 
         try {
-            Logger.i ( "mqtt connect: Inside the try block")
 
             mqttClient.connect (
                 mqttConnectOptions, null, object : IMqttActionListener {
 						  
                     override fun onSuccess (asyncActionToken: IMqttToken?) {
 
-                        Logger.i ("mqtt onSuccess: Successfully connected to the broker")
                         val disconnectBufferOptions = DisconnectedBufferOptions ()
                         disconnectBufferOptions.isBufferEnabled = true
                         disconnectBufferOptions.bufferSize = 100

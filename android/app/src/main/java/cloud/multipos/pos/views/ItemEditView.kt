@@ -193,7 +193,7 @@ class ItemEditView (val control: Control, val item: Jar): EditView () {
 				ticketItemIndex = item.getInt ("ticket_item_index")
 		  }
 	 
-		  Pos.app.keyboardView.push (this)
+		  Pos.app.keyboardView.show (this)
 	 }
 
 	 override fun complete () {

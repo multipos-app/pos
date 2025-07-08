@@ -20,8 +20,8 @@ import cloud.multipos.pos.receipts.*
 
 interface Model {
 
-	 fun update () { }
-	 fun update (fields: List <String>) { }
+	 // fun update () { }
+	 // fun update (fields: List <String>) { }
 	 fun display (): String { return "" }
 	 fun receipt (): PrintCommands { return PrintCommands () }
 }

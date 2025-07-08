@@ -19,33 +19,62 @@ package cloud.multipos.pos.controls
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.models.*
-import cloud.multipos.pos.views.PosDisplays
+import cloud.multipos.pos.db.*
+import cloud.multipos.pos.views.ItemModifiersView
 
-class ItemModifier (): Control (), InputListener {
+class ItemModifiers (): Control (), InputListener {
 
 	 override fun controlAction (jar: Jar) {
 
-		  Logger.x ("ticket item... ${jar.get ("mod")}")
+		  val mods = mutableListOf <Jar> ()
+		  val ti = jar.get ("ticket_item") as TicketItem
+		  
+		  // get all modifiers
+		  
+		  val sel = """
+		  select i.id, i.sku, i.item_desc, ip.price, ip.cost 
+		  from departments d, items i, item_prices ip 
+		  where d.department_id = ${ti.getInt ("department_id")} and department_type = ${Department.MODIFIERS} and i.department_id = d.id and i.id = ip.item_id 
+		  order by sku asc
+		  """
+		  
+		  val modsResult = DbResult (sel, Pos.app.db)
+		  var pos = 0;
+		  
+		  while (modsResult.fetchRow ()) {
 
-		  val mod = jar.get ("mod")
-		  var value = if (mod.getInt ("value") == 1) TicketItemAddon.MODIFIER_PLUS else TicketItemAddon.MODIFIER_MINUS
-		  
-		  val ti = Pos.app.ticket.items.get (jar.getInt ("ticket_item_index")) as TicketItem
-		  val tia = TicketItemAddon ()
-		  tia
-				.put ("ticket_item_id", ti.getInt ("id"))
-				.put ("addon_type", value)
-				.put ("addon_amount", 0)
-				.put ("addon_quantity", 1)
-				.put ("addon_description", mod.getString ("item_desc"));
-		  
-		  val id = Pos.app.db.insert ("ticket_item_addons", tia);
+				var mod = modsResult.row ()
+
+				mod.put ("value", 0)
 				
-		  tia
-				.put ("id", id);
+				if (ti.hasAddons ()) {
+					 
+					 for (tia in ti.addons) {
+
+						  if (tia.getInt ("addon_id") == mod.getInt ("id")) {
+
+								when (tia.getInt ("addon_type")) {
+
+									 TicketItemAddon.MODIFIER_PLUS -> {
+										  
+										  mod.put ("value", 1)
+									 }
+									 
+									 TicketItemAddon.MODIFIER_MINUS -> {
+										  
+										  mod.put ("value", -1)
+									 }
+								}
+						  }
+					 }
+				}
 		  
-		  ti.addons.add (tia)
-		  Pos.app.ticket.update ();
-		  updateDisplays ();
+				mods.add (mod)
+		  }
+
+		  if (mods.size > 0) {
+				
+				ItemModifiersView (ti, mods)
+		  }
 	 }
 }

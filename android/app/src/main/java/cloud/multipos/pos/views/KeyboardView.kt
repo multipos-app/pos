@@ -62,7 +62,7 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 	 
 	 fun editLayout (): LinearLayout { return editLayout }
 	 
-	 fun push (editView: EditView) {
+	 fun show (editView: EditView) {
 
 		  this.editView = editView
 		  
@@ -70,7 +70,7 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 		  Pos.app.rootView.setVisibility (View.INVISIBLE)
 
 		  // val animate = TranslateAnimation ((Pos.app.config.getInt ("width") / 2).toFloat (),   // half screen
-		  val animate = TranslateAnimation ((Pos.app.config.getInt ("width")).toFloat (),   // half screen
+		  val animate = TranslateAnimation ((Pos.app.config.getInt ("width")).toFloat (),   // full screen
 														 0f,
 														 0f,
 														 0f)
@@ -273,7 +273,7 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 					 
 				Themes.Light -> {
 						  
-					 setBackgroundResource (R.color.white)
+					 setBackgroundResource (R.color.light_bg)
 				}
 					 
 				Themes.Dark -> {

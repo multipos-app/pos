@@ -30,7 +30,7 @@ import cloud.multipos.pos.net.Upload
 
 import java.util.Date
 
-open abstract class CompleteTicket (): ConfirmControl () {
+abstract class CompleteTicket (): ConfirmControl () {
 
 	 abstract fun openDrawer (): Boolean
 	 abstract fun printReceipt (): Boolean
@@ -46,7 +46,6 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  
 		  // total the tenders for this ticket, check if tenders >= the ticket
 		  		  
-		  var lastMessage = ""
 		  var tenderTotal = 0.0
 		  
 		  for (tt in Pos.app.ticket.tenders) {
@@ -55,7 +54,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				
 		  		if (tenderDesc.length == 0) {
 					 
-		  			 tenderDesc = tt.getString ("tender_type").toLowerCase ()
+		  			 tenderDesc = tt.getString ("tender_type").lowercase ()
 		  		}
 		  		else {
 					 
@@ -144,7 +143,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				.put ("discounts", discounts)
 				.put ("item_count", itemCount)
 				.put ("void_items", voidItems)
-				.put ("tender_desc", tenderDesc.toLowerCase ())
+				.put ("tender_desc", tenderDesc.lowercase ())
 				.put ("ticket_text", ticketText)
 				.put ("ticket_items", Pos.app.ticket.items)
 				.put ("ticket_taxes", Pos.app.ticket.taxes)
@@ -159,7 +158,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 		  Pos.app.ticket.update ()
 		  
 		  // display receipt?
-		  						
+		  
 		  if (state == Ticket.COMPLETE) {
 				
 				when (Pos.app.ticket.getInt ("ticket_type")) {
@@ -171,7 +170,7 @@ open abstract class CompleteTicket (): ConfirmControl () {
 								
 								Pos.app.receiptBuilder.print ()
 						  }
-		  				  
+						  			  
 						  ReportView (Pos.app.getString ("ticket"),
 										  Jar ()
 												.put ("ticket", Pos.app.ticket))
@@ -179,14 +178,14 @@ open abstract class CompleteTicket (): ConfirmControl () {
 				}
 		  }
 				
-		  DeviceManager.customerDisplay?.update (Pos.app.ticket)
-
 		  // post the ticket to the server
 
 		  when (state) {
 
-				Ticket.SUSPEND -> {
-
+				Ticket.SUSPEND,
+				Ticket.JOB_PENDING,
+				Ticket.JOB_COMPLETE -> {
+					 
 					 // don't upload or total
 
 					 Pos.app.ticket ()  // start a new ticket

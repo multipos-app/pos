@@ -28,5 +28,6 @@ enum class DeviceClass { Printer,
 								 Payment,
 								 Camera,
 								 CustomerDisplay,
+								 PosConnect,
 								 Unknown
 }

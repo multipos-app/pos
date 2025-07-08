@@ -72,7 +72,7 @@ class CustomerSearchTicketsView (customer: Jar): EditView () {
 		  }
 
 		  render ()
- 		  Pos.app.keyboardView.push (this)
+ 		  Pos.app.keyboardView.show (this)
 	 }
 
 	 fun render () {

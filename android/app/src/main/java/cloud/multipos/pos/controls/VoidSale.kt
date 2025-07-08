@@ -60,5 +60,4 @@ class VoidSale (): CompleteTicket () {
 	 
 	 override fun printReceipt (): Boolean { return false }
 	 override fun openDrawer (): Boolean { return false }
-
 }

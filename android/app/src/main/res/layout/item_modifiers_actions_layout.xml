@@ -10,25 +10,13 @@
 	 android:orientation="horizontal">
 
  <cloud.multipos.pos.views.PosButton
-		android:id="@+id/mods_reset"
-		style="@style/DialogContinue"
-		android:layout_width="0dp"
-		android:layout_height="match_parent"
-		android:layout_weight="1"
-		android:text="@string/button_reset"
-		android:textColor="@color/white"
-		android:textSize="@dimen/dialog_lg_text"
-		android:layout_margin="@dimen/dialog_margin"/>
-
- <cloud.multipos.pos.views.PosButton
-		android:id="@+id/mods_complete"
+		android:id="@+id/modifiers_complete"
 		style="@style/DialogSuccess"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
 		android:text="@string/button_continue"
 		android:textColor="@color/white"
-		android:textSize="@dimen/dialog_lg_text"
-		android:layout_margin="@dimen/dialog_margin"/>
+		android:textSize="@dimen/dialog_lg_text"/>
 
 </LinearLayout>

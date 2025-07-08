@@ -19,6 +19,6 @@ package cloud.multipos.pos.devices;
 class DefaultScales (): Scales () {
 
 	 override fun deviceName (): String  { return "Default scales" }
-	 override fun startCapture (callback: ScalesCallback) { }
+	 override fun startCapture (callback: ScalesCallback, tare: Boolean) { }
 	 override fun stopCapture () { }
 }

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:background="@color/transparent"
+	 android:orientation="vertical">
+  
+  <cloud.multipos.pos.views.PosButton
+		android:id="@+id/job_complete"
+  		style="@style/DialogContinue"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:text="@string/job_complete"
+		android:textColor="@color/white"
+		android:textSize="@dimen/dialog_md_text"/>
+  
+    <cloud.multipos.pos.views.PosButton
+		android:id="@+id/job_complete_and_load"
+  		style="@style/DialogSuccess"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:text="@string/job_complete_and_load"
+		android:textColor="@color/white"
+		android:textSize="@dimen/dialog_md_text"/>
+  
+  <cloud.multipos.pos.views.PosButton
+		android:id="@+id/job_cancel"
+   	style="@style/DialogCancel"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:text="@string/job_cancel"
+		android:textColor="@color/white"
+		android:textSize="@dimen/dialog_md_text"/>
+  
+</LinearLayout>

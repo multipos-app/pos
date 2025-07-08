@@ -30,37 +30,27 @@ import cloud.multipos.pos.views.NumberInputView
 class Open (): Pricing (), InputListener {
 
 	 lateinit var item: DefaultItem
-	 lateinit var sizes: ArrayList <Jar>
 	 
  	 override fun apply (i: DefaultItem): Boolean {
 
 		  item = i
-		  // Pos.app.dialogView = NumberInputView (this,
-		  // 													 Pos.app.getString (R.string.enter_price),
-		  // 													 item.item.getString ("item_desc"),
-		  // 													 InputListener.CURRENCY,
-		  // 													 0)		  
+		  NumberInputView (this,
+								 Pos.app.getString (R.string.enter_price),
+								 item.item.getString ("item_desc"),
+								 InputListener.CURRENCY,
+								 0)
 		  return true
 	 }
 	 
 	 override fun accept (select: Jar) {
+		  												
+		  val amount = select.getDouble ("value") / 100.0
 		  
-		  if (Pos.app.controls.size > 0) {
-				
-				val item = Pos.app.controls.pop () as DefaultItem
-												
-				val amount = select.getDouble ("value") / 100.0
-				
-				item.jar ()
-					 .put ("merge_like_items", false)
-					 .put ("amount", select.getDouble ("value") / 100.0)
+		  item.jar ()
+				.put ("merge_like_items", false)
+				.put ("amount", select.getDouble ("value") / 100.0)
 								
-				Pos.app.input.clear ()
-				item.complete ()
-		  }
-		  else {
-
-				Logger.w ("attempt to pop controls on empty stack...")
-		  }
+		  Pos.app.input.clear ()
+		  item.complete ()
 	 }
 }

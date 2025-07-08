@@ -45,6 +45,7 @@ open class PosEditText (context: Context, attrs: AttributeSet): EditText (contex
 													val ic = onCreateInputConnection (EditorInfo ())
 													KeyboardView.instance.inputConnection = onCreateInputConnection (EditorInfo ())
 													setSelection (length ())
+													EditView.instance.curr = pos
 											  }
 											  else { }
 		  }

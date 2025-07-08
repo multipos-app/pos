@@ -224,4 +224,10 @@ public class FileUtils {
 				
 				thread.start ();
     }
+
+	 public static Boolean imageExists (String fname) {
+				
+		  File imageFile = new File (fname);
+		  return imageFile.exists ();
+	 }
 }

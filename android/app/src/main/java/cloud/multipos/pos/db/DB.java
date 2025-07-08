@@ -74,6 +74,9 @@ public class DB {
 					 else if (col [1].startsWith ("text")) {
 						  colType = TEXT;
 					 }
+					 else if (col [1].startsWith ("real")) {
+						  colType = REAL;
+					 }
 
 					 tmap.get (table [0])
 						  .put (col [0], colType);
@@ -140,10 +143,9 @@ public class DB {
 
 				switch (newVersion) {
 
-					 // tables -> tab and add session_id and employee id
-
-				case 340:
+				case 341:
 					 
+					 database.execSQL ("alter table pos_updates add update_params text DEFAULT NULL");									
 					 break;
 				}
 		  }
@@ -243,13 +245,52 @@ public class DB {
 
 		  update += " where id = " + id;
 
-		  // Logger.x ("update... " + update);
+		  synchronized (activity) {
+				
+				database.execSQL (update);										
+		  }
+	 }
+	 
+	 /**
+	  *
+	  */
+	 public void update (String table, String updateField, String updateKey, Jar fields) {
+		  
+		  String update = "update " + table + " set ";
+		  String sep = "";
+		  Iterator iter = fields.entrySet ().iterator ();
+		  
+		  while (iter.hasNext ()) {
+					 
+				Map.Entry pair = (Map.Entry) iter.next ();
+					 
+				String col = (String) pair.getKey ();
+				Object val = pair.getValue ();
+				
+				if ((tmap.get (table) != null) && tmap.get (table).has (col)) {  // valid column?
+					 
+					 if (val instanceof Integer) {
+
+						  update += sep + col + " = " + ((Integer) val).intValue ();
+					 }
+					 else if (val instanceof Double) {
+						  
+						  update += sep + col + " = " + ((Double) val).doubleValue ();
+					 }
+					 else if (val instanceof String) {
+						  
+						  update += sep + col + " = '" + (String) val + "'";
+					 }
+					 sep = ", ";
+				}
+		  }
+
+		  update += " where " + updateField + " = '" + updateKey + "'";
 
 		  synchronized (activity) {
 				
 				database.execSQL (update);										
 		  }
-	 
 	 }
 
 	 public void update (String table, Jar updateParams) {
@@ -554,6 +595,7 @@ public class DB {
 			 "uuid varchar(100) default null,  " +
 			 "update_time timestamp default null,  " +
 			 "department_id integer default '0',  " +
+			 "status integer default '0',  " +
 			 "sku varchar(20) default null,  " +
 			 "item_desc varchar(100) default null,  " +
 			 "locked tinyint(1) default '0',  " +
@@ -760,7 +802,8 @@ public class DB {
 			 "status integer default 0," +
 			 "update_table varchar(50) DEFAULT NULL," +
 			 "update_id integer DEFAULT NULL," +
-			 "update_action integer DEFAULT NULL)"},
+			 "update_action integer DEFAULT NULL," +
+			 "update_params text DEFAULT NULL)"},
 		  
 		  { "tenders", 
 			 "(id integer primary key autoincrement not null," +
@@ -831,7 +874,7 @@ public class DB {
 	 
 	 };
 
-	 public static final int DATABASE_VERSION = 340;
+	 public static final int DATABASE_VERSION = 341;
 	 public static final String DATABASE_NAME = "pos.db";
 	 
 	 public static final int INTEGER =   1;
@@ -840,6 +883,7 @@ public class DB {
 	 public static final int TIMESTAMP = 4;
 	 public static final int TEXT =      5;
 	 public static final int BOOLEAN =   6;
+	 public static final int REAL    =   7;
 	 
 	 /**
 	  * vars...

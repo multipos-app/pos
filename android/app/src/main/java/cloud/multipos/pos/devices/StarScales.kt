@@ -30,6 +30,8 @@ import com.starmicronics.starmgsio.ScaleData;
 import com.starmicronics.starmgsio.ScaleOutputConditionSetting;
 import com.starmicronics.starmgsio.ScaleSetting;
 import com.starmicronics.starmgsio.ScaleType;
+import java.text.DecimalFormat
+import java.math.RoundingMode
 
 /**
  *
@@ -38,13 +40,19 @@ import com.starmicronics.starmgsio.ScaleType;
 class StarScales (): Scales () {
 
 	 lateinit var deviceManager: StarDeviceManager
-	 lateinit var appCallback: ScalesCallback
-
+	 
 	 var weight = 0.0
-	 var starScales: StarScales
+	 var tareWeight = 1.0
 	 var capture = false
 	 var params: Jar
+	 
+	 lateinit var appCallback: ScalesCallback
 
+	 companion object {
+		  
+		  lateinit var starScales: StarScales
+	 }
+	 
 	 init {
 		  
 		  Logger.d ("star scales init... ")
@@ -55,31 +63,59 @@ class StarScales (): Scales () {
 		  params = Jar ()
 	 }
 	 
+	 fun ready (): Boolean {
+		  
+		  return this::appCallback.isInitialized
+	 }
+
 	 override fun deviceName (): String  { return "Star Scale" }
-	 
-	 /**
-	  * Scale
-	  */
-	 
-	 override fun startCapture (appCallback: ScalesCallback) {
+	 	 
+	 override fun startCapture (callBack: ScalesCallback, tare: Boolean) {
 
-		  Logger.d ("scales start capture... ")
-
-		  this.appCallback = appCallback
+		  appCallback = callBack
 		  capture = true
 
-		  if (Pos.app.config.getBoolean ("hardware_debug")) {
+		  // simulate a scale
+
+		  var test = Pos.app.config.getBoolean ("hardware_debug")
+		  // test = false
+		  if (test) {
+
+				// appCallback.scaleData (13.9)
 				
-				Thread (Runnable {
-						  
-								while (capture) {
+				// if (tare) {
+					 
+				// 	 tareWeight = .2
+				// }
+				
+				// weight = tareWeight
+				
+				// Thread (Runnable {
+
+				// 				var max = (7..11).random ()
+				// 				var i = 0
+								
+				// 				Thread.sleep (2000)  // a little extra pause for tickets
+								
+				// 				while (capture) {
+
+				// 					 if (i ++ == max) break;
 									 
-									 weight = ((500..999).random ()).toDouble () / 100.0
-									 Logger.d ("scales weight... ${weight}")
-									 appCallback.scaleData (weight)
-									 Thread.sleep (500)
-								}
-				}).start ()
+				// 					 weight += (5..11).random ().toDouble () / 1000.0
+									 
+				// 					 var df = DecimalFormat ("#.###")
+				// 					 df.roundingMode = RoundingMode.HALF_UP
+				// 					 weight = df.format (weight).toDouble ()
+									 									 
+				// 					 if (tare) {
+										  
+				// 						  tareWeight = weight
+				// 					 }
+									 
+				// 					 appCallback.scaleData (weight)
+				// 					 Thread.sleep ((300..500).random ().toLong ())
+				// 				}
+				// }).start ()
 		  }
 	 }
 	 
@@ -124,8 +160,6 @@ class StarScales (): Scales () {
 		  
         deviceManager = StarDeviceManager (Pos.app, StarDeviceManager.InterfaceType.All)
 		  deviceManager.scanForScales (deviceManagerCallback);
-
-		  Logger.d ("hardware debug is on, start scales... ${Pos.app.config.getBoolean ("hardware_debug")}")
 		  
 		  if (Pos.app.config.getBoolean ("hardware_debug")) {
 				
@@ -164,7 +198,6 @@ class StarScales (): Scales () {
 
 		  override fun onConnect (scale: com.starmicronics.starmgsio.Scale, status: Int) {
 
-				Logger.d ("scale connect... " + status)
 				deviceManager.stopScan ()
 				
 				when (status) {
@@ -230,11 +263,18 @@ class StarScales (): Scales () {
 		  }
 		  
 		  override fun  onReadScaleData (scale: com.starmicronics.starmgsio.Scale, scaleData: ScaleData) {
-									 				
-				weight = scaleData.getWeight ()
-				appCallback.scaleData (weight)
+
+				Logger.d ("read scall data... ${scaleData.getWeight ()}")
 				
-				Logger.w ("star scale read data... " + weight)
+				if (ready ()) {
+					 
+					 weight = scaleData.getWeight ()
+					 starScales.appCallback.scaleData (weight)
+				}
+				else {
+
+					 Logger.w ("scales not ready...")
+				}
 		  }
 	 }
 }

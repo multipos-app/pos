@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:tools="http://schemas.android.com/tools"
+	 xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:layout_margin="@dimen/dialog_margin"
+	 android:background="@color/transparent"
+	 android:orientation="vertical">
+  
+  <include
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/transparent"
+		layout="@layout/settle_tickets_header"/>
+
+  <!-- divider -->
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:background="@color/lt_gray"/>
+
+  <!-- split display -->
+
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@color/transparent"
+		android:orientation="horizontal">
+
+	 <!-- receipt -->
+
+	 <ScrollView
+		  android:layout_width="0dp"
+		  android:layout_weight="2"
+		  android:layout_height="match_parent"
+		  android:layout_marginTop="@dimen/dialog_margin"
+		  android:background="@color/transparent">
+		
+		
+		<cloud.multipos.pos.views.PosText
+			 android:id="@+id/ticket_receipt_text"
+			 android:layout_width="match_parent"
+			 android:layout_height="match_parent"
+			 android:gravity="center_vertical|center_horizontal"
+			 android:text=""
+			 android:textColor="@android:color/black"
+ 			 android:background="@color/transparent"
+			 android:textSize="@dimen/app_sm_text"/>
+		
+	 </ScrollView>
+	 
+	 <!-- tickets list and controls-->
+
+	 <LinearLayout
+		  android:layout_width="0dp"
+		  android:layout_weight="3"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:orientation="vertical">
+		
+		<ScrollView
+			 android:layout_width="match_parent"
+			 android:layout_weight="1"
+			 android:layout_height="0dp"
+			 android:background="@color/transparent">
+		  
+		  <LinearLayout
+				android:id="@+id/tickets_list"
+				android:layout_width="match_parent"
+				android:layout_height="match_parent"
+				android:background="@color/white"
+				android:orientation="vertical"/>
+		  
+		</ScrollView>
+		
+		<!-- tickets controls -->
+		
+		<LinearLayout
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:background="@color/transparent"
+			 android:layout_weight="1"
+			 android:orientation="horizontal">
+
+	 	  <!-- keys -->
+
+		  <include
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				layout="@layout/number_keyboard_layout"/>
+		  
+		  <LinearLayout
+				android:layout_width="0dp"
+				android:layout_height="match_parent"
+				android:layout_weight="1"
+				android:background="@color/transparent"
+				android:orientation="vertical">
+			 
+			 <cloud.multipos.pos.views.PosText
+				  android:id="@+id/settle_ticket_tip_input"
+ 				  android:clickable="false"
+				  android:layout_width="match_parent"
+				  android:layout_height="0dp"
+				  android:layout_weight=".7"
+				  android:gravity="center"
+				  android:text="0.00"
+				  android:textStyle="bold"
+				  android:textColor="@color/black"
+				  android:textSize="@dimen/dialog_lg_text"/>
+
+			 <cloud.multipos.pos.views.PosButton
+				  android:id="@+id/settle_tickets_update"
+  				  style="@style/DialogSuccess"
+				  android:layout_width="match_parent"
+				  android:layout_height="0dp"
+				  android:layout_weight="1"
+				  android:text="@string/update"
+				  android:textColor="@color/white"
+				  android:textSize="@dimen/dialog_md_text"/>
+			 
+			 <cloud.multipos.pos.views.PosButton
+				  android:id="@+id/settle_tickets_complete"
+   			  style="@style/DialogContinue"
+				  android:layout_width="match_parent"
+				  android:layout_height="0dp"
+				  android:layout_weight="1"
+				  android:text="@string/back_to_pos"
+				  android:textColor="@color/white"
+				  android:textSize="@dimen/dialog_md_text"/>
+			 
+		  </LinearLayout>
+		  
+		</LinearLayout>
+
+	 </LinearLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

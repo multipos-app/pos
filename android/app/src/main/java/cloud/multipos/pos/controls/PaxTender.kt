@@ -24,6 +24,7 @@ import cloud.multipos.pos.models.*
 import cloud.multipos.pos.views.CreditTenderView
 import cloud.multipos.pos.views.PosDisplays
 
+import android.os.Looper
 import android.os.Handler
 import android.os.Message
 
@@ -121,7 +122,7 @@ class PaxTender (): Tender (null) {
 		  							 .put ("amount", fees))
 	 }
 
-	 inner class AuthHandler (val tender: PaxTender): Handler () {
+	 inner class AuthHandler (val tender: PaxTender): Handler (Looper.getMainLooper ()) {
 
 		  override fun handleMessage (m: Message) {
 

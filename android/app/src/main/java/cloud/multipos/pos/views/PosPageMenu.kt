@@ -101,12 +101,9 @@ class PosPageMenu (context: Context,
 				setText (button.getString ("text"))
 				
 				control = Control.factory (button.getString ("class"))
-				if (control != null) {
+				setOnClickListener {
 					 
-					 setOnClickListener {
-
-						  control.action (button.get ("jar"))
-					 }
+					 control.action (button.get ("jar"))
 				}
 		  }
 	 }

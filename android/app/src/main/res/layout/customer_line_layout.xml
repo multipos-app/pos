@@ -17,36 +17,9 @@
 
 	 <cloud.multipos.pos.views.PosText
  		  android:clickable="false"
-        android:id="@+id/customer_name"
-        android:layout_width="0dp"
+        android:id="@+id/customer_layout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
-        android:gravity="start"
-        android:text=""
-		  android:textColor="@color/black"
-        android:textSize="@dimen/customer_md_text"
-		  android:paddingBottom="@dimen/customer_line_margin"
-		  android:background="@color/transparent"/>
-
-	 <cloud.multipos.pos.views.PosText
- 		  android:clickable="false"
-        android:id="@+id/customer_email"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:gravity="start"
-        android:text=""
-		  android:textColor="@color/black"
-        android:textSize="@dimen/customer_md_text"
-		  android:paddingBottom="@dimen/customer_line_margin"
-		  android:background="@color/transparent"/>
-	 
-	 <cloud.multipos.pos.views.PosText
- 		  android:clickable="false"
-        android:id="@+id/customer_phone"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="1"
         android:gravity="start"
         android:text=""
 		  android:textColor="@color/black"

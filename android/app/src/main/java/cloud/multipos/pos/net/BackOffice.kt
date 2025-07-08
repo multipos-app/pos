@@ -24,6 +24,7 @@ import cloud.multipos.pos.views.PosMenus
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.models.Ticket
+import cloud.multipos.pos.models.*
 
 import android.os.Looper
 import android.os.Handler
@@ -64,7 +65,7 @@ object BackOffice: Device, DeviceCallback {
 					 
 					 // subscribe to BU broker
 					 
-					 mqttClient.connect ("multipos/" + Pos.app.local.getInt ("merchant_id", 0))
+					 // mqttClient.connect ("multipos/" + Pos.app.local.getInt ("merchant_id", 0))
 				}
 		  }
 
@@ -73,6 +74,8 @@ object BackOffice: Device, DeviceCallback {
 	 
     fun start () {
 
+		  Pos.app.devices.add (this)
+		  
 		  if (started) {
 
 				return
@@ -82,7 +85,7 @@ object BackOffice: Device, DeviceCallback {
 				started = true
 		  }
 		  
-		  handler = object: Handler () {
+		  handler = object: Handler (Looper.getMainLooper ()) {
 
 				override fun handleMessage (message: Message) {
 
@@ -90,29 +93,28 @@ object BackOffice: Device, DeviceCallback {
 						  .put ("update_id", Pos.app.local.getInt ("update_id", 0))
 						  .put ("pos_config_id", Pos.app.local.getInt ("pos_config_id", 0))
 						  .put ("download_count", downloadCount)
-
+					 
 					 Post ("pos-download")
 						  .add (download)
 						  .exec (fun (result: Jar): Unit {
-										 
-										 Logger.i ("back office... ${result.getInt ("status")} ${result.getInt ("total")}")
-										 
+										 										 
 										 if (result.getInt ("status") == 0) {
 										 	  
 											  if (downloadTotal == 0) {
 
 													downloadTotal = result.getInt ("total")
 											  }
-											  										  
+											  
+											  downloadCount += result.getInt ("count")
+													
+											  Logger.i ("download ${downloadCount} ${downloadTotal} ${result.getInt ("count")}")	  										  
 											  if (result.getInt ("count") > 0) {
 													
 													for (update in result.getList ("updates")) {
 														 
 														 var res = process (update)  // handle the updtes
 													}
-													
-													downloadCount += result.getInt ("count")
-													
+
 													val dm = Message.obtain ()
 													dm.what = DOWNLOAD													
 													if (progress != null) {
@@ -123,7 +125,10 @@ object BackOffice: Device, DeviceCallback {
 														 progress?.sendMessage (dm)
 													}
 													
-													handler.sendMessage (Message.obtain ())  // send message to self
+													if (Pos.app.local.getInt ("merchant_id", 0) > 0) {
+														 
+														 handler.sendMessage (Message.obtain ())  // send message to self
+													}
 											  }
 											  else {
 
@@ -141,8 +146,12 @@ object BackOffice: Device, DeviceCallback {
 													handler.removeMessages (DOWNLOAD)
 													val dm = Message.obtain ()
 													dm.what = DOWNLOAD
-													handler.sendMessageDelayed (dm, poll)
-													upload ()
+																										
+													if (Pos.app.local.getInt ("merchant_id", 0) > 0) {
+
+														 handler.sendMessageDelayed (dm, poll)
+														 upload ()
+													}
 											  }
 										 }
 										 else {  // error handler, wait and try again...
@@ -157,9 +166,6 @@ object BackOffice: Device, DeviceCallback {
 						  })
 				}
 		  }
-		  
-		  Pos.app.devices.add (this)
-		  download ()
 	 }
 	 
     fun start (handler: Handler) {
@@ -175,7 +181,10 @@ object BackOffice: Device, DeviceCallback {
 	 
 	 override fun start (jar: Jar) {
 		  
-		  download ()
+		  if (Pos.app.local.getInt ("merchant_id", 0) > 0) {
+				
+				download ()
+		  }
 	 }
 
 	 private fun process (update: Jar): Boolean {
@@ -188,8 +197,8 @@ object BackOffice: Device, DeviceCallback {
 
 				if (!Pos.app.db.hasTable (update.getString ("update_table"))) {
 
-					 Logger.w ("handler updates, missing table... " + update.getString ("update_table"))
-					 return true
+					 // Logger.w ("handler updates, missing table... " + update.getString ("update_table"))
+					 // return true
 				}
 		  }
 
@@ -203,15 +212,25 @@ object BackOffice: Device, DeviceCallback {
 
 					 if (Pos.app.db ().has (update.getString ("update_table"))) {
 
-						  Pos.app.db ().delete (update.getString ("update_table"), update.getInt ("update_id"))
+						  when (update.getString ("update_table")) {
 
-						  if (update.getString ("update_table").equals ("items")) {
+								"pos_images" -> { }
 								
-								Pos.app.db ().exec ("delete from item_prices where item_id = " + update.getInt ("update_id"))
-								Pos.app.db ().exec ("delete from item_links where item_id = " + update.getInt ("update_id"))
+								else -> {
+
+									 Pos.app.db ().delete (update.getString ("update_table"), update.getInt ("update_id"))
+									 
+									 if (update.getString ("update_table").equals ("items")) {
+										  
+										  Pos.app.db ().exec ("delete from item_prices where item_id = " + update.getInt ("update_id"))
+										  Pos.app.db ().exec ("delete from item_links where item_id = " + update.getInt ("update_id"))
+									 }
+								}
 						  }
 					 }
 
+					 // Logger.d ("update... ${update.getString ("update_table")}");
+					 
 					 when (update.getString ("update_table")) {
 
 						  "pos_configs" -> {
@@ -234,8 +253,9 @@ object BackOffice: Device, DeviceCallback {
 								
 								config.initialize ()
 								Pos.app.config.put ("config_loaded", true)
-
 								PosMenus.reload ()
+
+								Logger.i ("config update... ${Pos.app.posConfigID ()}")
 						  }
 
 						  "local_item" -> {
@@ -266,10 +286,7 @@ object BackOffice: Device, DeviceCallback {
 									 Pos.app.db ().insert ("item_links", il)
 								}
 
-								if (Pos.app.config.has ("image_buttons")) {
-
-									 FileUtils.downloadImage (row.getString ("sku") + ".png");
-								}
+							
 						  }
 						  
 						  "item_addons" -> {
@@ -277,8 +294,12 @@ object BackOffice: Device, DeviceCallback {
 								row.put ("jar", row.get ("jar").toString ())
 								Pos.app.db ().insert (update.getString ("update_table"), row)
 						  }
-
 						  
+						  "pos_images" -> {
+								
+								FileUtils.downloadImage (update.get ("update").getString ("image_name"));
+						  }
+
 						  "business_units" -> {
 								
 								if (update.getInt ("update_id") == Pos.app.buID ()) {
@@ -305,7 +326,7 @@ object BackOffice: Device, DeviceCallback {
 						  }
 						  "customers" -> {
 
-								Pos.app.db ().insert (update.getString ("update_table"), row)
+								Customer.factory (row).update ()
 						  }
 
 						  else -> {
@@ -318,6 +339,12 @@ object BackOffice: Device, DeviceCallback {
 				1 -> {
 					 
 					 Pos.app.db ().delete (update.getString ("update_table"), update.getInt ("update_id"))
+					 
+					 if (update.getString ("update_table").equals ("items")) {
+										  
+						  Pos.app.db ().exec ("delete from item_prices where item_id = " + update.getInt ("update_id"))
+						  Pos.app.db ().exec ("delete from item_links where item_id = " + update.getInt ("update_id"))
+					 }
 				}
 		  }
 		  
@@ -375,7 +402,13 @@ object BackOffice: Device, DeviceCallback {
 
 	 fun download () {
 		  
-		  handler.sendMessage (Message.obtain ())
+		  if (Pos.app.local.getInt ("merchant_id", 0) > 0) {
+
+				if (this::handler.isInitialized) {
+
+					 handler.sendMessage (Message.obtain ())
+				}
+		  }
 	 }
 
 	 fun upload () {

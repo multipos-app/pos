@@ -21,6 +21,10 @@ import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.addons.*
+import cloud.multipos.pos.views.PosDisplays
+import cloud.multipos.pos.views.ReportView
+import cloud.multipos.pos.views.CustomerSearchView
+import cloud.multipos.pos.net.Upload
 
 import java.util.Random
 import java.util.Date
@@ -43,7 +47,9 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 @JvmField val totals = mutableListOf <Jar> ()
 	 @JvmField val other = mutableListOf <Jar> ()
 	 @JvmField val updates = mutableListOf <Jar> ()
-
+	 
+	 var taxMap = hashMapOf <Int, TicketTax> ()
+	 
 	 init {
 
 		  // check if the last ticket was not completed, if so load it
@@ -108,21 +114,11 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 						  put ("clerk", Employee (clerkResult.row ()))
 					 }
 				}
-
-				// put ("state", state)
 				
 				update ()  // set totals, tax, etc...
 		  }
-		  else {
+		  else { // no id, start a new ticket
 
-				// else start a new ticket
-
-				// if (has ("id")) {
-					 
-				// 	 remove ("id")
-				// }
-
-				
 				var employeeID = 0
 				employeeID = Pos.app.employee!!.getInt ("id")
 				
@@ -235,7 +231,75 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  }
 	 }
 	 
-	 override fun update () {
+
+	 /**
+	  *
+	  * save state
+	  *
+	  */
+	 
+	 fun applyTaxes (): TicketTax? {
+		  
+		  var ticketTax: TicketTax? = null
+		  
+		  for (ti in items) {
+				
+		  		when (getInt ("ticket_type")) {
+
+					 Ticket.SALE_NONTAX -> {
+					 }
+		  			 else -> {
+						  
+		  				  when (ti.getInt ("state")) {
+
+		  						TicketItem.REFUND_ITEM, TicketItem.STANDARD -> {
+									 
+		  							 if (ti.getInt ("tax_group_id") > 0) {
+										  
+		  								  var taxGroup = Pos.app.config.taxes ().get (Integer.toString (ti.getInt ("tax_group_id")))
+										  
+		  								  if (taxGroup != null) {
+												
+		  										var tax = ti.tax (taxGroup as Jar)
+		  										ticketTax = taxes.get (ti.getInt ("tax_group_id"))
+												
+		  										if (ticketTax != null) {
+													 
+		  											 ticketTax.put ("tax_amount", ticketTax.getDouble ("tax_amount") + tax)
+		  										}
+		  										else {
+													 													 
+		  											 ticketTax = TicketTax (Jar ()
+		  																				 .put ("ticket_id", getInt ("id"))
+		  																				 .put ("tax_group_id", ti.getInt ("tax_group_id"))
+		  																				 .put ("tax_incl", ti.getInt ("tax_incl"))
+		  																				 .put ("tax_amount", tax)
+		  																				 .put ("short_desc", taxGroup.getString ("short_desc")))
+													 
+		  											 Pos.app.db.insert ("ticket_taxes", ticketTax)
+		  											 taxMap.put (ti.getInt ("tax_group_id"), ticketTax)
+		  										}
+		  								  }
+		  							 }
+								}
+						  }
+					 }		  
+				}
+		  }
+		  
+		  // add the taxes to the ticket 
+
+		  taxMap.forEach {(key, tt) -> taxes.add (tt) }
+		  return ticketTax
+	 }
+
+	 /**
+	  *
+	  * save state
+	  *
+	  */
+	 
+	 fun update () {
 		  
 		  var itemCount = 0
 		  var subTotal = 0.0
@@ -274,7 +338,9 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				var multiplier = 1.0
 				when (item.getInt ("state")) {
 
-					 TicketItem.REFUND_ITEM, TicketItem.STANDARD -> {
+					 TicketItem.REFUND_ITEM,
+					 TicketItem.STANDARD,
+					 TicketItem.PAYOUT -> {
 
 						  var amount = item.extAmount () * multiplier
 						  var addonAmount = 0.0
@@ -499,41 +565,41 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  currentItem = items.get (pos)
 	 }
 
-	 fun fold (): Ticket {
+	 // fun fold (): Ticket {
 
-		  val tmp = mutableListOf <TicketItem> ()
-		  for (ti in items) {
+	 // 	  val tmp = mutableListOf <TicketItem> ()
+	 // 	  for (ti in items) {
 
-				tmp.add (ti)
+	 // 			tmp.add (ti)
 				
-				for (link in ti.links) {
+	 // 			for (link in ti.links) {
 					 
-					 tmp.add (link)
-				}
+	 // 				 tmp.add (link)
+	 // 			}
 
-				if (ti.hasAddons ()) {
+	 // 			if (ti.hasAddons ()) {
 
-					 ti
-						  .put ("ticket_item_addons", ti.addons)
-				}
+	 // 				 ti
+	 // 					  .put ("ticket_item_addons", ti.addons)
+	 // 			}
 				
-				if (ti.hasMods ()) {
+	 // 			if (ti.hasMods ()) {
 
-					 ti
-						  .put ("ticket_item_mods", ti.mods)
-				}
-		  }
+	 // 				 ti
+	 // 					  .put ("ticket_item_mods", ti.mods)
+	 // 			}
+	 // 	  }
 		  
-		  items.clear ()
-		  tmp.forEach {
+	 // 	  items.clear ()
+	 // 	  tmp.forEach {
 				
-				items.add (it)
-		  }
+	 // 			items.add (it)
+	 // 	  }
 
-		  this.put ("version", "1.0")
+	 // 	  this.put ("version", "1.0")
  
-		  return this
-	 }
+	 // 	  return this
+	 // }
 
 	 private fun recallID (): String {
 
@@ -601,6 +667,8 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  const val REFUNDED              = 7
 		  const val REVERSED              = 8
 		  const val RECALLED              = 9
+		  const val JOB_PENDING           = 10
+		  const val JOB_COMPLETE          = 11
 
 		  // Ticket types
 
@@ -628,6 +696,10 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  const val OPEN_AMOUNT           = 21
  		  const val MANAGER_OVERRIDE      = 22
  		  const val ORDER_ITEMS           = 23
+		  const val REFUND                = 24
+		  const val WEIGHT_ITEMS          = 25
+		  const val REDEEM                = 26
+		  const val PAYOUT                = 27
 
 		  // Ticket line item types
 

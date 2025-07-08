@@ -144,6 +144,7 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 	 
 	 override fun swipeRight () {
 
-		  Control.factory ("Recall").controlAction (Jar ())  // get next suspended ticket
+		  Control.factory ("LoadTicket").controlAction (Jar ()
+																			 .put ("dir", -1))  // get next suspended ticket
 	 }
 }

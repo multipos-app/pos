@@ -134,12 +134,12 @@ fun String.fill (size: Int): String {
 		  
 	 val sb = StringBuilder ()
 	 
-	 for (i in 0..size) {
+	 for (i in 0..(size - 1)) {
 		  
 		  sb.append (this)
 	 }
 	 
-	 return sb.toString()		  
+	 return sb.toString ()		  
 }
 
 fun String.trunc (id: Int): String {
@@ -148,7 +148,7 @@ fun String.trunc (id: Int): String {
 				
 	 if (this.length > max) {
 				
-		  return this.substring (0, max - 3) + "..."
+		  return this.substring (0, max - 3) + Pos.app.getString ("ellipsis")
 	 }
 	 else {
 		  

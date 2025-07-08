@@ -8,7 +8,7 @@
 	 <color name="light_bg">#ffffff</color>
     <color name="light_fg">#000000</color>
     <color name="light_even_bg">#00000000</color>
-    <color name="light_odd_bg">#33000000</color>
+    <color name="light_odd_bg">#11000055</color>
     <color name="light_select_bg">#BCBDBF</color>
 
 	 <color name="dark_bg">#0B2A25</color>
@@ -26,7 +26,7 @@
     <color name="pos_app_bg">#0B2A25</color> <!-- dark forest green -->
     <!-- <color name="pos_app_bg">#103D6E</color> --> <!-- blue -->
 	 
-    <color name="pos_primary">#007BFF</color>
+    <color name="pos_primary">#0D6EFD</color>
     <color name="pos_secondary">#6C757D</color>
     <color name="pos_success">#28A745</color>
     <color name="pos_danger">#E8003F</color>

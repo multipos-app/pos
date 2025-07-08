@@ -26,6 +26,7 @@ import cloud.multipos.pos.controls.*
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.LinearLayout
+import android.widget.LinearLayout.LayoutParams
 import android.view.View
 import java.util.List
 import android.view.Gravity
@@ -40,13 +41,6 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 	 var footerTax: PosText
 	 var footerTotalDesc: PosText
 	 var footerTotal: PosText
-
-	 var next: PosIconText
-	 var prev: PosIconText
-	 var home: PosIconText
-	 var suspend: PosIconText
-	 var print: PosIconText
-	 var customer: PosIconText
 	 
 	 val textViews = mutableListOf <PosText> ()
 
@@ -55,7 +49,7 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 	 
 	 init {
 		  
-		  Pos.app.inflater.inflate (R.layout.ticket_footer_nav_layout, this)
+		  Pos.app.inflater.inflate (R.layout.ticket_footer_controls_layout, this)
 	  
 		  footerSubtotalDesc = findViewById (R.id.footer_subtotal_desc) as PosText
 		  footerSubtotalDesc.italic ()
@@ -69,55 +63,22 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 		  footerTax = findViewById (R.id.footer_tax) as PosText
 		  textViews.add (footerTax)
 
-		 
 		  footerTotalDesc = findViewById (R.id.footer_total_desc) as PosText
 		  footerTotalDesc.italic ()
 		  textViews.add (footerTotalDesc)
 		  footerTotal = findViewById (R.id.footer_total) as PosText
 		  textViews.add (footerTotal)
-		  
-		  home = findViewById (R.id.ticket_nav_home) as PosIconText
-		  textViews.add (home)
-		  home?.setOnClickListener {
 
-				navControl.action (Jar ().put ("dir", 0))
-		  }
-		  
-		  prev = findViewById (R.id.ticket_nav_prev) as PosIconText
-		  textViews.add (prev)
-		  prev?.setOnClickListener {
-	
-				navControl.action (Jar ().put ("dir", -1))
-		  }
-		  
-		  next = findViewById (R.id.ticket_nav_next) as PosIconText
-		  textViews.add (next)
-		  next?.setOnClickListener {
+		  if (Pos.app.config.has ("ticket_controls")) {
 
-				navControl.action (Jar ().put ("dir", 1))
-		  }
-		  
-		  suspend = findViewById (R.id.ticket_nav_suspend) as PosIconText
-		  textViews.add (suspend)
-		  suspend?.setOnClickListener {
-
-				Control.factory ("Suspend").action (Jar ())
-		  }
-		  
-		  print = findViewById (R.id.ticket_nav_print) as PosIconText
-		  textViews.add (print)
-		  print?.setOnClickListener {
+				val controlLayout = findViewById (R.id.ticket_footer_controls) as LinearLayout
 				
-				printControl.action (Jar ())
+				for (control in Pos.app.config.getList ("ticket_controls")) {
+
+					 controlLayout.addView (FooterControl (control))
+				}
 		  }
 		  
-		  customer = findViewById (R.id.ticket_nav_customer) as PosIconText
-		  textViews.add (customer)
-		  customer?.setOnClickListener {
-				
-		  		CustomerSearchView ()
-		  }
-
 		  Themed.add (this)
 		  PosDisplays.add (this)
 		  update ()
@@ -168,6 +129,29 @@ class TicketFooter (context: Context, attrs: AttributeSet): LinearLayout (contex
 		  for (tv in textViews) {
 				
 				tv.setTextColor (color)
+		  }
+	 }
+
+	 inner class FooterControl (params: Jar): LinearLayout (Pos.app.activity) {
+
+		  init {
+				
+				Pos.app.inflater.inflate (R.layout.ticket_footer_control, this)
+				val icon = findViewById (R.id.footer_control_icon) as PosIconText
+				textViews.add (icon)
+				icon.text = Pos.app.getString (params.getString ("icon"))
+				val control = Control.factory (params.getString ("class"))
+				
+				icon.setOnClickListener {
+
+					 control.action (params.get ("params"))
+				}
+
+				val params = LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT,
+																	 LayoutParams.MATCH_PARENT,
+																	 1.0f)
+				
+				setLayoutParams (params)
 		  }
 	 }
 }

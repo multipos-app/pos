@@ -34,7 +34,7 @@ package cloud.multipos.pos.devices;
 
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.surveillance.*
+import cloud.multipos.pos.net.*
 
 import android.os.Build
 
@@ -48,19 +48,19 @@ abstract class DeviceManager (): Device {
 
 	 companion object {
 
-		  val deviceTypes = listOf ("receipt_printer", "kitchen_printer", "scanner", "payment", "scales", "video_capture", "screen_capture")
+		  val deviceTypes = listOf ("receipt_printer", "kitchen_printer", "scanner", "payment", "scales", "video_capture", "screen_capture", "pos_connect")
 		  
 		  @JvmField var printer: Printer = DefaultPrinter ()
+		  @JvmField var kitchenPrinter: Printer = DefaultPrinter ()
 		  @JvmField var customerDisplay: CustomerDisplay? = null
 		  @JvmField var scanner: Scanner? = null
 		  @JvmField var payment: Payment? = null
 		  @JvmField var scales: Scales? = null
+		  @JvmField var posConnect: PosConnect? = null
 
 		  var started = false
 		  
 		  fun start (devices: String) {
-
-				Logger.i ("start devices... ${started}")
 				
 				if (!started) {
 
@@ -72,8 +72,6 @@ abstract class DeviceManager (): Device {
 						  for (deviceType in deviceTypes) {
 								
 								var device = devices.get (deviceType);
-
-								Logger.i ("start device... ${deviceType} ${device}")
 						  
 								if (device.getString ("class").length > 0) {
 

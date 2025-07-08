@@ -26,14 +26,16 @@ import android.widget.LinearLayout
 import android.widget.Button
 import android.widget.TextView
 import android.graphics.Color
-
+import java.math.BigDecimal
+import java.math.RoundingMode
 import java.util.Random 
 
-class ScalesView (val control: InputListener, title: String, val type: Int, val decimalPlaces: Int): DialogView (title) {
+class ScalesView (val control: InputListener, title: String, val type: Int, val params: Jar): DialogView (title) {
 
-	 var scaleEcho: TextView
+	 var scaleEcho: PosText
 	 var decimalVal = 0.0
-
+	 val decimalPlaces = params.getInt ("decimal_places");
+	 
 	 companion object {
 		  
 		  lateinit var callback: ScalesCallback
@@ -50,12 +52,12 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 				
 				Themes.Light -> {
 					 
-					 scaleEcho.setTextColor (Color.BLACK)
+					 scaleEcho?.setTextColor (Color.BLACK)
 				}
 				
 				Themes.Dark -> {
 					 
-					 scaleEcho.setTextColor (Color.WHITE)
+					 scaleEcho?.setTextColor (Color.WHITE)
 					 
 				}
 		  }
@@ -63,17 +65,39 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 		  callback = object: ScalesCallback {
 				
 				override fun scaleData (w: Double) {
+
+					 if (w < params.getDouble ("min_metric")) {
+
+						  weight = params.getDouble ("min_metric")
+					 }
+					 else if (params.has ("round")) {
+
+						  when (params.getString ("round")) {
+
+								"half_up" -> {
+									 
+									 weight = BigDecimal (w.toString ())
+										  .setScale (0, RoundingMode.HALF_UP)
+										  .toDouble ()
+								}
+						  }
+					 }
+					 else {
+						  
+						  weight = w
+					 }
 					 
-					 weight = w
-					 scaleEcho.setText (String.format ("%.${decimalPlaces}f " + Pos.app.getString ("pounds"), weight))
+					 scaleEcho?.setText (String.format ("%.${decimalPlaces}f " + Pos.app.getString ("pounds"), weight))
 				}
 		  }
 
-		  DeviceManager.scales?.startCapture (callback)
-		  
+		  DeviceManager.scales?.startCapture (callback, false)
+
 		  PosDisplays.add (this)
 		  DialogControl.addView (this)
 		  update ()
+		  
+		  callback.scaleData (11.99)
 	 }
 	 
 	 override fun actions (dialogView: DialogView) {
@@ -104,7 +128,7 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 
 		  decimalVal = Pos.app.input.getDouble ()
 		  for (i in 1..decimalPlaces) decimalVal = decimalVal / 10.0			 
-		  scaleEcho.text = String.format ("%.${decimalPlaces}f", decimalVal)
+		  scaleEcho?.text = String.format ("%.${decimalPlaces}f", decimalVal)
 	 }
 	 
 	 override fun enter () {
@@ -116,7 +140,7 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 
 		  if (Pos.app.input.length () == 0) {
 		  
-				scaleEcho.setHint (Pos.app.getString ("register_open"));
+				scaleEcho?.setHint (Pos.app.getString ("register_open"));
 		  }		  
 	 }
 }

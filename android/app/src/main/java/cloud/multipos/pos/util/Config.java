@@ -65,18 +65,12 @@ public class Config extends Jar {
 
 				Jar config = posConfigResult.row ();
 				
-				// Logger.d ("load config... " + config.getInt ("id") + " " + config.getString ("config_desc"));
-
 				parse (config.getString ("config"));
 				initialize ();
 				ready = true;
 		  }
-		  else {
 
-				Logger.stack ("no config...");
-		  }
-
-		  deviceData ();
+		  deviceData ();  // load device data
 	 }
 
 	 public void initialize () {
@@ -216,6 +210,14 @@ public class Config extends Jar {
 	 
 	 public Jar deviceData () {
 
+		  DisplayMetrics displayMetrics = new DisplayMetrics ();
+		  Pos.app.getWindowManager ().getDefaultDisplay ().getMetrics (displayMetrics);
+
+		  Logger.x ("display metrics... " + displayMetrics);
+		  
+		  put ("width", displayMetrics.widthPixels);
+		  put ("height", displayMetrics.heightPixels);
+
 		  Jar deviceData = new Jar ()
 				.put ("metrics", getString ("metrics"))
 				.put ("model", android.os.Build.MODEL)
@@ -223,22 +225,11 @@ public class Config extends Jar {
 				.put ("android_release", android.os.Build.VERSION.RELEASE)
 				.put ("version_name", getString ("version_name"))
 				.put ("version_code", getInt ("version_code"))
-				.put ("display_width", getInt ("display_width"))
-				.put ("display_height", getInt ("display_height"))
+				.put ("width", displayMetrics.widthPixels)
+				.put ("height", displayMetrics.heightPixels)
 				.put ("density", Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi);
-
-		  Logger.d ("device data... " + deviceData);
 		  
-		  DisplayMetrics displayMetrics = new DisplayMetrics();
-		  Pos.app.getWindowManager ().getDefaultDisplay ().getMetrics (displayMetrics);
-		  int height = displayMetrics.heightPixels;
-		  int width = displayMetrics.widthPixels;
-		  
- 		  Logger.d ("window dimesions... " + height + "/" + width);
-		  
-		  put ("height", height);
-		  put ("width", width);
-
+		  Logger.x ("device data... " + deviceData);
 		  return deviceData;
 	 }
 

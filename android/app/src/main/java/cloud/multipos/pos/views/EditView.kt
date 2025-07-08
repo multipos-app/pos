@@ -111,6 +111,17 @@ abstract class EditView (): PosLayout (Pos.app, null) {
 				fields [curr]?.requestFocus ()
 		  }
 		  
+		  // field?.setOnFocusChangeListener {
+		  // 		_, hasFocus ->
+		  // 			 if (hasFocus) {
+		  // 				  Logger.d ("has focus... ${field.pos}")
+		  // 				  //curr = field.pos
+		  // 			 }
+		  // 		else {
+		  // 			 Logger.d ("lost focus... ${field.pos}")
+		  // 		}
+		  // }
+		  
 		  return field
 	 }
 

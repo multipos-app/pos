@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<androidx.constraintlayout.widget.ConstraintLayout
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:custom="http://schemas.android.com/apk/res-auto"
@@ -7,17 +7,14 @@
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
 	 android:background="@color/pos_app_bg"
-	 android:orientation="horizontal"
-	 android:padding="@dimen/app_bar_padding">
+	 android:orientation="horizontal">
 
   <ImageView
       android:id="@+id/pos_info"
-      android:layout_width="0dp"
-      android:layout_weight="1"
-      android:layout_height="wrap_content"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
 		android:clickable="true"
       android:src="@drawable/app_icon"
-		android:padding="0dp"
       android:layout_gravity="center_vertical|center_horizontal"
       android:background="@color/transparent"
       app:layout_constraintStart_toStartOf="parent"/>
@@ -27,30 +24,29 @@
       android:layout_width="wrap_content"
 		android:layout_height="match_parent"
       android:gravity="center_vertical|start"
-		android:layout_marginLeft="@dimen/app_bar_icon_margin"
-		android:layout_marginRight="@dimen/app_bar_icon_margin"
 		android:text=""
       android:textColor="@color/white"
       android:background="@color/transparent"
-      android:textSize="@dimen/app_bar_text"/>
+      android:textSize="@dimen/app_bar_text"
+      app:layout_constraintStart_toEndOf="@+id/pos_info"/>
   
   <LinearLayout
       android:id="@+id/app_bar_customer_layout"
-		android:layout_width="0dp"
-		android:layout_weight="8"
+		android:layout_width="wrap_content"
 		android:layout_height="match_parent"
       android:layout_gravity="fill_horizontal"
       android:gravity="center_vertical|center"
       android:orientation="horizontal"
 		android:background="@color/transparent"
 		android:clickable="true"
-		android:padding="@dimen/app_bar_padding">
+		android:padding="@dimen/app_bar_padding"
+      app:layout_constraintStart_toEndOf="@+id/app_bar_clock">
 	 
 	 <cloud.multipos.pos.views.PosIconText
         android:id="@+id/app_bar_customer_clear"
-        android:layout_width="0dp"
-        android:layout_weight="1"
+        android:layout_width="wrap_content"
 		  android:layout_height="match_parent"
+		  android:layout_margin="5dp"
         android:gravity="center_vertical|center"
 		  android:text="@string/fa_x_circle"
         android:textColor="@color/red"
@@ -60,7 +56,7 @@
 	 <cloud.multipos.pos.views.PosText
         android:id="@+id/app_bar_customer_name"
         android:layout_width="0dp"
-        android:layout_weight="11"
+        android:layout_weight="10"
         android:layout_height="match_parent"
         android:text=""
         android:gravity="center_vertical|start"
@@ -74,12 +70,12 @@
 
   <LinearLayout
       android:id="@+id/app_bar_tray"
-      android:layout_width="0dp"
-      android:layout_weight="5"
+      android:layout_width="wrap_content"
       android:layout_height="match_parent"
       android:layout_gravity="fill_horizontal"
       android:background="@color/transparent"
       android:gravity="center_vertical|end"
-      android:orientation="horizontal"/>
+      android:orientation="horizontal"
+      app:layout_constraintEnd_toEndOf="parent"/>
   
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

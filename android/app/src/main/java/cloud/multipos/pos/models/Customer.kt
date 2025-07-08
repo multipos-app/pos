@@ -24,6 +24,14 @@ import cloud.multipos.pos.receipts.*
 
 class Customer (): Jar (), Model {
 
+	 companion object {
+
+		  fun factory (jar: Jar): Customer {
+
+				return Customer (jar)
+		  }
+	 }
+	 
 	 constructor (jar: Jar): this () {
 
 		  copy (jar)
@@ -71,6 +79,21 @@ class Customer (): Jar (), Model {
 		  return this
 	 }
 
+	 fun update (): Customer {
+
+		  val customerResult = DbResult ("select * from customers where uuid = '${this.getString ("uuid")}'", Pos.app.db)
+		  if (customerResult.fetchRow ()) {
+				
+				Pos.app.db ().update ("customers", "uuid", this.getString ("uuid"), this)
+		  }
+		  else {
+
+				Pos.app.db ().insert ("customers", this)
+		  }
+		  
+		  return this
+	 }
+
 	 fun instant (): Customer {
 
 		  put ("fname", Pos.app.getString ("instant_loyalty"))
@@ -94,8 +117,6 @@ class Customer (): Jar (), Model {
 	 }
 	 
 	 override fun display (): String {
-
-		  val MAX_LEN = 32
 
 		  val sb = StringBuffer ()
 		  
@@ -122,13 +143,30 @@ class Customer (): Jar (), Model {
 				sb.append (getString ("email"))
 		  }
 
-		  // if (sb.length > MAX_LEN) {
-
-		  // 		sb.setLength (MAX_LEN)
-		  // 		sb.append ("...")
-		  // }
-
 		  return sb.toString ()
+	 }
+
+	 fun name (): String {
+
+		  val sb = StringBuffer ()
+		  
+		
+		  if (has ("lname") && (getString ("lname").length > 0)) {
+
+				return getString ("lname")
+		  }
+
+		  if (has ("phone") && (getString ("phone").length > 0)) {
+				
+				return getString ("phone").phone ()
+		  }
+		  
+		  if (has ("email") && (getString ("email").length > 0)) {
+				
+				return getString ("email")
+		  }
+
+		  return "unknown"
 	 }
 
 	 override fun receipt (): PrintCommands {

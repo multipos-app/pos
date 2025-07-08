@@ -32,9 +32,6 @@ import android.widget.BaseAdapter
 import android.widget.Button
 import android.widget.TextView
 import android.graphics.Color
-import android.widget.GridLayout
-import android.widget.GridLayout.*
-import com.google.android.material.button.MaterialButton
 import android.widget.GridView
 
 import java.text.SimpleDateFormat
@@ -42,24 +39,23 @@ import java.util.TimeZone
 import java.util.Date
 import java.util.Locale
 
-class TabsView (val listener: InputListener, val title: String, val openTabs: ArrayList <Jar>): DialogView (title) {
+class OpenTabsView (val listener: InputListener, val title: String, val openTabs: ArrayList <Jar>): DialogView (title) {
 	 
 	 var grid: GridView
 	 private val tabs: MutableList <View> = ArrayList ()
-	 var tabsView: TabsView
 
 	 init  {
 
-		  tabsView = this
-		  Pos.app.inflater.inflate (R.layout.tabs_layout, dialogLayout)
-		  grid = findViewById (R.id.tabs_layout_tabs) as GridView
+		  Pos.app.inflater.inflate (R.layout.open_tabs_layout, dialogLayout)
+		  grid = findViewById (R.id.open_tabs_grid) as GridView
 
+		  var i = 0
 		  for (tab in openTabs) {
 
-				tabs.add (Tab (tab))
+				tabs.add (Tab (tab, i ++))
 		  }
 		  
-		  grid.setAdapter (ListAdapter (Pos.app.activity))
+		  grid.setAdapter (ListAdapter (Pos.app))
 		  
 		  PosDisplays.add (this)
 		  DialogControl.addView (this)
@@ -85,33 +81,51 @@ class TabsView (val listener: InputListener, val title: String, val openTabs: Ar
 	 override fun clear () {
 	 }
 	 
-	 inner open class Tab (jar: Jar): LinearLayout (Pos.app.activity) {
+	 inner open class Tab (jar: Jar, i: Int): LinearLayout (Pos.app.activity) {
 
 		  init {
+
+				Logger.x ("tab... ${jar}")
 				
-				Pos.app.inflater.inflate (R.layout.tab_button, this)
+				Pos.app.inflater.inflate (R.layout.open_tab_line, this)
 
-				val ticketNo = findViewById (R.id.ticket_no) as TextView
-				val ticketDetails = findViewById (R.id.ticket_details) as TextView
+				val openTabNo = theme (findViewById (R.id.open_tab_no) as TextView)
+				val openTabStart = theme (findViewById (R.id.open_tab_start) as TextView)
+				val openTabItems = theme (findViewById (R.id.open_tab_items) as TextView)
+				val openTabTotal = theme (findViewById (R.id.open_tab_total) as TextView)
 
-				ticketNo.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
-				ticketDetails.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
+				openTabNo.setText (jar.getInt ("id").jobNo ())
+				openTabStart.setText (jar.getString ("start_time").utcToLocal ("HH:mm a"))
+				openTabItems.setText (jar.getInt ("item_count").toString ())
+				openTabTotal.setText (jar.getDouble ("total").currency (false))
+				
+				val layout = this.findViewById (R.id.open_tab_layout) as LinearLayout
 
-				ticketNo.setText ((Pos.app.getString ("ticket_no") + " : " + jar.getInt ("id") % 1000).toString ())
-				ticketDetails.text = Pos.app.getString ("tab_time") + " : " + jar.getString ("start_time").utcToLocal ("HH:mm a") + "\n" +
-				Pos.app.getString ("total")  + " : " + jar.getDouble ("total").currency (true) + "\n" +
-				Pos.app.getString ("items")  + " : " + jar.getInt ("item_count")
+				if (i.even ()) {
+					 
+					 layout.setBackgroundResource (if (Themed.theme == Themes.Light) R.color.light_even_bg else R.color.dark_even_bg)
+				}
+				else {
 
-				val button = findViewById (R.id.tab_button) as LinearLayout
-				button.setOnClickListener {
+					 layout.setBackgroundResource (if (Themed.theme == Themes.Light) R.color.light_odd_bg else R.color.dark_odd_bg)
+				}
+
+				layout.setClickable (true)
+				layout.setOnClickListener {
 					 
 					 val result = Jar ()
-						  .put ("ticket", jar)
+						  .put ("open_tab", jar)
 		  
 					 listener.accept (result)
 					 DialogControl.close ()
 				}
 		  }
+	 }
+
+	 fun theme (text: TextView): TextView {
+
+		  text.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
+		  return text
 	 }
 	 
 	 inner class ListAdapter (context: Context): BaseAdapter () {

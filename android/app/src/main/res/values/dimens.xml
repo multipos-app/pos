@@ -1,4 +1,7 @@
 <resources>
+
+  <dimen name="activity_horizontal_margin">0dp</dimen>
+  <dimen name="activity_vertical_margin">0dp</dimen>
   
   <dimen name="progress_size">200dp</dimen>
 
@@ -12,13 +15,13 @@
   <dimen name="app_xlg_text">42sp</dimen>
   <dimen name="app_lg_text">28sp</dimen>
   <dimen name="app_md_text">22sp</dimen>
-  <dimen name="app_sm_text">10sp</dimen>
+  <dimen name="app_sm_text">16sp</dimen>
   
   <dimen name="app_lg_margin">10sp</dimen>
   <dimen name="app_md_margin">5sp</dimen>
   <dimen name="app_sm_margin">3sp</dimen>
   
-  <dimen name="app_lg_padding">10sp</dimen>
+  <dimen name="app_lg_padding">5sp</dimen>
   <dimen name="app_md_padding">5sp</dimen>
   <dimen name="app_sm_padding">3sp</dimen>
   
@@ -82,9 +85,10 @@
   
   <!-- keyboard-->
 
+  <dimen name="keyboard_row_height">90dp</dimen>
   <dimen name="keyboard_text">25sp</dimen>
   <dimen name="keyboard_lg_text">37sp</dimen>
-  <dimen name="keyboard_margin">2dp</dimen>
+  <dimen name="keyboard_margin">3dp</dimen>
   <dimen name="keyboard_padding">5dp</dimen>
 
   <!-- inventory-->
@@ -96,6 +100,7 @@
 
   <!-- dialogs -->
   
+  <dimen name="dialog_size">640dp</dimen>
   <dimen name="dialog_header_height">75dp</dimen>
   <dimen name="dialog_footer_height">100dp</dimen>
   <dimen name="dialog_margin">10dp</dimen>
@@ -103,7 +108,7 @@
   <dimen name="dialog_sm_margin">5dp</dimen>
   <dimen name="dialog_padding">15dp</dimen>
   <dimen name="dialog_sm_padding">10dp</dimen>
-  <dimen name="dialog_sm_text">18sp</dimen>
+  <dimen name="dialog_sm_text">14sp</dimen>
   <dimen name="dialog_md_text">24sp</dimen>
   <dimen name="dialog_lg_text">42sp</dimen>
   <dimen name="dialog_xlg_text">52sp</dimen>
@@ -120,6 +125,11 @@
   <dimen name="tabs_button_lg_text">30sp</dimen>
   <dimen name="tabs_button_xlg_text">50sp</dimen>
   <dimen name="tabs_button_margin">10dp</dimen>
+
+  <!-- image action buttons -->
+  
+  <dimen name="image_action_height">160dp</dimen>
+  <dimen name="image_action_text">11dp</dimen>
 
   <!-- item add/edit-->
 
@@ -150,6 +160,7 @@
   <dimen name="ticket_footer_sm_text">14sp</dimen>
   
   <dimen name="ticket_footer_padding">5dp</dimen>
+  <dimen name="ticket_footer_lg_padding">10dp</dimen>
 
   <!-- ticket -->
   

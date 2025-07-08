@@ -55,7 +55,15 @@ class ItemAddonLine (context: Context, tia: Jar): LinearLayout (context) {
 		  }
 
 		  desc.setText (tia.getString ("addon_description"))
-		  amount.setText (tia.getDouble ("addon_amount").currency ())
+
+		  if (tia.getDouble ("addon_amount") != 0.0) {
+				
+				amount.setText (tia.getDouble ("addon_amount").currency ())
+		  }
+		  else {
+				
+				amount.setText ("")
+		  }
 
 		  when (Themed.theme) {
 				

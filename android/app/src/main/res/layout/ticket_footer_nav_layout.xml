@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	 xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:tools="http://schemas.android.com/tools"
@@ -167,27 +168,27 @@
 		  android:clickable="true"
         android:textSize="@dimen/ticket_footer_xlg_text"/>
 	 
-	 <cloud.multipos.pos.views.PosIconText
- 		  android:id="@+id/ticket_nav_prev"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-		  android:layout_height="match_parent"
-        android:gravity="center"
-		  android:text="@string/fa_arrow_left"
-        android:textColor="@color/black"
-		  android:clickable="true"
-        android:textSize="@dimen/ticket_footer_xlg_text"/>
+	 <!-- <cloud.multipos.pos.views.PosIconText -->
+ 	 <!-- 	  android:id="@+id/ticket_nav_prev" -->
+    <!--     android:layout_width="0dp" -->
+    <!--     android:layout_weight="1" -->
+	 <!-- 	  android:layout_height="match_parent" -->
+    <!--     android:gravity="center" -->
+	 <!-- 	  android:text="@string/fa_arrow_left" -->
+    <!--     android:textColor="@color/black" -->
+	 <!-- 	  android:clickable="true" -->
+    <!--     android:textSize="@dimen/ticket_footer_xlg_text"/> -->
 	 
-	 <cloud.multipos.pos.views.PosIconText
-  		  android:id="@+id/ticket_nav_next"
-        android:layout_width="0dp"
-        android:layout_weight="1"
-		  android:layout_height="match_parent"
-        android:gravity="center"
-		  android:text="@string/fa_arrow_right"
-        android:textColor="@color/black"
- 		  android:clickable="true"
-        android:textSize="@dimen/ticket_footer_xlg_text"/>
+	 <!-- <cloud.multipos.pos.views.PosIconText -->
+  	 <!-- 	  android:id="@+id/ticket_nav_next" -->
+    <!--     android:layout_width="0dp" -->
+    <!--     android:layout_weight="1" -->
+	 <!-- 	  android:layout_height="match_parent" -->
+    <!--     android:gravity="center" -->
+	 <!-- 	  android:text="@string/fa_arrow_right" -->
+    <!--     android:textColor="@color/black" -->
+ 	 <!-- 	  android:clickable="true" -->
+    <!--     android:textSize="@dimen/ticket_footer_xlg_text"/> -->
 	 
 	 	 <cloud.multipos.pos.views.PosIconText
   		  android:id="@+id/ticket_nav_suspend"
@@ -220,6 +221,17 @@
 		  android:text="@string/fa_customer"
         android:textColor="@color/black"
  		  android:clickable="true"
+        android:textSize="@dimen/ticket_footer_xlg_text"/>
+	 
+	 <cloud.multipos.pos.views.PosIconText
+		  android:id="@+id/ticket_nav_wash"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+		  android:layout_height="match_parent"
+        android:gravity="center"
+		  android:text="@string/fa_wash"
+        android:textColor="@color/black"
+		  android:clickable="true"
         android:textSize="@dimen/ticket_footer_xlg_text"/>
 	 
   </LinearLayout>

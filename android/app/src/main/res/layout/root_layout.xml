@@ -14,6 +14,8 @@
 	 android:orientation="vertical"
 	 android:background="@color/transparent">
 
+  <!-- static app bar -->
+  
   <cloud.multipos.pos.views.PosAppBar
       android:id="@+id/pos_app_bar"
       android:layout_width="match_parent"
@@ -23,6 +25,8 @@
       android:orientation="horizontal"
       custom:icon_size="@dimen/app_bar_icon_size"
       custom:icon_padding="@dimen/app_bar_icon_padding"/>
+
+  <!-- main POS layout -->
   
   <cloud.multipos.pos.views.RootView
 		android:id="@+id/root_layout_container"
@@ -30,6 +34,8 @@
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:background="@color/transparent"/>
+
+  <!-- full keyboard and edit area -->
   
   <cloud.multipos.pos.views.KeyboardView
 		android:id="@+id/keyboard_container"
@@ -38,6 +44,18 @@
 		android:layout_height="match_parent"
 		android:background="@color/transparent"
 		android:visibility="gone"/>
+
+  <!-- full screen dialogs -->
+  
+  <cloud.multipos.pos.views.AuxView
+		android:id="@+id/aux_container"
+		android:layout_marginTop="@dimen/activity_main_app_bar_height"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		android:background="@color/white"
+		android:visibility="gone"/>
+
+  <!-- half screen dialogs -->
   
   <cloud.multipos.pos.views.DialogContainer
       android:id="@+id/dialog_container"

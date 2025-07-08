@@ -43,8 +43,7 @@ class AnimListener (): AnimationListener {
 		  if (DialogControl.views.size > 0) {
 
 				DialogControl.addView (DialogControl.views.pop ())
-		  }
-		  
+		  } 
 	 }
 	 
 	 override fun onAnimationRepeat (animation: Animation) { }

@@ -27,7 +27,7 @@ abstract class Scales (): Device, DeviceCallback {
 
 	 open fun weight (): Double { return 0.0 }
 	 
-	 abstract fun startCapture (callback: ScalesCallback)
+	 abstract fun startCapture (callback: ScalesCallback, tare: Boolean)
 	 abstract fun stopCapture ()
 	 
 	 // pos device

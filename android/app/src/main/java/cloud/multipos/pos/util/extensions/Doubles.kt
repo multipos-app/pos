@@ -18,6 +18,10 @@ package cloud.multipos.pos.util.extensions
 
 import cloud.multipos.pos.util.*
 
+import java.math.RoundingMode
+import java.math.BigDecimal
+import java.text.DecimalFormat
+
 fun Double.currency (): String {
 
 	 return this.currency (false)
@@ -40,4 +44,9 @@ fun Double.currency (showSymbol: Boolean): String {
 					 
 		  return String.format (fmt, this);
 	 }
+}
+
+fun Double.round (decimalPlaces: Int): Double {
+
+	 return String.format ("%.${decimalPlaces}f", this).toDouble ()
 }

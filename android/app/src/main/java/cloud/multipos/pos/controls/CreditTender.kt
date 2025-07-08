@@ -19,9 +19,8 @@ package cloud.multipos.pos.controls
 import cloud.multipos.pos.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.models.TicketTender
 
-class CreditTender (): Tender (null) {
+open class CreditTender (): Tender (null) {
 
 	 init {
 		  

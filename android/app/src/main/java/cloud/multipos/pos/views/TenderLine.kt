@@ -44,7 +44,7 @@ class TenderLine (context: Context, tt: TicketTender, ticket: Ticket): LinearLay
 				Pos.app.inflater.inflate (R.layout.ticket_tender_line_balance_due, this);
 				
 				t = Pos.app.getString ("total").uppercase () + " " +
-				tt.getDouble ("total").currency () +
+				tt.getDouble ("amount").currency () +
 				"\n" + Pos.app.getString ("paid").uppercase () + " " +
 				tt.getString ("tender_type").uppercase () + " " +
 				tt.getDouble ("tendered_amount").currency () +
@@ -55,7 +55,7 @@ class TenderLine (context: Context, tt: TicketTender, ticket: Ticket): LinearLay
 				
 				Pos.app.inflater.inflate (R.layout.ticket_tender_line, this);
 				
-				t = Pos.app.getString ("total").uppercase () + " " + ticket.getDouble ("total").currency ()
+				t = Pos.app.getString ("total").uppercase () + " " + tt.getDouble ("amount").currency ()
 
 				when (tt.getString ("sub_tender_type")) {
 

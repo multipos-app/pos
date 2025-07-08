@@ -1,0 +1,109 @@
+<resources>
+  
+  <!-- activity -->
+  
+  <dimen name="activity_main_padding">5dp</dimen>
+  <dimen name="activity_main_margin_top">100dp</dimen>
+  <dimen name="activity_main_app_bar_height">55dp</dimen>
+  <dimen name="app_version_text">10sp</dimen>
+
+  <!-- register -->
+
+  <dimen name="register_margin_left">10dp</dimen>
+  <dimen name="register_margin_top">10dp</dimen>
+  <dimen name="register_margin">3dp</dimen>
+  
+  <dimen name="register_lg_text">24sp</dimen>
+  <dimen name="register_md_text">14sp</dimen>
+  <dimen name="register_sm_text">10sp</dimen>
+  
+  <!-- pos init -->
+
+  <dimen name="pos_init_header">100dp</dimen>
+  <dimen name="pos_init_margin">10dp</dimen>
+  <dimen name="pos_init_padding">15dp</dimen>
+  <dimen name="pos_init_arrow_text">19sp</dimen>
+  <dimen name="pos_init_xlg_text">32sp</dimen>
+  <dimen name="pos_init_lg_text">24sp</dimen>
+  <dimen name="pos_init_md_text">12sp</dimen>
+  <dimen name="pos_init_sm_text">10sp</dimen>
+  
+  <!-- app bar-->
+
+  <dimen name="app_bar_icon_size">20sp</dimen>
+  <dimen name="app_bar_text">14sp</dimen>
+  <dimen name="app_bar_icon_margin">10dp</dimen>
+  <dimen name="app_bar_icon_padding">5dp</dimen>
+  <dimen name="app_bar_padding">5dp</dimen>
+  <dimen name="app_bar_customer_text">12sp</dimen>
+
+  <!-- login-->
+  
+  <dimen name="login_header_height">20dp</dimen>
+  <dimen name="login_body_height">450dp</dimen>
+  <dimen name="login_margin_top">25dp</dimen>
+  <dimen name="login_margin">25dp</dimen>
+  <dimen name="login_input_text">24sp</dimen>
+  <dimen name="login_button_lg_text">24sp</dimen>
+  <dimen name="login_button_xlg_text">24sp</dimen>
+  <dimen name="login_button_text">14sp</dimen>
+  <dimen name="login_del_text">24sp</dimen>
+  <dimen name="login_button_margin">5dp</dimen>
+  <dimen name="login_padding">3dp</dimen>
+  <dimen name="login_spinner_padding">25dp</dimen>
+  
+  <!-- dialogs -->
+  
+  <dimen name="dialog_size">380dp</dimen>
+  <dimen name="dialog_header_height">50dp</dimen>
+  <dimen name="dialog_footer_height">60dp</dimen>
+  <dimen name="dialog_margin">7dp</dimen>
+  <dimen name="dialog_button_margin">5dp</dimen>
+  <dimen name="dialog_sm_padding">2dp</dimen>
+  <dimen name="dialog_padding">2dp</dimen>
+  <dimen name="dialog_sm_text">9sp</dimen>
+  <dimen name="dialog_md_text">12sp</dimen>
+  <dimen name="dialog_lg_text">16sp</dimen>
+  <dimen name="dialog_xlg_text">20sp</dimen>
+  <dimen name="dialog_report_text">9sp</dimen>
+
+  <!-- ticket header/footer display full -->
+
+  <dimen name="ticket_header_height">48dp</dimen>
+  <dimen name="ticket_footer_height">65dp</dimen>
+
+  <dimen name="ticket_margin">2dp</dimen>
+  <dimen name="ticket_padding">2dp</dimen>
+  
+  <dimen name="ticket_header_xlg_text">20sp</dimen>
+  <dimen name="ticket_header_lg_text">14sp</dimen>
+  <dimen name="ticket_header_md_text">10sp</dimen>
+
+  <dimen name="ticket_footer_xlg_text">18sp</dimen>
+  <dimen name="ticket_footer_lg_text">12sp</dimen>
+  <dimen name="ticket_footer_md_text">10sp</dimen>
+  <dimen name="ticket_footer_sm_text">8sp</dimen>
+
+  <dimen name="ticket_footer_margin">2dp</dimen>
+  <dimen name="ticket_footer_padding">2sp</dimen>
+  <dimen name="ticket_footer_lg_padding">2sp</dimen>
+
+  <!-- ticket -->
+  
+  <dimen name="ticket_item_icon_text">16sp</dimen>
+  <dimen name="ticket_item_xlg_text">18sp</dimen>
+  <dimen name="ticket_item_lg_text">14sp</dimen>
+  <dimen name="ticket_item_md_text">12sp</dimen>
+  <dimen name="ticket_item_sm_text">10sp</dimen>
+  <dimen name="ticket_item_margin">3dp</dimen>
+  <dimen name="ticket_item_padding">3dp</dimen>
+  <dimen name="ticket_item_sm_padding">3dp</dimen>
+  <dimen name="ticket_margin_bottom">3dp</dimen>
+  
+  <!-- menu buttons -->
+  
+  <dimen name="menu_button_text">8sp</dimen>
+  <dimen name="menu_button_padding_start">2dp</dimen>
+  <dimen name="menu_button_padding_top">2dp</dimen>
+
+</resources>

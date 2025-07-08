@@ -36,8 +36,8 @@ class Themed () {
 		  }
 		  else {
 
-				theme = Themes.Light
-				Pos.app.local.put ("theme", "light")
+				theme = Themes.Dark
+				Pos.app.local.put ("theme", "dark")
 		  }
 		  
 		  when (theme) {

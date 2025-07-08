@@ -27,12 +27,21 @@ open class Suspend (): CompleteTicket () {
 
 	 override fun controlAction (jar: Jar) {
 
-		  if (!Pos.app.ticket!!.hasItems ()) {  // nothing to suspend
+		  if (!Pos.app.ticket.hasItems ()) {  // nothing to suspend
 															 
 				return
 		  }
-		  
-		  completeTicket (Ticket.SUSPEND)  // suspend and clear the displays
+
+		  var state = Ticket.SUSPEND
+
+		  when (Pos.app.ticket.getInt ("state")) {
+
+				Ticket.JOB_PENDING,
+				Ticket.JOB_COMPLETE -> state = Pos.app.ticket.getInt ("state")
+		  }
+
+		  completeTicket (state)  // suspend and clear the displays
+		  Control.factory ("LoadTicket").action (Jar ().put ("params", Jar ().put ("dir", 0)))  // load home ticket
 	 }
 
 	 override fun openDrawer (): Boolean { return false }

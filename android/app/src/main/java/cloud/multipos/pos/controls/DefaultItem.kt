@@ -73,8 +73,10 @@ open class DefaultItem (): FirstItem (), InputListener {
 							(it.getInt ("complete") == 0) &&
 							(it.getInt ("state") == TicketItem.STANDARD)) {
 						  
+						  Logger.x ("merge... ${sku} ${it}")
+
 						  Pos.app.ticket.currentItem = it
-						  Control.factory ("Quantity").action (Jar ().put ("multiplier", 1))
+						  Control.factory ("Quantity").action (Jar ().put ("value", 1))
 						  return
 					 }
 				}

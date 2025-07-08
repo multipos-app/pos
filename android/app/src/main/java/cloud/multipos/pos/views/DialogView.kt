@@ -73,7 +73,8 @@ abstract class DialogView (title: String): PosSwipeLayout (Pos.app, null), PosDi
 				accept ()
 		  }
 	 }
-	 
+
+	 open fun complete () { }
 	 open fun accept () { }
 	 open fun cancel () {
 

@@ -130,7 +130,20 @@ class PosMenus (context: Context, attrs: AttributeSet): PosSwipeLayout (context,
 		  
 		  for (menu in posMenus.getList ("horizontal_menus")) {
 
-				layouts.add (ControlsGridLayout (menu, this, tabs, attrs))
+				when (menu.getString ("type")) {
+
+					 "controls" -> {
+						  
+						  layouts.add (ControlsGridLayout (menu, this, tabs, attrs))
+					 }
+
+					 "items" -> {
+
+						  Logger.x ("items layout... ${menu}")
+						  
+						  layouts.add (ItemsGridLayout (menu, this, tabs, attrs))
+					 }
+				}
 		  }
 
 		  if (layouts.size > 0) {

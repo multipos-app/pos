@@ -48,7 +48,7 @@
 	 
     <string name="start_capture">Start</string>
     <string name="stop_capture">Stop</string>
-
+	 
     <string name="invalid_operation">Invalid operation</string>
     <string name="complete_ticket">Please complete or void the current ticket</string>
     <string name="pay">Pay</string>
@@ -82,6 +82,7 @@
     <string name="enter_cashier_number">Enter cashier number</string>
     <string name="enter_cashier_pin">Enter PIN</string>
     <string name="enter_pin">Enter PIN</string>
+    <string name="enter_passcode">Enter passcode</string>
     <string name="invalid_cashier_number">Invalid cashier number</string>
     <string name="invalid_clerk_number">Invalid clerk number</string>
     <string name="bad_cashier_pin">Bad PIN</string>
@@ -96,7 +97,7 @@
     <string name="open_tabs">Open tabs</string>
     <string name="tax_total_included">Tax included</string>
     <string name="wait_connect_printer">Wait printer...</string>
-    <string name="check_for_updates">Check for opdatering...</string>
+    <string name="check_for_updates">Check for update...</string>
     <string name="load_data">Loading your configuration...</string>
     <string name="of">of</string>
     <string name="split_tender">Split tender</string>
@@ -104,25 +105,77 @@
     <string name="response_text">Response</string>
     <string name="auth_code">Authorization code</string>
     <string name="transaction_id">Transaction ID</string>
-    <string name="tip">Tip</string>
-    <string name="total_before_tip">Total before tip</string>
-    <string name="total_with_tip">Total with tip</string>
-    <string name="signature">Signatur</string>
+    <string name="signature">Signature</string>
     <string name="ten_percent">10%</string>
     <string name="fifteen_percent">15%</string>
     <string name="twenty_percent">20%</string>
+    <string name="update">Update</string>
+    <string name="back_to_pos">Back to POS</string>
+
+	 <!-- jobs -->
+	 
+    <string name="job_no">Job#</string>
+    <string name="job_attendant">Attendant</string>
+    <string name="job_containers">Containers</string>
+    <string name="job_state">Status</string>
+    <string name="job_pending">Pending</string>
+    <string name="job_complete">Ready for P/U</string>
+    <string name="job_complete_and_load">Ready for P/U and recall</string>
+    <string name="job_continue">Continue</string>
+    <string name="job_open">Open</string>
+    <string name="job_select">Select</string>
+    <string name="job_select_print">Select and print</string>
+    <string name="job_cancel">Cancel</string>
+    <string name="job_enter_pin">Enter pin</string>
+    <string name="job_enter_passcode">Enter passcode</string>
+    <string name="job_select_prompt">Select a job!</string>
+    <string name="job_invalid">Invalid PIN or passcode!</string>
+
+	 <!-- settle tips -->
+	 
+	 <string name="select_ticket">Select a transaction</string>
+	 <string name="tip">Tip</string>
+    <string name="total_before_tip">Total before tip</string>
+    <string name="total_with_tip">Total with tip</string>
+ 
+	 <!-- pull tabs -->
+
+	 <string name="count_tickets_start">Count tickets, press \"WEIGH TARE BUCKET\" to begin</string>
+	 <string name="weighing_tare">Weigh tare</string>
+	 <string name="weighing_tickets">Weigh tickets</string>
+	 <string name="pull_tabs_new_tare">New tare</string>
+
+	 <string name="pull_tab_counts">Pull tab counts</string>
+	 <string name="new_tare_weight">New tare bucket</string>
+	 <string name="tare_weight">Weigh tare bucket</string>
+	 <string name="tickets_weight">Weigh tickets</string>
+	 <string name="please_accept_tare_weight">Please accept tare weight</string>
+	 <string name="please_select_ticket">Please select a ticket</string>
+	 <string name="accept_weight">Accept weight</string>
+	 <string name="pull_tabs_complete">Finished</string>
+	 <string name="pull_tabs_total_items">Total tickets</string>
+	 <string name="pull_tab_redeem_prompt">REDEEM TICKET</string>
+	 <string name="pull_tab_payout_prompt">PAYOUT TICKET</string>
+	 <string name="pull_tab_redeem">REDEEM</string>
+	 <string name="pull_tab_payout">PAYOUT</string>
+	 <string name="pull_tabs_in_play">Games In Play</string>
+	 <string name="pull_tabs_pending">Games Pending</string>
+
+	 <!-- markdowns and discounts -->
 	 
     <string name="percent_markdown">Percent markdown</string>
     <string name="enter_markdown_percent">Enter percent markdown (%)</string>
     <string name="amount_markdown">Amount markdown</string>
     <string name="enter_markdown_amount">Enter amount markdown ($)</string>
+
+	 <!-- sessions -->
 	 
     <string name="x_report">X Report</string>
     <string name="z_report">Z Report</string>
     <string name="settle_summary">Settlement summary</string>
     <string name="settle_detail">Settlement detail</string>
     <string name="settle_message">Settled</string>
-    <string name="not_settled">Not settled</string>
+    <string name="no_open_tickets">No open transactions</string>
     <string name="settled">Settled</string>
     <string name="authorized_amount">Amount authorized</string>
     <string name="sale_total">Sale total</string>
@@ -166,6 +219,7 @@
     <string name="oz">Ounces</string>
     <string name="gram">Grams</string>
     <string name="no_suspended_tickets">No suspended tickets</string>
+    <string name="invalid_ticket_id">Invalid ticket ID</string>
 	 <string name="price_override">Price override</string>
 	 <string name="price_override_amount">Enter amount</string>
 	 <string name="reload_config">Reload POS Configuration?</string>
@@ -183,6 +237,7 @@
     <string name="non_tax_sale">Non-tax sale</string>
     <string name="exceptions">Exceptions</string>
     <string name="discounts">Discounts</string>
+    <string name="discount">Discount</string>
     <string name="order_no">Order #</string>
     <string name="session_total">Session total</string>
     <string name="cash_in_drawer">Cash in drawer</string>
@@ -192,6 +247,8 @@
     <string name="prev">Prev</string>
     <string name="next">Next</string>
     <string name="login">Login</string>
+    <string name="dot">\u2022</string>
+    <string name="ellipsis">\u2022\u2022\u2022</string>
     <string name="pincode">Enter PIN</string>
     <string name="invalid_login">Invalid login</string>
     <string name="yes">Yes</string>
@@ -239,7 +296,7 @@
     <string name="ticket_no">TXN#</string>
     <string name="tab_no">Table</string>
     <string name="guests">Guests</string>
-    <string name="tab_time">Started</string>
+    <string name="tab_start_time">Started</string>
     <string name="store_no">Store #</string>
     <string name="confirm_dialog_title">Confirm</string>
     <string name="return_prompt">Return</string>
@@ -401,7 +458,6 @@
 	 <string name="pax_ip">Enter PAX IP</string>
 	 <string name="download_store">Download store data</string>
 	 <string name="restart_device">Restart device</string>
-	 <string name="accept_weight">Accept weight</string>
 	 <string name="weight">Weight</string>
 	 <string name="accept_date_time">Accept</string>
 	 <string name="pounds">lbs</string>
@@ -438,12 +494,12 @@
     <string name="fa_quantity_down">&#xf056;</string>
     <string name="fa_void_item">&#xf057;</string>
     <string name="fa_bars">&#xf0c9;</string>
-    <string name="fa_enter">&#xf2f6;</string>
+    <string name="fa_enter">&#xe2e1;</string>
     <string name="fa_search">&#xf002;</string>
     <string name="fa_cash_register">&#xf788;</string>
     <string name="fa_payment">&#xf09d;</string>
     <string name="fa_receipt_printer">&#xf543;</string>
-    <string name="fa_scanner">&#xf02a;</string>
+    <string name="fa_scanner">&#xf488;</string>
     <string name="fa_tag">&#xf02b;</string>
     <string name="fa_www">&#xf0c2;</string>
     <string name="fa_day">&#xf185;</string>
@@ -469,7 +525,7 @@
     <string name="fa_x_circle">&#xe12e;</string>
     <string name="fa_edit">&#xf044;</string>
     <string name="fa_scale">&#xf496;</string>
-    <string name="fa_kitchen_printer">&#xe3d2;</string>
+    <string name="fa_kitchen_printer">&#xf86b;</string>
     <string name="fa_customer_display">&#xf26c;</string>
     <string name="fa_unknown">&#xf059;</string>
     <string name="fa_rewind">&#xf2f1;</string>
@@ -479,5 +535,13 @@
     <string name="fa_chain">&#xf0c1;</string>
     <string name="fa_home">&#xf015;</string>
     <string name="fa_suspend">&#xe38d;</string>
+    <string name="fa_wash">&#xf898;</string>
+    <string name="fa_square_plus">&#xf0fe;</string>
+    <string name="fa_square_minus">&#xf146;</string>
+    <string name="fa_square_x">&#xf2d3;</string>
+    <string name="fa_tabs">&#xe4a4;</string>
+    <string name="fa_inventory">&#xf69c;</string>
+    <string name="fa_pos_connect">&#xf78a;</string>
+    <string name="fa_credit_card">&#xf38a;</string>
 
 </resources>

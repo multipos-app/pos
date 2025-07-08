@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:tools="http://schemas.android.com/tools"
+	 xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:background="@color/white"
+	 android:layout_margin="@dimen/dialog_margin"
+	 android:orientation="horizontal">
+  
+  <!-- pull tabs lists -->
+  
+  <LinearLayout
+		android:layout_width="0dp"
+		android:layout_weight="1.5"
+		android:layout_height="match_parent"
+		android:background="@color/transparent"
+		android:orientation="vertical">
+	 
+	 <cloud.multipos.pos.views.PosText 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pull_tabs_in_play"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/transparent"
+		  android:textColor="@color/black"
+		  android:layout_marginBottom="8dp"
+        android:textSize="@dimen/dialog_md_text"/>
+	 
+	 <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/lt_gray"
+		  android:layout_marginBottom="8dp"
+        android:textSize="@dimen/dialog_md_text"/>
+	 
+	 <GridView 
+		  android:id="@+id/pull_tabs_in_play_grid"
+		  android:layout_width="match_parent"
+		  android:layout_weight="2"
+		  android:layout_height="0dp"
+		  android:numColumns="6"
+		  android:verticalSpacing="5dp"
+		  android:horizontalSpacing="5dp"
+		  android:layout_marginBottom="8dp"
+		  android:background="@color/transparent"/>
+	 
+	 <cloud.multipos.pos.views.PosText 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/pull_tabs_pending"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/transparent"
+		  android:textColor="@color/black"
+		  android:layout_marginBottom="8dp"
+        android:textSize="@dimen/dialog_md_text"/>
+	 
+	 <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:text="@string/pull_tabs_in_play"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/lt_gray"
+		  android:layout_marginBottom="8dp"
+        android:textSize="@dimen/dialog_md_text"/>
+
+	 <GridView 
+		  android:id="@+id/pull_tabs_pending_grid"
+		  android:layout_width="match_parent"
+		  android:layout_weight="1"
+		  android:layout_height="0dp"
+		  android:numColumns="6"
+		  android:verticalSpacing="5dp"
+		  android:horizontalSpacing="5dp"
+		  android:background="@color/transparent"/>
+
+  </LinearLayout>
+  
+  <!-- pull tabs controls -->
+  
+  <LinearLayout
+		android:layout_width="0dp"
+		android:layout_weight="1"
+		android:layout_height="match_parent"
+		android:background="@color/transparent"
+		android:orientation="vertical">
+	 
+	 <cloud.multipos.pos.views.PosButton
+        android:id="@+id/pull_tabs_title"
+ 		  style="@style/DialogSuccess"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+     	  android:layout_weight="1"
+		  android:gravity="center"
+        android:text="@string/pull_tab_counts"
+        android:textSize="@dimen/dialog_md_text"/>
+	 
+	 <cloud.multipos.pos.views.PosText 
+        android:id="@+id/pull_tabs_prompt"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+  		  android:layout_weight="1"
+        android:text="@string/count_tickets_start"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/transparent"
+		  android:textColor="@color/black"
+        android:textSize="@dimen/dialog_md_text"/>
+	 
+	 <LinearLayout
+        android:id="@+id/pull_tabs_ticket"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+  		  android:layout_weight="2"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/transparent"/>
+	 
+	 <cloud.multipos.pos.views.PosText 
+		  android:id="@+id/pull_tabs_weight"
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+  		  android:layout_weight="1"
+		  android:text="0.000"
+		  android:gravity="center_vertical|center_horizontal"
+		  android:background="@color/transparent"
+		  android:textColor="@color/black"
+		  android:textSize="@dimen/dialog_lg_text"/>
+	 
+	 <cloud.multipos.pos.views.PosButton
+		  xmlns:android="http://schemas.android.com/apk/res/android"
+		  xmlns:app="http://schemas.android.com/apk/res-auto"
+		  android:id="@+id/pull_tabs_accept_weight"
+		  style="@style/DialogInfo"
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+  		  android:layout_weight="1"
+		  android:text="@string/tare_weight"
+		  android:textColor="@color/white"
+		  android:textSize="@dimen/dialog_md_text" />
+	 
+	 <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+  		  android:layout_weight="1"
+        android:gravity="center_vertical|center_horizontal"
+        android:background="@color/transparent"
+		  android:orientation="horizontal">
+		
+		<cloud.multipos.pos.views.PosButton
+			 android:id="@+id/pull_tabs_new_tare"
+			 style="@style/DialogDisable"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+  			 android:layout_weight="1"
+			 android:text="@string/pull_tabs_new_tare"
+			 android:textColor="@color/white"
+			 android:textSize="@dimen/dialog_md_text"/>
+		
+		<cloud.multipos.pos.views.PosButton
+			 android:id="@+id/pull_tabs_complete"
+			 style="@style/DialogSuccess"
+			 android:layout_width="0dp"
+			 android:layout_height="match_parent"
+  			 android:layout_weight="1"
+			 android:text="@string/pull_tabs_complete"
+			 android:textColor="@color/white"
+			 android:textSize="@dimen/dialog_md_text"/>
+		
+	 </LinearLayout>
+
+  </LinearLayout>
+
+</LinearLayout>

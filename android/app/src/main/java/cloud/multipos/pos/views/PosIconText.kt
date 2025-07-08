@@ -26,11 +26,13 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.widget.TextViewCompat
 import android.view.KeyEvent
+import android.graphics.Color
 
 open class PosIconText (context: Context, attrs: AttributeSet): PosText (context, attrs) {
 
 	 init {
 		  
 		  setTypeface (Views.icons ());
+		  setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
 	 }
 }

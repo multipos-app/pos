@@ -42,7 +42,7 @@ class DialogControl (): PosDisplay {
 
 	 companion object {
 
-		  val duration = 500L
+		  val duration = 300L
 		  val views = Stack <View> ()
 		  var inProgress = false
 		  var showing = false
@@ -50,6 +50,8 @@ class DialogControl (): PosDisplay {
 		  lateinit var dialog: LinearLayout
 		  
 	 	  fun addView (view: View) {
+				
+				dialog.removeAllViews ()  // remove any old views
 				
 				if (inProgress) {
 					 
@@ -95,7 +97,6 @@ class DialogControl (): PosDisplay {
 				
 				dialog.startAnimation (animate)
 				dialog.setVisibility (View.INVISIBLE)
-				dialog.removeAllViews ();
 				showing = false
 		  }
 	 

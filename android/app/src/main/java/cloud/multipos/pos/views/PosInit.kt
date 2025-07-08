@@ -68,6 +68,7 @@ class PosInit (context: Context, attrs: AttributeSet): PosLayout (context, attrs
 						  val buID = Pos.app.posInit.getList ("business_units").get (bu).getInt ("business_unit_id")
 						  val configID = Pos.app.posInit.getList ("pos_configs").get (config).getInt ("pos_config_id")
 						  
+						  Pos.app.local.put ("merchant_id", Pos.app.posInit.getInt ("merchant_id"))
 						  Pos.app.local.put ("business_unit_id", buID)
 						  Pos.app.local.put ("pos_config_id", configID)
  						  

@@ -33,12 +33,12 @@ public class Quantity extends TicketModifier {
 		  		  
 		  if (Pos.app.input.hasInput ()) {
 
-				// if (Pos.app.input.getString ().length () > 4) {
+				if (Pos.app.input.getString ().length () > 4) {
 
-				// 	 PosDisplays.message (Pos.app.getString ("invalid_operation"));
-				// 	 Pos.app.input.clear ();
-				// 	 return;
-				// }
+					 PosDisplays.message (Pos.app.getString ("invalid_operation"));
+					 Pos.app.input.clear ();
+					 return;
+				}
 
 				Pos.app.quantity = Pos.app.input.getInt ();
 				

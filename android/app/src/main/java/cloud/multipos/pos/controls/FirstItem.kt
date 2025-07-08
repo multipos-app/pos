@@ -25,7 +25,7 @@ import cloud.multipos.pos.views.PosDisplays
 
 import java.util.Date
 
-open abstract class FirstItem (): TicketModifier () {
+abstract class FirstItem (): TicketModifier () {
 	 
 	 override fun beforeAction (): Boolean {
 		  

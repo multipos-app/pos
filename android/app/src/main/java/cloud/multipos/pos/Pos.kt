@@ -73,6 +73,7 @@ class Pos (): AppCompatActivity () {
 	 
 	 lateinit var rootView: RootView
 	 lateinit var keyboardView: KeyboardView
+	 lateinit var auxView: AuxView
 	 
 	 lateinit var config: Config
 	 lateinit var bu: Jar
@@ -101,6 +102,7 @@ class Pos (): AppCompatActivity () {
 
 	 var receiptBuilder = ReceiptBuilder ()
 	 var authInProgress = false;
+	 var paused = false;
 
 	 @JvmField var controls = Stack <Control> ()
 	 @JvmField var businessUnits: ArrayList <Jar> = ArrayList <Jar> ()
@@ -129,9 +131,19 @@ class Pos (): AppCompatActivity () {
     override fun onCreate (savedInstanceState: Bundle?)  {
 
         super.onCreate (savedInstanceState)
-
+		  
 		  if (allPermissionsGranted ()) {
 				
+				local = Local ()
+				
+				Logger.i ("pos create... ${local.getBoolean ("paused")}");
+
+				if (local.getBoolean ("paused")) {
+
+					 local.clear ("paused")
+					 restart ()
+				}
+
 				requestWindowFeature (Window.FEATURE_NO_TITLE)
 				getWindow ().setFlags (WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 				inflater = LayoutInflater.from (activity)
@@ -150,7 +162,7 @@ class Pos (): AppCompatActivity () {
 				handler = PosHandler ()
 				config = Config ()
 				input = Input ()
-				local = Local ()
+
 		  }
 		  else {
 				
@@ -161,12 +173,21 @@ class Pos (): AppCompatActivity () {
     override fun onStart () {
 
         super.onStart ()
+		  
+		  Logger.i ("pos start...  ${local.getBoolean ("paused")}")
+		  
+		  if (local.getBoolean ("paused")) {
+
+				local.clear ("paused")
+				restart ()
+		  }
 	 }
 	 
     override fun onResume () {
 
-		  Logger.i ("pos resume... ${authInProgress}");
         super.onResume ()
+		  
+		  Logger.i ("pos resume... ${local.getBoolean ("paused")}");
 
 		  if (authInProgress) {
 				
@@ -181,8 +202,13 @@ class Pos (): AppCompatActivity () {
 					 db.open ()
 				}
 		  
-				// start a download thread
+				// start services if a configuration is loaded
 		  
+				// if (config.getInt ("merchant_id") > 0) {
+					 
+				// 	 BackOffice.start ()
+				// }
+				
 				BackOffice.start ()
 				DeviceManager.start ("devices")
 
@@ -200,26 +226,35 @@ class Pos (): AppCompatActivity () {
     override fun onRestart () {
 		  
         super.onRestart ()
+		  Logger.i ("pos start... ");
 	 }
 	 
 	 override fun onPause () {
 
-		  Logger.d ("pos on pause...")
-		  
-		  posAppBar.onPause ()
-		  DeviceManager.onPause ()
-		  BackOffice.onPause ()
         super.onPause ()
+		  
+		  Logger.d ("pos pause...")
+		  local.put ("paused", true)
+		  
+		  if (this::posAppBar.isInitialized) {
+
+				posAppBar.onPause ()
+				DeviceManager.onPause ()
+				BackOffice.onPause ()
+		  }
+		  
 	 }
 
     override fun onStop () {
 		  
         super.onStop ()
+		  Logger.d ("pos stop...")
 	 }
 
 	 override fun onDestroy () {
 		  
         super.onDestroy ()
+		  Logger.d ("pos destroy...")
 	 }
 
 	 override fun onActivityResult (requestCode: Int, resultCode: Int, intent: Intent?) {
@@ -293,8 +328,9 @@ class Pos (): AppCompatActivity () {
 		  
 				receiptBuilder = DefaultReceiptBuilder ()
 				when (config.getString ("receipt_class")) {
-
+					 
 					 "laundry_receipt" -> 
+
 						  receiptBuilder = LaundryReceiptBuilder ()
 				}
 
@@ -312,7 +348,7 @@ class Pos (): AppCompatActivity () {
 					 }
 				}
 
-				ticket ()  // get a ticket
+				ticket ()  // load an initial ticket
 				
 				setContentView (R.layout.login_main)
 
@@ -372,6 +408,7 @@ class Pos (): AppCompatActivity () {
 		  
 		  rootView = findViewById (R.id.root_layout_container) as RootView
 		  keyboardView = findViewById (R.id.keyboard_container) as KeyboardView
+		  auxView = findViewById (R.id.aux_container) as AuxView
 
 		  Themed.start ()
 		  PosDisplays.update ()
@@ -578,6 +615,8 @@ class Pos (): AppCompatActivity () {
 	 }
 
 	 fun restart () {
+
+		  Logger.i ("pos forced restart...")
 		  
 		  val packageManager = this.getPackageManager ()
 		  val intent = packageManager.getLaunchIntentForPackage (this.getPackageName ()) as Intent

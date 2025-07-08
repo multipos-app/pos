@@ -8,7 +8,7 @@
 	 android:background="@color/transparent"
     android:fillViewport="true">
   
-  <GridLayout 
+  <GridView 
 		android:id="@+id/items_grid"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"

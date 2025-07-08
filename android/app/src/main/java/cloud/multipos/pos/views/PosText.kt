@@ -33,7 +33,6 @@ open class PosText (context: Context, attrs: AttributeSet): TextView (context, a
 	 init {
 		  
 		  setTypeface (Views.displayFont ())
-		  // setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
 	 }
 
 	 fun normal () {

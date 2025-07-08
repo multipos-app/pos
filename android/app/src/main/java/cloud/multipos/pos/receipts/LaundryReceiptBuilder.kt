@@ -36,4 +36,19 @@ open class LaundryReceiptBuilder (): DefaultReceiptBuilder () {
 		  
 		  return this
 	 }
+	 
+	 override fun notes (): ReceiptBuilder {
+
+		  val jobNo = String.format (" %04d", (Pos.app.ticket.getInt ("id") % 1000))
+		  
+		  feed (1)
+		  printCommands
+				.add (PrintCommand.getInstance ().directive (PrintCommand.ITALIC_TEXT))
+		  		.add (PrintCommand.getInstance ().directive (PrintCommand.BIG_TEXT))
+		  		.add (PrintCommand.getInstance ().directive (PrintCommand.BOLD_TEXT))
+		  		.add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (Pos.app.getString ("job_no") + jobNo))
+		  feed (1)
+		  
+		  return this
+	 }
 }

@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:tools="http://schemas.android.com/tools"
+	 xmlns:custom="http://schemas.android.com/apk/res-auto"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:background="@color/white"
+	 android:layout_margin="@dimen/dialog_margin"
+	 android:orientation="vertical">
+  
+  <!-- jobs list -->
+
+  <include
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		layout="@layout/laundry_job_line_header_layout"/>
+  
+  <ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent">
+	 
+	 <LinearLayout
+		  android:id="@+id/jobs_list"
+		  android:layout_width="match_parent"
+		  android:layout_height="match_parent"
+		  android:background="@color/transparent"
+		  android:orientation="vertical">
+		
+	 </LinearLayout>
+	 
+  </ScrollView>
+  
+  <LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="2dp"
+		android:layout_marginTop="@dimen/app_sm_margin"
+		android:layout_marginBottom="@dimen/app_sm_margin"
+		android:background="@color/lt_gray"/>
+  
+  <!-- jobs controls -->
+  
+  <LinearLayout
+		android:id="@+id/jobs_controls"
+		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:layout_weight="1"
+		android:background="@color/transparent"
+		android:orientation="horizontal">
+
+	 <!-- controls -->
+	 
+	 <LinearLayout
+		  android:id="@+id/job_controls"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:orientation="vertical">
+		
+	 </LinearLayout>
+
+	 <!-- job details -->
+	 
+	 <ScrollView
+ 		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1.5"
+        android:id="@+id/report_scroller"
+		  android:layout_marginTop="@dimen/dialog_padding">
+		
+      <cloud.multipos.pos.views.PosText
+          android:id="@+id/job_receipt_text"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:gravity="center_vertical|center_horizontal"
+          android:text=""
+          android:textColor="@android:color/black"
+          android:textSize="@dimen/app_sm_text"/>
+		
+	 </ScrollView>
+	 
+	 <!-- keys -->
+
+	 <include
+		  android:id="@+id/job_keyboard"
+		  android:layout_width="0dp"
+		  android:layout_height="match_parent"
+		  android:layout_weight="1"
+		  layout="@layout/number_keyboard_layout"/>
+
+  </LinearLayout>
+
+</LinearLayout>
+

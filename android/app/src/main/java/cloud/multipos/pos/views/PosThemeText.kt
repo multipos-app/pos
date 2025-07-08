@@ -14,32 +14,25 @@
  * limitations under the License.
  */
  
-package cloud.multipos.pos.controls
+package cloud.multipos.pos.views;
 
 import cloud.multipos.pos.R
 import cloud.multipos.pos.Pos
-import cloud.multipos.pos.util.*
-import cloud.multipos.pos.db.DB
-import cloud.multipos.pos.models.Ticket
-import cloud.multipos.pos.models.TicketTender
-import cloud.multipos.pos.views.PosDisplays
-import cloud.multipos.pos.views.ScalesView
+import cloud.multipos.pos.util.Logger
 
-import java.util.Date
+import android.content.Context
+import android.util.AttributeSet
+import android.widget.TextView
+import androidx.core.content.ContextCompat
+import androidx.core.widget.TextViewCompat
+import android.graphics.Typeface
+import android.graphics.Color
 
-class PullTabsWeigh (): Control (), InputListener {
-	 	 	 
-	 override fun controlAction (jar: Jar) {
+open class PosThemeText (context: Context, attrs: AttributeSet): PosText (context, attrs) {
 
-		  ScalesView (this,
-						 "Weight Item",
-						 InputListener.DECIMAL,
-						 3)
-	 }
-	 
-	 override fun accept (result: Jar) {
-
-		  Logger.d ("weight accept... ${result}")
-
+	 init {
+		  
+		  setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
 	 }
 }
+

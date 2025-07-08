@@ -65,7 +65,8 @@ class ControlsGridLayout (val menu: Jar,
 		  var grid = GridLayout (Pos.app.activity, attrs)
 		  grid.setAlignmentMode (GridLayout.ALIGN_BOUNDS)		  
 	 	  grid.setColumnCount (menu.getInt ("width"))
-		  grid.setLayoutParams (ViewGroup.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
+		  grid.setLayoutParams (ViewGroup.LayoutParams (LayoutParams.MATCH_PARENT,
+																		LayoutParams.MATCH_PARENT))
 
 		  if (tabs.size > 0) {
 								

@@ -16,7 +16,8 @@
  
 package cloud.multipos.pos.receipts
 
-import cloud.multipos.pos.models.TicketItem
+import cloud.multipos.pos.Pos
+import cloud.multipos.pos.models.*
 import cloud.multipos.pos.devices.DeviceManager
 
 open class ReceiptItem (ti: TicketItem) {
@@ -27,7 +28,17 @@ open class ReceiptItem (ti: TicketItem) {
 
 		  fun factory (ti: TicketItem): ReceiptItem {
 
-				return DefaultReceiptItem (ti)
+				when (Pos.app.ticket.getInt ("ticket_type")) {
+
+					 Ticket.WEIGHT_ITEMS -> {
+
+						  return WeightReceiptItem (ti)
+					 }
+
+					 else -> {
+						  return DefaultReceiptItem (ti)
+					 }
+				}
 		  }
 	 }
 }

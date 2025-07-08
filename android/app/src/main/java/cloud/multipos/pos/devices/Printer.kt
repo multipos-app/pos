@@ -68,7 +68,6 @@ abstract class Printer (): Device, DeviceCallback {
 
 		  for (device in Pos.app.devices) {
 
-				Logger.x ("device... " + device)
 				if (device.deviceClass () == DeviceClass.Printer) {
 
 					 Pos.app.devices.remove (device)

@@ -30,6 +30,8 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 	 abstract fun tenderType (): String
 	 abstract fun tenderDesc (): String
 	 
+	 open fun tenderState (): Int { return Ticket.COMPLETE }
+	 
 	 var tendered = 0.0
 	 var returned = 0.0
 	 var balance = 0.0
@@ -175,7 +177,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 		  													.put ("tender_id", jar ().getInt ("tender_id"))
 		  													.put ("tender_type", tenderDesc ())
 		  													.put ("sub_tender_type", subTenderDesc ())
-		  													.put ("total", total)
+		  													.put ("amount", total)
 		  													.put ("status", TicketTender.COMPLETE)
 		  													.put ("returned_amount", Currency.round (returned))
 		  													.put ("tendered_amount", Currency.round (tendered))
@@ -215,7 +217,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 						  .remove ("value")
 				}
 					 
-				completeTicket (Ticket.COMPLETE)
+				completeTicket (tenderState ())
 		  }
 		  else {
 				

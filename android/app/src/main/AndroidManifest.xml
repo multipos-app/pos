@@ -20,7 +20,14 @@
 	 <uses-feature android:name="android.hardware.camera.any" />
 	 <uses-permission android:name="android.permission.CAMERA" />
 	 <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+	 <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
 	 
+	 <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
+	 <uses-permission android:name="android.permission.NEARBY_WIFI_DEVICES" />
+	 <uses-feature android:name="android.hardware.wifi.aware" />
+	 <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+					  
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"

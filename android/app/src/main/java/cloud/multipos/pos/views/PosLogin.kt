@@ -47,7 +47,7 @@ class PosLogin (context: Context, attrs: AttributeSet): PosLayout (context, attr
 	 
 	 init {
 		  
-		  Pos.app.inflater.inflate (Pos.app.resourceID ("login_buttons", "layout"), this)
+		  Pos.app.inflater.inflate (R.layout.login_buttons, this)
 
 		  var loginInput = findViewById (R.id.login_input) as TextView
 		  var loginOverlay = findViewById (R.id.login_overlay) as LinearLayout
@@ -65,7 +65,9 @@ class PosLogin (context: Context, attrs: AttributeSet): PosLayout (context, attr
 					 }
 				}
 				else {
+					 
 					 if (cashier.length > 0) {
+						  
 						  cashier = cashier.substring (0, cashier.length - 1)
 						  loginInput.setText (cashier)
 					 }
@@ -93,7 +95,7 @@ class PosLogin (context: Context, attrs: AttributeSet): PosLayout (context, attr
 
 		  			 if (getPin) {
 		  				  pin += bval
-		  				  mask += "\u2022"
+		  				  mask += Pos.app.getString ("dot")
 		  				  loginInput.setText (mask)
 		  			 }
 		  			 else {

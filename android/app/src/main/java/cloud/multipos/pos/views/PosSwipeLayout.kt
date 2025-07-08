@@ -43,7 +43,7 @@ abstract class PosSwipeLayout (context: Context, attrs: AttributeSet?): PosLayou
 	 var gestureDetector: GestureDetector
 	 
 	 val animateSwipe = true
-	 var duration = 250L
+	 var duration = 500L
 	 
 	 open fun swipeLeft () { }
 	 open fun swipeRight () { }

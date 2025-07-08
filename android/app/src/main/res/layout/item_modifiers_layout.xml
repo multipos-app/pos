@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
 	 xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/transparent"
-    android:orientation="vertical"
  	 android:layout_margin="@dimen/dialog_margin"
     android:gravity="center_horizontal">
 	 
-	 <GridView
-        android:id="@+id/tabs_layout_tabs"
+	 <ListView
+        android:id="@+id/modifiers_list"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:background="@color/transparent"
-		  android:numColumns="3"
 		  android:verticalSpacing="5dp"
 		  android:horizontalSpacing="5dp"
 		  android:stretchMode="columnWidth"
 		  android:padding="@dimen/dialog_padding"
 		  app:layout_constraintTop_toTopOf="parent"
  		  app:layout_constraintBottom_toBottomOf="parent"/>
-	 
   
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

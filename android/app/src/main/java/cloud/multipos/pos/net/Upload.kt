@@ -91,6 +91,8 @@ class Upload () {
 				.add (upload)
 				.exec (fun (result: Jar): Unit {
 
+							  Logger.d ("upload result... ${result}")
+							  
 							  if (result.getInt ("status") == 0) {
 																		
 									if (upload.has ("ticket")) {

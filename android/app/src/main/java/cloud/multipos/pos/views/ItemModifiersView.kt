@@ -23,6 +23,7 @@ import cloud.multipos.pos.controls.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.db.*
+import cloud.multipos.pos.models.*
 
 import android.view.View
 import android.view.ViewGroup
@@ -35,95 +36,88 @@ import android.widget.TextView
 import android.graphics.Color
 import com.google.android.material.button.MaterialButton
 import android.widget.ListView
+import androidx.core.content.ContextCompat
 
 import java.text.SimpleDateFormat
 import java.util.TimeZone
 import java.util.Date
 import java.util.Locale
 
-class ItemModifiersView (val item: Jar): DialogView (item.getString ("item_desc")) {
+class ItemModifiersView (val ti: TicketItem, val modifiers: MutableList <Jar>): DialogView (ti.getString ("item_desc")) {
 	 
-	 private val modViews: MutableList <View> = ArrayList ()
-	 private val mods: MutableList <Jar> = ArrayList ()
+	 private val modifierViews: MutableList <View> = ArrayList ()
 	 lateinit var listView: ListView
 
 	 init  {
 
-		  // load item modifiers here
 
-		  val sel = "select i.id, i.sku, i.item_desc, ip.price, ip.cost " +
-		  "from departments d, items i, item_prices ip " +
-		  "where d.department_id = ${item.getInt ("department_id")} and department_type = 5 and i.department_id = d.id and i.id = ip.item_id"
-		  		  
-		  val modsResult = DbResult (sel, Pos.app.db)
-		  var pos = 0;
+		  for (modifier in modifiers) {
+
+				modifierViews.add (ItemModifierifier (modifier))
+		  }
 		  
-		  while (modsResult.fetchRow ()) {
-				
-				var mod = modsResult.row ()
-				mod.put ("pos", pos ++)
-				mod.put ("value", 0)
-				mods.add (mod)
-				modViews.add (Mod (mod))
-		  }
-
-		  if (mods.size > 0) {
-
-				Pos.app.inflater.inflate (R.layout.item_mods_layout, dialogLayout)
-				listView = findViewById (R.id.mods_list) as ListView
-				listView.setAdapter (ListAdapter (Pos.app.activity))
-				DialogControl.addView (this)
-		  }
+		  Pos.app.inflater.inflate (R.layout.item_modifiers_layout, dialogLayout)
+		  listView = findViewById (R.id.modifiers_list) as ListView
+		  listView.setAdapter (ListAdapter (Pos.app.activity))
+		  DialogControl.addView (this)
 	 }
-
 								 
 	 override fun actions (dialogView: DialogView) {
 		  
-		  Pos.app.inflater.inflate (R.layout.item_mods_actions_layout, dialogActions)
+		  Pos.app.inflater.inflate (R.layout.item_modifiers_actions_layout, dialogActions)
   		  
-		  val complete = findViewById (R.id.mods_complete) as Button
+		  val complete = findViewById (R.id.modifiers_complete) as Button
 		  complete.setOnClickListener () {
-
-				for (mod in mods) {
-
-					 if (mod.getInt ("value") != 0) {
 						  
-						  Control.factory ("ItemModifier").action (Jar ()
-																					  .put ("ticket_item_index", item.getInt ("ticket_item_index"))
-																					  .put ("mod", mod))
-					 }
-				}
-				
+				Control.factory ("UpdateModifiers").action (Jar ()
+																				.put ("ticket_item", ti)
+																				.put ("modifiers", modifiers))
 				DialogControl.close ()
 		  }
 	 }
 	 
-	 inner class Mod (item: Jar): LinearLayout (Pos.app.activity) {
+	 inner class ItemModifierifier (modifier: Jar): LinearLayout (Pos.app.activity) {
 
 		  init {
 				
-				Pos.app.inflater.inflate (R.layout.item_mod_layout, this)
+				Pos.app.inflater.inflate (R.layout.item_modifier_layout, this)
 				
-				val desc = findViewById (R.id.mod_desc) as TextView
-				desc.setText (item.getString ("item_desc"))
+				val desc = findViewById (R.id.modifier_desc) as TextView
+				desc.setText (modifier.getString ("item_desc"))
 				
-				val price = findViewById (R.id.mod_price) as TextView
-				price.setText (item.getDouble ("item_price").currency ())
+				val price = findViewById (R.id.modifier_price) as TextView
+				price.setText (modifier.getDouble ("item_price").currency ())
 
-				var add = findViewById (R.id.mod_add) as Button
-				add.setOnClickListener {
+				var add = findViewById (R.id.modifier_add) as Button
+				var del = findViewById (R.id.modifier_del) as Button
 
-					 item.put ("value", 1)
-					 add.setTextColor (R.color.pos_success)
-					 setBackgroundResource (R.color.lt_gray)
+				when (modifier.getInt ("value")) {
+
+					 1 -> { add.setTextColor (ContextCompat.getColor (Pos.app, R.color.pos_success)) }
+					 -1 -> { del.setTextColor (ContextCompat.getColor (Pos.app, R.color.pos_danger)) }
 				}
 				
-				var del = findViewById (R.id.mod_del) as Button
+				add.setOnClickListener {
+
+					 modifier.put ("value", 1)
+					 add.setTextColor (ContextCompat.getColor (Pos.app, R.color.pos_success))
+					 del.setTextColor (ContextCompat.getColor (Pos.app, R.color.lt_gray))
+				}
+				
 				del.setOnClickListener {
 					 
-					 item.put ("value", -1)
-					 del.setTextColor (R.color.pos_danger)
-					 setBackgroundResource (R.color.lt_gray)
+					 modifier.put ("value", -1)
+					 del.setTextColor (ContextCompat.getColor (Pos.app, R.color.pos_danger))
+					 add.setTextColor (ContextCompat.getColor (Pos.app, R.color.lt_gray))
+				}
+				
+				var clear = findViewById (R.id.modifier_clear) as Button
+				clear.setTextColor (if (Themed.theme == Themes.Light) Color.BLACK else Color.WHITE)
+				clear.setOnClickListener {
+					 
+					 modifier.put ("value", 0)
+					 add.setTextColor (ContextCompat.getColor (Pos.app, R.color.lt_gray))
+					 del.setTextColor (ContextCompat.getColor (Pos.app, R.color.lt_gray))
 				}
 		  }
 	 }
@@ -132,12 +126,12 @@ class ItemModifiersView (val item: Jar): DialogView (item.getString ("item_desc"
 		  
 		  override fun getCount (): Int {
 				
-				return mods.size
+				return modifiers.size
 		  }
 
 		  override fun getItem (position: Int): String? {
 				
-				return mods [position].toString ()
+				return modifiers [position].toString ()
 		  }
 
 		  override fun getItemId (position: Int): Long {
@@ -147,7 +141,7 @@ class ItemModifiersView (val item: Jar): DialogView (item.getString ("item_desc"
 
 		  override fun getView (position: Int, view: View?, parent: ViewGroup): View {
 				
-				return modViews [position]
+				return modifierViews [position]
 		  }
 	 }		  
 }

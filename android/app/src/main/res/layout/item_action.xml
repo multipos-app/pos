@@ -3,6 +3,7 @@
 	 xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+ 	 android:id="@+id/item_action"
     android:background="@color/transparent"
 	 android:layout_columnWeight="1"
 	 android:layout_rowWeight="1"
@@ -10,12 +11,13 @@
 
   <cloud.multipos.pos.views.PosButton
 		style="@style/PosControlButton"
-		android:id="@+id/item_button"
+		android:id="@+id/item_action_button"
 		android:layout_width="match_parent"
 		android:layout_height="match_parent"
  		android:text=""
  		android:textSize="@dimen/menu_button_text"
  		android:textColor="@color/white"
-		android:gravity="left|top"/>
+		android:gravity="left|top"
+  		android:clickable="false"/>
   
 </LinearLayout>

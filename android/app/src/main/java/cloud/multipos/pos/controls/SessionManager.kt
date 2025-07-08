@@ -299,7 +299,7 @@ open class SessionManager (): CompleteTicket () {
 				
 		  		if (departmentResults.fetchRow ()) {
 
-		  			 val department = departmentResults.row ()
+		  			 val department = departmentResults.row ()					 
 		  			 totalDesc = department.getString ("department_desc")			 
 		  		}
 

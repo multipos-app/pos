@@ -21,7 +21,7 @@
       android:layout_width="0dp"
       android:layout_height="wrap_content"
 		android:layout_weight="5.5"
-      android:gravity="start"
+      android:gravity="end"
       android:text=""
       android:textColor="@color/red"
       android:textSize="@dimen/ticket_item_md_text" />

@@ -42,7 +42,6 @@ import android.view.KeyEvent
 
 class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, attrs), PosDisplay, ThemeListener {
 
-	 // var p: ImageView
 	 var clock: PosText
 	 var customerLayout: LinearLayout? = null
 	 var customerName: PosText? = null
@@ -52,50 +51,43 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 	 var handler = AppHandler ()
 	 val sb = StringBuffer () // for keyboard input
 
-	 lateinit var rootLayout: LinearLayout
+	 // lateinit var rootLayout: LinearLayout
 	 lateinit var updateThread: Thread
 	 var running = true
 	 
 	 init {
 
 		  Pos.app.posAppBar = this
+		  				
+		  Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar_customer", "layout"), this)
 		  
-		  if (Pos.app.config.getBoolean ("customers")) {
-				
-				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar_customer", "layout"), this)
-		  
-				customerLayout = findViewById (R.id.app_bar_customer_layout) as LinearLayout?
-				customerName = findViewById (R.id.app_bar_customer_name) as PosText?
-		  	 	customerName?.setText (Pos.app.getString ("search_customer"))
+		  customerLayout = findViewById (R.id.app_bar_customer_layout) as LinearLayout?
+		  customerName = findViewById (R.id.app_bar_customer_name) as PosText?
+		  customerName?.setText (Pos.app.getString ("search_customer"))
 
-				customerLayout?.setOnClickListener {
+		  customerLayout?.setOnClickListener {
 					 
-					 if (Pos.app.ticket.getInt ("customer_id") > 0) {
+				if (Pos.app.ticket.getInt ("customer_id") > 0) {
 						  
-						  CustomerEditView (Pos.app.ticket.getInt ("customer_id"))
-					 }
-					 else {
-						  
-						  CustomerSearchView ()
-					 }
+					 CustomerEditView (Pos.app.ticket.getInt ("customer_id"))
 				}
-
-				customerClear = findViewById (R.id.app_bar_customer_clear) as PosIconText
-				customerClear?.setOnClickListener {
-
-					 Pos.app.posAppBar.customer ("")
-					 Pos.app.ticket.put ("customer_id", 0)
-					 Pos.app.ticket.remove ("customer")
-					 customerName?.setText (Pos.app.getString ("search_customer"))
-					 customerClear?.visibility = View.INVISIBLE
+				else {
+					 
+					 CustomerSearchView ()
 				}
 		  }
-		  else {
 
-				Pos.app.inflater.inflate (Pos.app.resourceID ("pos_app_bar", "layout"), this)
+		  customerClear = findViewById (R.id.app_bar_customer_clear) as PosIconText
+		  customerClear?.setOnClickListener {
+				
+				Pos.app.posAppBar.customer ("")
+				Pos.app.ticket.put ("customer_id", 0)
+				Pos.app.ticket.remove ("customer")
+				customerName?.setText (Pos.app.getString ("search_customer"))
+				customerClear?.visibility = View.INVISIBLE
 		  }
 		  
-		  rootLayout = findViewById (R.id.app_bar_root) as LinearLayout
+		  // rootLayout = findViewById (R.id.app_bar_root) as LinearLayout
 		  
 		  // time/date
 		  
@@ -111,14 +103,11 @@ class PosAppBar (context: Context, attrs: AttributeSet): PosLayout (context, att
 		  
 		  val posInfo = findViewById (R.id.pos_info) as View?
 		  posInfo?.setOnClickListener {
-
-				Logger.d ("pos info...")
 				
 				Post ("pos/pos-config")
 					 .add (Jar ()
 								  .put ("results", Pos.app.config))
-					 .exec (fun (result: Jar): Unit { }
-					 )
+					 .exec (fun (result: Jar): Unit { })
 		  }
 
 		  PosDisplays.add (this)

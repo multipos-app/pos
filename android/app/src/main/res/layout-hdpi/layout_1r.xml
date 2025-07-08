@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- 
+2 menu layout, main_menu and function_menu 
+-->
+
+<LinearLayout
+	 xmlns:android="http://schemas.android.com/apk/res/android"
+	 xmlns:app="http://schemas.android.com/apk/res-auto"
+	 xmlns:tools="http://schemas.android.com/tools"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+ 	 android:id="@+id/root_layout"
+	 android:layout_width="match_parent"
+	 android:layout_height="match_parent"
+	 android:background="@android:color/transparent"
+	 android:orientation="horizontal">
+  
+  <LinearLayout
+      android:id="@+id/pos_display"
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+      android:layout_weight="1"
+      android:background="@color/transparent"
+      android:orientation="vertical">
+	 
+	 <LinearLayout
+		  android:layout_height="0dp"
+		  android:layout_width="match_parent"
+		  android:layout_weight="1"
+		  android:background="@color/transparent"
+		  android:orientation="vertical">
+		
+	   <cloud.multipos.pos.views.PosDisplays
+			 android:id="@+id/displays"
+			 android:layout_width="match_parent"	
+			 android:layout_height="0dp"
+			 android:layout_weight="1.5"
+			 android:layout_margin="@dimen/ticket_margin"
+			 android:background="@color/transparent"/>
+		
+		<cloud.multipos.pos.views.PosMenus
+			 custom:menus="keypad"
+			 android:layout_width="match_parent"
+			 android:layout_height="0dp"
+			 android:layout_weight="1"
+			 android:background="@color/transparent"/>
+		
+	 </LinearLayout>
+	 
+  </LinearLayout>
+  
+  <LinearLayout
+      android:layout_width="0dp"
+      android:layout_height="match_parent"
+		android:layout_weight="1.5"
+      android:background="@color/transparent"
+		android:orientation="vertical">
+	 
+	 <cloud.multipos.pos.views.PosMenus
+		  custom:menus="main_menu"
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+		  android:layout_weight="3"
+		  android:background="@color/transparent"/>
+	 
+    <cloud.multipos.pos.views.PosMenus
+		  custom:menus="tender_menu"
+		  android:layout_width="match_parent"
+		  android:layout_height="0dp"
+ 		  android:layout_weight="1"
+		  android:background="@android:color/transparent"/>
+	 
+  </LinearLayout>
+
+</LinearLayout>

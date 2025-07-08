@@ -28,3 +28,7 @@ fun Int.even (): Boolean {
 	 return (this % 2) == 0
 }
 
+fun Int.jobNo (): String {
+
+	 return String.format ("#%04d", this % 1000)
+}

@@ -35,16 +35,28 @@ class EnterClerk (): Control (), InputListener {
 
 	 override fun accept (clerk: Jar) {
 		  					 					 
-		  Pos.app.ticket.put ("clerk_id", clerk.getInt ("id"))
-		  Pos.app.ticket.put ("clerk", clerk)
+		  Pos.app.ticket
+				.put ("clerk_id", clerk.getInt ("id"))
+				.put ("clerk", clerk)
 		  
 		  // update the server
-
+		  
 		  val update = Jar ()
 				.put ("clerk_id", clerk.getInt ("id"));
 		  
-		  Pos.app.db.update ("tickets", Pos.app.ticket.getInt ("id"), update);
+		  if (Pos.app.config.getBoolean ("track_jobs")) {
+				
+				Pos.app.ticket
+					 .put ("state", Ticket.JOB_PENDING)
+
+				update
+					 .put ("state", Ticket.JOB_PENDING)
+		  }
+
+		  Logger.d ("clerk update... ${update}")
 		  
+		  Pos.app.db.update ("tickets", Pos.app.ticket.getInt ("id"), update);
+
 		  update
 				.put ("action", "clerk_update")
 				.put ("uuid", Pos.app.ticket.getString ("uuid"))

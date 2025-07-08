@@ -10,18 +10,19 @@
 	 android:orientation="horizontal"
 	 android:background="@color/transparent">
 
-  <cloud.multipos.pos.views.PosText
-  		android:id="@+id/mod_desc"
+  <cloud.multipos.pos.views.PosThemeText
+  		android:id="@+id/modifier_desc"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_weight="3"
 		android:gravity="start"
+		android:padding="@dimen/app_md_padding"
 		android:textColor="@color/black"
 		android:background="@color/transparent"
 		android:textSize="@dimen/app_md_text"/>
   
-  <cloud.multipos.pos.views.PosText
-  		android:id="@+id/mod_price"
+  <cloud.multipos.pos.views.PosThemeText
+  		android:id="@+id/modifier_price"
 		android:layout_width="0dp"
 		android:layout_height="wrap_content"
 		android:layout_weight="1"
@@ -31,37 +32,37 @@
 		android:textSize="@dimen/app_md_text"/>
 
   <cloud.multipos.pos.views.PosIconButton
-		android:id="@+id/mod_add"
+		android:id="@+id/modifier_add"
  		style="@style/PosControlButton"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:text="@string/fa_plus"
-		android:textColor="@color/dk_gray" 
+		android:text="@string/fa_square_plus"
+		android:textColor="@color/lt_gray" 
 		android:textStyle="bold"
 		android:background="@color/transparent" 
 		android:textSize="@dimen/app_xlg_text"/>
   
   <cloud.multipos.pos.views.PosIconButton
-		android:id="@+id/mod_del"
+		android:id="@+id/modifier_del"
  		style="@style/PosControlButton"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:text="@string/fa_minus"
-		android:textColor="@color/dk_gray" 
+		android:text="@string/fa_square_minus"
+		android:textColor="@color/lt_gray" 
 		android:textStyle="bold"
 		android:background="@color/transparent" 
 		android:textSize="@dimen/app_xlg_text"/>
   
   <cloud.multipos.pos.views.PosIconButton
-		android:id="@+id/mod_clear"
+		android:id="@+id/modifier_clear"
  		style="@style/PosControlButton"
 		android:layout_width="0dp"
 		android:layout_height="match_parent"
 		android:layout_weight="1"
-		android:text="@string/fa_x_circle"
-		android:textColor="@color/dk_gray" 
+		android:text="@string/fa_square_x"
+		android:textColor="@color/black" 
 		android:textStyle="bold"
 		android:background="@color/transparent" 
 		android:textSize="@dimen/app_xlg_text"/>

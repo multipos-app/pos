@@ -16,6 +16,7 @@
  
 package cloud.multipos.pos.receipts
 
+import cloud.multipos.pos.Pos
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
@@ -27,11 +28,23 @@ class DefaultReceiptItem (ti: TicketItem): ReceiptItem (ti) {
 	 val modFormat = "%-" + (DeviceManager.printer.quantityWidth () + DeviceManager.printer.descWidth ()) + "s%" + DeviceManager.printer.amountWidth () + "s"
 
 	 init {
+
+		  Logger.x ("ti... ${ti}")
 		  
 		  var desc = ti.getString ("item_desc")
 		  if (desc.length > DeviceManager.printer.descWidth ()) {
 
 				desc = desc.substring (0, DeviceManager.printer.descWidth () - 1)
+		  }
+
+		  when (ti.getInt ("state")) {
+
+				TicketItem.REDEEM -> {
+
+					 desc += " " + Pos.app.getString ("pull_tab_redeem")
+				}
+
+				else -> { }
 		  }
 		  
 		  printCommands

@@ -64,7 +64,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"
@@ -99,7 +99,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"
@@ -134,7 +134,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"
@@ -169,7 +169,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"
@@ -214,7 +214,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"
@@ -250,7 +250,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"
@@ -285,7 +285,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"
@@ -318,7 +318,7 @@
 		  android:layout_marginBottom="@dimen/dialog_sm_margin"
 		  android:orientation="horizontal">
 
-		<cloud.multipos.pos.views.PosText
+		<cloud.multipos.pos.views.PosThemeText
 			 android:layout_width="0dp"
 			 android:layout_height="match_parent"
 			 android:layout_weight=".5"

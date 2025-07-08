@@ -31,7 +31,7 @@
   
   <cloud.multipos.pos.views.PosButton
       android:id="@+id/customer_search_add_edit"
-   	style="@style/DialogSuccess"
+   	style="@style/DialogDisable"
 		android:layout_width="match_parent"
       android:layout_height="0dp"
 		android:layout_weight="1"
@@ -41,7 +41,7 @@
 
   <cloud.multipos.pos.views.PosButton
 		android:id="@+id/customer_search_cancel"
-		style="@style/DialogWarn"
+		style="@style/DialogCancel"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="1"

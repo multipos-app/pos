@@ -37,15 +37,17 @@ import java.util.concurrent.locks.Lock
 import java.util.concurrent.locks.ReentrantLock
 import android.os.Looper;
 
-class StarPrinter () : Printer () {
+open class StarPrinter () : Printer () {
 	 
 	 lateinit var commandBuilder: StarCommandBuilder
-    protected var starIOPort: StarIOPort? = null
-    protected var starPrinter: StarPrinter? = null
-    private val queueHandler = QueueHandler ()
+	 
+    var starIOPort: StarIOPort? = null
+    var starPrinter: StarPrinter? = null
+
+	 private val queueHandler = QueueHandler ()
 	 private val jobs = mutableListOf <List <ICommandBuilder>> ()
 	 
-	 override fun deviceName (): String  { return "Start printer" }
+	 override fun deviceName (): String  { return "Star printer" }
 	 
 	 override fun start (jar: Jar) {
 
@@ -109,26 +111,25 @@ class StarPrinter () : Printer () {
 				
             starIOPort = StarIOPort.getPort (port, "", 500, Pos.app)
             if (starIOPort != null) {
-					 
+
 					 commandBuilder = LoadClass.get (jar.getString ("builder_class")) as StarCommandBuilder
 					 
-                val manager = StarIoExtManager (StarIoExtManager.Type.Standard,
+					 val manager = StarIoExtManager (StarIoExtManager.Type.Standard,
 																port,
 																null,
 																500,
 																Pos.app
-                )
-
+					 )
+					 
 					 width = commandBuilder.width ()
 					 boldWidth = commandBuilder.boldWidth ()
 					 quantityWidth = commandBuilder.quantityWidth ()
 					 descWidth = commandBuilder.descWidth ()
 					 amountWidth = commandBuilder.amountWidth ()
-
-                manager.connect (ConnectCallback (manager))
-                deviceStatus = DeviceStatus.OnLine
+					 
+					 manager.connect (ConnectCallback (manager))
+					 deviceStatus = DeviceStatus.OnLine
 					 success (this)
-
             }
         }
 		  catch (e: Exception) {
@@ -178,12 +179,12 @@ class StarPrinter () : Printer () {
 	 override fun barcode (): Boolean { return true }
 
     override fun queue (commands: PrintCommands) {
-		  
-        if (commandBuilder != null) {
+		  				
+ 		  if (this::commandBuilder.isInitialized) {
 				
-            jobs.add (commandBuilder.build (commands))
-            dequeue ()
-        }
+				jobs.add (commandBuilder.build (commands))
+				dequeue ()
+		  }
     }
 
     private fun dequeue () {
@@ -277,7 +278,7 @@ class StarPrinter () : Printer () {
         }
     }
 
-    private inner class QueueHandler : Handler () {
+    private inner class QueueHandler : Handler (Looper.getMainLooper ()) {
 		  
         override fun handleMessage (m: Message) {
 				

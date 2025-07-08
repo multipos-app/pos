@@ -29,6 +29,8 @@ class SaleDiscountPercent (): TicketModifier () {
 
 	 override fun controlAction (jar: Jar) {
 
+		  Logger.d ("sale discount... ${jar}")
+		  
 		  var percent = 0.0
 		  if (jar.has ("percent")) {
 
@@ -44,19 +46,28 @@ class SaleDiscountPercent (): TicketModifier () {
 				if (ti.getBoolean ("apply_addons") == false) {
 					 continue
 				}
+
+				if (ti.hasAddons ()) {
+					 
+					 // clear previous markdowns or discounts
+					 
+					 ti.removeAddons (listOf (TicketItemAddon.DISCOUNT, TicketItemAddon.MARKDOWN))
+				}
 				
 				when (ti.getInt ("state")) {
 
 					 TicketItem.STANDARD, TicketItem.REFUND_ITEM -> {
 					 
-						  var amount = BigDecimal (-1.0 * (ti.getDouble ("amount") * percent)).setScale (2, RoundingMode.HALF_UP).toDouble ()
+						  var amount = BigDecimal (-1.0 *
+															(ti.getDouble ("amount") * percent * ti.getDouble ("quantity"))).setScale (2, RoundingMode.HALF_UP).toDouble ()
 						  
 						  var desc = ""
-						  if (jar.has ("receipt_desc")) {
+						  if (jar.has ("receipt_text")) {
 								
-								desc = jar.getString ("receipt_desc")
+								desc = jar.getString ("receipt_text")
 						  }
 						  else {
+								
 								desc = Pos.app.getString ("discount")
 						  }
 						  
@@ -67,18 +78,15 @@ class SaleDiscountPercent (): TicketModifier () {
 								.put ("addon_amount", amount)
 								.put ("addon_quantity", ti.getInt ("quantity"))
 								.put ("addon_description", desc)
+								.put ("addon_type", TicketItemAddon.DISCOUNT)
 						  
 						  val id = Pos.app.db.insert ("ticket_item_addons", tia)
-						  tia
-								.put ("id", id)
-						  
-						  ti.addons.clear ()
+						  tia.put ("id", id)
 						  ti.addons.add (tia)
 					 }				 
 				}
 		  }
-				
-		  
+
 		  Pos.app.ticket.update ()
 		  updateDisplays ()
 	 }

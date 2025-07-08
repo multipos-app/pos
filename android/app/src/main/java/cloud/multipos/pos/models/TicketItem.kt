@@ -145,6 +145,27 @@ class TicketItem (): Jar () {
 		  }
 		  return note
 	 }
+
+	 fun removeAddons (addonTypes: List <Int>) {
+
+		  val remove = mutableListOf <TicketItemAddon> ()
+
+	 	  for (tia in addons) {
+
+				for (addonType in addonTypes) {
+					 
+					 if (tia.getInt ("addon_type") == addonType) {
+
+						  remove.add (tia)
+					 }
+				}
+		  }
+
+		  for (tia in remove) {
+	
+				addons.remove (tia)
+		  }
+	 }
 	 
 	 fun hasLinks (): Boolean { return links.size > 0 }
 	 fun hasAddons (): Boolean { return addons.size > 0 }
@@ -157,6 +178,9 @@ class TicketItem (): Jar () {
 		  const val COMP_ITEM   = 2
 		  const val REFUND_ITEM = 3
 		  const val GIFT_CARD   = 4
+		  const val WEIGHT_ITEM = 5
+		  const val REDEEM      = 6
+		  const val PAYOUT      = 7
 
 		  const val DEPOSIT_LINK = 0
 		  const val PACKAGE_LINK = 1

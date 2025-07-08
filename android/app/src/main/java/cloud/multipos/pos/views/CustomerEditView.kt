@@ -86,8 +86,29 @@ class CustomerEditView (val customerID: Int) : EditView () {
 
 		  state?.setSelection (States.indexOf (customer.getString ("state")))
 		  
-		  Pos.app.keyboardView.push (this)
+		  Pos.app.keyboardView.show (this)
 		  home ()
+	 }
+	 
+	 override fun reset () {
+		  
+		  fname.setText ("")
+		  lname.setText ("")
+		  email.setText ("")
+		  phone.setText ("")
+		  addr.setText ("")
+		  city.setText ("")
+		  postalCode.setText ("")
+		  state?.setSelection (0)
+		  
+		  // fname.setText ("WILL")
+		  // lname.setText ("RYAN")
+		  // email.setText ("wr@email.com")
+		  // phone.setText ("8776765487")
+		  // addr.setText ("12 2ND ST")
+		  // city.setText ("ARNHEIM")
+		  // postalCode.setText ("99999")
+		  // state?.setSelection (35)
 	 }
 	 
 	 override fun complete () {

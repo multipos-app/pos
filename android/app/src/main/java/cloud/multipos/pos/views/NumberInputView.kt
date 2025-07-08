@@ -54,13 +54,13 @@ class NumberInputView (val control: InputListener, title: String, prompt: String
 		  
 		  val result = Jar ().put ("value", Pos.app.input.getString ())
 		  
+		  
 		  if (decimalVal != 0.0) {
 				
+				DialogControl.close ()
 				result.put ("value", decimalVal)
 				control.accept (result)
 		  }
-		  
-		  DialogControl.close ()
 	 }
 	 
 	 override fun update () {

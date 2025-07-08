@@ -50,5 +50,4 @@ public class TicketItemAddon extends Jar {
 	 public static int MARKDOWN =       2;
 	 public static int MODIFIER_PLUS =  3;
 	 public static int MODIFIER_MINUS = 4;
-				
 }

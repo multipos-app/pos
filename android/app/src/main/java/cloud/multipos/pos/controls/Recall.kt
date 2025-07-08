@@ -30,27 +30,15 @@ class Recall (): Control () {
 
 		  jar (jar)
 
-		  // var sel = "select id from tickets where state = ${Ticket.SUSPEND} and id < ${Pos.app.ticket.getInt ("id")} order by id desc limit 1"
+		  if (jar.has ("id"))  {
 		  
-		  var sel = """
-		  select id from tickets 
-		  where id < ${Pos.app.ticket.getInt ("id")} and 
-		  ticket_type = ${Ticket.SALE} 
-		  order by id desc limit 1
-		  """
-		  
-		  val ticketResult = DbResult (sel, Pos.app.db)
-		  if (ticketResult.fetchRow ()) {
-				
-				val t = ticketResult.row ()
-								
-				Pos.app.ticket = Ticket (t.getInt ("id"), Ticket.SUSPEND)
+				Pos.app.ticket = Ticket (jar.getInt ("id"), Ticket.SUSPEND)
 				PosDisplays.update ()
 		  }
 		  else {
-		  
+				
 				PosDisplays.message (Jar ()
-												 .put ("prompt_text", Pos.app.getString ("no_suspended_tickets"))
+												 .put ("prompt_text", Pos.app.getString ("invalid_ticket_id"))
 												 .put ("echo_text", ""))
 		  }
 	 }

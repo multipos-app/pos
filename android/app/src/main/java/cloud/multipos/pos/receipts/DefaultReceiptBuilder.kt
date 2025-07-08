@@ -79,6 +79,8 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 				PosConst.PRINTER_RECEIPT -> {
 
 					 items ()
+					 separator ()
+					 feed (1)
 					 summary ()
 					 tender ()
 				}
@@ -184,15 +186,30 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 					 
 					 ticketType = Pos.app.getString ("z_report")
 				}		
+				Ticket.WEIGHT_ITEMS -> {
+					 
+					 ticketType = Pos.app.getString ("pull_tab_counts")
+				}		
+				Ticket.REDEEM -> {
+					 
+					 ticketType = Pos.app.getString ("pull_tab_redeem_prompt")
+				}		
+				Ticket.PAYOUT -> {
+					 
+					 ticketType = Pos.app.getString ("pull_tab_payout_prompt")
+				}		
 		  }
 		  
 		  if (ticketType.length > 0) {
 
+				feed (1)
+				separator ()
 		  		printCommands
 					 .add (PrintCommand.getInstance ().directive (PrintCommand.ITALIC_TEXT))
 		  			 .add (PrintCommand.getInstance ().directive (PrintCommand.BIG_TEXT))
 		  			 .add (PrintCommand.getInstance ().directive (PrintCommand.BOLD_TEXT))
-		  			 .add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (ticketType))	
+		  			 .add (PrintCommand.getInstance ().directive (PrintCommand.CENTER_TEXT).text (ticketType))
+				
 		  }
 
 		  return this
@@ -204,7 +221,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 
 				when (ti.getInt ("state")) {
 
-					 TicketItem.STANDARD -> {
+					 TicketItem.STANDARD, TicketItem.REDEEM, TicketItem.PAYOUT -> {
 						  
 						  printCommands.addAll (ReceiptItem.factory (ti).printCommands)
 					 }
