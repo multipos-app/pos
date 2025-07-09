@@ -96,8 +96,6 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 		  PosDisplays.add (this)
 		  DialogControl.addView (this)
 		  update ()
-		  
-		  callback.scaleData (11.99)
 	 }
 	 
 	 override fun actions (dialogView: DialogView) {
