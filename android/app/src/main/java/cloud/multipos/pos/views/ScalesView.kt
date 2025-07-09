@@ -97,7 +97,16 @@ class ScalesView (val control: InputListener, title: String, val type: Int, val 
 		  DialogControl.addView (this)
 		  update ()
 		  
-		  callback.scaleData (11.99)
+		  if (Pos.app.config.getBoolean ("hardware_debug")) {
+
+				// simulate something...
+				
+				var w = (7..14).random ().toDouble () + ((3..8).random ().toDouble () / 10.0)
+
+				Logger.d ("scale... ${w}")
+				callback.scaleData (w)
+		  }
+		  
 	 }
 	 
 	 override fun actions (dialogView: DialogView) {
