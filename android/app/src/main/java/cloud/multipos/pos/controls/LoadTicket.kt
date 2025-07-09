@@ -38,15 +38,15 @@ class LoadTicket (): Control () {
 				when (jar.getInt ("dir")) {
 
 					 0 -> { sel = "select id from tickets where id = (select max(id) from tickets)" }
-					 1 -> { sel = "select id from tickets where ticket_type = ${Ticket.SALE} and id > ${ticketID} order by id desc" }
-					 -1 -> { sel = "select id from tickets where ticket_type = ${Ticket.SALE} and id < ${ticketID} order by id desc" }
+					 1 -> { sel = "select id from tickets where ticket_type = ${Ticket.SALE} and id > ${ticketID} order by id asc limit 1" }
+					 -1 -> { sel = "select id from tickets where ticket_type = ${Ticket.SALE} and id < ${ticketID} order by id desc limit 1" }
 				}
 				
 				val ticketResult = DbResult (sel, Pos.app.db)
 				if (ticketResult.fetchRow ()) {
 
 					 val t = ticketResult.row ()
-					 ticketID = t.getInt ("id")					 
+					 ticketID = t.getInt ("id")
 				}
 				else {
 

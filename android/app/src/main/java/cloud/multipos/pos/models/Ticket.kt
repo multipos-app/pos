@@ -115,7 +115,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 }
 				}
 				
-				// update ()  // set totals, tax, etc...
+				update ()  // set totals, tax, etc...
 		  }
 		  else { // no id, start a new ticket
 
@@ -230,6 +230,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				tenders.add (TicketTender (tt))
 		  }
 	 }
+	 
 
 	 /**
 	  *
@@ -237,129 +238,16 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	  *
 	  */
 	 
-	 fun update () {
+	 open fun applyTaxes (): TicketTax? {
 		  
-		  // total the tenders for this ticket, check if tenders >= the ticket
-		  		  
-		  var tenderTotal = 0.0
-		  var tenderDesc = ""
-		  var itemCount = 0
-		  var voidItemCount = 0
-		  var discounts = 0.0
+		  var ticketTax: TicketTax? = null
 		  
-		  for (tt in Pos.app.ticket.tenders) {
-
-		  		tenderTotal = Currency.round (tenderTotal + tt.getDouble ("tendered_amount"))
+		  for (ti in items) {
 				
-		  		if (tenderDesc.length == 0) {
-					 
-		  			 tenderDesc = tt.getString ("tender_type").lowercase ()
-		  		}
-		  		else {
-					 
-		  			 tenderDesc = "split"
-		  		}
-		  }
-		  
-		  // total the items
-		  
-		  for (ti in Pos.app.ticket.items) {
+		  		when (getInt ("ticket_type")) {
 
-				when (ti.getInt ("state")) {
-					 
-		  			 TicketItem.VOID_ITEM -> {
-						  
-		  				  voidItemCount ++
+					 Ticket.SALE_NONTAX -> {
 					 }
-				}
-		  		itemCount ++
-				
-		  		for (tia in ti.addons) {
-
-		  			 discounts += Currency.round (tia.getDouble ("addon_amount") * tia.getInt ("addon_quantity"))
-		  		}
-		  }
-
-		  // update sale tax
-
-		  val totalTax = taxes ()
-		  
-		  // create the summary
-		  
-		  Pos.app.ticket.put ("summary", ArrayList <Jar> ())
-		  
-		  if (Pos.app.config.has ("tax_included")) {
-
-				// compute the included tax, amount - (amount / 1 + tax rate)
-
-				var rate = Pos.app.config.getDouble ("tax_included") / 100.0
-				var taxIncAmount = Pos.app.ticket.getDouble ("total") * rate
-				
-				Pos.app.ticket.getList ("summary").add (Jar ()
-					 													  .put ("type", Ticket.TOTAL)
-					 													  .put ("total_desc", Pos.app.getString ("tax_total_included") + " " + Pos.app.config.getDouble ("tax_included") + "%")
-					 													  .put ("amount", Currency.round (taxIncAmount)))
-		  }
-		  else {
-					 
-				Pos.app.ticket.getList ("summary").add (Jar ()
-																		  .put ("type", Ticket.TOTAL)
-																		  .put ("total_desc", Pos.app.getString ("tax_total"))
-																		  .put ("amount", Currency.round (ticketTax.getDouble ("tax_amount"))))
-		  }
-		  
-		  // generate a receitpt...
-
-		  Pos.app.receiptBuilder.ticket (Pos.app.ticket, PosConst.PRINTER_RECEIPT)
-		  
-		  var ticketText = Pos.app.receiptBuilder.text ()
-		  
-		  if (Pos.app.ticket.has ("aux_receipts")) {
-				
-				ticketText =
-					 ticketText +
-				Pos.app.ticket.getString ("aux_receipts").replace ('\'', '`') 
-				Pos.app.ticket.remove ("aux_receipts")
-		  }
-		  
-		  Pos.app.ticket
-				.put ("discounts", discounts)
-				.put ("item_count", itemCount)
-				.put ("void_items", voidItemCount)
-				.put ("tender_desc", tenderDesc.lowercase ())
-				.put ("ticket_text", ticketText)
-				.put ("ticket_items", Pos.app.ticket.items)
-				.put ("ticket_taxes", Pos.app.ticket.taxes)
-				.put ("ticket_tenders", Pos.app.ticket.tenders)
-				.put ("totals", Pos.app.ticket.totals)
-				.put ("ticket_addons", Pos.app.ticket.addons)
-				.put ("other", Pos.app.ticket.other)
-				.put ("updates", Pos.app.ticket.updates)
-
-		  // update ticket as complete
-		  
-		  Pos.app.db.update ("tickets", getInt ("id"), this)  // update the ticket table
-	 }
-
-	 /**
-	  *
-	  * update tax
-	  * if a tax for the current tax group exists, add to it
-	  * else create a new tax record for this ticket
-	  *
-	  */
-	 
-	 fun taxes () {
-		  
-		  var taxTotal = 0.0
-		  var ticketTax = null
-		  
-		  for (ti in Pos.app.ticket.items) {
-				
-		  		when (Pos.app.ticket.getInt ("ticket_type")) {
-					 
-					 Ticket.SALE_NONTAX -> { }
-					 
 		  			 else -> {
 						  
 		  				  when (ti.getInt ("state")) {
@@ -369,50 +257,209 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  							 if (ti.getInt ("tax_group_id") > 0) {
 										  
 		  								  var taxGroup = Pos.app.config.taxes ().get (Integer.toString (ti.getInt ("tax_group_id")))
-
+										  
 		  								  if (taxGroup != null) {
 												
-												val tax = ti.getDouble ("amount") * taxGroup.getDouble ("rate")
+		  										var tax = ti.tax (taxGroup as Jar)
+		  										ticketTax = taxes.get (ti.getInt ("tax_group_id"))
 												
-												Logger.d ("tax group... ${taxGroup} ${rate}")
-
-												for (tt in taxes) {
-
-													 if (tt.getInt ("tax_group_id") == ti.getInt ("tax_group_id")) {
-														  
-														  tt.put ("tax_amount", t.getDouble ("tax_amount") + tax)
-														  ticketTax = tt
-														  Pos.app.db.update ("ticket_taxes", tt.getInt ("id"), tt)
-														  totalTax += t.getDouble ("tax_amount")
-														  break
-													 }
-												}
-
-												if (ticketTax == null) {
+		  										if (ticketTax != null) {
 													 
-													 ticketTax = TicketTax (Jar ()
-		  																				 .put ("ticket_id", Pos.app.ticket.getInt ("id"))
+		  											 ticketTax.put ("tax_amount", ticketTax.getDouble ("tax_amount") + tax)
+		  										}
+		  										else {
+													 													 
+		  											 ticketTax = TicketTax (Jar ()
+		  																				 .put ("ticket_id", getInt ("id"))
 		  																				 .put ("tax_group_id", ti.getInt ("tax_group_id"))
 		  																				 .put ("tax_incl", ti.getInt ("tax_incl"))
 		  																				 .put ("tax_amount", tax)
 		  																				 .put ("short_desc", taxGroup.getString ("short_desc")))
 													 
-													 totalTax += tax
 		  											 Pos.app.db.insert ("ticket_taxes", ticketTax)
-		  											 taxes.put (ti.getInt ("tax_group_id"), ticketTax)
+		  											 taxMap.put (ti.getInt ("tax_group_id"), ticketTax)
 		  										}
-										  }
-									 }
+		  								  }
+		  							 }
 								}
 						  }
-					 }
+					 }		  
 				}
 		  }
-		  return totalTax
+		  
+		  // add the taxes to the ticket 
+
+		  taxMap.forEach {(key, tt) -> taxes.add (tt) }
+		  return ticketTax
 	 }
 
-	 fun complete (state: Int) {
+	 /**
+	  *
+	  * save state
+	  *
+	  */
+	 
+	 fun update () {
+		  
+		  var itemCount = 0
+		  var subTotal = 0.0
+		  var taxTotal = 0.0
+		  var taxTotalInc = 0.0
+		  var tenderTotal = 0.0
+		  var total = 0.0
+		  var balanceDue = 0.0
+		  var addonTotal = 0.0
+		  var totalProfit = 0.0
+		  var totalWithoutTax = 0.0
+		  var totalCost = 0.0
+		  var voidItems = 0
 
+		  ticketUpdates.clear ()
+		  
+		  put ("summary",  mutableListOf <Jar> ())
+
+		  // val tmp = mutableListOf <TicketItem> ()
+		  
+		  for (item in items) {
+				
+				if (item.hasLinks ()) {
+					 
+					 item.links.forEach {
+						  
+						  link ->
+								
+								if (link.getInt ("link_type") == TicketItem.DEPOSIT_LINK) {
+									 
+									 // tmp.add (link)  // Count deposits
+								}
+					 }
+				}
+
+				var multiplier = 1.0
+				when (item.getInt ("state")) {
+
+					 TicketItem.REFUND_ITEM,
+					 TicketItem.STANDARD,
+					 TicketItem.PAYOUT -> {
+
+						  var amount = item.extAmount () * multiplier
+						  var addonAmount = 0.0
+
+						  for (tia in item.addons) {
+								
+								addonAmount += tia.extAmount ()
+						  }
+
+						  amount += addonAmount
+						  addonTotal += addonAmount
+						  
+						  for (link in item.links) {
+								
+								amount += link.extAmount ()
+								itemCount += item.getInt ("quantity")
+						  }
+						  
+						  itemCount += item.getInt ("quantity")
+						  
+						  subTotal += Currency.round (amount)
+						  total += amount
+						  totalProfit += item.profit ()
+						  totalWithoutTax += item.amountWithoutTax () + addonAmount
+						  totalCost += item.getDouble ("cost")
+						  
+						  if ((Pos.app.config.taxes () != null) && (item.getInt ("tax_group_id") > 1)) {
+								
+								var taxGroup = Pos.app.config.taxes ().get (Integer.toString (item.getInt ("tax_group_id"))) as Jar
+								
+									 var tax = item.tax (taxGroup)
+									 if (item.getInt ("tax_incl") == 1) {
+
+										  taxTotalInc += tax
+									 }
+									 else {
+										  taxTotal += tax
+									 }
+									 item.put ("tax_amount", tax)
+						  }
+						  else {
+						  }
+					 }
+					 
+					 TicketItem.VOID_ITEM -> {
+
+						  voidItems ++
+					 }
+	 
+				}
+		  }
+		  
+		  subTotal = Currency.round (subTotal)
+		  taxTotal = Currency.round (taxTotal)
+		  totalProfit = Currency.round (totalProfit)
+		  total = Currency.round (total + taxTotal)
+
+		  if (totalWithoutTax > 0) {
+				put ("total_profit_percent", (totalProfit / totalWithoutTax) * 100.0)
+		  }
+		  
+		  var tenderDesc = ""
+		  for (tt in tenders) {
+				
+				if (tenderDesc.length == 0) {
+					 
+					 tenderDesc = tt.getString ("tender_type")
+				}
+				else {
+					 
+					 tenderDesc = "split"
+				}
+				
+				tt.put ("type", Ticket.TENDER)
+				getList ("summary").add (tt)
+				tenderTotal += tt.getDouble ("tendered_amount")
+		  }
+
+		  if (tenderTotal > total) {
+				
+				var change = tenderTotal - total
+				// var e = Jar ()
+				// 	 .put ("type", Ticket.TOTAL)
+				// 	 .put ("total_desc", Pos.app.getString ("change_due"))
+				// 	 .put ("amount", Currency.round (change))
+				// 	 .put ("tendered_amount", Currency.round (tenderTotal))
+				
+				// getList ("summary")
+				// 	 .add (Jar ()
+				// 				  .put ("type", Ticket.TOTAL)
+				// 				  .put ("total_desc", Pos.app.getString ("change_due"))
+				// 				  .put ("amount", Currency.round (change))
+				// 				  .put ("tendered_amount", Currency.round (tenderTotal)))
+		  }
+		  
+		  put ("tendered_amount", Currency.round (tenderTotal))
+		  put ("balance_due", Currency.round (total - tenderTotal))
+		  
+		  putUpdate ("state", getInt ("state"))
+				.putUpdate ("item_count", itemCount)
+				.putUpdate ("sub_total", subTotal)
+				.putUpdate ("tax_total", taxTotal)
+				.putUpdate ("total_profit", totalProfit)
+				.putUpdate ("total", Currency.round (total))
+				.putUpdate ("tendered_amount", Currency.round (tenderTotal))
+				.putUpdate ("discounts", Currency.round (addonTotal))
+				.putUpdate ("void_items", voidItems)
+				.putUpdate ("tender_desc", tenderDesc)
+				.putUpdate ("tax_total", Currency.round (taxTotal))
+				.putUpdate ("tax_total_inc", Currency.round (taxTotalInc))
+				.putUpdate ("ticket_text", getString ("ticket_text"))
+				.putUpdate ("employee_id", getInt ("employee_id"))
+				.putUpdate ("clerk_id", getInt ("clerk_id"))
+				.putUpdate ("customer_id", getInt ("customer_id"))
+				.putUpdate ("table_id", getInt ("table_id"))
+				.putUpdate ("recall_key", getString ("recall_key"))
+				.putUpdate ("uuid", getString ("uuid"))
+		  
+		  Pos.app.db.update ("tickets", getInt ("id"), ticketUpdates)  // update the ticket table
 	 }
 
 	 fun hasItems (): Boolean {
@@ -516,6 +563,42 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 fun setCurrentItem (pos: Int) {
 
 		  currentItem = items.get (pos)
+	 }
+
+	 fun fold (): Ticket {
+
+		  val tmp = mutableListOf <TicketItem> ()
+		  for (ti in items) {
+
+				tmp.add (ti)
+				
+				for (link in ti.links) {
+					 
+					 tmp.add (link)
+				}
+
+				if (ti.hasAddons ()) {
+
+					 ti
+						  .put ("ticket_item_addons", ti.addons)
+				}
+				
+				if (ti.hasMods ()) {
+
+					 ti
+						  .put ("ticket_item_mods", ti.mods)
+				}
+		  }
+		  
+		  items.clear ()
+		  tmp.forEach {
+				
+				items.add (it)
+		  }
+
+		  this.put ("version", "1.0")
+ 
+		  return this
 	 }
 
 	 private fun recallID (): String {
