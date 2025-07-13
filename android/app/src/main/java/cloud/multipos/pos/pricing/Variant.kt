@@ -50,7 +50,7 @@ class Variant (): Pricing (), InputListener {
 		  item.jar ().put ("merge_like_items", false)
 		  
 		  item.ticketItem ()
-				.put ("amount", variants.get (select.getInt ("position")).getDouble ("price") * Pos.app.ticket!!.itemMultiplier ())
+				.put ("amount", variants.get (select.getInt ("position")).getDouble ("price") * Pos.app.ticket!!.multiplier ())
 				.put ("item_desc", variants.get (select.getInt ("position")).getString ("desc").toUpperCase () + " " + item.ticketItem ().getString ("item_desc"))
 
 		  item.complete ()

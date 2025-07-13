@@ -217,7 +217,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 						  .remove ("value")
 				}
 					 
-				completeTicket (tenderState ())
+				Pos.app.ticket.complete (tenderState ())
 		  }
 		  else {
 				

@@ -24,8 +24,6 @@ class SplitTicket (): Control () {
 
 	 override fun controlAction (p: Jar) {
 
-		  Pos.app.ticket!!.state (Ticket.SUSPEND)
-
 		  var split = Pos.app.ticket!!
 		  var splitItems: MutableList <TicketItem> = mutableListOf ()
 

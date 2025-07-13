@@ -21,9 +21,6 @@ import cloud.multipos.pos.util.*
 import cloud.multipos.pos.models.Ticket
 import cloud.multipos.pos.views.PosDisplays
 
-import java.math.BigDecimal
-import java.math.RoundingMode
-
 abstract class TicketModifier (): Control () {
 	 
 	 init { }
@@ -42,6 +39,7 @@ abstract class TicketModifier (): Control () {
 	override fun afterAction (): Boolean {
 		 
 		 Pos.app.ticket.update ()
+		 
 		 return super.afterAction ()
 	}
 }

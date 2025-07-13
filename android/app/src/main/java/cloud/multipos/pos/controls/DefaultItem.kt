@@ -184,7 +184,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 				
 				if (jar ().has ("amount")) {
 					 
-					 ticketItem.put ("amount", jar ().getDouble ("amount") * Pos.app.ticket.itemMultiplier ())
+					 ticketItem.put ("amount", jar ().getDouble ("amount") * Pos.app.ticket.multiplier ())
 					 complete ()
 					 return
 				}
@@ -327,7 +327,8 @@ open class DefaultItem (): FirstItem (), InputListener {
 
 		  // save the new ticket info
 		  
-		  Pos.app.ticket.update ()		  		  				
+		  // Pos.app.ticket.update ()
+	  	  
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
 		  

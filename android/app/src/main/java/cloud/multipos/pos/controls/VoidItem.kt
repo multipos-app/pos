@@ -68,9 +68,5 @@ class VoidItem (): Control () {
 		  }
 		  
 		  Pos.app.selectValues.clear ()
-		  Pos.app.ticket.applyAddons (0)				
-		  Pos.app.ticket.update ()				
-		  updateDisplays ()
-		  DeviceManager.customerDisplay?.update (Pos.app.ticket)
 	 }
 }

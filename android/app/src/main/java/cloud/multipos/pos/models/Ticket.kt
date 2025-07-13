@@ -49,7 +49,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 @JvmField val updates = mutableListOf <Jar> ()
 	 
 	 var taxMap = hashMapOf <Int, TicketTax> ()
-	 
+
 	 init {
 
 		  // check if the last ticket was not completed, if so load it
@@ -76,13 +76,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 var ticket = ticketResult.row ()
 					 
 					 copy (ticket)
-					 
-					 put ("summary",  mutableListOf <Jar> ())
-						  .put ("sub_total", 0)
-						  .put ("tax_total", 0)
-						  .put ("total", 0)
-						  .put ("item_count", 0)
-						  .put ("balance_due", 0)
 
 					 addItems (ticketID)
 					 addTaxes (ticketID)
@@ -141,7 +134,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				
 				put ("id", id)
 					 .put ("ticket_no", ticketNo)
-					 .put ("summary",  mutableListOf <Jar> ())
 					 .put ("sub_total", 0)
 					 .put ("tax_total", 0)
 					 .put ("total", 0)
@@ -292,174 +284,99 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  taxMap.forEach {(key, tt) -> taxes.add (tt) }
 		  return ticketTax
 	 }
-
+	 
 	 /**
 	  *
-	  * save state
+	  * clear the summary pieces before update
+	  *
+	  */
+	 
+	 fun zero () {
+		  
+		  put ("sub_total", 0.0)
+		  put ("total", 0.0)
+		  put ("tax_total", 0.0)
+		  put ("cost", 0.0)
+		  put ("balance", 0.0)
+		  put ("tender_total", 0.0)
+		  put ("item_count", 0)
+		  put ("void_items", 0)
+	 }
+	 
+	 /**
+	  *
+	  * gather totals, tax and tenders and update ticket record
 	  *
 	  */
 	 
 	 fun update () {
+
+		  zero ()
 		  
-		  var itemCount = 0
-		  var subTotal = 0.0
-		  var taxTotal = 0.0
-		  var taxTotalInc = 0.0
-		  var tenderTotal = 0.0
-		  var total = 0.0
-		  var balanceDue = 0.0
-		  var addonTotal = 0.0
-		  var totalProfit = 0.0
-		  var totalWithoutTax = 0.0
-		  var totalCost = 0.0
-		  var voidItems = 0
-
-		  ticketUpdates.clear ()
-		  
-		  put ("summary",  mutableListOf <Jar> ())
-
-		  // val tmp = mutableListOf <TicketItem> ()
-		  
-		  for (item in items) {
-				
-				if (item.hasLinks ()) {
-					 
-					 item.links.forEach {
-						  
-						  link ->
-								
-								if (link.getInt ("link_type") == TicketItem.DEPOSIT_LINK) {
-									 
-									 // tmp.add (link)  // Count deposits
-								}
-					 }
-				}
-
-				var multiplier = 1.0
-				when (item.getInt ("state")) {
-
+		  for (ti in items) {
+								 								 
+				when (ti.getInt ("state")) {
+									  
 					 TicketItem.REFUND_ITEM,
 					 TicketItem.STANDARD,
 					 TicketItem.PAYOUT -> {
-
-						  var amount = item.extAmount () * multiplier
-						  var addonAmount = 0.0
-
-						  for (tia in item.addons) {
-								
-								addonAmount += tia.extAmount ()
-						  }
-
-						  amount += addonAmount
-						  addonTotal += addonAmount
 						  
-						  for (link in item.links) {
-								
-								amount += link.extAmount ()
-								itemCount += item.getInt ("quantity")
+						  ti.links.asSequence ().map () {
+								tia -> {
+									 
+								}
 						  }
 						  
-						  itemCount += item.getInt ("quantity")
+						  put ("item_count", getInt ("item_count") + ti.getInt ("quantity"))
+						  put ("sub_total", Currency.round (getDouble ("sub_total") + ti.extAmount ()))
+						  put ("cost", Currency.round (getDouble ("cost") + ti.getDouble ("cost")))
 						  
-						  subTotal += Currency.round (amount)
-						  total += amount
-						  totalProfit += item.profit ()
-						  totalWithoutTax += item.amountWithoutTax () + addonAmount
-						  totalCost += item.getDouble ("cost")
-						  
-						  if ((Pos.app.config.taxes () != null) && (item.getInt ("tax_group_id") > 1)) {
+						  if (ti.getInt ("tax_group_id") > 0) {
 								
-								var taxGroup = Pos.app.config.taxes ().get (Integer.toString (item.getInt ("tax_group_id"))) as Jar
-								
-									 var tax = item.tax (taxGroup)
-									 if (item.getInt ("tax_incl") == 1) {
-
-										  taxTotalInc += tax
-									 }
-									 else {
-										  taxTotal += tax
-									 }
-									 item.put ("tax_amount", tax)
-						  }
-						  else {
+								var taxGroup = Pos.app.config.taxes ().get (ti.getInt ("tax_group_id").toString ()) as Jar
+								put ("tax_total", Currency.round (getDouble ("tax_total") + ti.extAmount () * (taxGroup.getDouble ("rate") / 100.0)))
 						  }
 					 }
-					 
+
 					 TicketItem.VOID_ITEM -> {
 
-						  voidItems ++
+						  put ("void_items", getInt ("void_items") + ti.getInt ("quantity"))
 					 }
-	 
 				}
 		  }
-		  
-		  subTotal = Currency.round (subTotal)
-		  taxTotal = Currency.round (taxTotal)
-		  totalProfit = Currency.round (totalProfit)
-		  total = Currency.round (total + taxTotal)
 
-		  if (totalWithoutTax > 0) {
-				put ("total_profit_percent", (totalProfit / totalWithoutTax) * 100.0)
-		  }
+		  put ("total", Currency.round (getDouble ("sub_total") + getDouble ("tax_total")))
 		  
-		  var tenderDesc = ""
 		  for (tt in tenders) {
-				
-				if (tenderDesc.length == 0) {
-					 
-					 tenderDesc = tt.getString ("tender_type")
-				}
-				else {
-					 
-					 tenderDesc = "split"
-				}
-				
-				tt.put ("type", Ticket.TENDER)
-				getList ("summary").add (tt)
-				tenderTotal += tt.getDouble ("tendered_amount")
-		  }
 
-		  if (tenderTotal > total) {
-				
-				var change = tenderTotal - total
-				// var e = Jar ()
-				// 	 .put ("type", Ticket.TOTAL)
-				// 	 .put ("total_desc", Pos.app.getString ("change_due"))
-				// 	 .put ("amount", Currency.round (change))
-				// 	 .put ("tendered_amount", Currency.round (tenderTotal))
-				
-				// getList ("summary")
-				// 	 .add (Jar ()
-				// 				  .put ("type", Ticket.TOTAL)
-				// 				  .put ("total_desc", Pos.app.getString ("change_due"))
-				// 				  .put ("amount", Currency.round (change))
-				// 				  .put ("tendered_amount", Currency.round (tenderTotal)))
+				put ("tender_total", Currency.round (getDouble ("tender_total") + tt.getDouble ("tendered_amount")))
+		  }
+  
+		  put ("balance", Currency.round (getDouble ("total") - getDouble ("tender_total")))
+		  		  
+		  Pos.app.db.update ("tickets", getInt ("id"), this)  // update the ticket table
+		  PosDisplays.update ()  // redraw displays
+	 }
+	 
+	 /**
+	  *
+	  * complete the ticket
+	  *
+	  * - create tax records
+	  * - create the receipt
+	  * - send it to the back office
+	  * - queue to totals service
+	  *
+	  */
+	 
+	 fun complete (state: Int) {
+
+		  if (getDouble ("tax_toatl") > 0) {
+
 		  }
 		  
-		  put ("tendered_amount", Currency.round (tenderTotal))
-		  put ("balance_due", Currency.round (total - tenderTotal))
-		  
-		  putUpdate ("state", getInt ("state"))
-				.putUpdate ("item_count", itemCount)
-				.putUpdate ("sub_total", subTotal)
-				.putUpdate ("tax_total", taxTotal)
-				.putUpdate ("total_profit", totalProfit)
-				.putUpdate ("total", Currency.round (total))
-				.putUpdate ("tendered_amount", Currency.round (tenderTotal))
-				.putUpdate ("discounts", Currency.round (addonTotal))
-				.putUpdate ("void_items", voidItems)
-				.putUpdate ("tender_desc", tenderDesc)
-				.putUpdate ("tax_total", Currency.round (taxTotal))
-				.putUpdate ("tax_total_inc", Currency.round (taxTotalInc))
-				.putUpdate ("ticket_text", getString ("ticket_text"))
-				.putUpdate ("employee_id", getInt ("employee_id"))
-				.putUpdate ("clerk_id", getInt ("clerk_id"))
-				.putUpdate ("customer_id", getInt ("customer_id"))
-				.putUpdate ("table_id", getInt ("table_id"))
-				.putUpdate ("recall_key", getString ("recall_key"))
-				.putUpdate ("uuid", getString ("uuid"))
-		  
-		  Pos.app.db.update ("tickets", getInt ("id"), ticketUpdates)  // update the ticket table
+		  Logger.x ("complete...")
+		  Logger.x (this.stringify ())
 	 }
 
 	 fun hasItems (): Boolean {
@@ -488,118 +405,22 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  
 		  return selectItems
 	 }
-
-	 fun balance (): Double {
-
-		  fun List<TicketTender>.total (fn: TicketTenderMapper <Double>): Double = fold (0.0) { total, tt -> total + fn (tt) }
-		  var tendered = tenders.total { it.getDouble ("amount") }
-		  return getDouble ("total") - tendered
-	 }
 	 
-	 fun itemMultiplier (): Double {
+	 /**
+	  *
+	  * add, subtract or zero amount from sale
+	  *
+	  */
+	 
+	 fun multiplier (): Double {
 
 		  when (getInt ("ticket_type")) {
 
 				RETURN_SALE, CREDIT_REVERSE, CREDIT_REFUND -> return -1.0
-				
 				COMP_SALE -> return 0.0
-
 				else -> return 1.0
 		  }
 	 }
-
-	 fun applyAddons (addonID: Int) {
-
-		  items.forEach {
-
-				when (it.getInt ("state")) {
-					 
-					 TicketItem.STANDARD -> {
-						  
-						  if (it.hasAddons ()) {
-								
-								it.addons.forEach { tia ->
-																
-																if (tia.has ("addon")) {
-																	 
-																	 tia.put ("addon_amount", 0.0)
-																	 val t = tia.getObj ("addon") as Addon
-																	 t.apply (it, tia.get ("addon_jar"))
-																}
-								}
-						  }
-					 }
-		  		}
-		  }
-	 }
-
-	 fun state (state: Int) {
-
-		  put ("state", state)
-		  Pos.app.db ().exec ("update tickets set state = " + state + " where id = " + getInt ("id"))
-	 }
-
-	 fun state (): Int {
-
-		  return getInt ("state")
-	 }
-
-	 fun type (type: Int) {
-
-		  put ("type", type)
-		  Pos.app.db ().exec ("update tickets set ticket_type = " + type + " where id = " + getInt ("id"))
-	 }
-
-	 fun type (): Int {
-
-		  return getInt ("type")
-	 }
-
-	 fun table (): String {
-
-		  return "tickets"
-	 }
-
-	 fun setCurrentItem (pos: Int) {
-
-		  currentItem = items.get (pos)
-	 }
-
-	 // fun fold (): Ticket {
-
-	 // 	  val tmp = mutableListOf <TicketItem> ()
-	 // 	  for (ti in items) {
-
-	 // 			tmp.add (ti)
-				
-	 // 			for (link in ti.links) {
-					 
-	 // 				 tmp.add (link)
-	 // 			}
-
-	 // 			if (ti.hasAddons ()) {
-
-	 // 				 ti
-	 // 					  .put ("ticket_item_addons", ti.addons)
-	 // 			}
-				
-	 // 			if (ti.hasMods ()) {
-
-	 // 				 ti
-	 // 					  .put ("ticket_item_mods", ti.mods)
-	 // 			}
-	 // 	  }
-		  
-	 // 	  items.clear ()
-	 // 	  tmp.forEach {
-				
-	 // 			items.add (it)
-	 // 	  }
-
-	 // 	  this.put ("version", "1.0")
- 
-	 // 	  return this
-	 // }
 
 	 private fun recallID (): String {
 

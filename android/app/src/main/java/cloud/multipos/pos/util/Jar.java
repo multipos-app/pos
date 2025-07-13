@@ -468,7 +468,6 @@ public class Jar extends HashMap {
 		  String s = "{\"result\": \"json parse error\"}";
 		  try {
 				
-				// s = json.toString (3).replace ("\\", "").replace ("\"[", "[").replace ("]\"", "]");
 				JSONObject j = new JSONObject (toString ());
 				s = j.toString (3);
 		  }

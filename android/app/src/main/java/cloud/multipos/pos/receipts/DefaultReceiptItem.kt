@@ -28,8 +28,6 @@ class DefaultReceiptItem (ti: TicketItem): ReceiptItem (ti) {
 	 val modFormat = "%-" + (DeviceManager.printer.quantityWidth () + DeviceManager.printer.descWidth ()) + "s%" + DeviceManager.printer.amountWidth () + "s"
 
 	 init {
-
-		  Logger.x ("ti... ${ti}")
 		  
 		  var desc = ti.getString ("item_desc")
 		  if (desc.length > DeviceManager.printer.descWidth ()) {
