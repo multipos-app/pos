@@ -164,6 +164,7 @@ abstract class CompleteTicket (): ConfirmControl () {
 				when (Pos.app.ticket.getInt ("ticket_type")) {
 					 
 					 Ticket.SALE,
+					 Ticket.RETURN_SALE,
 					 Ticket.BANK -> {
 		  
 						  if (printReceipt ()) {

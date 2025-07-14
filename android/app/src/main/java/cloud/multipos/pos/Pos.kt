@@ -167,7 +167,7 @@ class Pos (): AppCompatActivity () {
 		  else {
 				
 				ActivityCompat.requestPermissions (this, REQUIRED_PERMISSIONS, REQUEST_CODE_PERMISSIONS)
-		  }
+		  } 
 	 }
 
     override fun onStart () {

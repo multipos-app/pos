@@ -162,7 +162,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 					 ticketType = Pos.app.getString ("void_sale")
 				}
 				
-				Ticket.CREDIT_REFUND -> {
+				Ticket.CREDIT_REFUND, Ticket.RETURN_SALE -> {
 					 
 					 ticketType = Pos.app.getString ("return_sale")
 				}
@@ -221,7 +221,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 
 				when (ti.getInt ("state")) {
 
-					 TicketItem.STANDARD, TicketItem.REDEEM, TicketItem.PAYOUT -> {
+					 TicketItem.STANDARD, TicketItem.REDEEM, TicketItem.PAYOUT, TicketItem.REFUND_ITEM -> {
 						  
 						  printCommands.addAll (ReceiptItem.factory (ti).printCommands)
 					 }

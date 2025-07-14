@@ -543,5 +543,7 @@
     <string name="fa_inventory">&#xf69c;</string>
     <string name="fa_pos_connect">&#xf78a;</string>
     <string name="fa_credit_card">&#xf38a;</string>
+    <string name="fa_wifi_on">&#xf1eb;</string>
+    <string name="fa_wifi_off">&#xf6ac;</string>
 
 </resources>

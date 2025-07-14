@@ -29,8 +29,6 @@ class ReturnSale (): ConfirmControl () {
 	 
 	 override fun controlAction (jar: Jar) {
 
-		  confirmed (true)
-
 		  if (confirmed ()) {
 
 				var ticketType = Ticket.SALE
@@ -49,11 +47,9 @@ class ReturnSale (): ConfirmControl () {
 								
 				if (Pos.app.ticket.getInt ("ticket_type") == Ticket.RETURN_SALE) {
 
-					 PosDisplays.message (Pos.app.getString ("return_sale"))
-				}
-				else {
-
-					 PosDisplays.message ("")
+					 PosDisplays.message (Jar ()
+													  .put ("prompt_text", Pos.app.getString ("return_sale"))
+													  .put ("echo_text", ""))
 				}
 		  }
 		  else {
