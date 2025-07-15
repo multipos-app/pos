@@ -223,68 +223,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  }
 	 }
 	 
-
-	 /**
-	  *
-	  * save state
-	  *
-	  */
-	 
-	 fun applyTaxes (): TicketTax? {
-		  
-		  var ticketTax: TicketTax? = null
-		  
-		  for (ti in items) {
-				
-		  		when (getInt ("ticket_type")) {
-
-					 Ticket.SALE_NONTAX -> {
-					 }
-		  			 else -> {
-						  
-		  				  when (ti.getInt ("state")) {
-
-		  						TicketItem.REFUND_ITEM, TicketItem.STANDARD -> {
-									 
-		  							 if (ti.getInt ("tax_group_id") > 0) {
-										  
-		  								  var taxGroup = Pos.app.config.taxes ().get (Integer.toString (ti.getInt ("tax_group_id")))
-										  
-		  								  if (taxGroup != null) {
-												
-		  										var tax = ti.tax (taxGroup as Jar)
-		  										ticketTax = taxes.get (ti.getInt ("tax_group_id"))
-												
-		  										if (ticketTax != null) {
-													 
-		  											 ticketTax.put ("tax_amount", ticketTax.getDouble ("tax_amount") + tax)
-		  										}
-		  										else {
-													 													 
-		  											 ticketTax = TicketTax (Jar ()
-		  																				 .put ("ticket_id", getInt ("id"))
-		  																				 .put ("tax_group_id", ti.getInt ("tax_group_id"))
-		  																				 .put ("tax_incl", ti.getInt ("tax_incl"))
-		  																				 .put ("tax_amount", tax)
-		  																				 .put ("short_desc", taxGroup.getString ("short_desc")))
-													 
-		  											 Pos.app.db.insert ("ticket_taxes", ticketTax)
-		  											 taxMap.put (ti.getInt ("tax_group_id"), ticketTax)
-		  										}
-		  								  }
-		  							 }
-								}
-						  }
-					 }		  
-				}
-		  }
-		  
-		  // add the taxes to the ticket 
-
-		  taxMap.forEach {(key, tt) -> taxes.add (tt) }
-		  return ticketTax
-	 }
-	 
 	 /**
 	  *
 	  * clear the summary pieces before update
@@ -371,13 +309,122 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 
 	 fun complete (state: Int) {
 
+		  Logger.d ("complete ticket... ${state}")
+		  
 		  if (getDouble ("tax_toatl") > 0) {
 
 		  }
 		  
+		  Pos.app.receiptBuilder.ticket (this, PosConst.PRINTER_RECEIPT)
+		  
+		  put ("state", state)
+				.put ("complete_time", Pos.app.db.timestamp (Date ()))
+				.put ("ticket_items", items)
+				.put ("ticket_taxes", taxes)
+				.put ("ticket_tenders", tenders)
+				.put ("totals", totals)
+				.put ("ticket_addons", addons)
+				.put ("other", other)
+				.put ("updates", updates)
+		  		.put ("ticket_text", Pos.app.receiptBuilder.text ())  // create the reciept last
+
+
+		  update ()  // save
+		  
+		  when (state) {
+				
+				Ticket.SUSPEND,
+				Ticket.JOB_PENDING,
+				Ticket.JOB_COMPLETE,
+				Ticket.CREDIT_PENDING -> {
+					 
+					 // don't upload or total
+
+					 Pos.app.ticket ()  // start a new ticket
+				}
+
+				else -> {
+
+					 taxes ()  // create and save tender tax
+					 
+					 when (Pos.app.ticket.getInt ("ticket_type")) {
+					 
+						  Ticket.SALE,
+						  Ticket.BANK -> {
+								
+								if (Pos.app.config.getBoolean ("always_print_receipt")) {
+									 
+									 Pos.app.receiptBuilder.print ()
+								}
+						  		
+								ReportView (Pos.app.getString ("ticket"),
+												Jar ()
+													 .put ("ticket", this))
+						  }
+					 }
+
+					 // upload to back office
+					 
+					 Upload ()
+						  .add (this)
+						  .exec ()
+					 
+					 // update totals
+					 
+					 Pos.app.totalsService.q (PosConst.TICKET, this, Pos.app.handler)
+
+					 PosDisplays.update () // update leaves the previous ticket on the displays
+					 Pos.app.ticket ()  // start a new ticket
+				}
+		  }
+
 		  Logger.x ("complete...")
 		  Logger.x (this.stringify ())
 	 }
+
+	 fun taxes () {
+
+		  val taxMap = mutableMapOf <Int, TicketTax> ()
+		  
+		  for (ti in items) {
+				
+				if (ti.getInt ("tax_group_id") > 0) {
+
+			  		 var taxGroup = Pos.app.config.taxes ().get (Integer.toString (ti.getInt ("tax_group_id"))) as Jar
+					 var tax = ti.getDouble ("amount") * taxGroup.getDouble ("rate") / 100.0
+					 
+					 if (taxMap.contains (ti.getInt ("tax_group_id"))) {
+						  
+						  var tt = taxMap.get (ti.getInt ("tax_group_id"))
+						  tt!!.put ("tax_amount", tt!!.getDouble ("tax_amount") + tax)
+					 }
+					 else {
+						  
+						  
+						  taxMap.put (ti.getInt ("tax_group_id"), TicketTax (Jar ()
+		  																							.put ("ticket_id", getInt ("id"))
+		  																							.put ("tax_group_id", ti.getInt ("tax_group_id"))
+		  																							.put ("tax_incl", ti.getInt ("tax_incl"))
+		  																							.put ("tax_amount", tax)
+		  																							.put ("short_desc", taxGroup.getString ("short_desc"))))
+					 }
+				}
+		  }
+
+		  // save the taxes
+		  
+		  Logger.x ("taxes... ${taxMap}")
+
+		  taxMap.forEach {
+				
+				(key, tt) -> {
+					 
+		  			 Pos.app.db.insert ("ticket_taxes", tt)
+					 taxes.add (tt)
+				}
+		  }
+	 }
+	 
 
 	 fun hasItems (): Boolean {
 

@@ -34,7 +34,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 	 val receiptUtils = ReceiptUtils (Pos.app.activity)
 	 var sep = "*" // "─"
 	 val dateTimeFormat = "EEE d MMM yyyy HH:mm"
-	 // val printer = Pos.app.receiptPrinter
 	 val tl = "┌"
 	 val tr = "┐"
 	 val bl = "└"
@@ -46,8 +45,7 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 
 	 lateinit var ticket: Ticket
 
-	 init {
-	 }
+	 init {	 }
 	 
 	 fun ArrayList <Jar>.append (p: Jar): ArrayList <Jar> {
 
@@ -437,8 +435,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 					 (ticket.get ("customer").getString ("uuid").length > 0)) {
 
 					 var loyalty = ticket.get ("customer").getString ("uuid")
-
-					 Logger.d ("print loyalty... ${loyalty}")
 					 
 					 printCommands
 						  .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
@@ -446,8 +442,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 				}
 				else {
 					 
-					 Logger.d ("print qr... ${ticket.getString ("recall_key")}")
-
 					 printCommands
 						  .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text ("\n"))
 						  .add (PrintCommand.getInstance ().directive (PrintCommand.QR_CODE).text (ticket.getString ("recall_key")))
@@ -534,8 +528,6 @@ open class DefaultReceiptBuilder (): ReceiptBuilder () {
 	 }
 
 	 override fun print () {
-
-		  Logger.i ("receipt print...")
 		  
 		  if (printCommands.list.size > 0) {
 				

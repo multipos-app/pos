@@ -87,7 +87,7 @@
 
   <dimen name="keyboard_row_height">90dp</dimen>
   <dimen name="keyboard_text">25sp</dimen>
-  <dimen name="keyboard_lg_text">37sp</dimen>
+  <dimen name="keyboard_lg_text">28sp</dimen>
   <dimen name="keyboard_margin">3dp</dimen>
   <dimen name="keyboard_padding">5dp</dimen>
 

@@ -149,12 +149,9 @@ class SettleTicketsView (val listener: InputListener, title: String, val tickets
 		  var enter = layout.findViewById (R.id.keyboard_enter) as PosButton?
 		  enter?.setOnClickListener {
 
-				if (curr < (tickets.size - 1)) {
-
-					 curr ++
-					 currTip = 0
-					 render ()
-				}
+				curr = (curr + 1) % tickets.size
+				currTip = 0
+				render ()
 		  }
 	 }
 

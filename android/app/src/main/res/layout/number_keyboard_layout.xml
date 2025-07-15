@@ -7,7 +7,6 @@
 	 android:layout_width="match_parent"
 	 android:layout_height="match_parent"
 	 android:background="@color/white"
-	 android:layout_margin="@dimen/dialog_margin"
 	 android:orientation="horizontal">
   
   <LinearLayout
@@ -26,7 +25,8 @@
 			 android:id="@+id/keyboard_1"
 			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:paddingBottom="@dimen/keyboard_margin"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="1"
@@ -37,7 +37,8 @@
 			 android:id="@+id/keyboard_2"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:paddingBottom="@dimen/keyboard_margin"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="2"
@@ -48,7 +49,8 @@
 			 android:id="@+id/keyboard_3"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:paddingBottom="@dimen/keyboard_margin"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="3"
@@ -67,7 +69,7 @@
 			 android:id="@+id/keyboard_4"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="4"
@@ -78,7 +80,7 @@
 			 android:id="@+id/keyboard_5"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="5"
@@ -89,7 +91,7 @@
 			 android:id="@+id/keyboard_6"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="6"
@@ -102,14 +104,13 @@
 		  android:layout_height="0dp"
 		  android:layout_width="match_parent"
 		  android:layout_weight="1"
-		  android:layout_marginBottom="-10dp"
 		  android:orientation="horizontal">
 		
 		<cloud.multipos.pos.views.PosButton
 			 android:id="@+id/keyboard_7"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="7"
@@ -120,7 +121,7 @@
 			 android:id="@+id/keyboard_8"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="8"
@@ -131,7 +132,7 @@
 			 android:id="@+id/keyboard_9"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:layout_height="85dp"
 			 android:layout_width="0dp"
 			 android:layout_weight="1"
 			 android:text="9"
@@ -144,15 +145,13 @@
 		  android:layout_height="0dp"
 		  android:layout_width="match_parent"
 		  android:layout_weight="1"
-		  android:layout_marginTop="10dp"
-		  android:layout_marginBottom="-10dp"
 		  android:orientation="horizontal">
 		
 		<cloud.multipos.pos.views.PosButton
 			 android:id="@+id/keyboard_0"
  			 style="@style/KeyboardButtonDark"
 			 android:layout_margin="@dimen/keyboard_margin"
-			 android:layout_height="match_parent"
+			 android:layout_height="85dp"
 			 android:layout_width="match_parent"
 			 android:text="0"
 			 android:textStyle="bold"
@@ -166,15 +165,14 @@
 		android:layout_height="match_parent"
 		android:layout_width="0dp"
 		android:layout_weight="1"
+		android:layout_marginTop="@dimen/keyboard_margin"
 		android:orientation="vertical">
 	 
 	 <cloud.multipos.pos.views.PosIconButton
 		  android:id="@+id/keyboard_del"
 		  style="@style/KeyboardButtonDark"
-		  android:layout_margin="@dimen/keyboard_margin"
-		  android:layout_height="0dp"
+		  android:layout_height="132dp"
 		  android:layout_width="match_parent"
-		  android:layout_weight="1"
 		  android:textStyle="bold"
 		  android:text="@string/fa_del"
 		  android:textSize="@dimen/keyboard_lg_text"/>
@@ -182,11 +180,10 @@
 	 <cloud.multipos.pos.views.PosIconButton
 		  android:id="@+id/keyboard_enter"
 		  style="@style/KeyboardButtonDark"
-		  android:layout_margin="@dimen/keyboard_margin"
-		  android:layout_height="0dp"
+		  android:layout_height="132dp"
 		  android:layout_width="match_parent"
-		  android:layout_weight="1"
 		  android:text="@string/fa_enter"
+		  android:layout_marginTop="-5dp"
 		  android:textStyle="bold"
 		  android:textSize="@dimen/keyboard_lg_text"/>
 	 
