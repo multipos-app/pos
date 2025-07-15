@@ -314,14 +314,17 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  if (getDouble ("tax_toatl") > 0) {
 
 		  }
-		  
-		  Pos.app.receiptBuilder.ticket (this, PosConst.PRINTER_RECEIPT)
+
+		  taxes ()  // create tax records
+
+		  Pos.app.receiptBuilder.ticket (this, PosConst.PRINTER_RECEIPT)  // render the receipt
 		  
 		  put ("state", state)
 				.put ("complete_time", Pos.app.db.timestamp (Date ()))
 				.put ("ticket_items", items)
 				.put ("ticket_taxes", taxes)
 				.put ("ticket_tenders", tenders)
+				.put ("tender_desc", tenderDesc ())
 				.put ("totals", totals)
 				.put ("ticket_addons", addons)
 				.put ("other", other)
@@ -344,8 +347,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				}
 
 				else -> {
-
-					 taxes ()  // create and save tender tax
 					 
 					 when (Pos.app.ticket.getInt ("ticket_type")) {
 					 
@@ -381,7 +382,38 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  Logger.x ("complete...")
 		  Logger.x (this.stringify ())
 	 }
+	 
+	 /**
+	  *
+	  * tender description... cash, credit, split....
+	  *
+	  */
+ 
+	 fun tenderDesc (): String {
 
+		  var tenderDesc = "unknown"
+		  
+		  for (tt in tenders) {
+				
+		  		if (tenderDesc == "unknown") {
+					 
+		  			 tenderDesc = tt.getString ("tender_type").lowercase ()
+		  		}
+		  		else {
+					 
+		  			 tenderDesc = "split"
+		  		}
+		  }
+		  
+		  return tenderDesc
+	 }
+	 
+	 /**
+	  *
+	  * create tax records
+	  *
+	  */
+	 
 	 fun taxes () {
 
 		  val taxMap = mutableMapOf <Int, TicketTax> ()
@@ -406,7 +438,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  																							.put ("tax_group_id", ti.getInt ("tax_group_id"))
 		  																							.put ("tax_incl", ti.getInt ("tax_incl"))
 		  																							.put ("tax_amount", tax)
-		  																							.put ("short_desc", taxGroup.getString ("short_desc"))))
+		  																							.put ("short_desc", taxGroup.getString ("short_desc").uppercase ())))
 					 }
 				}
 		  }
@@ -417,10 +449,11 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 
 		  taxMap.forEach {
 				
-				(key, tt) -> {
-					 
-		  			 Pos.app.db.insert ("ticket_taxes", tt)
-					 taxes.add (tt)
+				for ((key, tt) in taxMap) {	
+
+														Logger.x ("taxes... ${tt}")
+		  												// Pos.app.db.insert ("ticket_taxes", tt)
+														taxes.add (tt)
 				}
 		  }
 	 }
