@@ -219,7 +219,7 @@ public class Config extends Jar {
 		  put ("height", displayMetrics.heightPixels);
 
 		  Jar deviceData = new Jar ()
-				.put ("metrics", getString ("metrics"))
+				.put ("metrics", Pos.app.getString ("density"))
 				.put ("model", android.os.Build.MODEL)
 				.put ("sdk", android.os.Build.VERSION.SDK_INT)
 				.put ("android_release", android.os.Build.VERSION.RELEASE)
