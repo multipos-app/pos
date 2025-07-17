@@ -69,8 +69,6 @@ public class Config extends Jar {
 				initialize ();
 				ready = true;
 		  }
-
-		  deviceData ();  // load device data
 	 }
 
 	 public void initialize () {
@@ -213,7 +211,6 @@ public class Config extends Jar {
 		  DisplayMetrics displayMetrics = new DisplayMetrics ();
 		  Pos.app.getWindowManager ().getDefaultDisplay ().getMetrics (displayMetrics);
 
-		  Logger.x ("display metrics... " + displayMetrics);
 		  
 		  put ("width", displayMetrics.widthPixels);
 		  put ("height", displayMetrics.heightPixels);
@@ -229,7 +226,8 @@ public class Config extends Jar {
 				.put ("height", displayMetrics.heightPixels)
 				.put ("density", Pos.app.activity.getResources ().getDisplayMetrics ().densityDpi);
 		  
-		  Logger.x ("device data... " + deviceData);
+		  Logger.x ("display metrics... " + deviceData.stringify ());
+		  
 		  return deviceData;
 	 }
 

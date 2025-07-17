@@ -29,8 +29,10 @@ import android.view.Gravity
 import android.transition.Scene
 import android.transition.Fade
 import android.transition.Slide
+import android.transition.Explode
 import android.transition.Transition
 import android.transition.TransitionManager
+import android.view.animation.TranslateAnimation
 
 class PosMenus (context: Context, attrs: AttributeSet): PosSwipeLayout (context, attrs), PosMenuControl, SwipeListener, ThemeListener  {
 
@@ -156,28 +158,27 @@ class PosMenus (context: Context, attrs: AttributeSet): PosSwipeLayout (context,
 		  }
 	 }
 	 
-	  // Swipe
+	 // Swipe impl
+	 
+	 val duration = 100L
 
-	 override fun swipeRight () {
+	  override fun swipeLeft () {
 
-		  var next = 0
-		  var dir = Gravity.RIGHT
-		  
-		  next = (curr + 1) % layouts.size
-		  
+		  val dir = Gravity.RIGHT
+		  var next = (curr + 1) % layouts.size
 		  val end = layouts.get (next)
 		  val scene = Scene (this, end)
 		  
-		  val transition = Slide (dir)
+		  val transition = Fade ()  //  Slide (dir)
 		  
-		  transition.setDuration (250)
+		  transition.setDuration (duration)
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()
 		  curr = next
 	 }
 
-	 override fun swipeLeft () {
-		  
+	 override fun swipeRight () {
+
 		  var next = 0
 		  var dir = Gravity.LEFT
 		  
@@ -187,9 +188,9 @@ class PosMenus (context: Context, attrs: AttributeSet): PosSwipeLayout (context,
 		  val end = layouts.get (next)
 		  val scene = Scene (this, end)
 		  
-		  val transition = Slide (dir)
+		  val transition = Fade ()  // Slide (dir)
 		  
-		  transition.setDuration (250)
+		  transition.setDuration (duration)
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()
 		  curr = next
