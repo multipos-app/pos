@@ -29,8 +29,6 @@ class SaleDiscountPercent (): TicketModifier () {
 
 	 override fun controlAction (jar: Jar) {
 
-		  Logger.d ("sale discount... ${jar}")
-		  
 		  var percent = 0.0
 		  if (jar.has ("percent")) {
 
@@ -83,10 +81,10 @@ class SaleDiscountPercent (): TicketModifier () {
 						  val id = Pos.app.db.insert ("ticket_item_addons", tia)
 						  tia.put ("id", id)
 						  ti.addons.add (tia)
-					 }				 
+					 }
 				}
 		  }
-
+		  
 		  Pos.app.ticket.update ()
 		  updateDisplays ()
 	 }

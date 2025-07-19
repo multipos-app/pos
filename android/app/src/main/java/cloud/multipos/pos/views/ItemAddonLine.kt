@@ -46,7 +46,7 @@ class ItemAddonLine (context: Context, tia: Jar): LinearLayout (context) {
 				TicketItemAddon.DISCOUNT, TicketItemAddon.MARKDOWN -> {
 
 					 icon.setText (Pos.app.getString ("fa_tag"))
-					 icon.setTextColor (R.color.pos_success)
+					 icon.setTextColor (Color.RED)
 				}
 				
 				TicketItemAddon.MODIFIER_PLUS -> icon.setText (Pos.app.getString ("fa_plus"))

@@ -24,7 +24,7 @@
       android:gravity="end"
       android:layout_marginRight="@dimen/ticket_item_link_icon_margin"
       android:text="@string/fa_tag"
-		android:textColor="@color/black"
+		android:textColor="@color/red"
       android:textSize="@dimen/ticket_item_sm_text"/>
 
   <cloud.multipos.pos.views.PosText
