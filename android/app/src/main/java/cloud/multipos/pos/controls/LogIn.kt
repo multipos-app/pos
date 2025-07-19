@@ -23,7 +23,7 @@ import cloud.multipos.pos.models.*
 
 import java.util.Date
 
-class LogIn (): CompleteTicket () {
+class LogIn (): TicketModifier () {
 
 	 override fun controlAction (jar: Jar) {
 		  
@@ -36,19 +36,13 @@ class LogIn (): CompleteTicket () {
 				return;
 		  }
 
-		  Pos.app.ticket!!
+		  Pos.app.ticket
 				.put ("ticket_type", Ticket.LOGIN)
 				.put ("state", Ticket.COMPLETE)
 				.put ("star_time", Pos.app.db.timestamp (Date ()))
 				.put ("complete_time", Pos.app.db.timestamp (Date ()))
-		  
-		  Pos.app.db.exec ("update tickets set start_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
-		  								 "complete_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
-		  								 "state = " + Ticket.COMPLETE + ", " +
-		  								 "ticket_type = " + Ticket.VOID + " where id = " + Pos.app.ticket!!.getInt ("id"))
-		  
-		  
-		  completeTicket (Ticket.COMPLETE)
+				.update ()
+				.complete ()
 		 
 		  while (Pos.app.controls.size > 0) {
 				
@@ -56,7 +50,4 @@ class LogIn (): CompleteTicket () {
 		  		control.action (control.jar ())
 		  }
 	 }
-	 
-	 override fun openDrawer (): Boolean { return false; }
-	 override fun printReceipt (): Boolean { return false }
 }

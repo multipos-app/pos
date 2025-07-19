@@ -1,7 +1,7 @@
 <resources>
   
     <string name="app_name">multiPOS</string>
-    <string name="app_version">V2.1.120</string>
+    <string name="app_version">V2.1.125</string>
     <string name="package_name">cloud.multipos.pos</string>
     <string name="posapi">https://dev.multipos.cloud/</string>
 	 

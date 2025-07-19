@@ -304,8 +304,9 @@ object BackOffice: Device, DeviceCallback {
 								
 								if (update.getInt ("update_id") == Pos.app.buID ()) {
 									 
-									 Pos.app.config.put ("business_unit", update.get ("update"))
-									 Pos.app.config.update ()
+									 Pos.app.config
+										  .put ("business_unit", update.get ("update"))
+										  .update ()
 								}
 						  }
 						  

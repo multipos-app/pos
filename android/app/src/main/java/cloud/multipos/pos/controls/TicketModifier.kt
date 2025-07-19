@@ -23,6 +23,9 @@ import cloud.multipos.pos.views.PosDisplays
 
 abstract class TicketModifier (): Control () {
 	 
+	 open fun openDrawer (): Boolean { return false }
+	 open fun printReceipt (): Boolean { return false }
+
 	 init { }
 
 	 override fun beforeAction (): Boolean {

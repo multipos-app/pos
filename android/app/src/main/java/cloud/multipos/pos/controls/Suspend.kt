@@ -23,7 +23,7 @@ import cloud.multipos.pos.views.PosDisplays
 
 import java.util.Date
 
-open class Suspend (): CompleteTicket () {
+open class Suspend (): TicketModifier () {
 
 	 override fun controlAction (jar: Jar) {
 
@@ -40,7 +40,11 @@ open class Suspend (): CompleteTicket () {
 				Ticket.JOB_COMPLETE -> state = Pos.app.ticket.getInt ("state")
 		  }
 
-		  completeTicket (state)  // suspend and clear the displays
+		  Pos.app.ticket
+				.put ("state", state)
+				.update ()
+				.complete ()  // suspend and clear the displays
+		  
 		  Control.factory ("LoadTicket").action (Jar ().put ("params", Jar ().put ("dir", 0)))  // load home ticket
 	 }
 

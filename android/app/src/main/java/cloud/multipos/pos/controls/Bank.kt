@@ -27,7 +27,7 @@ import cloud.multipos.pos.views.NumberInputView
 
 import java.util.Date
 
-class Bank (): CompleteTicket (), InputListener {
+class Bank (): TicketModifier (), InputListener {
 	 	 	 
 	 override fun controlAction (jar: Jar) {
 
@@ -82,15 +82,9 @@ class Bank (): CompleteTicket (), InputListener {
 		  		.put ("start_time", Pos.app.db.timestamp (Date ()))
 		  		.put ("complete_time", Pos.app.db.timestamp (Date ()))
 		  
-		  Pos.app.db.exec ("update tickets set start_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
-		  								 "complete_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
-		  								 "state = " + Ticket.COMPLETE + ", " +
-		  								 "ticket_type = " + Ticket.BANK + ", " +
-		  								 "tender_desc = '" + jar ().getString ("type") + "' " +
-										 "where id = " + Pos.app.ticket.getInt ("id"))
-		  
 		  var tt = TicketTender (Jar ()
 		  									  .put ("ticket_id", Pos.app.ticket.getInt ("id"))
+		  									  .put ("state", Ticket.COMPLETE)
 		  									  .put ("tender_id", 0)
 		  									  .put ("tender_type", "cash")
 		  									  .put ("sub_tender_type", jar ().getString ("type"))
@@ -106,7 +100,9 @@ class Bank (): CompleteTicket (), InputListener {
 		  var id = Pos.app.db.insert ("ticket_tenders", tt)
 		  Pos.app.ticket.tenders.add (tt)
 		  
-		  completeTicket (Ticket.COMPLETE)
+		  Pos.app.ticket
+				.update ()
+				.complete ()
 	 }
 	 
 	 override fun openDrawer (): Boolean { return true }

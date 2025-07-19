@@ -247,7 +247,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	  *
 	  */
 	 
-	 fun update () {
+	 override fun update (): Ticket {
 
 		  zero ()
 		  
@@ -294,6 +294,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  		  
 		  Pos.app.db.update ("tickets", getInt ("id"), this)  // update the ticket table
 		  PosDisplays.update ()  // redraw displays
+		  return this
 	 }
 	 
 	 /**
@@ -307,9 +308,9 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	  *
 	  */
 	 
-	 fun complete (state: Int) {
+	 override fun complete (): Jar {
 
-		  Logger.d ("complete ticket... ${state}")
+		  Logger.d ("complete ticket... ${getInt ("state")}")
 		  
 		  if (getDouble ("tax_toatl") > 0) {
 
@@ -318,9 +319,8 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  taxes ()  // create tax records
 
 		  Pos.app.receiptBuilder.ticket (this, PosConst.PRINTER_RECEIPT)  // render the receipt
-		  
-		  put ("state", state)
-				.put ("complete_time", Pos.app.db.timestamp (Date ()))
+
+		  put ("complete_time", Pos.app.db.timestamp (Date ()))
 				.put ("ticket_items", items)
 				.put ("ticket_taxes", taxes)
 				.put ("ticket_tenders", tenders)
@@ -334,7 +334,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 
 		  update ()  // save
 		  
-		  when (state) {
+		  when (getInt ("state")) {
 				
 				Ticket.SUSPEND,
 				Ticket.JOB_PENDING,
@@ -351,7 +351,8 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 when (Pos.app.ticket.getInt ("ticket_type")) {
 					 
 						  Ticket.SALE,
-						  Ticket.BANK -> {
+						  Ticket.BANK,
+						  Ticket.Z_SESSION -> {
 								
 								if (Pos.app.config.getBoolean ("always_print_receipt")) {
 									 
@@ -375,12 +376,14 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 Pos.app.totalsService.q (PosConst.TICKET, this, Pos.app.handler)
 
 					 PosDisplays.update () // update leaves the previous ticket on the displays
-					 Pos.app.ticket ()  // start a new ticket
+					 Pos.app.ticket ()     // start a new ticket
 				}
 		  }
 
 		  Logger.x ("complete...")
 		  Logger.x (this.stringify ())
+
+		  return this
 	 }
 	 
 	 /**
@@ -452,7 +455,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				for ((key, tt) in taxMap) {	
 
 														Logger.x ("taxes... ${tt}")
-		  												// Pos.app.db.insert ("ticket_taxes", tt)
+		  												//Pos.app.db.insert ("ticket_taxes", tt)
 														taxes.add (tt)
 				}
 		  }
@@ -502,6 +505,15 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  }
 	 }
 
+	 /**
+	  *
+	  * generate a unique id
+	  *
+	  * - a uuid
+	  * - or just digits for printers that can't print a qrcode
+	  *
+	  */
+	 
 	 private fun recallID (): String {
 
 		  // this device cannot print a qrcode, create a random string of digits

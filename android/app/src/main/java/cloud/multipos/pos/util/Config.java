@@ -142,9 +142,10 @@ public class Config extends Jar {
 		  put ("device_data", deviceData ());
 	 }
 
-	 public void update () {
+	 public Jar update () {
 
 		  Pos.app.db ().exec ("update pos_configs set config = '" + this.toString () + "'");
+		  return this;
 	 }
 
 	 public Locale locale () { return Locale.US; }

@@ -25,23 +25,28 @@ import cloud.multipos.pos.views.ReportView
 class XSession(): SessionManager () {
 
 	 init {
-		  confirmed (true)
+
+		  confirmed = true
 	 }
 
-	 override fun controlAction (jar: Jar) { 
+	 override fun controlAction (jar: Jar) {
 		  
 		  setJar (Jar ().put ("print_report", true))
-		  super.controlAction (jar ())
+														  
+		  super.controlAction (jar ())  // compile session totals
 
 		  Pos.app.ticket.put ("ticket_type", Ticket.X_SESSION)
+		  val report = Pos.app.receiptBuilder ().text ()
+		  
 		  Pos.app.receiptBuilder ().ticket (Pos.app.ticket, PosConst.PRINTER_REPORT)
 		  ReportView (Pos.app.getString ("ticket"),
 						  Jar ()
 		  						.put ("report_title", Pos.app.getString ("x_report"))
-		  						.put ("report_text", Pos.app.receiptBuilder ().text ())
+		  						.put ("report_text", report)
 		  						.put ("print_opt", true)
 		  						.put ("print_type", "report"))
 
+		  Pos.app.ticket.put ("ticket_text", report)
 		  complete (Ticket.X_SESSION)
 		  Pos.app.ticket ()
 	 }

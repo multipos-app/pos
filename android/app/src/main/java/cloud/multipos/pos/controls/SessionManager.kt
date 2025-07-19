@@ -30,7 +30,7 @@ import cloud.multipos.pos.views.ReportView
 import cloud.multipos.pos.net.Upload
 import java.util.Date
 
-open class SessionManager (): CompleteTicket () {
+open class SessionManager (): ConfirmControl () {
 	 	 
 	 val totalFormat = "%" + DeviceManager.printer.quantityWidth () +
 	 "d %-" + DeviceManager.printer.descWidth () +
@@ -61,7 +61,7 @@ open class SessionManager (): CompleteTicket () {
 	 override fun printReceipt ():Boolean { return false }
 
 	 override fun controlAction (jar: Jar) {
-
+				
 		  var sessionID = Pos.app.config.getInt ("pos_session_id")
 		  
 		  cashSales = 0.0
@@ -99,7 +99,8 @@ open class SessionManager (): CompleteTicket () {
 		  var card = 0.0
 		  var totalReceived = 0.0
 		  
-		  sessionResults = DbResult (Pos.app.db.find ("pos_session_totals")
+		  sessionResults = DbResult (Pos.app.db
+													.find ("pos_session_totals")
 													.conditions (arrayOf ("pos_session_id = " + sessionID + " and " + "total_type in (" + TotalsService.TENDER + ", " + TotalsService.ACCOUNT + ")"))
 													.query (),
 											  Pos.app.db)
@@ -409,6 +410,8 @@ open class SessionManager (): CompleteTicket () {
 		  if (ticketType == Ticket.Z_SESSION) {
 
 				// start a new session
+
+				Pos.app.db.update ("pos_sessions", Pos.app.config.getInt ("pos_session_id"), Jar ().put ("complete_time", Pos.app.db.timestamp (java.util.Date ())))
 				
 				var sessionID = Pos.app.db.insert ("pos_sessions", posSession)
 				Pos.app.config.put ("pos_session_id", sessionID)
@@ -417,9 +420,6 @@ open class SessionManager (): CompleteTicket () {
 		  // build the session report
 		  
 		  Pos.app.receiptBuilder ().ticket (Pos.app.ticket, PosConst.PRINTER_REPORT)
-		  
-		  val text = 
-				Pos.app.receiptBuilder ().text ()
 
 		  // update and post the ticket to the server
 		  
@@ -428,9 +428,9 @@ open class SessionManager (): CompleteTicket () {
 				.put ("ticket_type", ticketType)
 				.put ("complete_time", Pos.app.ticket.getString ("start_time"))
 				.put ("total", total)
-				.put ("ticket_text", text)
-		  
-		  Pos.app.ticket.update ()
+				.put ("ticket_text", Pos.app.receiptBuilder ().text ())
+				.update ()
+				.complete ()
 		  
 		  // queue ticket for upload
 		  

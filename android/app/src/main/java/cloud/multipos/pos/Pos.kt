@@ -391,11 +391,12 @@ class Pos (): AppCompatActivity () {
 	  * start a new ticket
 	  */
 	 
-	 fun ticket () {
+	 fun ticket (): Pos {
 
 		  ticket = Ticket (0, Ticket.OPEN)
 		  clerk = null
 		  selectValues.clear ()
+		  return this
 	 }
 	 	 
 	 fun login () {

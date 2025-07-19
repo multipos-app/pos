@@ -326,9 +326,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  jar ().remove ("amount")  // remove the amount from the jar
 
 		  // save the new ticket info
-		  
-		  // Pos.app.ticket.update ()
-	  	  
+		  	  	  
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
 		  

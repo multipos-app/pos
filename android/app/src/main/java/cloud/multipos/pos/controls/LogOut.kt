@@ -24,7 +24,7 @@ import cloud.multipos.pos.views.PosDisplays;
 
 import java.util.Date
 
-class LogOut (): CompleteTicket () {
+class LogOut (): TicketModifier () {
 
 	 override fun controlAction (jar: Jar?) {
 		  
@@ -34,25 +34,16 @@ class LogOut (): CompleteTicket () {
 				return
 		  }
 
-		  Pos.app.ticket!!
+		  Pos.app.ticket
 				.put ("ticket_type", Ticket.LOGOUT)
 				.put ("state", Ticket.COMPLETE)
 				.put ("star_time", Pos.app.db.timestamp (Date ()))
 				.put ("complete_time", Pos.app.db.timestamp (Date ()))
 				.put ("data_capture", jar.toString ())
-		  
-		  Pos.app.db.exec ("update tickets set start_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
-		  						 "complete_time = '" + Pos.app.db.timestamp (Date ()) + "', " +
-		  						 "state = " + Ticket.COMPLETE + ", " +
-		  						 "ticket_type = " + Ticket.VOID + " where id = " + Pos.app.ticket!!.getInt ("id"))
-		  
-		  
-		  completeTicket (Ticket.COMPLETE)
+				.update ()
+				.complete ()
 		  
 		  Pos.app.employee = Employee (Jar ())
 		  Pos.app.logout ();
 	 }
-	 
-	 override fun openDrawer (): Boolean { return false; }
-	 override fun printReceipt (): Boolean { return false }
 }

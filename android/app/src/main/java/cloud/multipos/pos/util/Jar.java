@@ -367,7 +367,7 @@ public class Jar extends HashMap {
 	 }
 
 	 public Jar put (String key, int value) {
-
+		  
 		  super.put (key, new Integer (value));
 		  return this;
 	 }
@@ -474,6 +474,9 @@ public class Jar extends HashMap {
 		  catch (JSONException je) { }
 		  return s;
 	 }
+
+	 public Jar update () { return this; }
+	 public Jar complete () { return this; }
 	 
 	 private JSONObject json;
 }

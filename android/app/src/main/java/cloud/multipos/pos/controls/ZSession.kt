@@ -46,15 +46,14 @@ class ZSession (): SessionManager () {
 				Pos.app.receiptBuilder ().ticket (Pos.app.ticket, PosConst.PRINTER_REPORT)
 
 				complete (Ticket.Z_SESSION)
-				
-				Pos.app.receiptBuilder ().print ();
-
+								
 				if (Pos.app.config.getBoolean ("session_logout")) {
 					 
 					 // log cashier off
 					 
-					 Pos.app.ticket ()
-					 Pos.app.logout ()
+					 Pos.app
+						  .ticket ()
+						  .logout ()
 				}
 		  }
 		  else {
@@ -63,4 +62,6 @@ class ZSession (): SessionManager () {
 				ConfirmView (Pos.app.getString ("confirm_z_session"), this)
 		  }
 	 }
+
+	 override fun openDrawer (): Boolean { return true }
 }

@@ -26,7 +26,7 @@ public class TicketItemAddon extends Jar {
 
 	 public TicketItemAddon () { }
 
-	 public void update () {
+	 public Jar update () {
 
 		  if (((int) getInt ("id")) == 0) {
 				
@@ -36,6 +36,8 @@ public class TicketItemAddon extends Jar {
 				
 				Pos.app.db ().update ("ticket_item_addons", getInt ("id"), this);
 		  }
+
+		  return this;
 	 }
 
 	 public double extAmount () {

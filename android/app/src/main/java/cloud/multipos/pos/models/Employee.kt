@@ -62,8 +62,6 @@ class Employee (val employee: Jar?): Jar (), Model {
 		  
 		  return sb.toString ()
 	 }
-
-	 fun update () { }
 	 
 	 override fun receipt (): PrintCommands {
 		  

@@ -79,7 +79,7 @@ class Customer (): Jar (), Model {
 		  return this
 	 }
 
-	 fun update (): Customer {
+	 override fun update (): Customer {
 
 		  val customerResult = DbResult ("select * from customers where uuid = '${this.getString ("uuid")}'", Pos.app.db)
 		  if (customerResult.fetchRow ()) {

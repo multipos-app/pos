@@ -24,7 +24,7 @@ import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.DeviceManager;
 import cloud.multipos.pos.views.ConfirmView
 
-class VoidSale (): CompleteTicket () {
+class VoidSale (): ConfirmControl () {
 
 	 override fun controlAction (jar: Jar?) {
 		  
@@ -40,15 +40,11 @@ class VoidSale (): CompleteTicket () {
 		  			 .put ("state", Ticket.COMPLETE)
 		  			 .put ("star_time", timeStamp)
 		  			 .put ("complete_time", timeStamp)
-				
-				Pos.app.db.exec ("update tickets set start_time = '" + timeStamp + "', " +
-									  "complete_time = '" + timeStamp + "', " +
-									  "ticket_type = " + Ticket.VOID + ", " +
-									  "state = " + Ticket.COMPLETE + " " +
-									  "where id = " + Pos.app.ticket.getInt ("id"))
+					 .update ()
+					 .complete ()
 
 		  		confirmed (false)
-		  		completeTicket (Ticket.COMPLETE)
+				
 		  		Pos.app.ticket ()
 				PosDisplays.clear ()
 		  }

@@ -25,7 +25,7 @@ import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.*
 import kotlin.math.abs 
 
-abstract class Tender (jar: Jar?): CompleteTicket () {
+abstract class Tender (jar: Jar?): ConfirmControl () {
 
 	 abstract fun tenderType (): String
 	 abstract fun tenderDesc (): String
@@ -39,7 +39,8 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 	 var paid = 0.0
 	 var roundDiff = 0.0
 	 var fees = 0.0
-	 
+	 var tenderType = ""
+
 	 protected var authAmount = 0.0
 	 protected var dataCapture = Jar ()
 
@@ -205,7 +206,7 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 				
 				Pos.app.ticket.put ("returned", returned)
 		  }
-		  
+		  		  
 		  if (balance <= 0.0) {
 
 				if (jar ().has ("entry_mode") && (jar ().getString ("entry_mode") == "keyed")) {
@@ -216,8 +217,13 @@ abstract class Tender (jar: Jar?): CompleteTicket () {
 						  .remove ("entry_mode")
 						  .remove ("value")
 				}
-					 
-				Pos.app.ticket.complete (tenderState ())
+
+				// complete the ticket
+				
+				Pos.app.ticket
+					 .put ("state", tenderState ())
+					 .update ()
+					 .complete ()
 		  }
 		  else {
 				

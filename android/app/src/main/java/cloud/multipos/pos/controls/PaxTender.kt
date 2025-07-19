@@ -170,12 +170,11 @@ class PaxTender (): Tender (null) {
 									 	  .put ("type", Ticket.TENDER)
 									 
 									 Pos.app.ticket.tenders.add (tt)
-									 Pos.app.ticket.update ()
-									 									 
-									 if (balance <= 0) {
-										  
-										  completeTicket (Ticket.COMPLETE)
-									 }
+									 
+									 Pos.app.ticket
+										  .put ("state", Ticket.COMPLETE)
+										  .update ()
+										  .complete ()
 								}
 								else -> {
 
