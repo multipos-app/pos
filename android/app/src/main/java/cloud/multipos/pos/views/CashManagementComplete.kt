@@ -84,7 +84,7 @@ class CashManagementComplete (var sessionManager: SessionManager, var cashManage
 		  cont.setOnClickListener {
 
 				sessionManager.action (Jar ())  // re-create the report details
-				sessionManager.complete (Ticket.DRAWER_COUNT)
+				sessionManager.close (Ticket.DRAWER_COUNT)
 		  }
 		  
 		  PosDisplays.add (this)

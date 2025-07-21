@@ -245,6 +245,8 @@ public class DB {
 
 		  update += " where id = " + id;
 
+		  // Logger.stack (update);
+		  
 		  synchronized (activity) {
 				
 				database.execSQL (update);										

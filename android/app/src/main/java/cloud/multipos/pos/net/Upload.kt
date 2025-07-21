@@ -86,12 +86,10 @@ class Upload () {
 	 }
 	 
 	 fun exec () {
-		  		  						  
+		  
 		  Post (url)
 				.add (upload)
 				.exec (fun (result: Jar): Unit {
-
-							  Logger.d ("upload result... ${result}")
 							  
 							  if (result.getInt ("status") == 0) {
 																		

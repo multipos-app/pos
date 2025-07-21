@@ -26,7 +26,6 @@ import cloud.multipos.pos.util.extensions.*
 import cloud.multipos.pos.services.*
 import cloud.multipos.pos.devices.*
 import cloud.multipos.pos.views.PosDisplays
-import cloud.multipos.pos.views.ReportView
 import cloud.multipos.pos.net.Upload
 import java.util.Date
 
@@ -101,7 +100,11 @@ open class SessionManager (): ConfirmControl () {
 		  
 		  sessionResults = DbResult (Pos.app.db
 													.find ("pos_session_totals")
-													.conditions (arrayOf ("pos_session_id = " + sessionID + " and " + "total_type in (" + TotalsService.TENDER + ", " + TotalsService.ACCOUNT + ")"))
+													.conditions (arrayOf ("pos_session_id = " +
+																				 sessionID + " and " +
+																				 "total_type in (" + TotalsService.TENDER +
+																									  ", " +
+																									  TotalsService.ACCOUNT + ")"))
 													.query (),
 											  Pos.app.db)
 		  
@@ -346,14 +349,15 @@ open class SessionManager (): ConfirmControl () {
 		  }
 		  
 		  Pos.app.ticket
+				.put ("total", total)
 				.put ("totals", totals)
 				.put ("cards", cards)
 				.put ("departments", departments)
 				.put ("exceptions", exceptions)
 	 }
 	 
-	 fun complete (ticketType: Int) {
-		  
+	 fun close (ticketType: Int) {
+
 		  val timestamp = Pos.app.db.timestamp (Date ())
 		  
 		  if (ticketType == Ticket.DRAWER_COUNT) {
@@ -401,26 +405,23 @@ open class SessionManager (): ConfirmControl () {
 				Pos.app.ticket.put ("cash_management", session)
 		  }
 
-		  // save the session
+		  // update current session with complete time
 		  
-		  val posSession = Jar ()
-				.put ("business_unit_id", Pos.app.config.getInt ("business_unit_id"))
-				.put ("pos_no", Pos.app.posNo ())
-		  
-		  if (ticketType == Ticket.Z_SESSION) {
+		  Pos.app.db.update ("pos_sessions",
+									Pos.app.config.getInt ("pos_session_id"),
+									Jar ().put ("complete_time",
+													Pos.app.db.timestamp (java.util.Date ())))
 
-				// start a new session
-
-				Pos.app.db.update ("pos_sessions", Pos.app.config.getInt ("pos_session_id"), Jar ().put ("complete_time", Pos.app.db.timestamp (java.util.Date ())))
-				
-				var sessionID = Pos.app.db.insert ("pos_sessions", posSession)
-				Pos.app.config.put ("pos_session_id", sessionID)
-		  }
+		  // start a new session
 		  
-		  // build the session report
-		  
-		  Pos.app.receiptBuilder ().ticket (Pos.app.ticket, PosConst.PRINTER_REPORT)
+		  var sessionID = Pos.app.db.insert ("pos_sessions", Jar ()
+															  .put ("business_unit_id", Pos.app.config.getInt ("business_unit_id"))
+															  .put ("pos_no", Pos.app.posNo ()))
 
+		  // save the new session in the config
+		  
+		  Pos.app.config.put ("pos_session_id", sessionID)
+		  
 		  // update and post the ticket to the server
 		  
 		  Pos.app.ticket
@@ -431,12 +432,6 @@ open class SessionManager (): ConfirmControl () {
 				.put ("ticket_text", Pos.app.receiptBuilder ().text ())
 				.update ()
 				.complete ()
-		  
-		  // queue ticket for upload
-		  
-		  Upload ()
-				.add (Pos.app.ticket)
-				.exec ()		  
 	 }
 
 	 fun cashInDrawer (): Double {

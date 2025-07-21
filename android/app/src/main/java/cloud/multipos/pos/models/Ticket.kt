@@ -232,7 +232,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 fun zero () {
 		  
 		  put ("sub_total", 0.0)
-		  put ("total", 0.0)
+		  // put ("total", 0.0)
 		  put ("tax_total", 0.0)
 		  put ("cost", 0.0)
 		  put ("balance", 0.0)
@@ -251,6 +251,8 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 
 		  zero ()
 		  
+		  Logger.d ("update ticket... ${getInt ("state")} ${getDouble ("total")}")
+		  
 		  for (ti in items) {
 								 								 
 				when (ti.getInt ("state")) {
@@ -258,12 +260,13 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 TicketItem.REFUND_ITEM,
 					 TicketItem.STANDARD,
 					 TicketItem.PAYOUT -> {
-						  
-						  ti.links.asSequence ().map () {
-								tia -> {
-									 
-								}
-						  }
+
+						  // ti.links.asSequence ().map () {
+						  // 		tia -> {
+
+						  // 			 put ("discounts", getDouble ("discounts"), tia.get ("addon_amount"))
+						  // 		}
+						  // }
 						  
 						  put ("item_count", getInt ("item_count") + ti.getInt ("quantity"))
 						  put ("sub_total", Currency.round (getDouble ("sub_total") + ti.extAmount ()))
@@ -283,7 +286,10 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				}
 		  }
 
-		  put ("total", Currency.round (getDouble ("sub_total") + getDouble ("tax_total")))
+		  if (getInt ("ticket_type") == SALE) {
+				
+				put ("total", Currency.round (getDouble ("sub_total") + getDouble ("tax_total")))
+		  }
 		  
 		  for (tt in tenders) {
 
@@ -293,6 +299,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  put ("balance", Currency.round (getDouble ("total") - getDouble ("tender_total")))
 		  		  
 		  Pos.app.db.update ("tickets", getInt ("id"), this)  // update the ticket table
+		  
 		  PosDisplays.update ()  // redraw displays
 		  return this
 	 }
@@ -309,8 +316,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	  */
 	 
 	 override fun complete (): Jar {
-
-		  Logger.d ("complete ticket... ${getInt ("state")}")
 		  
 		  if (getDouble ("tax_toatl") > 0) {
 
@@ -318,8 +323,12 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 
 		  taxes ()  // create tax records
 
-		  Pos.app.receiptBuilder.ticket (this, PosConst.PRINTER_RECEIPT)  // render the receipt
-
+		  if (getString ("ticket_text").length == 0) {
+				
+				Pos.app.receiptBuilder.ticket (this, PosConst.PRINTER_RECEIPT)
+		  		put ("ticket_text", Pos.app.receiptBuilder.text ())
+		  }
+		  
 		  put ("complete_time", Pos.app.db.timestamp (Date ()))
 				.put ("ticket_items", items)
 				.put ("ticket_taxes", taxes)
@@ -329,10 +338,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				.put ("ticket_addons", addons)
 				.put ("other", other)
 				.put ("updates", updates)
-		  		.put ("ticket_text", Pos.app.receiptBuilder.text ())  // create the reciept last
-
-
-		  update ()  // save
+				.update ()  // save
 		  
 		  when (getInt ("state")) {
 				
@@ -354,7 +360,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 						  Ticket.BANK,
 						  Ticket.Z_SESSION -> {
 								
-								if (Pos.app.config.getBoolean ("always_print_receipt")) {
+								if (Pos.app.config.getBoolean ("print_receipt")) {
 									 
 									 Pos.app.receiptBuilder.print ()
 								}
@@ -380,9 +386,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 				}
 		  }
 
-		  Logger.x ("complete...")
-		  Logger.x (this.stringify ())
-
 		  return this
 	 }
 	 
@@ -394,11 +397,11 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
  
 	 fun tenderDesc (): String {
 
-		  var tenderDesc = "unknown"
+		  var tenderDesc = ""
 		  
 		  for (tt in tenders) {
 				
-		  		if (tenderDesc == "unknown") {
+		  		if (tenderDesc.length == 0) {
 					 
 		  			 tenderDesc = tt.getString ("tender_type").lowercase ()
 		  		}

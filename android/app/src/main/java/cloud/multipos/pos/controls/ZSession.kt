@@ -20,11 +20,8 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.db.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.devices.DeviceManager
-import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.views.ConfirmView
 import cloud.multipos.pos.views.ReportView
-import cloud.multipos.pos.views.DialogControl
 
 class ZSession (): SessionManager () {
 
@@ -38,22 +35,33 @@ class ZSession (): SessionManager () {
 		  if (confirmed ()) {
 
 		  		confirmed (false)
-				setJar (Jar ().put ("print_report", true))
 				
-				super.controlAction (jar ())  // build the report
+				super.controlAction (Jar ())  // build the report
 
-				Pos.app.ticket.put ("ticket_type", Ticket.Z_SESSION)
 				Pos.app.receiptBuilder ().ticket (Pos.app.ticket, PosConst.PRINTER_REPORT)
-
-				complete (Ticket.Z_SESSION)
-								
-				if (Pos.app.config.getBoolean ("session_logout")) {
+				val report = Pos.app.receiptBuilder ().text ()
+				// Pos.app.receiptBuilder ().print ()
+				
+				close (Ticket.Z_SESSION)  // close session and start a new one
+	
+				// if (Pos.app.config.getBoolean ("session_logout")) {
+				if (true) {
 					 
 					 // log cashier off
+
+					 Pos.app.ticket ()
+					 //Control.factory ("LogOut").action (Jar ())
+				}
+				else {
+
+					 // just show the report and continue
 					 
-					 Pos.app
-						  .ticket ()
-						  .logout ()
+					 ReportView (Pos.app.getString ("ticket"),
+									  Jar ()
+		  									.put ("report_title", Pos.app.getString ("z_report"))
+		  									.put ("report_text", report)
+		  									.put ("print_opt", true)
+		  									.put ("print_type", "report"))
 				}
 		  }
 		  else {
