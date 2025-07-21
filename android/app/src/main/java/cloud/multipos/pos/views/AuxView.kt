@@ -46,6 +46,10 @@ class AuxView (context: Context, attrs: AttributeSet): PosSwipeLayout (context, 
 		  Themed.add (this)
 	 }
 	 
+	 // Swipe impl
+	 
+	 val duration = 250L
+
 	 fun show () {
 
 		  Pos.app.rootView.setVisibility (View.INVISIBLE)

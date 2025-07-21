@@ -42,7 +42,9 @@ public class TicketItemAddon extends Jar {
 
 	 public double extAmount () {
 
-		  return new BigDecimal (getDouble ("addon_amount") * (double) getInt ("addon_quantity")).setScale (2, RoundingMode.HALF_UP).doubleValue ();
+		  // note: do not multiply times quantity
+		  
+		  return new BigDecimal (getDouble ("addon_amount")).setScale (2, RoundingMode.HALF_UP).doubleValue ();
 	 }
 	 
 	 public static TicketItemAddon factory () { return new TicketItemAddon (); }

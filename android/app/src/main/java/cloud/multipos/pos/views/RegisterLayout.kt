@@ -19,7 +19,7 @@ package cloud.multipos.pos.views
 import cloud.multipos.pos.R
 import cloud.multipos.pos.*
 import cloud.multipos.pos.util.*
-import cloud.multipos.pos.net.Post
+import cloud.multipos.pos.net.*
 
 import android.content.Context
 import android.util.AttributeSet
@@ -27,20 +27,23 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.EditText;
 import android.widget.TextView;
+import android.graphics.Color;
 
-class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs) {
+class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context, attrs), NetworkListener {
 
 	 var username: EditText
 	 var password: EditText
 	 var register: TextView
+	 var network: TextView
 	 
 	 init {
-		  		  
+		  
 		  var layout = Pos.app.inflater.inflate (R.layout.pos_register_layout, this)
 
 		  username = layout.findViewById (R.id.pos_username) as EditText
         password = layout.findViewById (R.id.pos_password) as EditText
         register = layout.findViewById (R.id.pos_register) as TextView
+        network = layout.findViewById (R.id.pos_register_network) as TextView
 		  
         register.setOnClickListener {
 				
@@ -75,5 +78,21 @@ class RegisterLayout (context: Context, attrs: AttributeSet): PosLayout (context
 									 }
 					  })
 		  }
+
+		  Network (this)
+	 }
+
+	 override fun onSuccess () {
+
+		  network?.setText (Pos.app.getString ("fa_wifi_on"))
+		  network?.setTextColor (Color.parseColor (Pos.app.getString (R.color.white)))
+		  Logger.d ("wifi success...")
+	 }
+	 
+	 override fun onFail () {
+
+		  network?.setText (Pos.app.getString ("fa_wifi_off"))
+		  network?.setTextColor (Color.parseColor (Pos.app.getString (R.color.red)))
+		  Logger.d ("wifi fail...")
 	 }
 }

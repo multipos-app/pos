@@ -25,7 +25,8 @@ import cloud.multipos.pos.devices.DeviceManager
 class DefaultReceiptItem (ti: TicketItem): ReceiptItem (ti) {
 
 	 val itemFormat = "%-" + DeviceManager.printer.quantityWidth () + "d%-" + DeviceManager.printer.descWidth () + "s%" + DeviceManager.printer.amountWidth () + "s"
-	 val modFormat = "%-" + (DeviceManager.printer.quantityWidth () + DeviceManager.printer.descWidth ()) + "s%" + DeviceManager.printer.amountWidth () + "s"
+	 val modFormat = "%-" + DeviceManager.printer.quantityWidth () + "s%-" + DeviceManager.printer.descWidth () + "s%" + DeviceManager.printer.amountWidth () + "s"
+	 // val modFormat = "%-" + (DeviceManager.printer.quantityWidth () + DeviceManager.printer.descWidth ()) + "s%" + DeviceManager.printer.amountWidth () + "s"
 
 	 init {
 		  
@@ -51,7 +52,7 @@ class DefaultReceiptItem (ti: TicketItem): ReceiptItem (ti) {
 		  ti.addons.forEach {
 
 				printCommands
-					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (modFormat, it.getString ("addon_description"), it.getDouble ("addon_amount").currency ())))
+					 .add (PrintCommand.getInstance ().directive (PrintCommand.LEFT_TEXT).text (String.format (modFormat, "", it.getString ("addon_description"), it.getDouble ("addon_amount").currency ())))
 		  }
 
 		  ti.mods.forEach {

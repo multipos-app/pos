@@ -1,7 +1,5 @@
 <resources>
 	 
-    <string name="channel_id">multipos_notifications</string>
-    <string name="channel_name">multiPOS Notifications</string>
-    <string name="channel_desc">multiPOS Notifications</string>
+    <string name="density">unknown</string>
 
 </resources>

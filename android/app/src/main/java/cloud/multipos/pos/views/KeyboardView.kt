@@ -40,7 +40,8 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 	 lateinit var editView: EditView 
 	 
 	 val keyValues = SparseArray <String> ()
-	 
+	 val duration = 250L
+ 
 	 var keycase = KeyCase.Lower
 	 var showing = false
 	 
@@ -51,7 +52,6 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 
 	 init {
 
-		  duration = 500L
 		  instance = this
 		  setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT))
 		  Pos.app.inflater.inflate (R.layout.keyboard_layout, this)
@@ -82,6 +82,8 @@ class KeyboardView (context: Context, attrs: AttributeSet): PosSwipeLayout (cont
 		  showing = true
 	 }
 
+	 // Swipe impl
+	 
 	 override fun swipeLeft () {
 
 		  Pos.app.keyboardView.setVisibility (View.INVISIBLE)

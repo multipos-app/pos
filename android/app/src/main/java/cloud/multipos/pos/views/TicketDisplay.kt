@@ -132,14 +132,8 @@ class TicketDisplay (context: Context, attrs: AttributeSet): ListDisplay (contex
 	 
 	 override fun swipeLeft () {
 
-		  if (Pos.app.ticket.hasItems ()) {
-				
-				Control.factory ("Suspend").controlAction (Jar ())  // suspend current ticket
-		  }
-		  else {
-
-				Control.factory ("Clear").controlAction (Jar ())  // clear displays
-		  }
+		   Control.factory ("LoadTicket").controlAction (Jar ()
+																			 .put ("dir", 1))  // get previous suspended ticket
 	 }
 	 
 	 override fun swipeRight () {

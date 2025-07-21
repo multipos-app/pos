@@ -44,9 +44,9 @@ class ItemNotFound (): ItemUpdate () {
 					 
 					 ItemEditView (this, Jar ()
 											 .put ("sku", jar?.getString ("sku"))
-											 .put ("item_desc", "bread")
-											 .put ("price", 1.99)
-											 .put ("cost", .78))
+											 .put ("item_desc", "")
+											 .put ("price", 0.0)
+											 .put ("cost", 0.0))
 				}
 		  }
 		  else {

@@ -230,9 +230,8 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	  */
 	 
 	 fun zero () {
-		  
+
 		  put ("sub_total", 0.0)
-		  // put ("total", 0.0)
 		  put ("tax_total", 0.0)
 		  put ("cost", 0.0)
 		  put ("balance", 0.0)
@@ -451,14 +450,10 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 
 		  // save the taxes
 		  
-		  Logger.x ("taxes... ${taxMap}")
-
 		  taxMap.forEach {
 				
 				for ((key, tt) in taxMap) {	
 
-														Logger.x ("taxes... ${tt}")
-		  												//Pos.app.db.insert ("ticket_taxes", tt)
 														taxes.add (tt)
 				}
 		  }
