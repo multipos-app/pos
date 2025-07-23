@@ -259,6 +259,8 @@ open class DefaultItem (): FirstItem (), InputListener {
 				Pos.app.ticket.items.add (ticketItem)
 		  }
 
+		  Pos.app.ticket.update ()
+		  
 		  if (ticketItem.getInt ("id") > 0) {
 				
 				Logger.w ("def item complete... " + ticketItem.getInt ("id") + " " + update)
@@ -330,8 +332,6 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  DeviceManager.customerDisplay?.update (Pos.app.ticket)  // send it to the customer display if no links
 		  Pos.app.ticket.currentItem = ticketItem
 		  
-		  // Pos.app.controlLayout.swipeUp ()  // clear input views
-
 		  PosDisplays.update ()
 		  PosDisplays.message (Jar ()
 											.put ("prompt_text", ticketItem.getString ("item_desc"))

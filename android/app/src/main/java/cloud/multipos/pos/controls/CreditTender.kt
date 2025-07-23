@@ -26,11 +26,6 @@ open class CreditTender (): Tender (null) {
 		  
 		  tenderType = "credit"
 	 }
-	 	 
-	 override fun total (): Double {
-
-		  return Currency.round (Pos.app.ticket.getDouble ("total"))
-	 }
 
 	 override fun tenderType (): String { return "credit" }
 	 override fun tenderDesc (): String { return "credit" }

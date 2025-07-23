@@ -114,6 +114,7 @@
 
 	 <!-- jobs -->
 	 
+    <string name="job_home">Home</string>
     <string name="job_no">Job#</string>
     <string name="job_attendant">Attendant</string>
     <string name="job_containers">Containers</string>

@@ -46,7 +46,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 
 		  var grid = findViewById (R.id.credit_dialog_detail) as GridLayout
 
-		  var total = tender.total ()
+		  var total = tender.total
 
 		  grid.addView (TenderLine (Pos.app.getString ("sale_total"), total, R.layout.tender_dialog_detail))
 
@@ -54,7 +54,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 
 		  if (tender.fees > 0.0) {
 
-		  		grid.addView (TenderLine (Pos.app.getString ("service_fee"), tender.fees (), R.layout.tender_dialog_detail))
+		  		grid.addView (TenderLine (Pos.app.getString ("service_fee"), tender.fees, R.layout.tender_dialog_detail))
 		  }
 
 		  if (tender.paid > 0.0) {
@@ -74,7 +74,7 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 				grid.addView (TenderLine (Pos.app.getString ("change_due"), tender.returned, R.layout.tender_dialog_detail))
 		  }
 				
-		  grid.addView (TenderLine (Pos.app.getString ("auth_amount"), tender.tendered + tender.fees (), R.layout.tender_dialog_detail_lg))
+		  grid.addView (TenderLine (Pos.app.getString ("auth_amount"), tender.tendered + tender.fees, R.layout.tender_dialog_detail_lg))
 		  
 		  DialogControl.addView (this)
 	 }

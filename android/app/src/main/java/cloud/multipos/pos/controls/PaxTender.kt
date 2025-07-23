@@ -57,6 +57,8 @@ class PaxTender (): Tender (null) {
 		  
 		  if (confirmed ()) {
 
+				total = Pos.app.ticket.getDouble ("total")
+
 				if (jar ().has ("debit_credit")) {
 					 
 					 tenderType = jar.getString ("debit_credit")
@@ -76,7 +78,7 @@ class PaxTender (): Tender (null) {
 					 transactionType = "RETURN"
 				}
 				
-				var authString = (total () * 100.0).toInt ().toString ()
+				var authString = (total * 100.0).toInt ().toString ()
 				
 				var p = Jar ()
 					 .put ("tender_type", tenderType)
@@ -93,34 +95,27 @@ class PaxTender (): Tender (null) {
 		  }
 	 }
 
-	 override fun fees (): Double {
+	 override fun fees (): Tender {
 
-		  if (jar ().getString ("debit_credit") == "debit") {
-
-				return 0.0
-		  }
-		  else {
-
-				return super.fees ()
-		  }
+		  return super.fees ()
 	 }
 	 
-	 override fun applyFees () {
+	 // override fun applyFees () {
 
-		  if (jar ().getString ("debit_credit") == "debit") {
+	 // 	  if (jar ().getString ("debit_credit") == "debit") {
 
-				return
-		  }
+	 // 			return
+	 // 	  }
 
-		  Pos.app.input.clear ()
-		  var control = OpenItem ()
-		  var fees = fees ()
+	 // 	  Pos.app.input.clear ()
+	 // 	  var control = OpenItem ()
+	 // 	  var fees = fees ()
 		  		  
-		  control.action (Jar ()
-		  							 .put ("confirmed", true)
-		  							 .put ("sku", Pos.app.config.get ("credit_service_fee").getString ("fee_sku"))
-		  							 .put ("amount", fees))
-	 }
+	 // 	  control.action (Jar ()
+	 // 	  							 .put ("confirmed", true)
+	 // 	  							 .put ("sku", Pos.app.config.get ("credit_service_fee").getString ("fee_sku"))
+	 // 	  							 .put ("amount", fees))
+	 // }
 
 	 inner class AuthHandler (val tender: PaxTender): Handler (Looper.getMainLooper ()) {
 
@@ -141,10 +136,10 @@ class PaxTender (): Tender (null) {
 
 								0 -> {
 						  			 									 									 
-									 if (fees () > 0) {
+									 // if (fees () > 0) {
 										  
-										  applyFees ()
-									 }
+									 // 	  applyFees ()
+									 // }
 
 									 authAmount = result.getDouble ("approved_amount")
 									 

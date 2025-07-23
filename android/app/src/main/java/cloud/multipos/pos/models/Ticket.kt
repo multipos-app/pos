@@ -249,9 +249,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 override fun update (): Ticket {
 
 		  zero ()
-		  
-		  Logger.d ("update ticket... ${getInt ("state")} ${getDouble ("total")}")
-		  
+		  		  
 		  for (ti in items) {
 								 								 
 				when (ti.getInt ("state")) {
@@ -296,10 +294,9 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  }
   
 		  put ("balance", Currency.round (getDouble ("total") - getDouble ("tender_total")))
-		  		  
+		  	  		  
 		  Pos.app.db.update ("tickets", getInt ("id"), this)  // update the ticket table
 		  
-		  PosDisplays.update ()  // redraw displays
 		  return this
 	 }
 	 

@@ -74,7 +74,7 @@ class Metric (): Pricing (), InputListener {
 		  if (weight > 0.0) {
 
 				var itemDesc = item.ticketItem ().getString ("item_desc") +
-				" ${weight}${item.item.get ("pricing").getString ("metric")}@${item.item.get ("pricing").getDouble ("price").currency (false)}"
+				" ${weight.toInt ()} ${item.item.get ("pricing").getString ("metric")} @ ${item.item.get ("pricing").getDouble ("price").currency (false)}"
 				
 				item.ticketItem ()
 					 .put ("amount", amount)

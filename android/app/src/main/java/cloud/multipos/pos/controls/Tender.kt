@@ -25,11 +25,11 @@ import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.*
 import kotlin.math.abs 
 
-abstract class Tender (jar: Jar?): ConfirmControl () {
+open class Tender (jar: Jar?): ConfirmControl () {
 
-	 abstract fun tenderType (): String
-	 abstract fun tenderDesc (): String
-	 
+	 open fun tenderType (): String { return "unknown" }
+	 open fun tenderDesc (): String { return "unknown" }
+	 open fun subTenderDesc (): String { return "unknown" }
 	 open fun tenderState (): Int { return Ticket.COMPLETE }
 	 
 	 var tendered = 0.0
@@ -52,48 +52,14 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 	 override fun controlAction (jar: Jar) {
 		  				
 		  jar (jar)
-
-		  balance () // balance the sale
 		  		  
-		  if (confirmed ()) {
-				
-				fees ()     // add any fees for this tender type
-				payment ()  // process the payment, if balance == 0 complete the ticket
-				
-		  		confirmed (false)
-				
-				if (openDrawer ()) {
-					 
-					 DeviceManager.printer.drawer ()
-				}
-		  }
-		  else {
-				
-				TenderView (this)
-		  }
-	 }
-
-	 /**
-	  *
-	  * update tender components, total, total paid, balance....
-	  *
-	  */
-
-	 open fun balance () {
+		  total = Pos.app.ticket.getDouble ("total")
 		  
-		  total = total ()  // the sale total
-		  balance = 0.0     // to be paid
-		  returned = 0.0    // returned (change)
-		  paid = 0.0        // previously tender
-	  
-		  // add up any previous tenders
-		  
-		  for (tt in Pos.app.ticket.tenders) {
+		  fees ()
+				.tender ()
+				.balance ()
 
-				paid += Currency.round (tt.getDouble ("tendered_amount"))
-		  }
-		  
-		  tender ()
+		  TenderView (this)
 	 }
 
 	 /**
@@ -102,20 +68,10 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 	  *
 	  */
 	 
-	 fun tender () {
-		  
-		  tendered = 0.0
-		  
-		  balance = Currency.round (total - paid)
+	 open fun tender (): Tender {
 		  
 		  if (Pos.app.input.hasInput ()) {
-
-				// operator input?
-
-				jar ()
-					 .put ("entry_mode", "keyed")
-					 .put ("value", Pos.app.input.getInt ())
-
+				
 				tendered = Pos.app.input.getDouble () / 100.0
 				Pos.app.input.clear ()
 		  }
@@ -140,39 +96,72 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 						  tendered = balance
 					 }
 				}
-				else {  // exact change
-					 
-					 tendered = total () - paid
-				}
 		  }
 		  else {
 
-				// assume the remaining amount of the ticket
-				
-				tendered = Currency.round (total - paid)
-		  }
-		  
-		  balance = total () - paid - tendered
+				// remaining amount
 
-		  if (balance < 0) {
-				
-				returned = Currency.round (total () - (paid + tendered))
+				balance ()
+				tendered = balance
 		  }
+		  		  
+		  return this
 	 }
 
 	 /**
 	  *
-	  * process payment
+	  * add fees
+	  *
+	  */
+
+	 open fun fees (): Tender {
+
+		  var fees = 0.0
+		  
+		  if (Pos.app.config.has ("credit_service_fee")) {
+				
+				fees = Currency.round (Pos.app.ticket.getDouble ("total") * Pos.app.config.get ("credit_service_fee").getDouble ("fee") / 100.0)
+		  
+		  }
+		  return this
+	 }
+
+	 /**
+	  *
+	  * update the balance
+	  *
+	  */
+
+	 open fun balance (): Tender {
+		  
+		  paid = 0.0  // previously tender
+	  
+		  // add up any previous tenders
+		  
+		  for (tt in Pos.app.ticket.tenders) {
+
+				paid += Currency.round (tt.getDouble ("tendered_amount"))
+		  }
+		  
+		  balance = Currency.round (total - paid - tendered)
+
+		  if (tendered > total) {
+
+				balance = 0.0
+				returned = tendered - total + paid
+		  }
+		  
+		  return this
+	 }
+
+	 /**
+	  *
+	  * create a  payment
 	  *
 	  */
 	 
-	 fun payment () {
-
-		  if (fees () > 0) {
-
-				applyFees ()
-		  }
-
+	 open fun payment (): Tender {
+		  
 		  var ticketTender = TicketTender (Jar ()
 		  													.put ("ticket_id", Pos.app.ticket.getInt ("id"))
 		  													.put ("tender_id", jar ().getInt ("tender_id"))
@@ -182,26 +171,17 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 		  													.put ("status", TicketTender.COMPLETE)
 		  													.put ("returned_amount", Currency.round (returned))
 		  													.put ("tendered_amount", Currency.round (tendered))
+		  													.put ("balance", balance)
 		  													.put ("complete", 0)
 		  													.put ("round_diff", roundDiff)
 															.put ("data_capture", dataCapture.toString ()))
-		  
+		  		  
 		  var id = Pos.app.db.insert ("ticket_tenders", ticketTender)
-		  
+		  Pos.app.ticket.tenders.add (ticketTender)
+
 		  ticketTender.put ("id", id)
 		  ticketTender.put ("type", Ticket.TENDER)
-
-		  if (balance > 0.0) {
-				
-				ticketTender.put ("balance_due", Currency.round (balance))
-		  }
-		  else {
-
-				ticketTender.put ("balance_due", 0.0)
-		  }
 		  
-		  Pos.app.ticket.tenders.add (ticketTender)
-		  		  
 		  if (returned > 0) {
 				
 				Pos.app.ticket.put ("returned", returned)
@@ -224,6 +204,13 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 					 .put ("state", tenderState ())
 					 .update ()
 					 .complete ()
+				
+	 			if (jar ().has ("value") && (jar ().getString ("entry_mode") == "keyed")) {
+
+					 jar ()
+						  .remove ("value")
+						  .remove ("keyed")
+				}
 		  }
 		  else {
 				
@@ -233,15 +220,29 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 				updateDisplays ()
 		  }
 		  
-
 		  // reset
 		  
-		  tendered = 0.0
-		  total = 0.0
-		  returned = 0.0
-		  paid = 0.0
+		  clear ()
+		  return this
 	 }
 
+	 /**
+	  *
+	  * reset values
+	  *
+	  */
+
+	 fun clear () {
+		  
+		  tendered = 0.0
+		  returned = 0.0
+		  balance = 0.0
+		  total = 0.0
+		  paid = 0.0
+		  roundDiff = 0.0
+		  fees = 0.0
+	 }
+	 
 	 /**
 	  *
 	  * cancel the payment
@@ -249,35 +250,6 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 	  */
 
 	 open fun cancel () { }
-
-	 open fun fees (): Double {
-
-		  var fees = 0.0
-		  
-		  if (Pos.app.config.has ("credit_service_fee")) {
-				
-				fees = Currency.round (Pos.app.ticket.getDouble ("total") * Pos.app.config.get ("credit_service_fee").getDouble ("fee") / 100.0)
-		  }
-
-		  return fees
-	 }
-
-	 open fun applyFees () {
-
-		  var control = OpenItem ()
-		  var fees = fees ()
-		  
-		  control.action (Jar ()
-		  							 .put ("confirmed", true)
-		  							 .put ("sku", Pos.app.config.get ("credit_service_fee").getString ("fee_sku"))
-		  							 .put ("amount", fees))
-		  
-		  control.action (Jar ()
-		  							 .put ("confirmed", true)
-		  							 .put ("sku", Pos.app.config.get ("credit_service_fee").getString ("fee_refund_sku"))
-		  							 .put ("amount", fees * -1))
-		  
-	 }
 	 
 	 /**
 	  *
@@ -285,18 +257,12 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 	  *
 	  */
 	 
-	 open fun total (): Double {
-
-		  return Pos.app.ticket.getDouble ("total")
-	 }
-
 	 override fun beforeAction (): Boolean {
 		  
 		  if (Pos.app.ticket.items.size == 0) {
 				
 				return false
 		  }
-		  
 		  else if (!Pos.app.config.getBoolean ("confirm_tender")) {
 				
 		  		confirmed (true)
@@ -305,24 +271,15 @@ abstract class Tender (jar: Jar?): ConfirmControl () {
 		  return super.beforeAction ()
 	 }
 	 	 
-	 open fun subTenderDesc (): String { return "" }
-
 	 override fun toString (): String {
-		  
-		  return String.format ("""\n{\n
-												tender: %5.2f, \n
-												sub_total: %5.2f, \n
-												returned: %5.2f, \n
-												balance: %5.2f, \n
-												total: %5.2f, \n
-												paid: %5.2f, \n
-												ticket_total: %5.2f\n}""",
-										tendered,
-										Pos.app.ticket.getDouble ("sub_total"),
-										returned,
-										balance,
-										total,
-										paid,
-										Pos.app.ticket.getDouble ("total"))
+
+		  return Jar ()
+				.put ("input", Pos.app.input.getString ())
+				.put ("tendered", tendered)
+				.put ("sub_total", Pos.app.ticket.getDouble ("sub_total"))
+				.put ("returned", returned)
+				.put ("balance", balance)
+				.put ("total",total )
+				.put ("paid", paid).stringify ()
 	 }
 }

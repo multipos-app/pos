@@ -1,6 +1,13 @@
 # Android POS (point of sale)
-This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark. 
+This project is an Andoid POS application integrated with a cloud based back for reporting, POS data management and control. The POS is a mature application having been installed in retail and quick serve environments in the USA and Denmark.
 
+## Update 7/25/2025
+
+- Complete laundermat wash and fold functions
+- Redesign the ticket model to use a builder pattern
+- Redesign the tender control to use a builder pattern
+- Start on pull-tabs business support
+- clean up swipe gestures
 
 ## Update 4/30/2025
 

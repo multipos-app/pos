@@ -39,7 +39,7 @@ class TenderLine (context: Context, tt: TicketTender, ticket: Ticket): LinearLay
 		  var t: String
 		  var color = Color.RED
 		  	  
-		  if (Pos.app.ticket.getDouble ("balance") > 0.0) {
+		  if (tt.getDouble ("balance") > 0.0) {
 					 
 				Pos.app.inflater.inflate (R.layout.ticket_tender_line_balance_due, this);
 				
@@ -49,7 +49,7 @@ class TenderLine (context: Context, tt: TicketTender, ticket: Ticket): LinearLay
 				tt.getString ("tender_type").uppercase () + " " +
 				tt.getDouble ("tendered_amount").currency () +
 				"\n" + Pos.app.getString ("balance_due").uppercase () + " " +
-				Pos.app.ticket.getDouble ("balance").currency ()
+				tt.getDouble ("balance").currency ()
 		  }
 		  else {
 				
