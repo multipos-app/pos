@@ -32,11 +32,11 @@
 
   <cloud.multipos.pos.views.PosButton
 		android:id="@+id/job_cancel"
-   	style="@style/DialogCancel"
+   	style="@style/DialogSuccess"
 		android:layout_width="match_parent"
 		android:layout_height="0dp"
 		android:layout_weight="1"
-		android:text="@string/job_cancel"
+		android:text="@string/job_home"
 		android:textColor="@color/white"
 		android:textSize="@dimen/dialog_md_text"/>
   
