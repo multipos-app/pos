@@ -56,7 +56,7 @@ class SaleDiscount (): TicketModifier () {
 				
 				when (ti.getInt ("state")) {
 
-					 TicketItem.STANDARD, TicketItem.REFUND_ITEM -> {
+					 TicketItem.STANDARD, TicketItem.RETURN_ITEM -> {
 					 
 						  var amount = BigDecimal (-1.0 * (ti.getDouble ("amount") * percent)).setScale (2, RoundingMode.HALF_UP).toDouble ()
 

@@ -477,6 +477,8 @@ public class Jar extends HashMap {
 
 	 public Jar update () { return this; }
 	 public Jar complete () { return this; }
+	 public Jar fold () { return this; }
+	 public Jar taxes () { return this; }
 	 
 	 private JSONObject json;
 }

@@ -79,7 +79,7 @@ public class FileUtils {
 				
 				String fname = "logcat-" + android.os.Build.MODEL + "-" + BuildConfig.VERSION_NAME + "-" + time + ".log";
 				fname = fname.replace (" ", "-");
-				String command = String.format ("logcat -d ");        
+				String command = String.format ("logcat -b all -d ");        
 				Process process = Runtime.getRuntime ().exec (command);
 				
 				BufferedReader reader = new BufferedReader (new InputStreamReader (process.getInputStream()));

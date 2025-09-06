@@ -54,8 +54,11 @@ class VoidItem (): Control () {
 						  Pos.app.db.exec ("update ticket_items set state = " + TicketItem.VOID_ITEM + " where id = " + link.getInt ("id"))
 					 }
 				}
-
 		  }
+
+		  // update the ticket, totals...
+		  
+		  Pos.app.ticket.update ()
 
 			// do some cleanup, clear selection and set the current item to the last non-void item in the ticket
 		  
@@ -66,7 +69,8 @@ class VoidItem (): Control () {
 					 Pos.app.ticket.currentItem = ti
 				}
 		  }
-		  
+
+		  updateDisplays ()
 		  Pos.app.selectValues.clear ()
 	 }
 }

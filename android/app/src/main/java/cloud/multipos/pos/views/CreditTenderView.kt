@@ -35,9 +35,10 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 
 	 var progress: ProgressBar
 	 var statusText: TextView
-	 var inProgress: Boolean = false
 
 	 init {
+
+		  Logger.x ("credit view... ${tender}")
 		  
 		  Pos.app.inflater.inflate (R.layout.credit_tender_layout, dialogLayout)
 
@@ -48,80 +49,74 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 
 		  var total = tender.total
 
-		  grid.addView (TenderLine (Pos.app.getString ("sale_total"), total, R.layout.tender_dialog_detail))
-
-		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_dialog_detail))
+		  grid.addView (TenderViewLine (Pos.app.getString ("sale_total"), total, R.layout.tender_detail))
+		  grid.addView (TenderViewLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_detail))
 
 		  if (tender.fees > 0.0) {
 
-		  		grid.addView (TenderLine (Pos.app.getString ("service_fee"), tender.fees, R.layout.tender_dialog_detail))
+		  		grid.addView (TenderViewLine (Pos.app.getString ("service_fee"), tender.fees, R.layout.tender_detail))
 		  }
 
 		  if (tender.paid > 0.0) {
 				
-				grid.addView (TenderLine (Pos.app.getString ("total"), tender.total, R.layout.tender_dialog_detail))
-		  		grid.addView (TenderLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_dialog_detail))
+				grid.addView (TenderViewLine (Pos.app.getString ("total"), tender.total, R.layout.tender_detail))
+		  		grid.addView (TenderViewLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_detail))
 				total -= tender.paid
 		  }
 
 		  if (Math.abs (tender.balance) > 0.0) {
 				
-		  		grid.addView (TenderLine (Pos.app.getString ("balance_due"), Math.abs (tender.balance), R.layout.tender_dialog_detail))
+		  		grid.addView (TenderViewLine (Pos.app.getString ("balance_due"), Math.abs (tender.balance), R.layout.tender_detail))
 		  }
 		  
 		  if (Math.abs (tender.balance) > 0.0) {
 				
-				grid.addView (TenderLine (Pos.app.getString ("change_due"), tender.returned, R.layout.tender_dialog_detail))
+				grid.addView (TenderViewLine (Pos.app.getString ("change_due"), tender.returned, R.layout.tender_detail))
 		  }
 				
-		  grid.addView (TenderLine (Pos.app.getString ("auth_amount"), tender.tendered + tender.fees, R.layout.tender_dialog_detail_lg))
+		  grid.addView (TenderViewLine (Pos.app.getString ("auth_amount"), tender.tendered + tender.fees, R.layout.tender_detail_lg))
 		  
 		  DialogControl.addView (this)
+
+		  when (Themed.theme) {
+				
+				Themes.Light -> {
+					 
+					 statusText.setTextColor (Color.BLACK)
+				}
+				
+				Themes.Dark -> {
+					 
+					 statusText.setTextColor (Color.WHITE)
+				}
+		  }
 	 }
 
 	 override fun accept () {
-		  
-		  tender
-				.confirmed (true)
-				.action (tender.jar)
-		  
-		  if (Math.abs (tender.balance) == 0.0) {
-				
-				// PosDisplays.home ()
-				// PosMenus.home ()
-		  }
-		  
-		  inProgress = true
-		  auth ()
-	 }
-	 
-	 override fun onSwipe (dir: SwipeDir) {
-		  
-		  // when (dir) {
 
-		  // 		SwipeDir.Right -> {		  
-		  // 			 tender.cancel ()
-		  // 		}
-		  // }
-	 }
-
-	 fun auth () {
-		  
 		  progress.setVisibility (View.VISIBLE)
 		  statusText.setText (Pos.app.getString ("authorizing"))
-	 }
-	 
-	 fun cancel (text: String) {
 		  
-		  // accept.text = Pos.app.getString ("cancel")
-		  // statusText.text = text
-		  // progress.visibility = View.INVISIBLE
-		  // accept.setText (Pos.app.getString ("cancel"))
+		  accept.setBackgroundColor (ContextCompat.getColor (Pos.app, R.color.pos_warn))
+		  accept.setText (Pos.app.getString ("cancel"))
 
-		  // accept.setOnClickListener () {
+		  tender
+				.payment ()
+	 }
+
+	 fun cancel (text: String) {
+
+		  Logger.d ("tender view cancel... ${text}")
+		  
+		  accept.text = Pos.app.getString ("cancel")
+		  statusText.text = text
+		  progress.visibility = View.INVISIBLE
+		  accept.setBackgroundColor (ContextCompat.getColor (Pos.app, R.color.pos_danger))
+
+		  accept.setOnClickListener () {
 				
-		  // 		Pos.app.controlLayout.swipeRight ()
-		  // }
+				DialogControl.close ()
+		  }
 	 }
 
 	 fun updateStatus (text: String) {
@@ -133,19 +128,5 @@ class CreditTenderView (val tender: Tender): DialogView (Pos.app.getString (tend
 
 		  tender.cancel ()
 		  // Pos.app.controlLayout.swipeLeft ()
-	 }
-
-	 inner class TenderLine (desc: String, amount: Double, layout: Int): LinearLayout (Pos.app.activity) {
-
-		  init {
-				
-				Pos.app.inflater.inflate (layout, this)
-				setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
-
-				var d = findViewById (R.id.tender_dialog_detail_desc) as PosText
-				d.setText (desc)
-				var a = findViewById (R.id.tender_dialog_detail_amount) as PosText
-				a.setText (amount.currency ())
-		  }
 	 }
 }

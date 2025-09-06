@@ -48,7 +48,14 @@ abstract class DeviceManager (): Device {
 
 	 companion object {
 
-		  val deviceTypes = listOf ("receipt_printer", "kitchen_printer", "scanner", "payment", "scales", "video_capture", "screen_capture", "pos_connect")
+		  val deviceTypes = listOf ("receipt_printer",
+											 "kitchen_printer",
+											 "scanner",
+											 "payment",
+											 "scales",
+											 "video_capture",
+											 "screen_capture",
+											 "pos_connect")
 		  
 		  @JvmField var printer: Printer = DefaultPrinter ()
 		  @JvmField var kitchenPrinter: Printer = DefaultPrinter ()
@@ -77,6 +84,8 @@ abstract class DeviceManager (): Device {
 
 									 var deviceClass = device.getString ("class")
 									 var dev = LoadClass.get (deviceClass) as Device?
+
+									 // deviceClass.load () as Device?
 									 
 									 var params = Jar ()
 

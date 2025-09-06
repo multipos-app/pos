@@ -31,8 +31,10 @@ abstract class DialogView (title: String): PosSwipeLayout (Pos.app, null), PosDi
 
 	 protected var dialogLayout: LinearLayout
 	 lateinit var dialogActions: LinearLayout
+	 lateinit var accept: Button
+
 	 var fg = Color.BLACK
-	 
+
 	 init {
 		  
 		  Pos.app.inflater.inflate (layout (), this)
@@ -67,7 +69,7 @@ abstract class DialogView (title: String): PosSwipeLayout (Pos.app, null), PosDi
 	 open fun actions (dialogView: DialogView) {
 		  
 		  Pos.app.inflater.inflate (R.layout.dialog_default_action, dialogActions)	  		  
-		  val accept = findViewById (R.id.dialog_accept) as Button
+		  accept = findViewById (R.id.dialog_accept) as Button
 		  accept.setOnClickListener () {
 				
 				accept ()

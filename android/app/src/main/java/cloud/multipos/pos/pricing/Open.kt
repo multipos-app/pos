@@ -46,9 +46,11 @@ class Open (): Pricing (), InputListener {
 		  												
 		  val amount = select.getDouble ("value") / 100.0
 		  
+		  Logger.d ("open pricing... ${Pos.app.ticket!!.multiplier ()}");
+
 		  item.jar ()
 				.put ("merge_like_items", false)
-				.put ("amount", select.getDouble ("value") / 100.0)
+				.put ("amount", (select.getDouble ("value") / 100.0) * Pos.app.ticket!!.multiplier ())
 								
 		  Pos.app.input.clear ()
 		  item.complete ()

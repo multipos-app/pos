@@ -33,7 +33,7 @@ class TicketItem (): Jar () {
 
 	 fun amountWithoutTax (): Double {
 
-		  if (Pos.app.config.taxes () != null) {
+		  if (Pos.app.config.taxMap () != null) {
 				
 				if (getInt ("tax_incl") == 0)  {
 
@@ -41,7 +41,7 @@ class TicketItem (): Jar () {
 				}
 				else  {
 					 
-					 return getDouble ("amount") - tax (Pos.app.config.taxes ().get (Integer.toString (getInt ("tax_group_id"))) as Jar)
+					 return getDouble ("amount") - tax (Pos.app.config.taxMap ().get (Integer.toString (getInt ("tax_group_id"))) as Jar)
 				}
 		  }
 		  else {
@@ -79,7 +79,7 @@ class TicketItem (): Jar () {
 
 		  if (taxGroupID > 0) {
 				
-		  		var taxGroup = Pos.app.config.taxes ().get (Integer.toString (taxGroupID))
+		  		var taxGroup = Pos.app.config.taxMap ().get (Integer.toString (taxGroupID))
 										  
 		  		if (taxGroup != null) {
 												
@@ -112,7 +112,7 @@ class TicketItem (): Jar () {
 	 fun refund () {
         
 		  put ("amount", getDouble ("amount") * -1.0)
-		  put ("state", REFUND_ITEM)
+		  put ("state", RETURN_ITEM)
 		  
 		  Pos.app.db ().update ("ticket_items", this)
 		  
@@ -176,7 +176,7 @@ class TicketItem (): Jar () {
 		  const val STANDARD    = 0
 		  const val VOID_ITEM   = 1
 		  const val COMP_ITEM   = 2
-		  const val REFUND_ITEM = 3
+		  const val RETURN_ITEM = 3
 		  const val GIFT_CARD   = 4
 		  const val WEIGHT_ITEM = 5
 		  const val REDEEM      = 6

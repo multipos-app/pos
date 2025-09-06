@@ -84,12 +84,20 @@ class PosMenus (context: Context, attrs: AttributeSet): PosSwipeLayout (context,
 	 override fun menu (name: String) { }
 	 
 	 override fun menu (index: Int) {
-		  		  
+		  
 		  val end = layouts.get (index)
+
+		  // fix: user is pressing the nav buttons too fast
+		  
+		  if (end.getParent () != null) {
+
+				return;
+		  }
+		  
 		  val transition = Fade ()
 		  val scene = Scene (this, end)
 
-		  transition.setDuration (250)
+		  transition.setDuration (100)
 		  TransitionManager.go (scene, transition)
 		  clearAnimation ()
 		  curr = index

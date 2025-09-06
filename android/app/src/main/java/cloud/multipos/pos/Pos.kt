@@ -293,7 +293,7 @@ class Pos (): AppCompatActivity () {
     }
 
 	 fun start () {
-		  		  		  
+		  
 		  if (configInit () && config.ready ()) {
 				
 				// set the screen orientation
@@ -354,12 +354,18 @@ class Pos (): AppCompatActivity () {
 
 				BackOffice.download ()  // start downloads
 
+				if (config.has ("android_customer_display")) {
+					 
+					 CustomerFacingDisplay ()
+				}
 		  }
 		  else {
 
 				setContentView (R.layout.pos_register)
 				overlay = findViewById (R.id.register_overlay) as LinearLayout
 		  }
+		  
+		  Control.factory ("UploadLog").action (Jar ())
 	 }
 
 	 fun posInit (result: Jar) {
@@ -400,7 +406,7 @@ class Pos (): AppCompatActivity () {
 	 }
 	 	 
 	 fun login () {
-		  
+		  		  
 		  Themed () // init theme
 
 		  Logger.i ("set layout... " + config.getString ("root_layout") + " buID: " + buID ())

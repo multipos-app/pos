@@ -245,6 +245,6 @@ public class Config extends Jar {
 	 private HashMap <String, Control> controls = null;
 	 private HashMap <String, Jar> taxes = null;
 	 public HashMap controls () { return controls; }
-	 public HashMap taxes () { return taxes; }
+	 public HashMap taxMap () { return taxes; }
 
 }

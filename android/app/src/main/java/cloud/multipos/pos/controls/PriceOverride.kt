@@ -55,7 +55,7 @@ class PriceOverride (): TicketModifier (), InputListener {
 					 ti.addons.clear ()
 				}
 
-				if (ti.getInt ("state") == TicketItem.REFUND_ITEM) {
+				if (ti.getInt ("state") == TicketItem.RETURN_ITEM) {
 					 
 					 price *= -1
 				}

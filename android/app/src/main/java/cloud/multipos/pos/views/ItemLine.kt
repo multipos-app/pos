@@ -147,7 +147,7 @@ open class ItemLine (context: Context, ti: TicketItem, pos: Int, val listDisplay
 						  addonLayout.addView (ItemAddonLine (context, tia))
 					 }
 				}
-
+				
 				if (ti.hasLinks ()) {
 
 					 val addonLayout = findViewById (itemLinkLayout ()) as LinearLayout

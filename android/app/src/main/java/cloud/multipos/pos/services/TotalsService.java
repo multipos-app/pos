@@ -95,10 +95,10 @@ public class TotalsService extends Service  {
 					 amount = ti.extAmount ();
 					 quantity = ti.getInt ("quantity");
 						  
-					 if (ti.getInt ("state") == TicketItem.REFUND_ITEM) {
+					 if (ti.getInt ("state") == TicketItem.RETURN_ITEM) {
 						  quantity *= -1;
 								
-						  updateTotal (REFUND_ITEM, 
+						  updateTotal (RETURN_ITEM, 
 											0,
 											amount,
 											quantity * -1,
@@ -360,7 +360,7 @@ public class TotalsService extends Service  {
 	 public static final int DRAWER_COUNT             = 13;
 	 public static final int DRAWER_COUNT_EXCEPTION   = 14;
 	 public static final int CASH_ROUND_DIFF          = 15;
-	 public static final int REFUND_ITEM              = 16;
+	 public static final int RETURN_ITEM              = 16;
 	 public static final int ACCOUNT                  = 17;
 	 public static final int SERVICE_FEE              = 18;
 	 

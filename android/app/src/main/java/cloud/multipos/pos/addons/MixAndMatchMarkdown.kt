@@ -80,7 +80,7 @@ class MixAndMatchMarkdown (): Addon () {
 
 					 when (ti.getInt ("state")) {
 						  
-						  TicketItem.REFUND_ITEM, TicketItem.STANDARD -> {
+						  TicketItem.RETURN_ITEM, TicketItem.STANDARD -> {
 								
 								count += ti.getDouble ("quantity")
 								

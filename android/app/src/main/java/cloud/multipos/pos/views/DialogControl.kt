@@ -98,6 +98,10 @@ class DialogControl (): PosDisplay {
 				dialog.startAnimation (animate)
 				dialog.setVisibility (View.INVISIBLE)
 				showing = false
+
+				// clear any inputs
+				
+				Pos.app.input.clear ()
 		  }
 	 
 		  fun clear () {

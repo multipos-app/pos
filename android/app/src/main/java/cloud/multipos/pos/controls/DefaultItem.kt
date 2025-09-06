@@ -73,8 +73,6 @@ open class DefaultItem (): FirstItem (), InputListener {
 							(it.getInt ("complete") == 0) &&
 							(it.getInt ("state") == TicketItem.STANDARD)) {
 						  
-						  Logger.x ("merge... ${sku} ${it}")
-
 						  Pos.app.ticket.currentItem = it
 						  Control.factory ("Quantity").action (Jar ().put ("value", 1))
 						  return
@@ -123,7 +121,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 				var state = TicketItem.STANDARD
 				if (Pos.app.ticket.getInt ("ticket_type") == Ticket.RETURN_SALE) {
 					 
-					 state = TicketItem.REFUND_ITEM
+					 state = TicketItem.RETURN_ITEM
 					 if (Pos.app.ticket.has ("return_items")) {
 
 						  Pos.app.ticket.put ("return_items",  Pos.app.ticket.getInt ("return_items") + quantity)
@@ -159,7 +157,7 @@ open class DefaultItem (): FirstItem (), InputListener {
 				
 				if ((taxExempt == 0) && (item.getInt ("tax_group_id") > 0)) {
 					 
-					 var taxGroup = Pos.app.config.taxes ().get (Integer.toString (item.getInt ("tax_group_id"))) as Jar
+					 var taxGroup = Pos.app.config.taxMap ().get (Integer.toString (item.getInt ("tax_group_id"))) as Jar
 					 ticketItem
 						  .put ("tax_amount", ticketItem.tax (taxGroup))
 				}
@@ -336,7 +334,6 @@ open class DefaultItem (): FirstItem (), InputListener {
 		  PosDisplays.message (Jar ()
 											.put ("prompt_text", ticketItem.getString ("item_desc"))
 											.put ("echo_text", ticketItem.getDouble ("amount").currency ()))
-
 	 }
 
 	 fun ticketItem (): TicketItem { return ticketItem }

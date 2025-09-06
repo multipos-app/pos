@@ -20,6 +20,7 @@ import cloud.multipos.pos.*
 import cloud.multipos.pos.models.*
 import cloud.multipos.pos.util.*
 import cloud.multipos.pos.util.extensions.*
+import cloud.multipos.pos.views.DialogView
 import cloud.multipos.pos.views.TenderView
 import cloud.multipos.pos.views.PosDisplays
 import cloud.multipos.pos.devices.*
@@ -31,6 +32,7 @@ open class Tender (jar: Jar?): ConfirmControl () {
 	 open fun tenderDesc (): String { return "unknown" }
 	 open fun subTenderDesc (): String { return "unknown" }
 	 open fun tenderState (): Int { return Ticket.COMPLETE }
+	 open fun dialogView (): DialogView { return TenderView (this) }
 	 
 	 var tendered = 0.0
 	 var returned = 0.0
@@ -54,12 +56,12 @@ open class Tender (jar: Jar?): ConfirmControl () {
 		  jar (jar)
 		  		  
 		  total = Pos.app.ticket.getDouble ("total")
-		  
+
 		  fees ()
 				.tender ()
 				.balance ()
 
-		  TenderView (this)
+		  dialogView ()
 	 }
 
 	 /**
@@ -79,17 +81,19 @@ open class Tender (jar: Jar?): ConfirmControl () {
 							
 				// fixed amount in the jar?
 				
-				if (jar ().getDouble ("value") > 0) {  // tendered amount is under the key
+				if (jar ().getDouble ("value") > 0) {  // tendered amount is bound to the control
 					 
 					 tendered = jar ().getDouble ("value") / 100.0
 				}
-				else if (jar ().getDouble ("value") == 0.0) { // round up to the next ($) amount
+				else if (jar ().getDouble ("value") == 0.0) {
+
+					 // round up to the next ($) amount
 					 
 					 val round = total - total.toInt ().toDouble ()
 					 
-					 if (round > 0) {
+					 if ((total - total.toInt ().toDouble ()) > 0.0) {
 						  
-						  tendered = Currency.round ((balance - round) + 1.0)
+						  tendered = Currency.round (total.toInt ().toDouble () + 1.0)
 					 }
 					 else {
 						  
@@ -115,8 +119,6 @@ open class Tender (jar: Jar?): ConfirmControl () {
 	  */
 
 	 open fun fees (): Tender {
-
-		  var fees = 0.0
 		  
 		  if (Pos.app.config.has ("credit_service_fee")) {
 				
@@ -167,7 +169,7 @@ open class Tender (jar: Jar?): ConfirmControl () {
 		  													.put ("tender_id", jar ().getInt ("tender_id"))
 		  													.put ("tender_type", tenderDesc ())
 		  													.put ("sub_tender_type", subTenderDesc ())
-		  													.put ("amount", total)
+		  													.put ("amount", tendered - returned)
 		  													.put ("status", TicketTender.COMPLETE)
 		  													.put ("returned_amount", Currency.round (returned))
 		  													.put ("tendered_amount", Currency.round (tendered))
@@ -203,6 +205,7 @@ open class Tender (jar: Jar?): ConfirmControl () {
 				Pos.app.ticket
 					 .put ("state", tenderState ())
 					 .update ()
+					 .taxes ()
 					 .complete ()
 				
 	 			if (jar ().has ("value") && (jar ().getString ("entry_mode") == "keyed")) {
@@ -211,6 +214,12 @@ open class Tender (jar: Jar?): ConfirmControl () {
 						  .remove ("value")
 						  .remove ("keyed")
 				}
+
+				if (openDrawer ()) {
+					 
+					 DeviceManager.printer.drawer ()
+				}
+
 		  }
 		  else {
 				
@@ -222,8 +231,7 @@ open class Tender (jar: Jar?): ConfirmControl () {
 		  
 		  // reset
 		  
-		  clear ()
-		  return this
+		  return clear ()
 	 }
 
 	 /**
@@ -232,7 +240,7 @@ open class Tender (jar: Jar?): ConfirmControl () {
 	  *
 	  */
 
-	 fun clear () {
+	 fun clear (): Tender {
 		  
 		  tendered = 0.0
 		  returned = 0.0
@@ -241,6 +249,7 @@ open class Tender (jar: Jar?): ConfirmControl () {
 		  paid = 0.0
 		  roundDiff = 0.0
 		  fees = 0.0
+		  return this
 	 }
 	 
 	 /**

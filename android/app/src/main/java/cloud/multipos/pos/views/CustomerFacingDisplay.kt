@@ -54,7 +54,7 @@ import android.media.MediaPlayer
 import android.media.MediaPlayer.OnCompletionListener
 import java.io.File
 
-class CustomerFacingDisplay (): CustomerDisplay () {
+class CustomerFacingDisplay (): PosDisplay {
 
 	 var enabled = false
 	 var idle = true
@@ -69,9 +69,9 @@ class CustomerFacingDisplay (): CustomerDisplay () {
 	 lateinit var videoView: VideoView
 	 lateinit var ticket: Ticket
 	 	 
-	 override fun deviceName (): String  { return "Elo customer display" }
+	 // override fun deviceName (): String  { return "Elo customer display" }
 
-	 override fun start (jar: Jar) {
+	 init {
 		  
         val mediaRouter = Pos.app.getSystemService(Context.MEDIA_ROUTER_SERVICE) as MediaRouter		  
         val route = mediaRouter.getSelectedRoute (MediaRouter.ROUTE_TYPE_LIVE_VIDEO)		  
@@ -118,11 +118,11 @@ class CustomerFacingDisplay (): CustomerDisplay () {
 				}
 				
 				t.start ()
-				success (this)
+				PosDisplays.add (this)
 		  }
 	 }
 	 
-	 override fun text (text: String, lineNo: Int) { }
+	 // override fun text (text: String, lineNo: Int) { }
 
 	 override fun clear () {
 
@@ -132,11 +132,13 @@ class CustomerFacingDisplay (): CustomerDisplay () {
 		  }
 	 }
 	 
-	 override fun update (t: Ticket) {
+	 // override fun update (t: Ticket) {
+		  
+	 override fun update () {
 
 		  if (enabled) {
 
-				ticket = t
+				ticket = Pos.app.ticket
 				customerView.update ()
 				count = 0
 		  }

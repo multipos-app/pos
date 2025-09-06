@@ -2,11 +2,11 @@
   
   <!-- app bar-->
 
-  <dimen name="activity_main_app_bar_height">60dp</dimen>
+  <dimen name="activity_main_app_bar_height">55dp</dimen>
   <dimen name="app_version_text">15sp</dimen>
-  <dimen name="app_bar_icon_padding">5dp</dimen>
-  <dimen name="app_bar_text">32sp</dimen>
-  <dimen name="app_bar_icon_size">38sp</dimen>
+  <dimen name="app_bar_icon_padding">3dp</dimen>
+  <dimen name="app_bar_text">28sp</dimen>
+  <dimen name="app_bar_icon_size">30sp</dimen>
   <dimen name="app_bar_icon_margin">15sp</dimen>
 
   <!-- register -->
@@ -38,21 +38,21 @@
   <dimen name="dialog_sm_padding">2dp</dimen>
   <dimen name="dialog_padding">5dp</dimen>
   <dimen name="dialog_sm_text">12sp</dimen>
-  <dimen name="dialog_md_text">28sp</dimen>
-  <dimen name="dialog_lg_text">32sp</dimen>
-  <dimen name="dialog_xlg_text">38sp</dimen>
+  <dimen name="dialog_md_text">18sp</dimen>
+  <dimen name="dialog_lg_text">28sp</dimen>
+  <dimen name="dialog_xlg_text">35sp</dimen>
   <dimen name="dialog_report_text">15sp</dimen>
 
   <!-- ticket header/footer display full -->
 
-  <dimen name="ticket_header_height">32dp</dimen>
+  <dimen name="ticket_header_height">42dp</dimen>
   <dimen name="ticket_footer_height">110dp</dimen>
 
   <dimen name="ticket_margin">2dp</dimen>
   <dimen name="ticket_padding">2dp</dimen>
   
   <dimen name="ticket_header_xlg_text">42sp</dimen>
-  <dimen name="ticket_header_lg_text">32sp</dimen>
+  <dimen name="ticket_header_lg_text">28sp</dimen>
   <dimen name="ticket_header_md_text">24sp</dimen>
 
   <dimen name="ticket_footer_xlg_text">42sp</dimen>
@@ -78,7 +78,7 @@
   
   <!-- menu buttons -->
   
-  <dimen name="menu_button_text">24sp</dimen>
+  <dimen name="menu_button_text">16sp</dimen>
   <dimen name="menu_button_padding_start">4dp</dimen>
   <dimen name="menu_button_padding_top">4dp</dimen>
 

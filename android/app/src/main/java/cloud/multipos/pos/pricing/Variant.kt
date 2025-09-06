@@ -51,7 +51,7 @@ class Variant (): Pricing (), InputListener {
 		  
 		  item.ticketItem ()
 				.put ("amount", variants.get (select.getInt ("position")).getDouble ("price") * Pos.app.ticket!!.multiplier ())
-				.put ("item_desc", variants.get (select.getInt ("position")).getString ("desc").toUpperCase () + " " + item.ticketItem ().getString ("item_desc"))
+				.put ("item_desc", variants.get (select.getInt ("position")).getString ("desc").uppercase () + " " + item.ticketItem ().getString ("item_desc"))
 
 		  item.complete ()
 	 }

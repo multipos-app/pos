@@ -39,22 +39,22 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 
 		  val grid = findViewById (R.id.tender_detail) as GridLayout
 		  
-		  grid.addView (TenderLine (Pos.app.getString ("total"), tender.total, R.layout.tender_detail))
+		  grid.addView (TenderViewLine (Pos.app.getString ("total"), tender.total, R.layout.tender_detail))
 		  
 		  if (tender.paid > 0) {
 				
-				grid.addView (TenderLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_detail))
+				grid.addView (TenderViewLine (Pos.app.getString ("paid"), tender.paid, R.layout.tender_detail))
 		  }
 		  
-		  grid.addView (TenderLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_detail_lg))
+		  grid.addView (TenderViewLine (Pos.app.getString ("tendered"), tender.tendered, R.layout.tender_detail_lg))
 		  
 		  if ((tender.balance) != 0.0) {
 				
-				grid.addView (TenderLine (Pos.app.getString ("balance_due"), tender.balance, R.layout.tender_detail_lg))
+				grid.addView (TenderViewLine (Pos.app.getString ("balance_due"), tender.balance, R.layout.tender_detail_lg))
 		  } 
 		  else if (tender.returned > 0.0) {
 				
-				grid.addView (TenderLine (Pos.app.getString ("change"), tender.returned, R.layout.tender_detail_lg))
+				grid.addView (TenderViewLine (Pos.app.getString ("change"), tender.returned, R.layout.tender_detail_lg))
 		  }
 
 		  DialogControl.addView (this)
@@ -67,35 +67,5 @@ class TenderView (val tender: Tender): DialogView (Pos.app.getString ("pay") + "
 		  tender
 				.payment ()
 		  
-	 }
-
-	 class TenderLine (desc: String, amount: Double, layout: Int): LinearLayout (Pos.app) {
-
-		  init {
-				
-				Pos.app.inflater.inflate (layout, this)
-				setLayoutParams (LinearLayout.LayoutParams (LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT))
-		  
-				val d = findViewById (R.id.tender_detail_desc) as TextView
-				d.setText (desc)
-		  
-				val a = findViewById (R.id.tender_detail_amount) as TextView
-				a.setText (amount.currency ())
-
-				when (Themed.theme) {
-				
-					 Themes.Light -> {
-					 
-						  a.setTextColor (Color.BLACK)
-						  d.setTextColor (Color.BLACK)
-					 }
-				
-					 Themes.Dark -> {
-
-						  a.setTextColor (Color.WHITE)
-						  d.setTextColor (Color.WHITE)
-					 }
-				}
-		  }
 	 }
 }

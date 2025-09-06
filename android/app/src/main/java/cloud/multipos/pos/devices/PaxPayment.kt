@@ -175,7 +175,9 @@ class PaxPayment (): Payment () {
 						  m.what = PosConst.PAYMENT_COMPLETE
 
 						  if (posLink.PaymentResponse != null) {
-						  						  
+
+								Logger.x ("pax payment... ${posLink.PaymentResponse.ResultTxt}")
+								
 								if (posLink.PaymentResponse.ResultTxt == "OK") {
 								
 									 result = 0

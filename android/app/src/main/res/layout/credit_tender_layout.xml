@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
     android:background="@color/transparent"
     android:orientation="vertical"
-    android:padding="@dimen/dialog_padding">
+    android:layout_margin="@dimen/dialog_margin">
 
   <GridLayout 
       android:id="@+id/credit_dialog_detail"
@@ -16,7 +16,8 @@
 		android:layout_height="wrap_content"
 		android:columnCount="1"
 		android:background="@color/transparent"
-      app:layout_constraintTop_toTopOf="parent"/>
+      app:layout_constraintTop_toTopOf="parent"
+		android:layout_margin="@dimen/dialog_margin"/>
 
   <cloud.multipos.pos.views.PosText
       android:id="@+id/credit_dialog_status"
@@ -27,7 +28,8 @@
       android:background="@color/transparent"
       android:textColor="@color/black"
       android:textSize="@dimen/dialog_xlg_text"
-      app:layout_constraintTop_toBottomOf="@+id/credit_dialog_detail"/>
+      app:layout_constraintTop_toBottomOf="@+id/credit_dialog_detail"
+		android:layout_margin="@dimen/dialog_margin"/>
 
   <ProgressBar
       android:id="@+id/credit_dialog_progress"
@@ -37,6 +39,8 @@
       android:visibility="gone"
 		android:background="@color/transparent"
       android:textSize="@dimen/dialog_xlg_text" 
-      app:layout_constraintTop_toBottomOf="@+id/credit_dialog_status"/>
+      app:layout_constraintTop_toBottomOf="@+id/credit_dialog_status"
+      app:layout_constraintBottom_toBottomOf="parent"
+		android:layout_margin="@dimen/dialog_margin"/>
   
 </androidx.constraintlayout.widget.ConstraintLayout>

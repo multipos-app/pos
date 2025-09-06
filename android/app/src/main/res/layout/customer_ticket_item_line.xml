@@ -7,7 +7,7 @@
     android:orientation="vertical">
 
   <LinearLayout
-      android:id="@+id/customer_ticket_item_layout"
+      android:id="@+id/ticket_item_layout"
  		android:clickable="true"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"

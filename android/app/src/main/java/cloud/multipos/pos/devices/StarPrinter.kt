@@ -165,12 +165,14 @@ open class StarPrinter () : Printer () {
 	 
 	 override fun drawer () {
 
-		  	 val printCommands = PrintCommands ()
-			 printCommands
-				  .add (PrintCommand.getInstance ().directive (PrintCommand.OPEN_DRAWER))
-			 
-			 queue (printCommands)
-
+		  Logger.i ("open drawer... ${deviceName ()}")
+		  
+		  val printCommands = PrintCommands ()
+		  printCommands
+				.add (PrintCommand.getInstance ().directive (PrintCommand.OPEN_DRAWER))
+		  
+		  queue (printCommands)
+		  
 	 }
 
 	 override fun print (title: String, report: String, ticket: Ticket) { }

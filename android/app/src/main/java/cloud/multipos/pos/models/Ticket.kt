@@ -225,11 +225,11 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 
 	 /**
 	  *
-	  * clear the summary pieces before update
+	  * gather totals, tax and tenders and update ticket record
 	  *
 	  */
 	 
-	 fun zero () {
+	 override fun update (): Ticket {
 
 		  put ("sub_total", 0.0)
 		  put ("tax_total", 0.0)
@@ -238,32 +238,15 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  put ("tender_total", 0.0)
 		  put ("item_count", 0)
 		  put ("void_items", 0)
-	 }
-	 
-	 /**
-	  *
-	  * gather totals, tax and tenders and update ticket record
-	  *
-	  */
-	 
-	 override fun update (): Ticket {
+		  put ("discounts", 0.0)
 
-		  zero ()
-		  		  
 		  for (ti in items) {
 								 								 
 				when (ti.getInt ("state")) {
 									  
-					 TicketItem.REFUND_ITEM,
 					 TicketItem.STANDARD,
+					 TicketItem.RETURN_ITEM,
 					 TicketItem.PAYOUT -> {
-
-						  // ti.links.asSequence ().map () {
-						  // 		tia -> {
-
-						  // 			 put ("discounts", getDouble ("discounts"), tia.get ("addon_amount"))
-						  // 		}
-						  // }
 						  
 						  put ("item_count", getInt ("item_count") + ti.getInt ("quantity"))
 						  put ("sub_total", Currency.round (getDouble ("sub_total") + ti.extAmount ()))
@@ -271,8 +254,19 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 						  
 						  if (ti.getInt ("tax_group_id") > 0) {
 								
-								var taxGroup = Pos.app.config.taxes ().get (ti.getInt ("tax_group_id").toString ()) as Jar
+								var taxGroup = Pos.app.config.taxMap ().get (ti.getInt ("tax_group_id").toString ()) as Jar
 								put ("tax_total", Currency.round (getDouble ("tax_total") + ti.extAmount () * (taxGroup.getDouble ("rate") / 100.0)))
+						  }
+
+						  for (link in ti.links) {
+									 
+								put ("sub_total", Currency.round (getDouble ("sub_total") + link.extAmount ()))
+						  }
+						  
+						  for (addon in ti.addons) {
+								
+								put ("sub_total", Currency.round (getDouble ("sub_total") + addon.extAmount ()))
+								put ("discounts", Currency.round (getDouble ("discounts") + addon.extAmount ()))
 						  }
 					 }
 
@@ -282,10 +276,14 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 }
 				}
 		  }
+		  
+		  when (getInt ("ticket_type")) {
 
-		  if (getInt ("ticket_type") == SALE) {
+				SALE,
+				RETURN_SALE -> {
 				
-				put ("total", Currency.round (getDouble ("sub_total") + getDouble ("tax_total")))
+					 put ("total", Currency.round (getDouble ("sub_total") + getDouble ("tax_total")))
+				}
 		  }
 		  
 		  for (tt in tenders) {
@@ -302,6 +300,95 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	 
 	 /**
 	  *
+	  * compute tax and add tax records
+	  *
+	  */
+	 
+	 override fun taxes (): Ticket {
+
+		  val taxMap = mutableMapOf <Int, TicketTax> ()
+		  
+		  for (ti in items) {
+				
+				if (ti.getInt ("tax_group_id") > 0) {
+
+			  		 var taxGroup = Pos.app.config.taxMap ().get (Integer.toString (ti.getInt ("tax_group_id"))) as Jar
+					 var tax = ti.getDouble ("amount") * taxGroup.getDouble ("rate") / 100.0
+					 
+					 if (taxMap.contains (ti.getInt ("tax_group_id"))) {
+						  
+						  var tt = taxMap.get (ti.getInt ("tax_group_id"))
+						  tt!!.put ("tax_amount", tt!!.getDouble ("tax_amount") + tax)
+					 }
+					 else {
+						  
+						  taxMap.put (ti.getInt ("tax_group_id"), TicketTax (Jar ()
+		  																							.put ("ticket_id", getInt ("id"))
+		  																							.put ("tax_group_id", ti.getInt ("tax_group_id"))
+		  																							.put ("tax_incl", ti.getInt ("tax_incl"))
+		  																							.put ("tax_amount", tax)
+		  																							.put ("short_desc", taxGroup.getString ("short_desc").uppercase ())))
+					 }
+				}
+		  }
+
+		  // save the taxes
+		  
+		  taxMap.forEach {
+				
+				for ((key, tt) in taxMap) {	
+
+														taxes.add (tt)
+				}
+		  }
+
+		  return this
+	 }
+	 
+	 /**
+	  *
+	  * merge links and addons into items for upload
+	  *
+	  */
+	  
+	 override fun fold (): Ticket {
+
+		  val tmp = mutableListOf <TicketItem> ()
+		  for (ti in items) {
+
+				tmp.add (ti)
+				
+				for (link in ti.links) {
+					 
+					 tmp.add (link)
+				}
+
+				if (ti.hasAddons ()) {
+
+					 ti
+						  .put ("ticket_item_addons", ti.addons)
+				}
+				
+				if (ti.hasMods ()) {
+
+					 ti
+						  .put ("ticket_item_mods", ti.mods)
+				}
+		  }
+		  
+		  items.clear ()
+		  tmp.forEach {
+				
+				items.add (it)
+		  }
+
+		  this.put ("version", "1.0")
+ 
+		  return this
+	 }
+	 
+	 /**
+	  *
 	  * complete the ticket
 	  *
 	  * - create tax records
@@ -312,12 +399,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 	  */
 	 
 	 override fun complete (): Jar {
-		  
-		  if (getDouble ("tax_toatl") > 0) {
-
-		  }
-
-		  taxes ()  // create tax records
 
 		  if (getString ("ticket_text").length == 0) {
 				
@@ -366,8 +447,12 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 													 .put ("ticket", this))
 						  }
 					 }
-
+					 
+					 PosDisplays.update () // update leaves the previous ticket on the displays
+					 
 					 // upload to back office
+
+					 fold ()  // fold links into the items list
 					 
 					 Upload ()
 						  .add (this)
@@ -377,7 +462,6 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 
 					 Pos.app.totalsService.q (PosConst.TICKET, this, Pos.app.handler)
 
-					 PosDisplays.update () // update leaves the previous ticket on the displays
 					 Pos.app.ticket ()     // start a new ticket
 				}
 		  }
@@ -408,54 +492,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  }
 		  
 		  return tenderDesc
-	 }
-	 
-	 /**
-	  *
-	  * create tax records
-	  *
-	  */
-	 
-	 fun taxes () {
-
-		  val taxMap = mutableMapOf <Int, TicketTax> ()
-		  
-		  for (ti in items) {
-				
-				if (ti.getInt ("tax_group_id") > 0) {
-
-			  		 var taxGroup = Pos.app.config.taxes ().get (Integer.toString (ti.getInt ("tax_group_id"))) as Jar
-					 var tax = ti.getDouble ("amount") * taxGroup.getDouble ("rate") / 100.0
-					 
-					 if (taxMap.contains (ti.getInt ("tax_group_id"))) {
-						  
-						  var tt = taxMap.get (ti.getInt ("tax_group_id"))
-						  tt!!.put ("tax_amount", tt!!.getDouble ("tax_amount") + tax)
-					 }
-					 else {
-						  
-						  
-						  taxMap.put (ti.getInt ("tax_group_id"), TicketTax (Jar ()
-		  																							.put ("ticket_id", getInt ("id"))
-		  																							.put ("tax_group_id", ti.getInt ("tax_group_id"))
-		  																							.put ("tax_incl", ti.getInt ("tax_incl"))
-		  																							.put ("tax_amount", tax)
-		  																							.put ("short_desc", taxGroup.getString ("short_desc").uppercase ())))
-					 }
-				}
-		  }
-
-		  // save the taxes
-		  
-		  taxMap.forEach {
-				
-				for ((key, tt) in taxMap) {	
-
-														taxes.add (tt)
-				}
-		  }
-	 }
-	 
+	 }	 
 
 	 fun hasItems (): Boolean {
 
@@ -494,7 +531,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 
 		  when (getInt ("ticket_type")) {
 
-				RETURN_SALE, CREDIT_REVERSE, CREDIT_REFUND -> return -1.0
+				RETURN_SALE, CREDIT_REVERSE, CREDIT_RETURN -> return -1.0
 				COMP_SALE -> return 0.0
 				else -> return 1.0
 		  }
@@ -572,7 +609,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  const val CREDIT_PENDING        = 4
 		  const val KITCHEN_PENDING       = 5
 		  const val VOIDED                = 6
-		  const val REFUNDED              = 7
+		  const val RETURNED              = 7
 		  const val REVERSED              = 8
 		  const val RECALLED              = 9
 		  const val JOB_PENDING           = 10
@@ -596,15 +633,15 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 		  const val SETTLE_DETAIL         = 13
 		  const val REMOTE_SALE           = 14
 		  const val REMOTE_RETURN         = 15
-		  const val CREDIT_REFUND         = 16
+		  const val CREDIT_RETURN         = 16
 		  const val CREDIT_REVERSE        = 17
-		  const val CREDIT_PARTIAL_REFUND = 18
+		  const val CREDIT_PARTIAL_RETURN = 18
 		  const val VOUCHER               = 19
 		  const val REPRINT               = 20
 		  const val OPEN_AMOUNT           = 21
  		  const val MANAGER_OVERRIDE      = 22
  		  const val ORDER_ITEMS           = 23
-		  const val REFUND                = 24
+		  const val RETURN                = 24
 		  const val WEIGHT_ITEMS          = 25
 		  const val REDEEM                = 26
 		  const val PAYOUT                = 27
@@ -642,7 +679,7 @@ class Ticket (var ticketID: Int, state: Int): Jar (), Model {
 					 CREDIT_PENDING -> { return Pos.app.getString ("ticket_credit_pending") }
 					 KITCHEN_PENDING -> { return Pos.app.getString ("ticket_kitchen_pending") }
 					 VOIDED -> { return Pos.app.getString ("ticket_voided") }
-					 REFUNDED -> { return Pos.app.getString ("ticket_refunded") }
+					 RETURNED -> { return Pos.app.getString ("ticket_returned") }
 					 REVERSED -> { return Pos.app.getString ("ticket_reversed") }
 					 RECALLED -> { return Pos.app.getString ("ticket_recalled") }
 				}

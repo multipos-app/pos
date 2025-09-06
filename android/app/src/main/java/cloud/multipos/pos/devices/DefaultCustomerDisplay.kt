@@ -25,8 +25,7 @@ class DefaultCustomerDisplay (): CustomerDisplay () {
 		  success (this)
 	 }
 	 
-	 override fun deviceName (): String  { return "Default customer display" }
-	 
+	 override fun deviceName (): String  { return "Default customer display" }	 
 	 override fun clear () { }
 	 override fun update (ticket: Ticket) { }
 	 override fun text (text: String, lineNo: Int) { }

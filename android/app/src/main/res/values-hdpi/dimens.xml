@@ -36,7 +36,7 @@
   <dimen name="dialog_margin">10dp</dimen>
   <dimen name="dialog_button_margin">15dp</dimen>
   <dimen name="dialog_sm_padding">2dp</dimen>
-  <dimen name="dialog_padding">5dp</dimen>
+  <dimen name="dialog_padding">25dp</dimen>
   <dimen name="dialog_sm_text">12sp</dimen>
   <dimen name="dialog_md_text">18sp</dimen>
   <dimen name="dialog_lg_text">28sp</dimen>
